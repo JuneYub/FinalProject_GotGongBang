@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, 
+h6, pre, code, form, fieldset, legend, textarea, p, 
+blockquote, th, td, input, select, textarea, button {
+    margin: 0;
+    padding: 0;
+}
+
+dl, ul, ol, li {
+    list-style: none;
+}
+
+a {
+	color: black;
+	cursor: pointer;
+}
+
+a:hover {
+	text-decoration: none;
+	color: black;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body #header {
+    width: 100%;
+}
+
+body #header .header-section {
+    margin: 80px auto;
+    width: 1200px;
+    height: 75px;
+    min-height: 40px;
+    display: flex;
+    justify-content : space-between;
+}
+
+body #header .header-section .h1-logo {
+	padding: 6px 0px;
+    height: 100%;
+    font-weight: bold;
+    color: #3200c2;
+    display: inline-block;
+}
+
+body #header .header-section .h1-logo h1 {
+    font-size: 50px;
+}
+
+
+body #header .header-section .header-nav {
+    display: inline-block;
+    
+}
+
+body #header .header-section .header-nav ul li {
+    display: inline-block;
+}
+
+body #header .header-section .header-nav ul li a {
+    display: block;
+    font-weight: 500;
+    font-size: 25px;
+    padding : 20px 30px;
+}
+
+body #header .header-section .header-member-box {
+    display: flex;
+    align-items: center;
+}
+
+body #header .header-section .header-member-box ul {
+    font-size: 15px;
+    color: #878787;
+}
+
+body #header .header-section .header-member-box ul li {
+    display: inline-block;
+}
+
+.txt_bar {
+    display: inline-block;
+    width: 1px;
+    height: 10px;
+    margin: 0 10px 0 10px;
+    background: #dedede;
+    vertical-align: -1px;
+}
+
+body #footer {
+    width: 100%;
+    height: 200px;
+    background-color: #333333;
+}
+
+body #footer .footer-container {
+
+    width: 1000px;
+    height: 100%;
+    margin: 0 auto;
+    color: white;
+}
+
+body #footer .footer-container .footer-company-info {
+    padding-top: 5%;
+}
+
+body #footer .footer-container .footer-company-info .footer-company-email {
+    display: inline-block;
+    font-size : 15px;
+    font-weight: 300;
+}
+
+body #footer .footer-container .footer-company-info .footer-company-name {
+    float: right;
+    font-size: 24px;
+}
+
+body #container {
+    margin: 0;
+    border-top: none;
+
+}
+
+body #container #contents {
+    min-height: 400px;
+    padding: 0 0 80px 0;
+    width: 1200px;
+    border: 1px solid black;
+    margin: 30px auto;
+}
+
+body #container .container-top-animator-background {
+    background-color: #5F26FF;
+    height: 500px;
+    
+}
+
+body #container .container-top-animator-background .container-top-copy {
+    padding: 120px 0 0 190px;
+}
+
+body #container .container-top-animator-background p:first-child {
+    color: white;
+    font-size: 56px;
+    font-weight: bold;
+}
+
+body #container .container-top-animator-background p:last-child {
+    color: white;
+    font-size: 48px;
+    font-weight: lighter;
+}
+
+body #container .container-bottom-animator-background {
+    background-color: #ffffff;
+    height: 500px;
+}
+
+body #container .container-bottom-animator-background .container-botton-copy {
+    padding: 60px 0 0 190px;
+}
+
+body #container .container-bottom-animator-background p:first-child {
+    color: #5F26FF;
+    font-size: 64px;
+    font-weight: bold;
+}
+
+body #container .container-bottom-animator-background p:last-child {
+    color: #5F26FF;
+    font-size: 64px;
+    font-weight: lighter;
+}
+
+
+.circle-white {
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    z-index: 3;
+    position: absolute;
+    top:350px;
+    right: -72px;
+}
+
+.circle-purple {
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background-color: #5F26FF;
+    z-index: 4;
+    position: absolute;
+    top:403px;
+    right: -24px;
+}
+
+div#contents p#contents-prolist-promotional-msg {
+	font-size: 24px;
+}
+
+.swiper {
+  	width: 1100px;
+  	height: 300px;
+  	margin-top: 50px;
+}
+
+.swiper-slide {
+  	border:1px solid black;
+}
+
+.swiper .swiper-pagination-bullet {
+	background-color: #5F26FF !important;
+}
+
+/* ======================== 애니메이션 모음 =========================================== */
+.fade-in {
+  opacity: 0;
+  animation: fade-in 2s forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in-1s {
+  opacity: 0;
+  animation: fade-in 0.3s forwards;
+}
+
+@keyframes fade-in-1s {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
