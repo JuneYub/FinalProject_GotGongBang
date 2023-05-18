@@ -128,7 +128,7 @@ body #container {
 
 body #container #contents {
     min-height: 400px;
-    padding: 0 0 80px 0;
+    padding: 0 50px 80px 50px;
     width: 1200px;
     border: 1px solid black;
     margin: 30px auto;
@@ -200,23 +200,184 @@ body #container .container-bottom-animator-background p:last-child {
     right: -24px;
 }
 
+div.contents-prolist-promotional {
+	position: relative;
+	top:30px;
+    line-height: 36px;
+}
+
 div#contents p#contents-prolist-promotional-msg {
+	display:inline-block;
 	font-size: 24px;
+	font-weight: bold;
+	color: #5F26FF;
+	position: relative;
+	left:7px;
+}
+
+div#contents p#contents-prolistAll-link {
+	display:inline-block;
+	font-size: 16px;
+	font-weight:400;
+	color: #5F26FF;
+	position: relative;
+    right:20px;
+	float:right;
+	cursor: pointer;
 }
 
 .swiper {
   	width: 1100px;
-  	height: 300px;
   	margin-top: 50px;
 }
 
 .swiper-slide {
-  	border:1px solid black;
+
+}
+
+.swiper .swiper-wrapper {
+}
+
+.swiper-slide .swiper-slide-card {
+	border:1px solid #b8b8b8;
+  	border-radius: 30px;
+  	overflow:hidden;
+  	height: 400px;
+  	cursor: pointer;
+}
+
+.swiper .swiper-card-img {
+    position: relative;
+    width: 100%;
+    height: 200px;
+}
+
+.swiper .swiper-img-span {
+	box-sizing: border-box;
+    display: block;
+    overflow: hidden;
+    width: initial;
+    height: initial;
+    background: none;
+    opacity: 1;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+    inset: 0px;
+}
+
+.swiper .swiper-img-span img {
+	position: absolute;
+    inset: 0px;
+    box-sizing: border-box;
+    padding: 0px;
+    border: none;
+    margin: auto;
+    display: block;
+    width: 0px;
+    height: 0px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    object-fit: fill;
+}
+
+.swiper .swiper-card-info {
+	padding : 20px;
+	color: #363636;
+}
+
+.swiper .swiper-card-info .card-craft-name {
+	font-size: 30px;
 }
 
 .swiper .swiper-pagination-bullet {
 	background-color: #5F26FF !important;
 }
+
+.swiper .swiper-card-info p {
+	margin-top: 5px;
+}
+
+.swiper .swiper-card-info .craft-strength {
+	border: 1px solid #b8b8b8;
+	border-radius: 8px;
+	color: white;
+	background-color: #5F26FF;
+    display: inline-block;
+    padding: 3px;
+    margin: 5px 0 5px 0;
+}
+
+.swiper .swiper-card-info .card-craft-place .material-symbols-outlined {
+	position: relative;
+    top: 5px;
+}
+
+.reviewSwiper {
+    overflow: hidden;
+    width: 1100px;
+    margin-top: 50px;
+}
+
+div.contents-review-promotional {
+    position: relative;
+    top: 30px;
+    line-height: 36px;
+}
+
+#review-list-title{
+    display:inline-block;
+	font-size: 24px;
+	font-weight: bold;
+	color: #7c7c7c;
+	position: relative;
+	left:7px;
+}
+
+#review-list-link {
+	display:inline-block;
+	font-size: 16px;
+	font-weight:400;
+	color: #7c7c7c;
+	position: relative;
+    right:20px;
+	float:right;
+	cursor: pointer;
+}
+
+.review-img {
+    margin: 45px 60px;
+}
+
+.reviewSwiper .swiper-wrapper .swiper-slide .swiper-slide-card .review-before-img, .review-after-img {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+}
+
+.reviewSwiper .swiper-wrapper .swiper-slide .swiper-slide-card .review-after-img {
+    margin-left: 5px;
+}
+
+.review-img-span {
+    box-sizing: border-box;
+    overflow: hidden;
+    inset: 0px;
+}
+
+.review-img-span img {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    object-fit: fill;
+}
+
+
 
 /* ======================== 애니메이션 모음 =========================================== */
 .fade-in {
