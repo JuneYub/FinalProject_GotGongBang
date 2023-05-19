@@ -190,8 +190,8 @@
 							<%-- 카드 시작 --%>
 							<div class="swiper-slide-card">
 								<div class="swiper-card-img">
-									<span class="swiper-img-span"> <img
-										src="<%=ctxPath%>/resources/img/main_test.jpg">
+									<span class="swiper-img-span"> 
+									<img src="<%=ctxPath%>/resources/img/main_test.jpg">
 									</span>
 								</div>
 								<div class="swiper-card-info">
@@ -221,9 +221,22 @@
 				</div>
 			</div>
 			<%-- 공방 슬라이드 끝 --%>
+			
+			<div class="banner-service-info">
+				<div class="banner-cont">
+					<div class="banner-title">
+					갗공방에 대해서 알려드릴게요!!
+					</div>
+					<div class="banner-cont-txt">
+					서비스에 대해서 알고싶으시다면 >>
+					</div>
+				</div>
+			</div>
+			
+				
 
 			<%-- 후기 슬라이드 시작 --%>
-			<div>
+			<div id="review-slide">
 				<div class="contents-review-promotional">
 				<p id="review-list-title">공방 업체 후기</p>
 				<p id="review-list-link">전체보기</p>
@@ -233,96 +246,102 @@
 				<div class="reviewSwiper">
 					<div class="swiper-wrapper">
 						
+						<%-- 후기 카드 시작 --%>
 						<div class="swiper-slide">
-							<%-- 카드 시작 --%>
-							<div class="swiper-slide-card">
-								<div class="review-img">
-									<div class="review-before-img">
-										<span class="review-img-span"> <img
-											src="<%=ctxPath%>/resources/img/main_test.jpg">
-										</span>
-									</div>
+							<div class="swiper-slide-card slide-review-card">
+								<div class="reviewSwiper-">
+									<div class="review-img">
+										<div class="review-before-img">
+											<span class="review-img-span"> <img
+												src="<%=ctxPath%>/resources/img/main_test.jpg">
+											</span>
+										</div>
 
-									<div class="review-after-img">
-										<span class="review-img-span"> <img
-											src="<%=ctxPath%>/resources/img/main_test.jpg">
-										</span>
+										<div class="review-after-img">
+											<span class="review-img-span"> <img
+												src="<%=ctxPath%>/resources/img/main_test.jpg">
+											</span>
+										</div>
 									</div>
 								</div>
 
-								<div class="swiper-card-info">
-									<p class="card-craft-name">공방명</p>
-									<p class="card-craft-intro">공방 한줄 소개입니다</p>
-
-									<div class="craft-strength">가방</div>
-									<div class="card-craft-place">
-										<span class="material-symbols-outlined">location_on</span>서울시
-										마포구
+								<div class="card-review">
+									<p class="card-review-craft">하늘공방</p>
+									<p class="card-review-content">리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용</p>
+									<div class="card-review-info">
+										<span>testID</span>
+										<span>YY/MM/DD</span>									
 									</div>
 								</div>
 							</div>
-							<%-- 카드 끝 --%>
 						</div>
+						<%-- 후기 카드 끝 --%>
 						
+						<%-- 후기 카드 시작 --%>
 						<div class="swiper-slide">
-							<%-- 카드 시작 --%>
-							<div class="swiper-slide-card">
-								<div class="swiper-card-img">
-									<span class="swiper-img-span"> <img
-										src="<%=ctxPath%>/resources/img/main_test.jpg">
-									</span>
+							<div class="swiper-slide-card slide-review-card">
+								<div class="reviewSwiper-">
+									<div class="review-img">
+										<div class="review-before-img">
+											<span class="review-img-span"> <img
+												src="<%=ctxPath%>/resources/img/main_test.jpg">
+											</span>
+										</div>
+
+										<div class="review-after-img">
+											<span class="review-img-span"> <img
+												src="<%=ctxPath%>/resources/img/main_test.jpg">
+											</span>
+										</div>
+									</div>
 								</div>
-								<div class="swiper-card-info">
-									<p class="card-craft-name">공방명</p>
-									<p class="card-craft-intro">공방 한줄 소개입니다</p>
 
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-
-									<div class="card-craft-place">
-										<span class="material-symbols-outlined">location_on</span>서울시
-										마포구
+								<div class="card-review">
+									<p class="card-review-craft">하늘공방</p>
+									<p class="card-review-content">리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용</p>
+									<div class="card-review-info">
+										<span>testID</span>
+										<span>YY/MM/DD</span>									
 									</div>
 								</div>
 							</div>
-							<%-- 카드 끝 --%>
-						</div><div class="swiper-slide">
-							<%-- 카드 시작 --%>
-							<div class="swiper-slide-card">
-								<div class="swiper-card-img">
-									<span class="swiper-img-span"> <img
-										src="<%=ctxPath%>/resources/img/main_test.jpg">
-									</span>
-								</div>
-								<div class="swiper-card-info">
-									<p class="card-craft-name">공방명</p>
-									<p class="card-craft-intro">공방 한줄 소개입니다</p>
-
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-
-									<div class="card-craft-place">
-										<span class="material-symbols-outlined">location_on</span>서울시
-										마포구
-									</div>
-								</div>
-							</div>
-							<%-- 카드 끝 --%>
 						</div>
+						<%-- 후기 카드 끝 --%>
+
+						<%-- 후기 카드 시작 --%>
+						<div class="swiper-slide">
+							<div class="swiper-slide-card slide-review-card">
+								<div class="reviewSwiper-">
+									<div class="review-img">
+										<div class="review-before-img">
+											<span class="review-img-span"> <img
+												src="<%=ctxPath%>/resources/img/main_test.jpg">
+											</span>
+										</div>
+
+										<div class="review-after-img">
+											<span class="review-img-span"> <img
+												src="<%=ctxPath%>/resources/img/main_test.jpg">
+											</span>
+										</div>
+									</div>
+								</div>
+
+								<div class="card-review">
+									<p class="card-review-craft">하늘공방</p>
+									<p class="card-review-content">리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용</p>
+									<div class="card-review-info">
+										<span>testID</span>
+										<span>YY/MM/DD</span>									
+									</div>
+								</div>
+							</div>
+						</div>
+						<%-- 후기 카드 끝 --%>
+						
 						
 					</div>
-					<div class="swiper-pagination"></div>
-
+					<div class="swiper-reivew-pagination"></div>
 				</div>
 			</div>
 			<%-- 후기 슬라이드 끝 --%>
