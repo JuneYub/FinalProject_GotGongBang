@@ -29,7 +29,7 @@ public class IndexController {
 		@RequestMapping(value="/index.got")
 		public ModelAndView index(ModelAndView mav) {
 	
-			mav.setViewName("home");
+			mav.setViewName("home.tiles1");
 			
 			return mav;
 		}
