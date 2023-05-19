@@ -238,12 +238,13 @@ div#contents p#contents-prolistAll-link {
 .swiper .swiper-wrapper {
 }
 
-.swiper-slide .swiper-slide-card {
+.swiper-slide-card {
 	border:1px solid #b8b8b8;
   	border-radius: 30px;
   	overflow:hidden;
   	height: 400px;
   	cursor: pointer;
+  	box-shadow: 12px 8px 14px -15px;
 }
 
 .swiper .swiper-card-img {
@@ -316,10 +317,15 @@ div#contents p#contents-prolistAll-link {
     top: 5px;
 }
 
+div#review-slide {
+	margint-top: 50px;
+}
+
 .reviewSwiper {
     overflow: hidden;
     width: 1100px;
     margin-top: 50px;
+    
 }
 
 div.contents-review-promotional {
@@ -349,18 +355,19 @@ div.contents-review-promotional {
 }
 
 .review-img {
-    margin: 45px 60px;
+    display: flex;
+    justify-content: space-between;
+    width: 445px;
+    margin: 30px 30px 10px 30px
 }
 
 .reviewSwiper .swiper-wrapper .swiper-slide .swiper-slide-card .review-before-img, .review-after-img {
     position: relative;
-    display: inline-block;
     width: 200px;
     height: 200px;
 }
 
 .reviewSwiper .swiper-wrapper .swiper-slide .swiper-slide-card .review-after-img {
-    margin-left: 5px;
 }
 
 .review-img-span {
@@ -377,6 +384,39 @@ div.contents-review-promotional {
     object-fit: fill;
 }
 
+.slide-review-card {
+	border-radius: 5px;
+}
+
+.swiper-slide .slide-review-card .card-review {
+    margin: 0 30px;
+}
+
+.card-review .card-review-craft {
+	font-weight: 600;
+}
+
+.card-review .card-review-content {
+	font-weight: 500;
+	font-size: 14px;
+	color: #4f4f4f;
+}
+
+.card-review .card-review-info {
+	font-weight:300;
+	font-size: 13px;
+	color: #848484;
+}
+
+.swiper-reivew-pagination {
+	text-align: center;
+    transition: .3s opacity;
+    transform: translate3d(0,0,0);
+}
+
+.reviewSwiper .swiper-pagination-bullet, .swiper-pagination-bullet-active {
+	background-color: #5F26FF !important;
+}
 
 
 /* ======================== 애니메이션 모음 =========================================== */
