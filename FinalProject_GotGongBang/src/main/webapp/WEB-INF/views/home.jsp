@@ -303,6 +303,19 @@
 				</div>
 			</div>
 			<%-- 공방 슬라이드 끝 --%>
+			
+			<div class="banner-service-info">
+				<div class="banner-cont">
+					<div class="banner-title">
+					갗공방에 대해서 알려드릴게요!!
+					</div>
+					<div class="banner-cont-txt">
+					서비스에 대해서 알고싶으시다면 >>
+					</div>
+				</div>
+			</div>
+			
+				
 
 			<%-- 후기 슬라이드 시작 --%>
 			<div id="review-slide">
