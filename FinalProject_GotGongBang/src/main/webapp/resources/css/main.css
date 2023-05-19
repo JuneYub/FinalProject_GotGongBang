@@ -38,19 +38,25 @@ body #header .header-section {
     display: flex;
     justify-content : space-between;
 }
-
+/*
 body #header .header-section .h1-logo {
 	padding: 6px 0px;
     height: 100%;
     font-weight: bold;
     color: #3200c2;
     display: inline-block;
-}
+} */
 
 body #header .header-section .h1-logo h1 {
     font-size: 50px;
 }
 
+body #header .header-section .h1-logo {
+    height: 100%;
+    font-weight: bold;
+    color: rgb(122, 75, 15);
+    display: inline-block;
+}
 
 body #header .header-section .header-nav {
     display: inline-block;
