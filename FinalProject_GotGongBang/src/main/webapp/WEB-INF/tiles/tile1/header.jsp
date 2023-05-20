@@ -15,12 +15,12 @@
     <div id="header">
         <section class="header-section">
              <div class="h1-logo">
-                <h1><img src="resources/img/main_got.png" width="300"></h1>
+                <h1><img src="resources/img/main_got.png" width="300" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/'"></h1>
             </div>
             <div class="header-nav">
                 <ul>
                     <li>
-                        <a class="header-nav-button">서비스 소개</a>
+                        <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/ServiceInfo.got'">서비스 소개</a>
                     </li>
                     <li>
                         <a class="header-nav-button">수선사 찾기</a>
