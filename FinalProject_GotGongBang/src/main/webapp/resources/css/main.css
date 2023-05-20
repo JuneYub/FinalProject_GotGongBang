@@ -326,6 +326,7 @@ div#contents p#contents-prolistAll-link {
 
 .banner-service-info {
     margin-top: 100px;
+    margin-bottom: 100px;
     width: 100%;
     height: 300px;
     padding: 115px 30px;
@@ -445,6 +446,28 @@ div.contents-review-promotional {
 	background-color: #5F26FF !important;
 }
 
+#container .video-theme {
+	display: flex;
+	align-items: center;
+}
+
+#container .video-theme video {
+	width: 100%;
+	position: sticky;
+	top: 0;
+}
+
+#container .video-theme .copywright {
+	color: white;
+	width: 100%;
+    font-size: 50px;
+    font-weight: 550;
+    z-index: 5;
+    position: absolute;
+    line-height: 60px;
+    left: 10%;
+}
+
 
 /* ======================== 애니메이션 모음 =========================================== */
 .fade-in {
@@ -463,7 +486,7 @@ div.contents-review-promotional {
 
 .fade-in-1s {
   opacity: 0;
-  animation: fade-in 0.3s forwards;
+  animation: fade-in 0.7s forwards;
 }
 
 @keyframes fade-in-1s {
