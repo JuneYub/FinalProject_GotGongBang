@@ -19,8 +19,9 @@
 		    //console.log( "$(window).scrollTop() => " + $(window).scrollTop() );
 			
 	        if( $(window).scrollTop() >= 270 ) {
-				$("div.circle-purple").addClass('fade-in-1s');	
-				$("div.circle-white").addClass('fade-in-1s');
+	        	$("div.circle-white").addClass('fade-in-1s');
+	        	$("div.circle-purple").addClass('fade-in-1s');
+				
 	        }
 	        if( $(window).scrollTop() >= 280 ) {
 				$("div.container-botton-copy").addClass('fade-in');
