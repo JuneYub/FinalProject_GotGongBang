@@ -632,7 +632,7 @@ body #admin_container #admin_contents .application_right .image{
     height: 60px;
 }
 
-.filebox .upload-name {
+body #admin_container #admin_contents .filebox .upload-name {
     display: inline-block;
     height: 40px;
     padding: 0 10px;
@@ -641,17 +641,17 @@ body #admin_container #admin_contents .application_right .image{
     width: 200px;
     color: #999999;
 }
-.filebox label {
+body #admin_container #admin_contents  .filebox label {
     display: inline-block;
     padding: 10px 20px;
     color: #fff;
     vertical-align: middle;
     background-color: #999999;
     cursor: pointer;
-    height: 24px;
+    height: 44px;
     margin-left: 10px;
 }
-.filebox input[type="file"] {
+body #admin_container #admin_contents .filebox input[type="file"] {
     position: absolute;
     width: 0;
     height: 0;

@@ -7,6 +7,25 @@
    String ctxPath = request.getContextPath();
 %>   
 <script>
+	$(document).ready(function() {
+		
+		
+		
+	}); // end of $(document).ready(function() ---------------------------
+
+			
+//////////// Function declare ////////////
+
+function goApplication() {
+
+	// 이용약관 동의 checkbox에 check유무
+	const unchecked = $("input:checkbox[id='chk']:checked" == false) 
+	
+	
+	
+}
+
+
 </script>
     
 
@@ -27,19 +46,19 @@
                     <ul class="clearfix">
                         <li>개인정보 수집 및 이용에 대한 안내(필수)</li>
                     </ul>
-                    <textarea name="" id="">여러분을 환영합니다. GOT GongBang을 이용해 주셔서 감사합니다. 본 약관은 다양한 본 서비스의 이용과 관련하여 서비스를 제공하는 GOT GongBang 주식회사와 이를 이용하는 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
+                    <textarea name="" id="" readonly="readonly">여러분을 환영합니다. GOT GongBang을 이용해 주셔서 감사합니다. 본 약관은 다양한 본 서비스의 이용과 관련하여 서비스를 제공하는 GOT GongBang 주식회사와 이를 이용하는 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
                      </textarea>
                 </li>
                 <li class="checkBox check03">
                     <ul class="clearfix">
                         <li>공방 등록을 위한 이용약관 동의(필수)</li>
                     </ul>
-                    <textarea name="" id="">본 약관은 정식 공방 등록을 위하여 사단법인 대한의류수선 리폼 협회 회원증을 필수로 요구함과, 공방 등록 신청 후 GOT GongBang 주식회사와의 전화 연락 협의를 통해 진행함의 내용을 포함하고 있습니다.</textarea>
+                    <textarea name="" id=""  readonly="readonly">본 약관은 정식 공방 등록을 위하여 사단법인 대한의류수선 리폼 협회 회원증을 필수로 요구함과, 공방 등록 신청 후 GOT GongBang 주식회사와의 전화 연락 협의를 통해 진행함의 내용을 포함하고 있습니다.</textarea>
                 </li>
             </ul>
             <ul class="footBtwrap clearfix">
-                <li><button class="fpmgBt1">비동의</button></li>
-                <li><button class="fpmgBt2">동의</button></li>
+                <li><button type="reset" class="fpmgBt1" >비동의</button></li>
+                <li><button type="submit" class="fpmgBt2"  onclick="goApplication()">동의</button></li>
             </ul>
         </form>
 
