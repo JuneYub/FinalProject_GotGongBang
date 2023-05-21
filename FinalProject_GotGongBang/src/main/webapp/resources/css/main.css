@@ -459,13 +459,38 @@ div.contents-review-promotional {
 
 #container .video-theme .copywright {
 	color: white;
-	width: 100%;
     font-size: 50px;
-    font-weight: 550;
+    font-weight: 50;
     z-index: 5;
     position: absolute;
-    line-height: 60px;
-    left: 10%;
+    line-height: 75px;
+    left: 16%;
+}
+
+.serviceInfo-text-block {
+	width: 100%;
+	background-color: #333333;
+	color: #ffffff;
+	padding: 10% 0;
+}
+
+.serviceInfo-text-block #contents .copywright {
+	font-size: 30px;
+    font-weight: 50;
+    margin-top: 78px;
+}
+
+.serviceInfo-text-block-white #contents .copywright {
+	display:flex;
+	font-size:30px;
+	justify-content:center;
+	background-color: #ffffff;
+	color: #333333;
+}
+
+.serInfo-intro-img img {
+	width: 300px;
+	height: 300px;
 }
 
 
