@@ -18,12 +18,12 @@
 			// 스크롤탑의 위치값 
 		    //console.log( "$(window).scrollTop() => " + $(window).scrollTop() );
 			
-	        if( $(window).scrollTop() >= 270 ) {
+	        if( $(window).scrollTop() >= 90) {
 	        	$("div.circle-white").addClass('fade-in-1s');
 	        	$("div.circle-purple").addClass('fade-in-1s');
 				
 	        }
-	        if( $(window).scrollTop() >= 280 ) {
+	        if( $(window).scrollTop() >= 100 ) {
 				$("div.container-botton-copy").addClass('fade-in');
 	        }
 		});
