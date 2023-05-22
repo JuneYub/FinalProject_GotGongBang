@@ -142,7 +142,7 @@ body #container #contents {
 }
 
 body #container .container-top-animator-background {
-    background-color: #5F26FF;
+    background-color: #400099;
     height: 500px;
     
 }
@@ -173,13 +173,13 @@ body #container .container-bottom-animator-background .container-botton-copy {
 }
 
 body #container .container-bottom-animator-background p:first-child {
-    color: #5F26FF;
+    color: #400099;
     font-size: 64px;
     font-weight: bold;
 }
 
 body #container .container-bottom-animator-background p:last-child {
-    color: #5F26FF;
+    color: #400099;
     font-size: 64px;
     font-weight: lighter;
 }
@@ -200,7 +200,7 @@ body #container .container-bottom-animator-background p:last-child {
     width: 600px;
     height: 600px;
     border-radius: 50%;
-    background-color: #5F26FF;
+    background-color: #400099;
     z-index: 4;
     position: absolute;
     top:403px;
@@ -217,7 +217,7 @@ div#contents p#contents-prolist-promotional-msg {
 	display:inline-block;
 	font-size: 24px;
 	font-weight: bold;
-	color: #5F26FF;
+	color: #400099;
 	position: relative;
 	left:7px;
 }
@@ -226,7 +226,7 @@ div#contents p#contents-prolistAll-link {
 	display:inline-block;
 	font-size: 16px;
 	font-weight:400;
-	color: #5F26FF;
+	color: #400099;
 	position: relative;
     right:20px;
 	float:right;
@@ -332,7 +332,7 @@ div#contents p#contents-prolistAll-link {
     padding: 115px 30px;
     color: white;
     line-height: 40px;
-    background: linear-gradient( to right, #400099 38%, #8890ff);
+    background: #400099;
 }
 
 .banner-title {
