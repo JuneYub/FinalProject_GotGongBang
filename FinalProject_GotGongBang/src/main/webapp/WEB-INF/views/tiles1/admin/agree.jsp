@@ -6,24 +6,34 @@
 <%
    String ctxPath = request.getContextPath();
 %>   
-<script>
+<script type="text/javascript">
 	$(document).ready(function() {
+
+		$("input#chk").click(function() {
+			const ischecked = $("input#chk").is(":checked"); 
+			console.log("확인용 : " + ischecked);
+		});
 		
-		
+		$("button.fpmgBt2").click(function() {
+
+			const ischecked = $("input#chk").is(":checked"); 
+
+			if(!ischecked){	//false일때
+				alert("약관동의해주세여");
+				return;
+			}
+			else{ // true일때 
+				alert("약관동의g함");
+				location.href = "<%= ctxPath%>/adminApplication.got";
+
+			}
+			
+		});
 		
 	}); // end of $(document).ready(function() ---------------------------
 
 			
 //////////// Function declare ////////////
-
-function goApplication() {
-
-	// 이용약관 동의 checkbox에 check유무
-	const unchecked = $("input:checkbox[id='chk']:checked" == false) 
-	
-	
-	
-}
 
 
 </script>
@@ -57,8 +67,8 @@ function goApplication() {
                 </li>
             </ul>
             <ul class="footBtwrap clearfix">
-                <li><button type="reset" class="fpmgBt1" >비동의</button></li>
-                <li><button type="submit" class="fpmgBt2"  onclick="goApplication()">동의</button></li>
+                <li><button class="fpmgBt1">비동의</button></li>
+                <li><button class="fpmgBt2">동의</button></li>
             </ul>
         </form>
 
