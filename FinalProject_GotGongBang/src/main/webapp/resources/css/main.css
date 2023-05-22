@@ -481,6 +481,7 @@ div.contents-review-promotional {
 }
 
 .serviceInfo-text-block-white #contents .copywright {
+	margin-top: 80px;
 	display:flex;
 	font-size:30px;
 	justify-content:center;
@@ -488,9 +489,25 @@ div.contents-review-promotional {
 	color: #333333;
 }
 
-.serInfo-intro-img img {
+.serviceInfo-text-block-white #contents .imgList-serviceInfo-intro {
+	margin-top: 55px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.serviceInfo-text-block-white #contents .imgList-serviceInfo-intro li {
+	display: inline-block;
+}
+
+.img-serviceInfo-intro img {
 	width: 300px;
 	height: 300px;
+	filter: drop-shadow(4px 5px 6px #000) 
+}
+
+.hide-item {
+	opacity: 0;
+	margin-bottom: -300px;
 }
 
 
