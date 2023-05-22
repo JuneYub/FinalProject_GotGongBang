@@ -579,16 +579,16 @@ body #admin_container #admin_contents .footBtwrap>li{
 }
 body #admin_container #admin_contents .footBtwrap>li>button{
     display: block; width: 100%;height: 100%; font-size: 20px;text-align: center;line-height: 60px;
+
 }
 body #admin_container #admin_contents .fpmgBt1{
-    background-color: #fff; 
+     background-color: #fff; 
     border: solid 1px rgb(164, 163, 163);
 }
 body #admin_container #admin_contents .fpmgBt2{
-    background-color: #400099;
+     background-color: #400099;
     border: solid 1px rgb(164, 163, 163);
     color: white;
-
 }
 
 
