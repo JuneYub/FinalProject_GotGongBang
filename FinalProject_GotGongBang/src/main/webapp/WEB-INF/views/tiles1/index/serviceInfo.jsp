@@ -10,6 +10,8 @@
 <script>
 //=== 스크롤 이벤트 발생시키기 시작 ====
 $(window).scroll(function() {
+	AOS.init();
+	
 	
 	// 스크롤탑의 위치값 
     //console.log( "$(window).scrollTop() => " + $(window).scrollTop() );
@@ -35,12 +37,7 @@ $(window).scroll(function() {
     	// alert("기존의 문서가 끝났습니다 이제 추가 문서를 보여드립니다");
 								
     }
-    
-    if( $(window).scrollTop() == 0 ) {
-    	// 다시 처음부터 시작하도록 한다.
-    	
   
-    }
     
 });
 
@@ -62,7 +59,7 @@ $(window).scroll(function() {
 	
 	<div class="serviceInfo-text-block">
 		<div id="contents">
-			<p class="copywright">
+			<p class="copywright"  data-aos="fade-up">
 				갗공방은 '가죽'의 옛말인 '갗'을 
 				<br>전문적으로 다루는 공방이라는 의미입니다.
 				<br> 
@@ -75,13 +72,13 @@ $(window).scroll(function() {
 
 	<div class="serviceInfo-text-block-white">
 		<div id="contents">
-			<p class="copywright">
+			<p class="copywright"  data-aos="fade-up">
 				갗공방은 다양한 분야의 전문가분들과 파트너를 맺고 있습니다.<br> 
 			</p>
-			<ul>
-				<li><div class="serInfo-intro-img"><img src="<%= ctxPath%>/resources/img/serviceInfo_laundry.png"></div></li>
-				<li><div class="serInfo-intro-img"><img src="<%= ctxPath%>/resources/img/serviceInfo_mending.png"></div></li>
-				<li><div class="serInfo-intro-img"><img src="<%= ctxPath%>/resources/img/serviceInfo_patch.png"></div></li>
+			<ul class="imgList-serviceInfo-intro"  data-aos="fade-up">
+				<li><div class="img-serviceInfo-intro"><img src="<%= ctxPath%>/resources/img/serviceInfo_laundry.png"></div></li>
+				<li><div class="img-serviceInfo-intro"><img src="<%= ctxPath%>/resources/img/serviceInfo_mending.png"></div></li>
+				<li><div class="img-serviceInfo-intro"><img src="<%= ctxPath%>/resources/img/serviceInfo_patch.png"></div></li>
 			</ul>
 		</div>
 	</div>

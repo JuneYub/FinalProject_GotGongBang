@@ -43,6 +43,10 @@
 	<%-- 구글 머터리얼 아이콘 --%>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 	
+	<%-- AOS 라이브러리 --%>
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+	
 </head>
 <body>
 	<div id="mycontainer">
