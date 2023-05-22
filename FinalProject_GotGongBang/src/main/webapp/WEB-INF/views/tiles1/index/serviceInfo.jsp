@@ -26,7 +26,7 @@ AOS.init();
 	
 	<div class="serviceInfo-text-block">
 		<div id="contents">
-			<p class="copywright"  data-aos="fade-up" data-aos-duration="1000">
+			<p class="copywright"  data-aos="fade-up" data-aos-duration="500">
 				갗공방은 '가죽'의 옛말인 '갗'을 
 				<br>전문적으로 다루는 공방이라는 의미입니다.
 				<br> 
@@ -39,10 +39,10 @@ AOS.init();
 
 	<div class="serviceInfo-text-block-white">
 		<div id="contents">
-			<p class="copywright"  data-aos="fade-up" data-aos-duration="1000">
+			<p class="copywright"  data-aos="fade-up" data-aos-duration="500">
 				갗공방은 다양한 분야의 전문가분들과 파트너를 맺고 있습니다.<br> 
 			</p>
-			<ul class="imgList-serviceInfo-intro"  data-aos="fade-up" data-aos-duration="1800">
+			<ul class="imgList-serviceInfo-intro"  data-aos="fade-up" data-aos-duration="500">
 				<li><div class="img-serviceInfo-intro"><img src="<%= ctxPath%>/resources/img/serviceInfo_laundry.png"></div></li>
 				<li><div class="img-serviceInfo-intro"><img src="<%= ctxPath%>/resources/img/serviceInfo_mending.png"></div></li>
 				<li><div class="img-serviceInfo-intro"><img src="<%= ctxPath%>/resources/img/serviceInfo_patch.png"></div></li>
