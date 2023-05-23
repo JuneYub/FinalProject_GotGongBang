@@ -21,9 +21,15 @@ public class CraftController {
 	// ===========================================================================
 
 	
-	@RequestMapping(value="/EstimateInquiryList.got")
+	@RequestMapping(value="/estimate_inquiry_list.got")
 	public ModelAndView getEstimateInquiryList(ModelAndView mav) {
 		mav.setViewName("/craft/estimate_inquiry_list.tiles1");
+		return mav;
+	}
+	
+	@RequestMapping(value="/estimate_inquiry_list/bid.got")
+	public ModelAndView bid(ModelAndView mav) {
+		mav.setViewName("/none_tiles/craft/bid");
 		return mav;
 	}
 	
