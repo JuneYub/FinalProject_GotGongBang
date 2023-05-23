@@ -7,6 +7,7 @@
    String ctxPath = request.getContextPath();
 %>   
 <script type="text/javascript">
+
 	$(document).ready(function() {
 
 		$("input#chk").click(function() {
@@ -14,27 +15,24 @@
 			console.log("확인용 : " + ischecked);
 		});
 		
-		$("button.fpmgBt2").click(function() {
-
-			const ischecked = $("input#chk").is(":checked"); 
-
-			if(!ischecked){	//false일때
-				alert("약관동의해주세여");
-				return;
-			}
-			else{ // true일때 
-				alert("약관동의g함");
-				location.href = "<%= ctxPath%>/adminApplication.got";
-
-			}
-			
-		});
 		
 	}); // end of $(document).ready(function() ---------------------------
 
 			
 //////////// Function declare ////////////
+function goApplication() {
 
+	const ischecked = $("input#chk").is(":checked"); 
+
+	if(!ischecked){	//false일때
+		alert("이용약관에 동의해주세요.");
+		return;
+	}
+	else{ // true일때 
+		location.href = "<%= ctxPath%>/adminApplication.got";
+	}
+	
+};
 
 </script>
     
@@ -48,7 +46,7 @@
                     <ul class="clearfix">
                         <li style="font-size: 13pt;">공방 등록을 위한 이용약관, 개인정보 수집 및 이용에 모두 동의합니다.</li>
                         <li class="checkAllBtn">
-                            <input type="checkbox" name="chkAll" id="chk" class="chkAll">
+                            <input type="checkbox" name="chkAll" id="chk" class="chkAll" />
                         </li>
                     </ul>
                 </li>
@@ -68,7 +66,7 @@
             </ul>
             <ul class="footBtwrap clearfix">
                 <li><button class="fpmgBt1">비동의</button></li>
-                <li><button class="fpmgBt2">동의</button></li>
+                <li><button class="fpmgBt2" onclick="goApplication(); return false;" >동의</button></li>
             </ul>
         </form>
 

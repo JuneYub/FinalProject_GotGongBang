@@ -102,6 +102,7 @@ body #footer {
     width: 100%;
     height: 200px;
     background-color: #333333;
+    clear: both;
 }
 
 body #footer .footer-container {
@@ -142,7 +143,7 @@ body #container #contents {
 }
 
 body #container .container-top-animator-background {
-    background-color: #5F26FF;
+    background-color: #400099;
     height: 500px;
     
 }
@@ -173,13 +174,13 @@ body #container .container-bottom-animator-background .container-botton-copy {
 }
 
 body #container .container-bottom-animator-background p:first-child {
-    color: #5F26FF;
+    color: #400099;
     font-size: 64px;
     font-weight: bold;
 }
 
 body #container .container-bottom-animator-background p:last-child {
-    color: #5F26FF;
+    color: #400099;
     font-size: 64px;
     font-weight: lighter;
 }
@@ -200,7 +201,7 @@ body #container .container-bottom-animator-background p:last-child {
     width: 600px;
     height: 600px;
     border-radius: 50%;
-    background-color: #5F26FF;
+    background-color: #400099;
     z-index: 4;
     position: absolute;
     top:403px;
@@ -217,7 +218,7 @@ div#contents p#contents-prolist-promotional-msg {
 	display:inline-block;
 	font-size: 24px;
 	font-weight: bold;
-	color: #5F26FF;
+	color: #400099;
 	position: relative;
 	left:7px;
 }
@@ -226,7 +227,7 @@ div#contents p#contents-prolistAll-link {
 	display:inline-block;
 	font-size: 16px;
 	font-weight:400;
-	color: #5F26FF;
+	color: #400099;
 	position: relative;
     right:20px;
 	float:right;
@@ -332,7 +333,7 @@ div#contents p#contents-prolistAll-link {
     padding: 115px 30px;
     color: white;
     line-height: 40px;
-    background: linear-gradient( to right, #400099 38%, #8890ff);
+    background: #400099;
 }
 
 .banner-title {
@@ -508,6 +509,105 @@ div.contents-review-promotional {
 .hide-item {
 	opacity: 0;
 	margin-bottom: -300px;
+}
+
+.myPage-container {
+	width: 100%;
+	overflow: hidden;
+    height: auto;
+    border-top: 2px solid black;
+}
+
+.myPage-container .myPage-tit {
+	border-bottom: 1px solid #6D6D6D;
+	margin: 0px auto;
+	width: 1200px;
+}
+
+.myPage-container .myPage-tit h1 {
+	margin: 15px 0 15px 0;
+}
+
+.myPage-container .myPage-contents {
+	margin: 0px auto;
+	width: 1200px;
+}
+
+.myPage-container .myPage-contents .myPage-menu-list {
+	float:left;
+	width: 240px;
+}
+
+.myPage-container .myPage-contents .myPage-menu-list ul li {
+	font-size : 20px;
+	padding: 10px 0 20px 10px;
+	border-bottom: 1px solid #6D6D6D;
+	cursor: pointer;
+}
+
+.myPage-menu-list ul li:hover, .myPage-menu-list ul li:hover a {
+	background-color: #6D6D6D;
+	color: white;
+}
+
+.menu-list-selected {
+	background-color: #6D6D6D;
+	color: white;
+	pointer-events:none;
+}
+
+.myPage-container .myPage-contents .myPage-cont {
+	float:right;
+	min-height : 700px;
+	width: 950px;
+}
+
+.myPage-cont table.tbl-estimateList {
+    border-bottom: 1px #6d6d6d solid;
+    margin-top: 10px;
+    font-size: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+.myPage-cont table.tbl-estimateList thead {
+	font-weight: bold;
+	color: #fff;
+	background: #400099;
+}
+
+.myPage-cont table.tbl-estimateList thead th {
+	text-align: center;
+}
+
+.myPage-cont table.tbl-estimateList tbody td {
+	text-align: center;
+	font-size: 17px;
+	padding: 10px 0px;
+
+}
+
+.myPage-cont table.tbl-estimateList tbody tr {
+	box-shadow: 1px 1px 1px #6D6D6D;
+}
+
+.img-estimate {
+	width: 100px;
+	height: 100px;
+	border: 1px solid #6D6D6D;
+	margin: 0px auto;
+}
+
+.btn-estimateDetail {
+	border: 1px solid #6D6D6D;
+	background-color: white;
+	padding: 4px;
+}
+
+.btn-estimateDetail:hover {
+	border: 3px solid #6D6D6D;
+	transition: 0.1s ease;
 }
 
 
