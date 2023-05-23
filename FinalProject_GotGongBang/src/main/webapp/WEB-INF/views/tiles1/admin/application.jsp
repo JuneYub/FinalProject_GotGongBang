@@ -126,7 +126,26 @@
 			
 		});
 		
+		/*
+		// 우편번호 주소 필수입력
+		$("input#postcode").blur( (e) => {
+			if($(e.target).val() == ""){	
+				//공백입력 경우
+				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
+				$("button#btnPostcode").prop("disabled", false);
+				
+				
+				$(e.target).parent().find("span.error").show();
 		
+			}
+			else{
+				alert("호호호");
+				$(e.target).parent().find("span.error").hide();
+				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+			}
+
+		});	
+		*/
 		
 		//////////////////////////////////////////////////////////////////////
 		//우편번호 찾기 클릭했을 때
@@ -180,31 +199,80 @@
 	           }).open();
 
 		}); //end of $("button#btnPostcode").click(function() ---------------------
-		/*		
-		$("button#btnPostcode").blur( (e) => {
-			
-			if($("input#address").click(function name() {
-				
-			});
-		});				
-			*/	
+		
 		//////////////////////////////////////////////////////////////////////
 
+		
+		// 자기소개 필수입력
+		$("textarea#self_introduce").blur( (e) => {
+			if($(e.target).val().trim() == ""){	
+				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
+				$(e.target).prop("disabled", false);
 				
+				
+				$(e.target).parent().find("span.error").show();
+				$(e.target).focus();	//다른곳을 클릭 못하게 함 e.target에 포커스 머무름
+			}else{
+				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+				$(e.target).parent().find("span.error").hide();
+				$("input.specialized_field").focus();
+			}
+		});
+		
+		
+		//전문 품목 한 개 이상 체크
+		$("input.specialized_field").blur( (e) => {
+			const chk_cnt = $("input.specialized_field:checked").length;
+			
+			if(chk_cnt < 1){
+				$(e.target).parent().parent().find("span.error").show();
+
+				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
+				$("input.specialized_field").prop("disabled", false);
+
+			}
+			else{
+				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+				$(e.target).parent().parent().find("span.error").hide();
+				$("select#career").focus();	
+			}
+			
+		});
+		
+		
+		/*
+		$("select#career").blur( (e) => {
+			if(){
+				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
+				$("input.specialized_field").prop("disabled", false);
+
+				$(e.target).parent().find("span.error").show();
+				$(e.target).focus();	//다른곳을 클릭 못하게 함 e.target에 포커스 머무름
+
+			}else{
+				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+				$(e.target).parent().find("span.error").hide();
+			}
+			
+		});
+		
+		
+		*/
+		
 
 	}); // end of $(document).ready(function() ----------------------------
 				
-
-////////////Function declare ////////////
-function goComplete() {
-		
 	
-	/*const frm = document.craft_application_frm;
-	frm.action = "adminComplete.got";
-	frm.method = "post";
-	frm.submit();
-	*/
-}
+	////////////Function declare ////////////
+	function goComplete() {
+			
+		
+		/*const frm = document.craft_application_frm;
+		frm.action = "adminComplete.got";
+		frm.method = "post";
+		frm.submit();
+		*/
+	}
 </script>
 
 <!-- (어드민) 공방 신청 본문시작 -->
@@ -277,25 +345,26 @@ function goComplete() {
                    </div>
                     
                     <div class="frm_border" style="height: 205px;">
+                  
                      <span> <p> * 공방 주소</p>
-	                     <input type="text" id="postcode" class="upload" name="postcode" size="6" maxlength="5" style="width: 201px;"  placeholder="우편번호 찾기를 클릭하세요."  readonly="readonly"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                     <input type="text" id="postcode" class="upload" name="postcode" value="" size="6" maxlength="5" style="width: 201px;"  placeholder="우편번호 찾기를 클릭하세요."  readonly="readonly"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            				 <%-- 우편번호 찾기 --%>
 							<button type="button" id="btnPostcode" class="check_button" style="width: 120px; height: 40px;"> 우편번호 찾기</button>           				 
 							<span class="error" style="display: inline-block; color:#400099; margin-left:20px;"> * 우편번호 형식이 아닙니다.</span>
            		     </span>
            		     
-           		     <div id="addClick">
            		     <span style="margin:10px 0 0 150px;">
            				 <input type="text" id="address" class="upload" name="address" size="40" placeholder="주소"  style="width: 300px; "/>&nbsp;&nbsp;&nbsp;
            				 <input type="text" id="detailAddress" class="upload" name="detailAddress" size="40" placeholder="상세주소" style="width: 300px;"/>&nbsp;
             		</span>
+            		
 					<span style="margin:10px 0 0 150px;">
             			<input type="text" class="upload" id="extraAddress" placeholder="부가주소" name="extraAddress"
                                                        class="extra_address" />
             		 </span>
-            		 </div>
             		 
             		 <span class="error" style="display: inline-block; margin-left:150px; color:#400099;">※ 주소는 필수입력 사항입니다.</span> 
+                   
                    </div>
                    
                     <div class="frm_border_2">
@@ -307,16 +376,16 @@ function goComplete() {
                     <div class="frm_border">
                         <span><p> * 전문 품목</p>
                             <div id="specialized_chkBox">
-                              	  가방/핸드백<input type="checkbox" name="specialized_field" value="bag"/>
+                              	  가방/핸드백<input type="checkbox" class="specialized_field" value="bag"/>
                                 <label for="specialized_chk1"></label>
-                             	  신발<input type="checkbox" name="specialized_field" value="shoes"/>
+                             	  신발<input type="checkbox" class="specialized_field" value="shoes"/>
                                 <label for="specialized_chk2"></label>
-                              	  지갑<input type="checkbox" name="specialized_field" value="wallet"/>
+                              	  지갑<input type="checkbox" class="specialized_field" value="wallet"/>
                                 <label for="specialized_chk3"></label>
-                              	  벨트<input type="checkbox" name="specialized_field" value="belt"/>
+                              	  벨트<input type="checkbox" class="specialized_field" value="belt"/>
                                 <label for="specialized_chk4"></label>
                              </div>                                
-                             <span class="error" style="display: inline-block; color:#400099;">※ 전문 품목은 필수입력 사항입니다.</span>
+                             <span class="error" style="display: inline-block; color:#400099;">※ 전문 품목은 한 개 이상 선택하셔야 합니다.</span>
                         </span>
                     </div>
                 </div>
@@ -326,19 +395,17 @@ function goComplete() {
                     <div class="frm_border">
                         <span> <p> * 총 경력기간</p>
                             <label for="career_term"></label>
-                            <select name = "career">
-                                <option value="select" selected >선택하세요</option>
-                                <option value="newcomer">신입</option>
-                                <option value="one">1년</option>
-                                <option value="two">2년</option>
-                                <option value="three">3년</option>
-                                <option value="four">4년</option>
-                                <option value="five">5년</option>
-                                <option value="six">6년</option>
-                                <option value="seven">7년</option>
-                                <option value="eight">8년</option>
-                                <option value="nine">9년</option>
-                                <option value="tenover">10년 이상</option>
+                            <select name = "career" id="career">
+                                <option value="select" class="careerPick" >선택하세요</option>
+                                <option value="newcomer" class="careerPick">신입</option>
+                                <option value="one" class="careerPick">1년</option>
+                                <option value="two" class="careerPick">2년</option>
+                                <option value="three" class="careerPick">3년</option>
+                                <option value="four" class="careerPick">4년</option>
+                                <option value="five" class="careerPick">5년</option>
+                                <option value="six" class="careerPick">6년</option>
+                                <option value="seven" class="careerPick">7년</option>
+                                <option value="eight" class="careerPick">8년이상</option>
                             </select>
                             <span class="error" style="display: inline-block; color:#400099;  margin-left:20px;">※ 전문분야는 필수입력 사항입니다.</span>
                         </span>
