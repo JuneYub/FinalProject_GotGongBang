@@ -20,7 +20,7 @@
             <div class="header-nav">
                 <ul>
                     <li>
-                        <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/ServiceInfo.got'">서비스 소개</a>
+                        <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/service_info.got'">서비스 소개</a>
                     </li>
                     <li>
                         <a class="header-nav-button">수선사 찾기</a>
