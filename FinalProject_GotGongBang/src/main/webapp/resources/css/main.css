@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+/* ==== 박준엽 시작 ========================================================================================= */
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, 
 h6, pre, code, form, fieldset, legend, textarea, p, 
@@ -38,19 +39,25 @@ body #header .header-section {
     display: flex;
     justify-content : space-between;
 }
-
+/*
 body #header .header-section .h1-logo {
 	padding: 6px 0px;
     height: 100%;
     font-weight: bold;
     color: #3200c2;
     display: inline-block;
-}
+} */
 
 body #header .header-section .h1-logo h1 {
     font-size: 50px;
 }
 
+body #header .header-section .h1-logo {
+    height: 100%;
+    font-weight: bold;
+    color: rgb(122, 75, 15);
+    display: inline-block;
+}
 
 body #header .header-section .header-nav {
     display: inline-block;
@@ -95,6 +102,7 @@ body #footer {
     width: 100%;
     height: 200px;
     background-color: #333333;
+    clear: both;
 }
 
 body #footer .footer-container {
@@ -135,7 +143,7 @@ body #container #contents {
 }
 
 body #container .container-top-animator-background {
-    background-color: #5F26FF;
+    background-color: #400099;
     height: 500px;
     
 }
@@ -166,13 +174,13 @@ body #container .container-bottom-animator-background .container-botton-copy {
 }
 
 body #container .container-bottom-animator-background p:first-child {
-    color: #5F26FF;
+    color: #400099;
     font-size: 64px;
     font-weight: bold;
 }
 
 body #container .container-bottom-animator-background p:last-child {
-    color: #5F26FF;
+    color: #400099;
     font-size: 64px;
     font-weight: lighter;
 }
@@ -193,7 +201,7 @@ body #container .container-bottom-animator-background p:last-child {
     width: 600px;
     height: 600px;
     border-radius: 50%;
-    background-color: #5F26FF;
+    background-color: #400099;
     z-index: 4;
     position: absolute;
     top:403px;
@@ -210,7 +218,7 @@ div#contents p#contents-prolist-promotional-msg {
 	display:inline-block;
 	font-size: 24px;
 	font-weight: bold;
-	color: #5F26FF;
+	color: #400099;
 	position: relative;
 	left:7px;
 }
@@ -219,7 +227,7 @@ div#contents p#contents-prolistAll-link {
 	display:inline-block;
 	font-size: 16px;
 	font-weight:400;
-	color: #5F26FF;
+	color: #400099;
 	position: relative;
     right:20px;
 	float:right;
@@ -319,12 +327,13 @@ div#contents p#contents-prolistAll-link {
 
 .banner-service-info {
     margin-top: 100px;
+    margin-bottom: 100px;
     width: 100%;
     height: 300px;
     padding: 115px 30px;
     color: white;
     line-height: 40px;
-    background: linear-gradient( to right, #400099 38%, #8890ff);
+    background: #400099;
 }
 
 .banner-title {
@@ -438,6 +447,169 @@ div.contents-review-promotional {
 	background-color: #5F26FF !important;
 }
 
+#container .video-theme {
+	display: flex;
+	align-items: center;
+}
+
+#container .video-theme video {
+	width: 100%;
+	position: sticky;
+	top: 0;
+}
+
+#container .video-theme .copywright {
+	color: white;
+    font-size: 50px;
+    font-weight: 50;
+    z-index: 5;
+    position: absolute;
+    line-height: 75px;
+    left: 16%;
+}
+
+.serviceInfo-text-block {
+	width: 100%;
+	background-color: #333333;
+	color: #ffffff;
+	padding: 10% 0;
+}
+
+.serviceInfo-text-block #contents .copywright {
+	font-size: 30px;
+    font-weight: 50;
+    margin-top: 78px;
+}
+
+.serviceInfo-text-block-white #contents .copywright {
+	margin-top: 80px;
+	display:flex;
+	font-size:30px;
+	justify-content:center;
+	background-color: #ffffff;
+	color: #333333;
+}
+
+.serviceInfo-text-block-white #contents .imgList-serviceInfo-intro {
+	margin-top: 55px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.serviceInfo-text-block-white #contents .imgList-serviceInfo-intro li {
+	display: inline-block;
+}
+
+.img-serviceInfo-intro img {
+	width: 300px;
+	height: 300px;
+	filter: drop-shadow(4px 5px 6px #000) 
+}
+
+.hide-item {
+	opacity: 0;
+	margin-bottom: -300px;
+}
+
+.myPage-container {
+	width: 100%;
+	overflow: hidden;
+    height: auto;
+    border-top: 2px solid black;
+}
+
+.myPage-container .myPage-tit {
+	border-bottom: 1px solid #6D6D6D;
+	margin: 0px auto;
+	width: 1200px;
+}
+
+.myPage-container .myPage-tit h1 {
+	margin: 15px 0 15px 0;
+}
+
+.myPage-container .myPage-contents {
+	margin: 0px auto;
+	width: 1200px;
+}
+
+.myPage-container .myPage-contents .myPage-menu-list {
+	float:left;
+	width: 240px;
+}
+
+.myPage-container .myPage-contents .myPage-menu-list ul li {
+	font-size : 20px;
+	padding: 10px 0 20px 10px;
+	border-bottom: 1px solid #6D6D6D;
+	cursor: pointer;
+}
+
+.myPage-menu-list ul li:hover, .myPage-menu-list ul li:hover a {
+	background-color: #6D6D6D;
+	color: white;
+}
+
+.menu-list-selected {
+	background-color: #6D6D6D;
+	color: white;
+	pointer-events:none;
+}
+
+.myPage-container .myPage-contents .myPage-cont {
+	float:right;
+	min-height : 700px;
+	width: 950px;
+}
+
+.myPage-cont table.tbl-estimateList {
+    border-bottom: 1px #6d6d6d solid;
+    margin-top: 10px;
+    font-size: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+.myPage-cont table.tbl-estimateList thead {
+	font-weight: bold;
+	color: #fff;
+	background: #400099;
+}
+
+.myPage-cont table.tbl-estimateList thead th {
+	text-align: center;
+}
+
+.myPage-cont table.tbl-estimateList tbody td {
+	text-align: center;
+	font-size: 17px;
+	padding: 10px 0px;
+
+}
+
+.myPage-cont table.tbl-estimateList tbody tr {
+	box-shadow: 1px 1px 1px #6D6D6D;
+}
+
+.img-estimate {
+	width: 100px;
+	height: 100px;
+	border: 1px solid #6D6D6D;
+	margin: 0px auto;
+}
+
+.btn-estimateDetail {
+	border: 1px solid #6D6D6D;
+	background-color: white;
+	padding: 4px;
+}
+
+.btn-estimateDetail:hover {
+	border: 3px solid #6D6D6D;
+	transition: 0.1s ease;
+}
+
 
 /* ======================== 애니메이션 모음 =========================================== */
 .fade-in {
@@ -456,7 +628,7 @@ div.contents-review-promotional {
 
 .fade-in-1s {
   opacity: 0;
-  animation: fade-in 0.3s forwards;
+  animation: fade-in 0.7s forwards;
 }
 
 @keyframes fade-in-1s {
@@ -467,4 +639,359 @@ div.contents-review-promotional {
     opacity: 1;
   }
 }
+/* ==== 박준엽 끝 ========================================================================================= */
+
+
+
+
+
+
+
+
+
+/* ==== 김진솔 시작========================================================================================= */
+
+/*-- admin--------------------------------------------------------------*/
+
+/*약관동의 form*/
+body #admin_container {
+    margin: 0;
+    border-top: none;
+
+}
+
+body #admin_container #admin_contents {
+    min-height: 400px;
+    padding: 0 0 80px 0;
+    width: 1200px;
+   /*  border: 1px solid black; */
+    margin: 30px auto;
+
+}
+body #admin_container #admin_contents #joinForm{
+    width: 500px;
+    margin: 0 auto;}
+body #admin_container #admin_contents ul.join_box{
+    border: 1px solid #ddd;background-color: #fff;
+}
+body #admin_container #admin_contents .checkBox>ul{
+    position: relative;
+}
+
+
+body #admin_container #admin_contents .checkBox>ul>li:first-child{
+    width: 85%;padding: 15px;font-weight: 600;color: #888;
+}
+body #admin_container #admin_contents .checkBox>ul>li:nth-child(2){
+    position: absolute;top: 50%;right: 30px; margin-top: -12px;
+}
+body #admin_container #admin_contents .checkBox textarea{
+    width: 96%;height: 90px; margin: 0 2%;background-color: #f7f7f7;color: #888; border: none;
+}
+body #admin_container #admin_contents .footBtwrap{
+    margin-top: 15px;
+}
+body #admin_container #admin_contents .footBtwrap>li{
+    float: left;width: 50%;height: 60px;
+}
+body #admin_container #admin_contents .footBtwrap>li>button{
+    display: block; width: 100%;height: 100%; font-size: 20px;text-align: center;line-height: 60px;
+
+}
+body #admin_container #admin_contents .fpmgBt1{
+     background-color: #fff; 
+    border: solid 1px rgb(164, 163, 163);
+}
+body #admin_container #admin_contents .fpmgBt2{
+     background-color: #400099;
+    border: solid 1px rgb(164, 163, 163);
+    color: white;
+}
+
+
+
+/* 공방 신청 form */
+body #admin_container #admin_contents #craft_application{
+    /* border: solid 1px rgb(230, 230, 230); */
+    height: 1700px;
+}
+
+body #admin_container #admin_contents #craft_application #application_left{
+    width: 270px;
+    height: 1700px;
+    float: left;    
+}
+
+body #admin_container #admin_contents #craft_application .left_list{
+    margin-top: 30px;
+    border: solid 1px rgb(217, 217, 217);
+    width: 220px;
+    height: 320px;
+    border-radius: 10px;
+}
+body #admin_container #admin_contents #craft_application .left_list span{
+    margin-left: 8px;
+}
+
+body #admin_container #admin_contents  .left_list span{
+    font-size: 13pt;
+    cursor: pointer;
+    color: #595a61b8;
+    display: inline-block;
+}
+body #admin_container #admin_contents  .left_list div{
+    margin: 8%;
+}
+
+body #admin_container #admin_contents .application_right{
+    width: 928px;
+    height: auto;
+    display: inline-block;
+}
+body #admin_container #admin_contents .application_right .list{
+    border: solid 1px 0015a;
+    width: 920px;
+    height: 50px;
+    color: #400099;
+    font-size: 17pt;
+    font-weight: 600;
+}
+body #admin_container #admin_contents .application_right .list span{
+    border-bottom: solid 1px whitesmoke;
+    padding: 0 0 12px 20px;
+    margin-top: 20px;
+}
+
+body #admin_container #admin_contents .application_right span{
+    display: flex;
+    padding-top: 9px;
+    padding-left: 11px;
+}
+body #admin_container #admin_contents .application_right .image{
+    border: solid 1px rgb(214, 214, 214);
+    border-radius: 15px;
+    margin: 40px 10px;
+    height: 60px;
+}
+
+body #admin_container #admin_contents .filebox .upload-name {
+    display: inline-block;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    width: 200px;
+    color: #999999;
+}
+body #admin_container #admin_contents  .filebox label {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #999999;
+    cursor: pointer;
+    height: 44px;
+    margin-left: 10px;
+}
+body #admin_container #admin_contents .filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+
+
+body #admin_container #admin_contents .application_right  .upload{
+    width: 300px;
+    height: 38px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-top: 5px;
+    padding-left: 10px;
+    background-color: rgb(233, 233, 233);
+  }
+  body #admin_container #admin_contents .application_right #self_introduce {
+    width: 500px;
+    height: 180px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-top: 5px;
+    padding-left: 10px;
+    background-color: rgb(233, 233, 233);
+  }
+body #admin_container #admin_contents .application_right .frm_border{
+    border: solid 1px rgb(214, 214, 214);
+    border-radius: 15px;
+    margin: 40px 10px;
+    height: 60px;
+}
+
+body #admin_container #admin_contents .application_right .frm_border_2{
+    border: solid 1px rgb(214, 214, 214);
+    border-radius: 15px;
+    margin: 40px 10px;
+    height: 200px;
+}
+
+body #admin_container #admin_contents .application_right .frm_border_3{
+    border: solid 1px rgb(214, 214, 214);
+    border-radius: 15px;
+    margin: 40px 10px;
+    height: 105px;
+}
+
+body #admin_container #admin_contents .application_right #other_career{
+    width: 500px;
+    height: 80px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-top: 5px;
+    padding-left: 10px;
+    background-color: rgb(233, 233, 233);
+}
+
+
+body #admin_container #admin_contents .application_right p {
+    color: rgb(95, 95, 95);
+    font-weight: 500;
+    font-size: 13pt; 
+    margin-top: 6px;
+    width: 150px;
+    padding-left: 4px;
+}
+
+/*중복검사 버튼*/
+body #admin_container #admin_contents .application_right .check_button{
+    padding: 10px 10px;
+    color: #fff;
+    font-size: 11pt;
+    vertical-align: middle;
+    background-color: #999999;
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    margin-left: 10px;
+    border: #f7f7f7;
+    border-radius: 10px;
+}
+
+/* 전문분야 체크박스*/
+
+body #admin_container #admin_contents .application_right #specialized_chkBox{
+    margin-top: 6px;
+    width: 350px;
+    font-size: 13pt;
+    color: 444;
+    color: rgb(86, 86, 86);
+
+}
+
+body #admin_container #admin_contents .application_right #specialized_chkBox input[type="checkbox"] {
+    margin: 2%;
+}
+
+
+
+/*총 경력기간 select 태그 css*/
+body #admin_container #admin_contents .application_right select {
+    font-size: 12pt;
+    width: 150px;
+    height: 35px;
+    padding: 5px 30px 5px 10px;
+    border-radius: 4px;
+    outline: 0 none;
+  }
+
+body #admin_container #admin_contents .application_right select option{
+    background:#efefefe2;
+    color: rgb(67, 67, 67);
+    padding: 3px 0;
+}
+
+
+body #admin_container #admin_contents .application_right .Certificate{
+    border: solid 1px rgb(214, 214, 214);
+    border-radius: 15px;
+    margin: 40px 10px;
+    height: 60px;
+}
+
+body #admin_container #admin_contents .submit_box{
+    margin: 40px 10px;
+    height: 60px;
+    text-align: center;
+    padding-top: 35px;
+}
+
+body #admin_container #admin_contents .submit_box .submit_go{
+    border-radius: 28px;
+    box-sizing: border-box;
+    background-color: #400099;
+    border:#400099 ;
+    color: #fff;
+    display: inline-block;
+    font-size: 18px;
+    height: 56px;
+    letter-spacing: -.45px;
+    line-height: 26px;
+    padding: 14px 15px;
+    text-align: center;
+    width: 180px;
+}
+
+body #admin_container #admin_contents .submit_box .submit_back{
+    border-radius: 28px;
+    box-sizing: border-box;
+    background: #fff;
+    border: solid 0.4px #b9b9b9;
+    color: #1a1325;
+    display: inline-block;
+    font-size: 18px;
+    height: 56px;
+    letter-spacing: -.45px;
+    line-height: 26px;
+    padding: 14px 15px;
+    text-align: center;
+    width: 180px;
+}
+
+
+/* (어드민) 공방 신청 완료 본문시작 */
+body #admin_container #admin_contents #admin_complete{
+    border: solid 1px rgb(177, 177, 177);
+    border-radius: 12px;
+    margin: 0 auto;
+    width: 1100px;
+    height: 330px;
+}
+
+body #admin_container #admin_contents #complete{
+    border-bottom: solid 1px rgb(177, 177, 177);
+    margin: 0 auto;
+    width: 950px;
+    font-size: 20pt;
+    padding: 30px 0px 20px 0px;
+    font-weight: 600;
+    color: #400099;
+}
+
+body #admin_container #admin_contents #complete_content{
+    margin: 0 auto;
+    width: 940px;
+    font-size: 14pt;
+    padding: 20px 10px;
+    color: #646464;
+}
+
+
+/* ==== 김진솔 끝========================================================================================= */
 
