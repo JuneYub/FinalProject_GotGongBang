@@ -713,12 +713,12 @@ body #admin_container #admin_contents .fpmgBt2{
 /* 공방 신청 form */
 body #admin_container #admin_contents #craft_application{
     /* border: solid 1px rgb(230, 230, 230); */
-    height: 1700px;
+    height: 2000px;
 }
 
 body #admin_container #admin_contents #craft_application #application_left{
     width: 270px;
-    height: 1700px;
+    height: 2000px;
     float: left;    
 }
 

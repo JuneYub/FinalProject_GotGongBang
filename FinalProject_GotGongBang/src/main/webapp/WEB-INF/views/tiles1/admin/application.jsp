@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%
    String ctxPath = request.getContextPath();
@@ -240,29 +241,67 @@
 		});
 		
 		
-		/*
+		// 총 경력사항 선택 필수입력
 		$("select#career").blur( (e) => {
-			if(){
+			let career = $("#career").val();
+			if(!career){
 				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
-				$("input.specialized_field").prop("disabled", false);
+				$(e.target).prop("disabled", false);
 
 				$(e.target).parent().find("span.error").show();
-				$(e.target).focus();	//다른곳을 클릭 못하게 함 e.target에 포커스 머무름
-
-			}else{
-				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
-				$(e.target).parent().find("span.error").hide();
+				$("#career").focus();	//다른곳을 클릭 못하게 함 e.target에 포커스 머무름
+				return false;
 			}
-			
+			$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+			$(e.target).parent().find("span.error").hide();
 		});
 		
 		
-		*/
-		
 
+		
+		// 희망급여 필수입력
+		$("input#salary").blur( (e) => {
+			if($(e.target).val().trim() == ""){	
+				
+				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
+				$(e.target).prop("disabled", false);
+				
+				
+				$(e.target).parent().find("span.error").show();
+				$(e.target).focus();	//다른곳을 클릭 못하게 함 e.target에 포커스 머무름
+				
+			}else{
+				//공백이 아닌 숫자를 입력했을 경우
+				/*
+				const regExp = /^[1-9][0-9]{1,5}$/g;
+				const bool = regExp.test($(e.target).val());
+				
+				$(e.target).parent().find("span.error_2").hide();
+				
+				if(bool){	//정규표현식에 만족한 경우
+					$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+					$(e.target).parent().find("span.error").hide();
+					
+				}
+				else{	//정규표현식 만족하지 못 한 경우
+					$(e.target).parent().find("span.error_2").show();
+				}
+				*/
+				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+
+			}
+		});
+		
+		
+		
+		
+		
+		
+		
 	}); // end of $(document).ready(function() ----------------------------
 				
 	
+			
 	////////////Function declare ////////////
 	function goComplete() {
 			
@@ -273,6 +312,25 @@
 		frm.submit();
 		*/
 	}
+	
+	
+	////// 희망급여 콤마포함 숫자만 입력 /////
+	function comma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    }
+
+    function uncomma(str) {
+        str = String(str);
+        return str.replace(/[^\d]+/g, '');
+    } 
+    
+    function inputNumberFormat(obj) {
+        obj.value = comma(uncomma(obj.value));
+    }
+    //////////////////////////////
+	
+	
 </script>
 
 <!-- (어드민) 공방 신청 본문시작 -->
@@ -302,7 +360,7 @@
                 </div>
             </div>
 
-            <form name="craft_application_frm">
+            <form name="craft_application_frm" >
 
                 <div class="application_right">
 	                    <p style="display: inline; magin:0; float: right; width: 210px; height: 10px; font-size: 12pt;"> * 표시는 필수 입력사항입니다.</p>
@@ -316,6 +374,16 @@
                                 <label for="file">파일찾기</label> 
                                 <input type="file" id="file"/>
                                 <span class="error" style="display: inline-block; margin:0 0 30px 20px; color:#400099;">※ 공방 사진은 필수입력 사항입니다.</span>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="image">
+                        <span> <p> * 공방 대표자 사진</p>
+                            <div class="filebox" >
+                                <input class="upload-name" id="upload-image" value="" placeholder="첨부파일" style="margin-bottom: 10px;" readonly="readonly" required="required"/>
+                                <label for="file">파일찾기</label> 
+                                <input type="file" id="file"/>
+                                <span class="error" style="display: inline-block; margin:0 0 30px 20px; color:#400099;">※ 공방 대표자 사진은 필수입력 사항입니다.</span>
                             </div>
                         </span>
                     </div>
@@ -396,18 +464,18 @@
                         <span> <p> * 총 경력기간</p>
                             <label for="career_term"></label>
                             <select name = "career" id="career">
-                                <option value="select" class="careerPick" >선택하세요</option>
-                                <option value="newcomer" class="careerPick">신입</option>
-                                <option value="one" class="careerPick">1년</option>
-                                <option value="two" class="careerPick">2년</option>
-                                <option value="three" class="careerPick">3년</option>
-                                <option value="four" class="careerPick">4년</option>
-                                <option value="five" class="careerPick">5년</option>
-                                <option value="six" class="careerPick">6년</option>
-                                <option value="seven" class="careerPick">7년</option>
-                                <option value="eight" class="careerPick">8년이상</option>
+                                <option value="">선택하세요</option>
+                                <option value="newcomer">신입</option>
+                                <option value="one">1년</option>
+                                <option value="two">2년</option>
+                                <option value="three">3년</option>
+                                <option value="four">4년</option>
+                                <option value="five">5년</option>
+                                <option value="six">6년</option>
+                                <option value="seven">7년</option>
+                                <option value="eight">8년이상</option>
                             </select>
-                            <span class="error" style="display: inline-block; color:#400099;  margin-left:20px;">※ 전문분야는 필수입력 사항입니다.</span>
+                            <span class="error" style="display: inline-block; color:#400099;  margin-left:20px;">※ 경력사항은 필수입력 사항입니다.</span>
                         </span>
                     </div>
                     <div class="frm_border_3">
@@ -436,8 +504,10 @@
                     <div class="list"><span><image src="resources/img/admin/single (1).png" width="32" />&nbsp;&nbsp;희망급여</span></div>
                     <div class="frm_border">
                         <span> <p> * 희망급여</p> 
-                            <input type="text" class="upload" id="salary" style="text-align:right; padding-right: 15px;" placeholder="1,000원 단위로 입력하세요."/><span>원</span>
+                           <input type="text" class="upload" id="salary" maxlength="7"  style="text-align:right; padding-right: 15px;" onkeyup="inputNumberFormat(this);" placeholder="1,000원 단위로 입력하세요."/><span>천원</span>
                         	<span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 희망급여는 필수입력 사항입니다.</span>
+                            <span class="error_2" style="display: inline-block; color:#400099; margin-left:20px;">※ 희망급여는 숫자로만 입력 가능합니다.</span>
+                        
                         </span>
                     </div>
                 </div>
