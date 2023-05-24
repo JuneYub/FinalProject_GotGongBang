@@ -610,6 +610,77 @@ div.contents-review-promotional {
 	transition: 0.1s ease;
 }
 
+.popup-container {
+	padding: 30px 15px;
+}
+
+.popup-container #requestEstimate {
+	border: 1px solid black;
+	box-shadow: 1px 1px 1px;
+	border-radius: 5px;
+}
+
+.popup-container #requestEstimate .tit-estimate {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
+}
+
+.popup-container #requestEstimate .tbl-estimate {
+	width: 100%;
+}
+
+.popup-container #requestEstimate .tbl-estimate td {
+	border-top: 1px solid black;
+	width: 30px;
+	padding: 5px 6px;
+}
+
+.popup-container #requestEstimate .tbl-estimate tr td:first-child {
+	text-align: center;
+	border-right: 1px solid black;
+}
+
+.cont-proposal {
+	display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.cont-proposal h3 {
+	display: inline-block;
+}
+
+.cont-proposal .input-proposal {
+	margin-left: 20px;
+	text-align: right;
+}
+
+.cont-bid-final {
+	display: flex;
+	justify-content: center;
+	color: white;
+	font-size: 20px;
+	margin-top: 50px;
+}
+
+.cont-bid-final a {
+	width: 190px;
+	height: 60px;
+	background-color: #400099;
+	justify-content: center;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    
+}
+
+.cont-bid-final a:hover {
+	box-shadow: 1px 1px 1px black;
+}
+
+
 
 /* ======================== 애니메이션 모음 =========================================== */
 .fade-in {

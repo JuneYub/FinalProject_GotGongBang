@@ -33,9 +33,9 @@
 	<div class="myPage-contents">
 		<div class="myPage-menu-list">
 			<ul>
-				<li class="menu-list-selected"><a class="menu-list-selected" href="">입찰</a></li>
-				<li><a class="" href="">수선 내역 관리</a></li>
-				<li><a class="" href="">개인 정보 변경</a></li>
+				<li class="menu-list-selected"><a class="menu-list-selected" href="<%= ctxPath%>/estimate_inquiry_list.got"">견적 목록</a></li>
+				<li><a class="" href="<%= ctxPath%>/repair_history_list.got"">수선 내역 관리</a></li>
+				<li><a class="" href="<%= ctxPath%>/estimate_inquiry_list.got"">개인 정보 변경</a></li>
 			</ul>
 		</div>
 		
@@ -66,7 +66,7 @@
 
 					<td>
 					<button class="btn-estimateDetail" onclick="openBidPage()">상세보기</button>
-					<div>입찰 대기중</div>
+					<div>견적제안 대기중</div>
 					</td>
 					</tr>
 					
@@ -86,7 +86,7 @@
 
 					<td>
 					<button class="btn-estimateDetail" onclick="openBidPage()">상세보기</button>
-					<div>입찰 대기중</div>
+					<div>견적제안 대기중</div>
 					</td>
 					</tr>
 					
@@ -106,7 +106,7 @@
 
 					<td>
 					<button class="btn-estimateDetail" onclick="openBidPage()">상세 보기</button>
-					<div>입찰 대기중</div>
+					<div>견적제안 대기중</div>
 					</td>
 					</tr>
 				</tbody>
