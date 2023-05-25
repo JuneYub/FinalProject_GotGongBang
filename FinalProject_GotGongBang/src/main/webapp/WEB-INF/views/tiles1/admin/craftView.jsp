@@ -7,8 +7,15 @@
 <%
    String ctxPath = request.getContextPath();
 %>   
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <script>
+
+	$(document).ready(function() {
+		
+		
+		
+	});
+
 </script>
 
 
@@ -39,9 +46,9 @@
                         <div class="frm_border" style="height:80px;">
                             <span> <p>공방 상태<br>(임시/정식)</p>
                                 <div id="specialized_chkBox" style="margin-top: 17px;">
-                                    임시<input type="checkbox" value="temporarily"/>
+                                     	임시<input type="checkbox" id="temporarily" value="temporarily"/>
                                     <label for=""></label>
-                                    정식<input type="checkbox" value="formal"/>
+                                    	정식<input type="checkbox" id="formal" value="formal"/>
                                     <label for="specialized_chk2"></label>          
                                 </div>                      
                             </span>
