@@ -1091,6 +1091,94 @@ body #admin_container #admin_contents #complete_content{
 }
 
 
+/********************************************************/
+/*admin 공방 목록보기*/
+
+body #admin_container #craft_application .craft_list {
+   /* border: solid 1px rgb(145, 145, 145); */
+    margin: 30px auto;
+}
+
+body #admin_container #craft_application table{
+    border-collapse: collapse;
+}
+
+body #admin_container #craft_application .craft_list thead{
+    background-color: #f0f0f0d1;
+    color: #868686;
+}
+
+body #admin_container #craft_application .craft_list thead tr th{
+    padding: 13px;
+    font-size: 13pt;
+}
+body #admin_container #craft_application .craft_list tbody tr td {
+    padding: 13px;
+    text-align: center;
+    font-size: 12pt;
+    border-bottom: 1px solid #c7c7c7;
+    color:rgb(95, 95, 95);
+}
+
+/*admin 공방 정보 상세 보기*/
+
+body #admin_container #craft_application .craftOneView .view{
+    width: 300px;
+    height: 38px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-top: 5px;
+    padding-left: 10px;
+    background-color: rgb(233, 233, 233);
+}
+
+body #admin_container #craft_application #view_address span span{
+    width: 738px;
+    float: right;
+}
+
+body #craft_application .application_right .craftOneView_btn{
+    text-align: center;
+    margin:30px 0;
+}
+
+
+body #craft_application .application_right .craftOneView_btn .del{
+    border-radius: 28px;
+    box-sizing: border-box;
+    background-color: #400099;
+    border:#400099 ;
+    color: #fff;
+    display: inline-block;
+    font-size: 18px;
+    height: 56px;
+    letter-spacing: -.45px;
+    line-height: 26px;
+    padding: 14px 15px;
+    text-align: center;
+    width: 180px;
+}
+
+body #craft_application .application_right .craftOneView_btn .update {
+    border-radius: 28px;
+    box-sizing: border-box;
+    background: #fff;
+    border: solid 0.4px #b9b9b9;
+    color: #1a1325;
+    display: inline-block;
+    font-size: 18px;
+    height: 56px;
+    letter-spacing: -.45px;
+    line-height: 26px;
+    padding: 14px 15px;
+    text-align: center;
+    width: 180px;
+}
+
+
+
 /* ==== 김진솔 끝========================================================================================= */
 
 
