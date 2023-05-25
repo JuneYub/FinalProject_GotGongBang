@@ -118,14 +118,18 @@
                                <input type="text" class="view" style="text-align:right; padding-right: 15px;" /><span>천원</span>
                             </span>
                         </div>
+                        <div class="frm_border">
+                            <span> <p> * 평점</p> 
+                               <input type="text" class="view" style="padding-right: 15px;" />
+                            </span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="application_right">
                     <div class="craftOneView_btn">
                         <button class="del" type="button" onclick="">삭제</button>
-                        <!--임시공방일 때-->
-			    <button class="update" type="button" onclick="">수정</button>
+					    <button class="update" type="button" onclick="">수정</button>
                     </div>
                 </div>
 
