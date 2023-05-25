@@ -1335,8 +1335,7 @@ div.listFlex{
 
 img.listImg{
 	padding-left: 30px; 
-	width:150px; 
-	height:150px;
+
 }
 
 p.listMarginLeft{
@@ -1350,6 +1349,34 @@ p.listpText{
 	position: relative;
 	bottom: 120px;
 	left: 180px;
+}
+
+p.listCondition{
+	 font-size: 25pt;  
+	 font-weight: bold; 
+	 margin-bottom: 13px;
+}
+
+div.listBorderDiv{
+	width:fit-content; 
+	margin-left: 46px; 
+	padding-top:55px; 
+}
+
+p.listDate{
+	color: grey;
+	font-size: 14pt;
+}
+
+p.listOrderName{
+	font-size: 21pt; 
+	padding-bottom: 101px;
+}
+
+a.listAnchor{
+	color:#400099; 
+	font-weight:bold; 
+	font-size: 22px;
 }
 
 ----------orderDetail
@@ -1375,21 +1402,32 @@ img.detailImage{
 	padding-left: 30px;
 }
 
+div.detailDivBorder{
+	border:solid 1px gray; 
+	border-radius:10px;
+	background-color:white;
+	margin:15px 0; 
+	padding:25px 0; 
+	padding-left:40px; 
+	display:flex;
+	
+}
+
 p.detailPName{
 	margin-left:30px; 
 	font-weight:bold;
-	margin-top:20px; 
+	margin-top:-3px; 
 	font-size:15pt;
 }
 
 div.detailMargin{
-	margin-top:40px;
+	margin-top:30px;
 }
 
 
 div.detailDiv{
 	display:flex; 
-	margin-left:30px; 
+	margin-left:72px; 
 	margin-bottom:8px;
 }
 
@@ -1397,6 +1435,13 @@ div.detailBorder{
 	border:solid 1px gray; 
 	border-radius:10px; 
 	background-color:white; 
+	margin:15px 0; 
+	height: 200px; 
+	padding:25px 10px;
+}  
+
+div.detailNoBorder{
+	border-radius:10px; 
 	margin:15px 0; 
 	height: 200px; 
 	padding:25px 10px;
@@ -1452,8 +1497,15 @@ div.payDivFlex2{
 div.payDivFlex3{
 	display:flex; 
 	margin-left:30px; 
-	margin-top:10px; 
+	margin-top:40px; 
 	margin-bottom:8px;
+}
+
+div.payDivFlex4{
+	display:flex; 
+	margin-left:30px; 
+	margin-bottom:8px;
+	
 }
 
 p.payFont{
@@ -1505,4 +1557,397 @@ div#resultContent{
 	
 }
 
+div.resultDivFlex3{
+	display:flex; 
+	margin-left:30px; 
+	margin-top:10px;
+	margin-bottom: 20px;
+}
+
+div.resultDivFlex4{
+	display:flex; 
+	margin-left:30px; 
+	margin-top:50px;
+	margin-bottom: 20px;
+}
+
+div.resultDivNoBorder{
+	border-radius:10px;
+	margin:15px 0; 
+	padding:25px 0; 
+	padding-left:20px; 
+	display:flex;
+	
+}
+
+
+------selectGongbang
+
+hr.hrMarginTop{
+	margin-top: 50px;
+}
+
+----
+div.imgCircle
+{
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+img.imgCircle
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+div.imgCircle2 {
+   width: 200px;
+   height: 200px;
+}
+img.imgCircle2 {
+   position: static;
+}
+
 /* ==== 이지현 끝========================================================================================= */
+
+
+/* ================================= 오 준 혁 시 작 =============================== */
+
+a {
+    text-decoration: none;
+}
+.ojh_page_content_inquire {
+    border: solid 0px red;
+    padding-bottom: 200px;
+}
+
+.ojh_page-header {
+    border: solid 0px #5411d2;
+    width: 1200px;
+    height: 200px;
+    margin: 0px auto;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.ojh_page-header--customer {
+    background-color: #986ee5;
+}
+
+.page-header__title {
+    padding: 75px 0px 0px 0px;
+    color: #fff;
+    font-size: 35px;
+    font-weight: 700;
+    font-family: NanumSquare,Arial,sans-serif;
+}
+
+.page-header__title [aria-hidden=true] {
+    clip: rect(0,0,0,0);
+    border: 0;
+    -webkit-clip-path: inset(0 0 99.9% 99.9%);
+    clip-path: inset(0 0 99.9% 99.9%);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.page-header__backdrop-item {
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    left: 50%;
+    position: absolute;
+
+    animation: 5s ease infinite;
+}
+
+
+
+.ojh_page-header .page-header__backdrop-item:first-child {
+    border: solid 0px #000;
+    animation-name: page-header-backdrop-1;
+    background-image: url(../img/board/bg_header_backgrop_1.png);
+    height: 220px;
+    width: 135px;
+    margin-left: -500px;
+}
+
+@keyframes page-header-backdrop-1 {
+    0% {
+         opacity:0; 
+         transform:translateY(-50px); 
+    }
+
+    15% {
+         opacity:1; 
+         transform:translateY(0); 
+    }
+
+    95% {
+         opacity:1; 
+         transform:translateY(0); 
+    }
+
+    to {
+         opacity:0; 
+    }
+}
+
+.ojh_page-header .page-header__backdrop-item:nth-child(2) {
+    border: solid 0px #000;
+    animation-name: page-header-backdrop-2;
+    background-image: url(../img/board/bg_header_backgrop_1.png);
+    height: 159px;
+    margin-left: -384px;
+    width: 78px;
+}
+
+@keyframes page-header-backdrop-2 {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    3% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    18% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    95% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    to {
+        opacity: 0
+    }
+}
+
+.ojh_page-header .page-header__backdrop-item:nth-child(3) {
+    animation-name: page-header-backdrop-3;
+    background-image: url(../img/board/bg_header_backgrop_1.png);
+    height: 210px;
+    margin-left: 245px;
+    width: 110px;
+}
+
+@keyframes page-header-backdrop-3 {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    3% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    18% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    95% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    to {
+        opacity: 0
+    }
+}
+
+.ojh_page-header .page-header__backdrop-item:nth-child(4) {
+    animation-name: page-header-backdrop-3;
+    background-image: url(../img/board/bg_header_backgrop_2.png);
+    height: 216px;
+    margin-left: 318px;
+    width: 135px;
+}
+
+@keyframes page-header-backdrop-4 {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    9% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    24% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    95% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    to {
+        opacity: 0
+    }
+}
+
+.ojh_form{
+    margin: 50px auto 0;
+    width: 1200px;
+}
+
+.ojh_form strong {
+    color: #e6344a;
+    font-weight: 700;
+}
+
+.ojh_form-input[type=text] {
+    border-radius: 0;
+    border-width: 0 0 1px;
+    height: 60px;
+}
+
+.ojh_form legend {
+    border: solid 0px #5411d2;
+    color: #000;
+    font-family: inherit;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 30px 0;
+}
+
+.ojh_form legend+p {
+    border: solid 0px #5411d2;
+    height: 50px;
+    margin-top: -50px;
+    padding-left: 165px;
+}
+.ojh_table {
+    border-collapse: collapse;
+    border-top: 1px solid #000;
+    width: 100%;
+}
+
+.ojh_table th, .ojh_table td{
+   
+    padding-top: 30px;
+}
+
+.ojh_table th {
+    padding: 30px 0px 0px 25px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 3.0;
+    vertical-align: top;
+    width: 170px;
+    text-align: left
+}
+
+.ojh_form-input {
+    width: 100%;
+    font-family: NanumSquare,Arial,sans-serif;
+    font-weight: 700;
+    box-sizing: border-box;
+    padding: 13px 20px;
+    border-color: #b9b9b9;
+    
+}
+
+.ojh_form-attached-file {
+    align-items: flex-start;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.ojh_form-attached-file__trigger-name {
+    background: #400099 url(../img/board/icon_attached_file_trigger.png) no-repeat 22px 50%/24px auto;
+    color: white;
+    display: block;
+    font-size: 14px;
+    height: 52px;
+    line-height: 52px;
+    padding-left: 25px;
+    text-align: center;
+    width: 136px;
+    box-sizing: border-box;
+}
+
+.ojh_form-attached-file__trigger-file {
+    border: solid 0px #5411d2;
+    clip: rect(0,0,0,0);
+    border: 0;
+    -webkit-clip-path: inset(0 0 99.9% 99.9%);
+    clip-path: inset(0 0 99.9% 99.9%);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.ojh_form-attached-file__info {
+    color: #565656;
+    font-size: 16px;
+    line-height: 1.5;
+    position: relative;
+    padding:10px 10px 10px 20px;
+
+}
+
+.ojh_cancle_button {
+    background: #fff;
+    color: #400099;
+}
+
+
+.ojh_button {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: #fff;
+    border: solid 0px #5411d2;
+    appearance: none;
+    background: #400099;
+    border: 1px solid #400099;
+    border-radius: 28px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 18px;
+    height: 56px;
+    letter-spacing: -.45px;
+    line-height: 26px;
+    padding: 14px 15px;
+    text-align: center;
+    width: 180px;
+}
+
+#ojh_form_ul {
+    border: solid 0px #5411d2;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+}
+
+
+/* ================================= 오 준 혁 끄 읕 =============================== */
