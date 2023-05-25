@@ -1,6 +1,8 @@
 package com.spring.gotgongbang.board.controller;
 
 import org.springframework.stereotype.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Component
 @Controller
@@ -27,6 +29,15 @@ public class BoardController {
 
 	// 오준혁 시작
 		// ===========================================================================
+	@RequestMapping(value="/Boardinquiry.got")
+    public ModelAndView getBoardinquiry(ModelAndView mav) {
+		
+		mav.setViewName("/board/board_inquiry.tiles1");
+		
+		return mav;
+	}
+			
+	
 		// 오준혁 끝
 		// ===========================================================================
 

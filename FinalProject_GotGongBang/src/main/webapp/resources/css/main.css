@@ -562,7 +562,7 @@ div.contents-review-promotional {
 	width: 950px;
 }
 
-.myPage-cont table.tbl-estimateList {
+.myPage-cont table.tbl-myPageList {
     border-bottom: 1px #6d6d6d solid;
     margin-top: 10px;
     font-size: 20px;
@@ -571,24 +571,24 @@ div.contents-review-promotional {
     overflow: hidden;
 }
 
-.myPage-cont table.tbl-estimateList thead {
+.myPage-cont table.tbl-myPageList thead {
 	font-weight: bold;
 	color: #fff;
 	background: #400099;
 }
 
-.myPage-cont table.tbl-estimateList thead th {
+.myPage-cont table.tbl-myPageList thead th {
 	text-align: center;
 }
 
-.myPage-cont table.tbl-estimateList tbody td {
+.myPage-cont table.tbl-myPageList tbody td {
 	text-align: center;
 	font-size: 17px;
 	padding: 10px 0px;
 
 }
 
-.myPage-cont table.tbl-estimateList tbody tr {
+.myPage-cont table.tbl-myPageList tbody tr {
 	box-shadow: 1px 1px 1px #6D6D6D;
 }
 
@@ -599,16 +599,114 @@ div.contents-review-promotional {
 	margin: 0px auto;
 }
 
+.txt-estimate-info {
+	text-align: left;
+	font-size: 14px;
+}
+
 .btn-estimateDetail {
 	border: 1px solid #6D6D6D;
 	background-color: white;
 	padding: 4px;
+	box-shadow: 1px 1px 1px black;
+	margin-bottom: 5px;
 }
 
 .btn-estimateDetail:hover {
 	border: 3px solid #6D6D6D;
 	transition: 0.1s ease;
 }
+
+.popup-container {
+	padding: 30px 15px;
+}
+
+.popup-container #requestEstimate {
+	border: 1px solid black;
+	box-shadow: 1px 1px 1px;
+	border-radius: 5px;
+}
+
+.popup-container #requestEstimate .tit-estimate {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
+}
+
+.popup-container #requestEstimate .tbl-estimate {
+	width: 100%;
+}
+
+.popup-container #requestEstimate .tbl-estimate td {
+	border-top: 1px solid black;
+	width: 30px;
+	padding: 5px 6px;
+}
+
+.popup-container #requestEstimate .tbl-estimate tr td:first-child {
+	text-align: center;
+	border-right: 1px solid black;
+}
+
+.cont-proposal {
+	display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.cont-proposal h3 {
+	display: inline-block;
+}
+
+.cont-proposal .input-proposal {
+	margin-left: 20px;
+	text-align: right;
+}
+
+.cont-bid-final {
+	display: flex;
+	justify-content: center;
+	color: white;
+	font-size: 20px;
+	margin-top: 50px;
+}
+
+.cont-bid-final a {
+	width: 190px;
+	height: 60px;
+	background-color: #400099;
+	justify-content: center;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    
+}
+
+.cont-bid-final a:hover {
+	box-shadow: 1px 1px 1px black;
+}
+
+.tbl-myPageList .btn-save-state {
+	display: block;
+    margin: 15px auto;
+    border: 1px solid #6D6D6D;
+    background-color: white;
+    padding: 8px;
+    box-shadow: 1px 1px 1px black;
+}
+
+.tbl-myPageList .btn-save-state:hover {
+	border: 3px solid #6D6D6D;
+	transition: 0.1s ease;
+}
+
+.tbl-myPageList .txt-order-info {
+	font-size: 14px;
+	text-align: left;
+}
+
+
 
 
 /* ======================== 애니메이션 모음 =========================================== */
@@ -713,12 +811,12 @@ body #admin_container #admin_contents .fpmgBt2{
 /* 공방 신청 form */
 body #admin_container #admin_contents #craft_application{
     /* border: solid 1px rgb(230, 230, 230); */
-    height: 1700px;
+    height: 2000px;
 }
 
 body #admin_container #admin_contents #craft_application #application_left{
     width: 270px;
-    height: 1700px;
+    height: 2000px;
     float: left;    
 }
 
@@ -991,6 +1089,94 @@ body #admin_container #admin_contents #complete_content{
     padding: 20px 10px;
     color: #646464;
 }
+
+
+/********************************************************/
+/*admin 공방 목록보기*/
+
+body #admin_container #craft_application .craft_list {
+   /* border: solid 1px rgb(145, 145, 145); */
+    margin: 30px auto;
+}
+
+body #admin_container #craft_application table{
+    border-collapse: collapse;
+}
+
+body #admin_container #craft_application .craft_list thead{
+    background-color: #f0f0f0d1;
+    color: #868686;
+}
+
+body #admin_container #craft_application .craft_list thead tr th{
+    padding: 13px;
+    font-size: 13pt;
+}
+body #admin_container #craft_application .craft_list tbody tr td {
+    padding: 13px;
+    text-align: center;
+    font-size: 12pt;
+    border-bottom: 1px solid #c7c7c7;
+    color:rgb(95, 95, 95);
+}
+
+/*admin 공방 정보 상세 보기*/
+
+body #admin_container #craft_application .craftOneView .view{
+    width: 300px;
+    height: 38px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-top: 5px;
+    padding-left: 10px;
+    background-color: rgb(233, 233, 233);
+}
+
+body #admin_container #craft_application #view_address span span{
+    width: 738px;
+    float: right;
+}
+
+body #craft_application .application_right .craftOneView_btn{
+    text-align: center;
+    margin:30px 0;
+}
+
+
+body #craft_application .application_right .craftOneView_btn .del{
+    border-radius: 28px;
+    box-sizing: border-box;
+    background-color: #400099;
+    border:#400099 ;
+    color: #fff;
+    display: inline-block;
+    font-size: 18px;
+    height: 56px;
+    letter-spacing: -.45px;
+    line-height: 26px;
+    padding: 14px 15px;
+    text-align: center;
+    width: 180px;
+}
+
+body #craft_application .application_right .craftOneView_btn .update {
+    border-radius: 28px;
+    box-sizing: border-box;
+    background: #fff;
+    border: solid 0.4px #b9b9b9;
+    color: #1a1325;
+    display: inline-block;
+    font-size: 18px;
+    height: 56px;
+    letter-spacing: -.45px;
+    line-height: 26px;
+    padding: 14px 15px;
+    text-align: center;
+    width: 180px;
+}
+
 
 
 /* ==== 김진솔 끝========================================================================================= */
