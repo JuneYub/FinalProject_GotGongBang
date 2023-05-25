@@ -26,7 +26,7 @@
                         Admin
                     </div>
                     <div>
-                        <image src="image/icon_check.png" width="18"/><span>공방 목록</span>
+                        <image src="resources/img/admin/icon_check.png" width="18"/><span>공방 목록</span>
                     </div>
                     
                 </div>
