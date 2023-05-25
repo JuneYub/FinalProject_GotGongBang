@@ -562,6 +562,12 @@ div.contents-review-promotional {
 	width: 950px;
 }
 
+.myPage-container .myPage-contents .myPage-cont h4 {
+	margin: 25px 0 10px 15px;
+    color: #400099;
+    font-weight: 600;
+}
+
 .myPage-cont table.tbl-myPageList {
     border-bottom: 1px #6d6d6d solid;
     margin-top: 10px;
@@ -704,6 +710,45 @@ div.contents-review-promotional {
 .tbl-myPageList .txt-order-info {
 	font-size: 14px;
 	text-align: left;
+}
+
+.tbl-edit-myInfo {
+	border-top: 2px solid black;
+	width: 100%;
+	font-size: 15px;
+}
+
+.tbl-edit-myInfo tbody tr th, td {
+	border-bottom: 1px solid #6D6D6D;
+	text-align: left;
+    vertical-align: middle;
+}
+
+.tbl-edit-myInfo tbody tr th {
+	background-color: #f7f7f7;
+	padding: 4px 0 0 19px;
+	color: #777;
+}
+
+.tbl-edit-myInfo td { 
+	padding: 8px 12px 6px 12px;
+	color: #444;
+}
+
+.btn-center {
+	width: 100%;
+	text-align: center;
+}
+
+.btn-center .btn-edit-info {
+	display: inline-block;
+	background-color: #400099;
+	color: white;
+	margin-top: 30px;
+	width: 130px;
+	height: 40px;
+	padding-top: 5px;
+	box-shadow: 1px 1px 2px black;
 }
 
 

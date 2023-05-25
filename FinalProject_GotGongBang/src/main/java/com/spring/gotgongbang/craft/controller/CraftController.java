@@ -39,6 +39,12 @@ public class CraftController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/edit_craft_user_info.got")
+	public ModelAndView editCraftInfo(ModelAndView mav) {
+		mav.setViewName("/craft/editCraftUserInfo.tiles1");
+		return mav;
+	}
+	
 	// 박준엽 끝
 	// ===========================================================================
 
