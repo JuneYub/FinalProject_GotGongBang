@@ -36,7 +36,7 @@ div#detailContent {
 <!-- 본문시작 -->
 <!-- <div id="container"> -->
 	<div id="detailContent">
-    	<p class="listCenter">의뢰상세</p> 
+    	<p class="listCenter">공방 선정</p> 
     	<div class="detailDivBorder">
 			<div class="detailDivFlex imgCircle imgCircle2" >
 				<img src="<%=ctxPath%>/resources/img/main_test.jpg" class=" imgCircle2 imgCircle" >
@@ -70,14 +70,16 @@ div#detailContent {
 				</div>
 			</div>
 		</div>
+		
+		
      	
-     	<div class="detailNoBorder">
+     	<div class="detailBorder">
     		<p class="orderMargin listTitle">기다려주셔서 감사합니다</p>
     		<p class="orderMargin listTitle">견적 금액 : 200,000</p>
     	</div>
     	
 		<p class="pCenter">
-	   		<button type="button" class="orderButton">결제하기</button>			
+	   		<button type="button" class="orderButton">선정하기</button>			
 		</p>
 	</div>
 <!-- </div> -->
