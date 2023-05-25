@@ -367,6 +367,14 @@
 	                <div class="list">
 	                    <span><image src="resources/img/admin/single (1).png" width="35"/>&nbsp;&nbsp;공방 기본 정보</span>
                     </div>
+                     <div class="frm_border">
+                        <span> <p> * 공방 이름</p>
+                            <input type="text" class="upload" id="nickname" maxlength="10"/>
+                            <input type="button" class="check_button" id="check_button" value="중복 확인" onclick="">
+                            <span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 이름은 필수입력 사항입니다.</span>
+                            <span class="error_2" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 이름은 한글로만 입력 가능합니다.</span>
+                        </span>
+                    </div>
                     <div class="image">
                         <span> <p> * 공방 사진</p>
                             <div class="filebox" >
@@ -387,14 +395,7 @@
                             </div>
                         </span>
                     </div>
-                    <div class="frm_border">
-                        <span> <p> * 공방 이름</p>
-                            <input type="text" class="upload" id="nickname" maxlength="10"/>
-                            <input type="button" class="check_button" id="check_button" value="중복 확인" onclick="">
-                            <span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 이름은 필수입력 사항입니다.</span>
-                            <span class="error_2" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 이름은 한글로만 입력 가능합니다.</span>
-                        </span>
-                    </div>
+            
                  
                     <!-- <div class="frm_border">
                         <span> <p> * 지역</p>
