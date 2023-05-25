@@ -24,7 +24,7 @@
                          Admin
                      </div>
                      <div>
-                         <image src="image/icon_check.png" width="18"/><span>공방 목록</span>
+                         <image src="resources/img/admin/icon_check.png" width="18"/><span>공방 목록</span>
                      </div>
                  </div>
              </div>
@@ -32,7 +32,7 @@
              <form name="craft_application_frm">
 
                  <div class="application_right" style="height: auto; margin-top: 10px;">
-                     <div class="list"><span><image src="image/list_2 (2).png" width="35"/>&nbsp;&nbsp;공방 목록</span></div>
+                     <div class="list"><span><image src="resources/img/admin/list_2 (2).png" width="35"/>&nbsp;&nbsp;공방 목록</span></div>
                      <table style="width: 900px" class="craft_list">
 
                          <thead>
