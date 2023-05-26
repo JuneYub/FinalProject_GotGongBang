@@ -14,6 +14,26 @@ public class CraftController {
 
 	// 김진솔 시작
 	// ===========================================================================
+
+	@RequestMapping(value = "/craft_agree.got")
+	public ModelAndView craftAgree(ModelAndView mav) {
+		mav.setViewName("craft/craftAgree.tiles1");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/craft_application.got")
+	public ModelAndView craftApplication(ModelAndView mav) {
+		mav.setViewName("craft/craftApplication.tiles1");
+		return mav;
+	}
+
+	@RequestMapping(value = "/craft_complete.got")
+	public ModelAndView craftComplete(ModelAndView mav) {
+		mav.setViewName("craft/craftComplete.tiles1");
+		return mav;
+	}
+	
+	
 	// 김진솔 끝
 	// ===========================================================================
 
@@ -23,13 +43,25 @@ public class CraftController {
 	
 	@RequestMapping(value="/estimate_inquiry_list.got")
 	public ModelAndView getEstimateInquiryList(ModelAndView mav) {
-		mav.setViewName("/craft/estimate_inquiry_list.tiles1");
+		mav.setViewName("/craft/estimateInquiryList.tiles1");
 		return mav;
 	}
 	
 	@RequestMapping(value="/estimate_inquiry_list/bid.got")
 	public ModelAndView bid(ModelAndView mav) {
 		mav.setViewName("/none_tiles/craft/bid");
+		return mav;
+	}
+	
+	@RequestMapping(value="/repair_history_list.got")
+	public ModelAndView repairHistoryList(ModelAndView mav) {
+		mav.setViewName("/craft/repairHistoryList.tiles1");
+		return mav;
+	}
+	
+	@RequestMapping(value="/edit_craft_user_info.got")
+	public ModelAndView editCraftInfo(ModelAndView mav) {
+		mav.setViewName("/craft/editCraftUserInfo.tiles1");
 		return mav;
 	}
 	

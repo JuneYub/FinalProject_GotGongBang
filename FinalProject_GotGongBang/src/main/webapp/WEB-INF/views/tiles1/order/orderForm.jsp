@@ -9,6 +9,18 @@
 %>   
 
 
+<style type="text/css">
+div#orderContent {
+   padding: 50px;
+   width: 1000px;
+   margin: 30px auto;
+   border: 1px solid #400099;
+   /* background-color:#cceeff; */
+    border-radius:10px;
+	height:fit-content;
+
+}
+</style>
 	
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -49,13 +61,13 @@
    		<tr>
    			<td class="orderTd orderTdTitle">브랜드</td>
    			<td class="orderTd">
-   				<input class="OrderInput" placeholder="브랜드를 선택하거나 직접 입력해주세요"/>
+   				<input class="orderInput" placeholder="브랜드를 선택하거나 직접 입력해주세요"/>
 			</td>
    		</tr>
    		
    		<tr>
    			<td class="orderTd orderTdTitle">전체 사진&nbsp;
-   				<a class="orderPop" rel="popover" data-img="./img/가이드.png">
+   				<a class="orderPop" rel="popover" data-img="<%=ctxPath%>/resources/img/order_pic_example.png">
    					<i class="fa-regular fa-circle-question"></i>
    				</a>
    			</td>
@@ -72,7 +84,7 @@
    		
    		<tr>
    			<td class="orderTd orderTdTitle">상세 사진&nbsp;
-   				<a class="orderPop" rel="popover" data-img="./img/가이드.png">
+   				<a class="orderPop" rel="popover" data-img="<%=ctxPath%>/resources/img/order_pic_example.png">
    					<i class="fa-regular fa-circle-question"></i>
    				</a>
    			</td>
@@ -98,7 +110,7 @@
    		<tr>
    			<td class="orderTd orderTdTitle">수선 요청사항 설명</td>
    			<td class="orderTd">
-    			<div style="orderReq">
+    			<div class="orderReq">
 		  			<p class="orderMargin pCenter">요청사항을 적으실 때는 세 가지만 기억해주세요!</p>
 		  			<p class="orderMargin pCenter">
 		  				<span class="hightlight">어디가</span> 
