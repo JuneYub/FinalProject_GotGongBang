@@ -44,13 +44,51 @@
 				<form>
 				<table class="tbl-edit-myInfo">
 					<tbody>
-						<tr><th>이름</th> <td>테스트이름</td></tr>
-						<tr><th>사용자ID</th> <td>testID</td></tr>
-						<tr><th>비밀번호</th> <td></td></tr>
-						<tr><th>생년월일</th> <td>년 월 일</td></tr>
-						<tr><th>E-mail</th> <td>test@naver.com</td></tr>
-						<tr><th>휴대폰번호</th> <td>01012344545</td></tr>
-						<tr><th>주소</th> <td>주소 API</td></tr>
+						<tr>
+						<th>이름</th> 
+						<td><input type="text" /> </td>
+						</tr>
+						
+						<tr>
+						<th>사용자ID</th>
+						<td><input type="text" readonly="readonly"/></td>
+						</tr>
+						
+						<tr>
+						<th>비밀번호</th>
+						<td></td>
+						
+						</tr>
+						<tr><th>생년월일</th> 
+						<td>년 월 일</td>
+						</tr>
+						
+						<tr>
+						<th>E-mail</th> 
+						<td>
+						<input />
+                        <select name="emailDomain_select" class="emailDomain_select">
+	                        <option value="직접입력">직접입력</option>
+	                        <option value="naver.com">naver.com</option>
+	                        <option value="hanmail.net">hanmail.net</option>
+	                        <option value="daum.net">daum.net</option>
+	                        <option value="nate.com">nate.com</option>
+	                        <option value="hotmail.com">hotmail.com</option>
+	                        <option value="gmail.com">gmail.com</option>
+	                         <option value="icloud.com">icloud.com</option>
+                        </select>
+                        </td>
+						
+						</tr>
+						<tr><th>휴대폰번호</th> 
+						<td><input type="text" /></td>
+						</tr>
+						
+						<tr>
+						<th>주소</th>
+						 <td>주소 API</td>
+						 </tr>
+						 
 					</tbody>
 				</table>
 				<div class="btn-center">
