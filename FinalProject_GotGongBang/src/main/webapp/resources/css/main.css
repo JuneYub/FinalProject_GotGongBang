@@ -1668,6 +1668,13 @@ img.imgCircle2 {
 a {
     text-decoration: none;
 }
+
+#ojh_content {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/* ------------상단 배너 시작------------- */
 .ojh_page_content_inquire {
     border: solid 0px red;
     padding-bottom: 200px;
@@ -1685,7 +1692,7 @@ a {
 }
 
 .ojh_page-header--customer {
-    background-color: #986ee5;
+    background-color: #400099;
 }
 
 .page-header__title {
@@ -1854,10 +1861,65 @@ a {
     }
 }
 
+/* ------------ 상단 배너 끝 ------------- */
+
+
+/* ------------ 카테고리 시작------------- */
+
+#ojh_category {
+    border: solid 0px red;
+    width: 250px;
+    height: 500px;
+    position: absolute;
+}
+
+.ojh_center {
+    height: 75px;
+    padding: 5px 0px 35px 1px;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 35px;
+    color: rgb(51, 51, 51);
+    letter-spacing: -1px;
+
+    padding: 26px 0px 0px 15px;
+}
+
+.ojh_sub_category_info {
+    cursor: pointer;
+    border-bottom: 1px solid rgb(242, 242, 242);
+    padding: 15px 13px 15px 20px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    line-height: 19px;
+    letter-spacing: -0.3px;
+    font-size: 14px;
+    color: rgb(102, 102, 102);
+}
+
+.ojh_sub_category_info:hover {
+    background-color: #f2f2f2;
+    color: #400099;
+}
+
+.ojh_sub_category {
+border: 1px solid rgb(242, 242, 242);
+width: 210px
+}
+
+/* ------------ 카테고리 끝------------- */
+
+
+/* ------------ 본문 시작------------- */
 .ojh_form{
     margin: 50px auto 0;
-    width: 1200px;
+    /* width: 900px; */
+    padding: 0px 0px 0px 289px;
 }
+
 
 .ojh_form strong {
     color: #e6344a;
@@ -1993,6 +2055,12 @@ a {
     justify-content: center;
     padding-top: 100px;
 }
+
+#ojh_form_ul li {
+   
+}
+
+/* ------------ 본문 끝------------- */
 
 
 /* ================================= 오 준 혁 끄 읕 =============================== */
