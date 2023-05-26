@@ -23,10 +23,31 @@
 
             </header>
             <form>
+            	<div id="ojh_category">
+                    <div class="ojh_center"> 고객센터 </div>
+                    <ul class="ojh_sub_category">
+                        <li>
+                            <a class="ojh_sub_category_info">공지사항</a>
+                        </li>
+
+                        <li>
+                            <a class="ojh_sub_category_info">온라인 문의</a>
+                        </li>
+
+                        <li>
+                            <a class="ojh_sub_category_info">질문 게시판</a>
+                        </li>
+
+                        <li>
+                            <a class="ojh_sub_category_info">FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+            	
                 <div class="ojh_form">
                     <input type="hidden"/>
                     <input type="hidden"/>
-                  <fieldset style="border: 0;">
+                  <fieldset style="border: 0; width: 850px;">
                         <legend>문의사항 입력</legend>
                         <p><strong>*</strong> 표시는 필수 입력 사항입니다.</p>
                         

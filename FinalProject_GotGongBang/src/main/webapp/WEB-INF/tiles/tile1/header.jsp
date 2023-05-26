@@ -10,7 +10,7 @@
 	String ctxPath = request.getContextPath();
 
 %>
-     <!-- headr 시작 -->
+    <!-- headr 시작 -->
 
     <div id="header">
         <section class="header-section">
