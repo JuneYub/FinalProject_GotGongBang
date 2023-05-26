@@ -9,9 +9,19 @@
 %>   
 
 
-<!-- Font Awesome 6 Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+
+<style type="text/css">
+div#payContent {
+	padding: 20px 50px;
+	width: 1200px;
+	margin: 20px auto;
+	border: 0px solid blue;
+	/* background-color:#cceeff; */
+	  border-radius:10px;
+	height:fit-content;
+}
+</style>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
@@ -91,41 +101,42 @@
 	    </div>
      	
 		     	
-		<div>
-			<div >
-				<div class="detailDivFlex">
-					<img src="./img/got_2.png" width="300" class="detailImage">
-					<p class="orderMargin detailPName">샤넬 가방 수선 의뢰</p>
+		<div class="resultDivNoBorder">
+			<div>
+				<div class="detailDivFlex imgCircle imgCircle2" >
+					<img src="<%=ctxPath%>/resources/img/main_test.jpg" class=" imgCircle2 imgCircle" >
+				</div>
+				
+			</div>
+			
+			<div style="width:fit-content;">
+				<p class="orderMargin detailPName">샤넬 가방 수선 의뢰</p>
+				<div class="detailDiv detailMargin" >
+					<i class="fa-solid fa-check"></i>
+					<p>품목 : 가방/핸드백</p>
+				</div>
+				
+				<div class="detailDiv ">
+					<i class="fa-solid fa-check"></i>
+					<p>브랜드 : 샤넬</p>
+				</div>
+				
+				<div class="detailDiv ">
+					<i class="fa-solid fa-check"></i>
+					<p>수선 요청사항 : 부분 가죽교체</p>
+				</div>
+				
+				<div class="detailDiv ">
+					<i class="fa-solid fa-check"></i>
+					<p>수선 요청사항 : 부분 염색</p>
+				</div>
+				
+				<div class="detailDiv ">
+					<i class="fa-solid fa-check"></i>
+					<p> 선정된 공방 : 공공공방</p>
 				</div>
 			</div>
 			
-			<hr>
-			
-			<div class="payDivFlex2">
-				<p class="payFont">의뢰내용</p>
-			</div>
-			
-			
-			<div class="payDivFlex3">
-				<i class="fa-solid fa-check"></i>
-				<p>품목 : 가방/핸드백</p>
-			</div>
-			
-			<div class="detailDivFlex">
-				<i class="fa-solid fa-check"></i>
-				<p>브랜드 : 샤넬</p>
-			</div>
-			
-			<div class="detailDivFlex">
-				<i class="fa-solid fa-check"></i>
-				<p>수선 요청사항 : 부분 가죽교체</p>
-			</div>
-			
-			<div class="detailDivFlex">
-				<i class="fa-solid fa-check"></i>
-				<p>수선 요청사항 : 부분 염색</p>
-			</div>
-		
 			
 		</div>
 			
