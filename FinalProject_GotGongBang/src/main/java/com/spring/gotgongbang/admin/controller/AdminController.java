@@ -12,24 +12,6 @@ public class AdminController {
 	// 김진솔 시작
 	// ===========================================================================
 
-	@RequestMapping(value = "/craft_agree.got")
-	public ModelAndView craftAgree(ModelAndView mav) {
-		mav.setViewName("admin/craftAgree.tiles1");
-		return mav;
-	}
-	
-	@RequestMapping(value = "/craft_application.got")
-	public ModelAndView craftApplication(ModelAndView mav) {
-		mav.setViewName("admin/craftApplication.tiles1");
-		return mav;
-	}
-
-	@RequestMapping(value = "/craft_complete.got")
-	public ModelAndView craftComplete(ModelAndView mav) {
-		mav.setViewName("admin/craftComplete.tiles1");
-		return mav;
-	}
-	
 	@RequestMapping(value = "/craft_list.got")
 	public ModelAndView craftList(ModelAndView mav) {
 		mav.setViewName("admin/craftList.tiles1");
@@ -42,6 +24,7 @@ public class AdminController {
 		mav.setViewName("admin/craftView.tiles1");
 		return mav;
 	}
+	
 	// 김진솔 끝
 	// ===========================================================================
 
