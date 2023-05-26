@@ -33,13 +33,14 @@
 	<div class="myPage-contents">
 		<div class="myPage-menu-list">
 			<ul>
-				<li class="menu-list-selected"><a class="menu-list-selected" href="<%= ctxPath%>/estimate_inquiry_list.got"">견적 목록</a></li>
-				<li><a class="" href="<%= ctxPath%>/repair_history_list.got"">수선 내역 관리</a></li>
-				<li><a class="" href="<%= ctxPath%>/estimate_inquiry_list.got"">개인 정보 변경</a></li>
+				<li class="menu-list-selected"><a class="menu-list-selected" href="<%= ctxPath%>/estimate_inquiry_list.got">견적 목록</a></li>
+				<li><a class="" href="<%= ctxPath%>/repair_history_list.got">수선 내역 관리</a></li>
+				<li><a class="" href="<%= ctxPath%>/edit_craft_user_info.got">개인 정보 변경</a></li>
 			</ul>
 		</div>
 		
 		<div class="myPage-cont">
+			<h4>견적 목록</h4>
 			<table class="tbl-myPageList">
 				<thead>
 					<tr>
