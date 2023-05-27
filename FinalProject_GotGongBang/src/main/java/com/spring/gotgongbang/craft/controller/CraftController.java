@@ -9,6 +9,23 @@ import org.springframework.web.servlet.ModelAndView;
 public class CraftController {
 	// 김나윤 시작
 	// ===========================================================================
+	@RequestMapping(value="/crafts_detail.got")
+	public ModelAndView craftDetail(ModelAndView mav) {
+		mav.setViewName("/craft/craft_detail.tiles1");
+		return mav;
+	}
+	
+	@RequestMapping(value="/crafts_list.got")
+	public ModelAndView craftList(ModelAndView mav) {
+		mav.setViewName("/craft/craft_list.tiles1");
+		return mav;
+	}
+	
+	@RequestMapping(value="/crafts_listDetail.got")
+	public ModelAndView craftListDetail(ModelAndView mav) {
+		mav.setViewName("/craft/craft_listDetail.tiles1");
+		return mav;
+	}
 	// 김나윤 끝
 	// ===========================================================================
 
