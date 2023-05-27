@@ -138,7 +138,7 @@ body #container #contents {
     min-height: 400px;
     padding: 0 50px 80px 50px;
     width: 1200px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin: 30px auto;
 }
 
@@ -560,6 +560,7 @@ div.contents-review-promotional {
 	float:right;
 	min-height : 700px;
 	width: 950px;
+	margin-bottom: 50px;
 }
 
 .myPage-container .myPage-contents .myPage-cont h4 {
@@ -731,8 +732,20 @@ div.contents-review-promotional {
 }
 
 .tbl-edit-myInfo td { 
-	padding: 8px 12px 6px 12px;
+	padding: 20px 12px 20px 12px;
 	color: #444;
+}
+
+.tbl-edit-myInfo tbody tr td div.address_input input#address, input#detailAddress {
+	margin-top: 15px;
+}
+
+.tbl-edit-myInfo tbody tr td div.address_input input#detailAddress {
+	width: 300px;
+}
+
+.tbl-edit-myInfo tbody tr td div.address_input input#extraAddress {
+	width: 300px;
 }
 
 .btn-center {
@@ -750,6 +763,8 @@ div.contents-review-promotional {
 	padding-top: 5px;
 	box-shadow: 1px 1px 2px black;
 }
+
+
 
 
 
