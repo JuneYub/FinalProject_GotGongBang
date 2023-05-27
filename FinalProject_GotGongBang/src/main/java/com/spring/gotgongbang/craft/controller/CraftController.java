@@ -14,20 +14,20 @@ public class CraftController {
 
 	// 김진솔 시작
 	// ===========================================================================
-
-	@RequestMapping(value = "/craft_agree.got")
+	
+	@RequestMapping(value = "/craft_agree.got")		//공방 약관동의
 	public ModelAndView craftAgree(ModelAndView mav) {
 		mav.setViewName("craft/craftAgree.tiles1");
 		return mav;
 	}
 	
-	@RequestMapping(value = "/craft_application.got")
+	@RequestMapping(value = "/craft_application.got")	//공방 신청
 	public ModelAndView craftApplication(ModelAndView mav) {
 		mav.setViewName("craft/craftApplication.tiles1");
 		return mav;
 	}
 
-	@RequestMapping(value = "/craft_complete.got")
+	@RequestMapping(value = "/craft_complete.got")		//신청 완료 페이지
 	public ModelAndView craftComplete(ModelAndView mav) {
 		mav.setViewName("craft/craftComplete.tiles1");
 		return mav;

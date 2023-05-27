@@ -1,6 +1,6 @@
-package com.spring.gotgongbang.admin.model;
+package com.spring.gotgongbang.craft.model;
 
-public class AdminVO {
+public class CraftVO {
 
 	
 	/////////////////// ====== 김진솔 시작 ===== ///////////////////////
@@ -24,7 +24,7 @@ public class AdminVO {
 	private String craft_status;
 	private String craft_rating;
 	
-	public AdminVO(){}
+	public CraftVO(){}
 	
 	
 

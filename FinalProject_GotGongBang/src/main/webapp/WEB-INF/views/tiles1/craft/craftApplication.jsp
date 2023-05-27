@@ -13,7 +13,8 @@
 	let b_flag_nickname_click = false;
 	// "공방이름 중복확인"을 클릭했는지 안했는지 여부를 알아오기위한 변수
 	let b_flag_zipcodeSearch_click = false;
-	
+	// "우편번호"를 클릭했는지 안했는지 여부를 알아오기위한 변수
+
 	
  	$(document).ready(function() {
  		
@@ -234,9 +235,9 @@
 			}
 			else{
 				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
-				$(e.target).parent().parent().find("span.error").hide();
-				$("select#career").focus();	
+				$(e.target).parent().parent().find("span.error").hide();		
 			}
+			
 			
 		});
 		
