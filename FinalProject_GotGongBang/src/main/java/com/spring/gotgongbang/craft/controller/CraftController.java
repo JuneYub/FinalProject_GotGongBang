@@ -1,12 +1,35 @@
 package com.spring.gotgongbang.craft.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.spring.gotgongbang.craft.model.CraftVO;
+import com.spring.gotgongbang.craft.service.InterCraftService;
 
 @Controller
 public class CraftController {
+	
+
+	@Autowired			//spring이 알아서 type에 따라서 bean을 주입해준다.
+	private InterCraftService service;
+	
+
+	// === #155. 파일업로드 및 다운로드를 해주는 FileManager 클래스 의존객체 주입하기(DI : Dependency Injection) ===  
+    //@Autowired     // Type에 따라 알아서 Bean 을 주입해준다.
+    // private FileManager fileManager;
+	   
+	
+	
+	
 	// 김나윤 시작
 	// ===========================================================================
 	@RequestMapping(value="/crafts_detail.got")
@@ -26,9 +49,27 @@ public class CraftController {
 		mav.setViewName("/craft/craft_listDetail.tiles1");
 		return mav;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// 김나윤 끝
 	// ===========================================================================
 
+	
+	
+	
+	
+	
+
+	
+	
 	// 김진솔 시작
 	// ===========================================================================
 	
@@ -51,9 +92,42 @@ public class CraftController {
 	}
 	
 	
+	// == 공방이름 중복체크를 알아오기 위한 것 == //
+	@ResponseBody
+	@RequestMapping(value = "/craft_check_name.got", method = {RequestMethod.POST})
+	public String craft_check_name(HttpServletRequest request, HttpServletResponse response) {
+		String craft_name = request.getParameter("nickname");
+		int n = 0;
+		try {
+			n = service.craft_check_name(craft_name);
+		} catch (Throwable e) {
+			   e.printStackTrace();
+		}
+		
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("n", n);
+
+		return jsonObj.toString();
+		
+	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// 김진솔 끝
 	// ===========================================================================
 
+	
+	
+	
 	// 박준엽 시작
 	// ===========================================================================
 

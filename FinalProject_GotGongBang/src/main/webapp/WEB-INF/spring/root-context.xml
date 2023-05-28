@@ -12,7 +12,7 @@
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@211.238.142.189:1521:xe" />
    <!-- <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe" />  -->
-		<property name="username" value="final_oruser4" />
+		<property name="username" value="FINAL_ORAUSER2" />
 		<property name="password" value="gclass" />
 	</bean>
 	

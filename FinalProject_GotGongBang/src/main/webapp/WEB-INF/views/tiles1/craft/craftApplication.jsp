@@ -20,6 +20,8 @@
  		
  		$("span.error").hide();
  		$("span.error_2").hide();
+ 		$("span.error_3").hide();
+
  		$("input#nickname").focus();
  		
  		
@@ -43,10 +45,38 @@
 				$(e.target).parent().find("span.error_2").hide();
 				
 				if(bool){	//정규표현식에 만족한 경우
-					$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
-					$(e.target).parent().find("span.error").hide();
-	
-					$("input#hp1").focus();
+
+
+					// '공방 이름' 중복 체크 했는지 알아오기 (Ajax)
+					$("input#check_button").click(function(){
+						const nickname = $("input#nickname").val();
+						console.log("확인용 nickname : " +nickname);
+					
+						   	$.ajax({
+						    	url:"<%= ctxPath%>/craft_check_name.got",
+						    	data:{"nickname":$("input#nickname").val()},
+						    	type:"post",
+						    	success:function(json){ 
+						    		console.log("확인용 json : "+ json);
+						    		//확인용 json : {"n":0}  확인용 json : {"n":1} 
+
+						  			 if(json.n == 0) {
+										alert("사용가능");
+						  			 }
+						  			 else{
+						  			   alert("사용불가능");
+						  			 }
+						  			 
+						    		
+						    	},
+						    	error: function(request, status, error){
+						            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+						          }
+						      });
+						
+					  });	//end of $("input#check_button").click(function() ------------------------
+					    		
+					
 				}
 				else{	//정규표현식 만족하지 못 한 경우
 					$(e.target).parent().find("span.error_2").show();	//한글로만 입력 가능합니다 출력
@@ -298,7 +328,6 @@
 		
 		
 		
-		
 	}); // end of $(document).ready(function() ----------------------------
 				
 	
@@ -370,10 +399,11 @@
                     </div>
                      <div class="frm_border">
                         <span> <p> * 공방 이름</p>
-                            <input type="text" class="upload" id="nickname" maxlength="10"/>
-                            <input type="button" class="check_button" id="check_button" value="중복 확인" onclick="">
+                            <input type="text" class="upload" id="nickname" maxlength="10" value=""/>
+                            <input type="button" class="check_button" id="check_button" value="중복 확인">
                             <span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 이름은 필수입력 사항입니다.</span>
                             <span class="error_2" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 이름은 한글로만 입력 가능합니다.</span>
+                            <span class="error_3" style="display: inline-block; color:#400099; margin-left:20px;">※ 이미 존재하는 공방 이름입니다.</span>
                         </span>
                     </div>
                     <div class="image">

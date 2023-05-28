@@ -223,7 +223,7 @@ craft_representative_image VARCHAR2(1000)  NOT NULL, -- 공방대표자사진
 craft_image                VARCHAR2(1000)  NOT NULL, -- 공방사진
 craft_Introduce            NVARCHAR2(2000) NOT NULL, -- 자기소개
 craft_career               VARCHAR2(10)    NOT NULL, -- 경력기간
-craft_certificat           VARCHAR2(1000)  NOT NULL, -- 자격증
+craft_certificate           VARCHAR2(1000)  NOT NULL, -- 자격증
 craft_specialty            VARCHAR2(30)    NOT NULL, -- 전문 품목
 craft_post_code            VARCHAR2(20)    NOT NULL, -- 공방우편번호
 craft_address              VARCHAR2(200)   NOT NULL, -- 공방주소
@@ -238,6 +238,8 @@ constraint FK_CRAFT_partner_id_fk foreign key(partner_id_fk) references PARTNER(
 constraint UQ_CRAFT_craft_name  unique(craft_name),
 constraint CK_CRAFT_craft_status check( craft_status in(0,1) )
 );
+
+
 
 
 
