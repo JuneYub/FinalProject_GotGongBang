@@ -83,7 +83,10 @@
 			}
 		}
 		
-		
+		const frm = document.editMyInfo;
+		frm.action = "<%= ctxPath%>/editMyInfo.action"
+		frm.submit();
+
 		
 	}
 	
@@ -186,7 +189,7 @@
 		
 		<div class="myPage-cont">
 			<h4>회원 정보 설정</h4>
-				<form>
+				<form name="editMyInfo">
 				<table class="tbl-edit-myInfo">
 					<tbody>
 						<tr>
