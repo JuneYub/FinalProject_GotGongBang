@@ -11,7 +11,7 @@
 <!-- Font Awesome 6 Icons --> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 <!--     직접 만든 CSS   -->
-<link rel="stylesheet" type="text/css" href="./css/main.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/main.css">
 
 <!-- AOS 라이브러리 -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
