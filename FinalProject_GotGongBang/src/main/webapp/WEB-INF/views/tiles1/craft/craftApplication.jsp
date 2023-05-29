@@ -21,6 +21,7 @@
  		$("span.error").hide();
  		$("span.error_2").hide();
  		$("span.error_3").hide();
+ 		$("span.available").hide();
 
  		$("input#nickname").focus();
  		
@@ -28,6 +29,7 @@
  		
  		// 공방이름 필수 입력
 		$("input#nickname").blur( (e) => {
+			
 			if($(e.target).val().trim() == ""){	
 			
 				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
@@ -45,38 +47,9 @@
 				$(e.target).parent().find("span.error_2").hide();
 				
 				if(bool){	//정규표현식에 만족한 경우
+					$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+					$(e.target).parent().find("span.error_2").hide();
 
-
-					// '공방 이름' 중복 체크 했는지 알아오기 (Ajax)
-					$("input#check_button").click(function(){
-						const nickname = $("input#nickname").val();
-						console.log("확인용 nickname : " +nickname);
-					
-						   	$.ajax({
-						    	url:"<%= ctxPath%>/craft_check_name.got",
-						    	data:{"nickname":$("input#nickname").val()},
-						    	type:"post",
-						    	success:function(json){ 
-						    		console.log("확인용 json : "+ json);
-						    		//확인용 json : {"n":0}  확인용 json : {"n":1} 
-
-						  			 if(json.n == 0) {
-										alert("사용가능");
-						  			 }
-						  			 else{
-						  			   alert("사용불가능");
-						  			 }
-						  			 
-						    		
-						    	},
-						    	error: function(request, status, error){
-						            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-						          }
-						      });
-						
-					  });	//end of $("input#check_button").click(function() ------------------------
-					    		
-					
 				}
 				else{	//정규표현식 만족하지 못 한 경우
 					$(e.target).parent().find("span.error_2").show();	//한글로만 입력 가능합니다 출력
@@ -88,8 +61,49 @@
 		});
  		
  		
+
+		// '공방 이름' 중복 체크 했는지 알아오기 (Ajax)
+		$("input#check_button").click(function(){
+			b_flag_nickname_click = true;
+			
+			const nickname = $("input#nickname").val();
+			console.log("확인용 nickname : " +nickname);
+		
+			   	$.ajax({
+			    	url:"<%= ctxPath%>/craft_check_name.got",
+			    	data:{"nickname":$("input#nickname").val()},
+			    	type:"post",
+			    	success:function(text){ 
+			    		const json = JSON.parse(text); // 객체로 파싱 
+
+			    		console.log("확인용 json : "+ json);
+			    		//확인용 json : {"n":0}  확인용 json : {"n":1} 
+
+			  			 if(json.n) {	//1이라면 (이미 존재함)
+			 				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
+			 				$("input#nickname").prop("disabled", false);
+			 				
+			 				$("input#nickname").parent().find("span.error_3").show();	//"이미 존재하는 공방입니다"
+			    			$("input#nickname").val("");
+			  			 }
+			  			 else if(!json.n && $("input#nickname").val().trim() !="" ){
+							$("input#nickname").parent().find("span.error_3").hide();
+							$("input#nickname").parent().find("span.available").show();
+
+			  				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+			  			 }
+			  			 
+			    	},
+			    	error: function(request, status, error){
+			            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			          }
+			      });
+
+ 		
+ 		
  		//공방 연락처 필수입력
 		$("input#hp1").blur( (e) => {
+
 			const regExp = /^[0-9][0-9]{1,2}$/g; 
 			const bool = regExp.test($(e.target).val());
 
@@ -325,7 +339,9 @@
 		
 		
 		
-		
+
+		  });	//end of $("input#check_button").click(function() ------------------------
+		    		
 		
 		
 	}); // end of $(document).ready(function() ----------------------------
@@ -404,6 +420,7 @@
                             <span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 이름은 필수입력 사항입니다.</span>
                             <span class="error_2" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 이름은 한글로만 입력 가능합니다.</span>
                             <span class="error_3" style="display: inline-block; color:#400099; margin-left:20px;">※ 이미 존재하는 공방 이름입니다.</span>
+                            <span class="available" style="display: inline-block; color:#400099; margin-left:20px;">사용가능한 공방 이름입니다.</span>
                         </span>
                     </div>
                     <div class="image">

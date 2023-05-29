@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.gotgongbang.common.FileManager;
 import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.craft.service.InterCraftService;
 
@@ -23,9 +24,8 @@ public class CraftController {
 	private InterCraftService service;
 	
 
-	// === #155. 파일업로드 및 다운로드를 해주는 FileManager 클래스 의존객체 주입하기(DI : Dependency Injection) ===  
-    //@Autowired     // Type에 따라 알아서 Bean 을 주입해준다.
-    // private FileManager fileManager;
+    @Autowired   
+    private FileManager fileManager;
 	   
 	
 	
