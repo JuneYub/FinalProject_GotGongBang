@@ -199,7 +199,7 @@
 						
 						<tr>
 						<th>사용자ID</th>
-						<td><input type="text" readonly="readonly"/></td>
+						<td><input type="text" value="${pvo.partner_id_pk}" readonly="readonly"/></td>
 						</tr>
 						
 						<tr>

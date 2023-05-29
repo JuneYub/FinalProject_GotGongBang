@@ -1,9 +1,11 @@
 package com.spring.gotgongbang.craft.controller;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -12,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import com.spring.gotgongbang.common.FileManager;
 import com.spring.gotgongbang.craft.model.CraftVO;
+import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.craft.service.InterCraftService;
 
 @Controller
@@ -28,8 +32,7 @@ public class CraftController {
     private FileManager fileManager;
 	   
 	
-	
-	
+
 	// 김나윤 시작
 	// ===========================================================================
 	@RequestMapping(value="/crafts_detail.got")
@@ -152,6 +155,13 @@ public class CraftController {
 	
 	@RequestMapping(value="/edit_craft_user_info.got")
 	public ModelAndView editCraftInfo(ModelAndView mav) {
+		
+		String userid = "test1234"; // 현재는 테스트 계저으로 로그인 이후에 세션 값으로 수정할 것
+		
+		PartnerVO pvo = new PartnerVO();
+		pvo = service.getPartnerInfoByUserId(userid);
+		
+		mav.addObject("pvo", pvo);
 		mav.setViewName("/craft/editCraftUserInfo.tiles1");
 		return mav;
 	}

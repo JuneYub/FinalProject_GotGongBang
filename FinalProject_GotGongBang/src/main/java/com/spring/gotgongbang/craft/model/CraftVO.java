@@ -256,17 +256,7 @@ public class CraftVO {
 
 	public void setFileSize(String fileSize) {
 		this.fileSize = fileSize;
-	}
-	
-	
-	
+	}	
 	/////////////////// ====== 김진솔 끝 ===== ///////////////////////
-
-	
-	
 	
 }
-
-
-
-
