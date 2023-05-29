@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="craft">
+
+
+ <!--==================== 김진솔 시작 ====================== -->
+<select id="craft_check_name" parameterType="String" resultType="int">
+ 	select count(*) from CRAFT where craft_name=#{craft_name}
+</select>
+
+ <!--==================== 김진솔 끝 ====================== -->
+
+
+
+</mapper>
