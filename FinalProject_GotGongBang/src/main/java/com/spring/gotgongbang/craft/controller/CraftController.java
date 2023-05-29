@@ -1,14 +1,11 @@
 package com.spring.gotgongbang.craft.controller;
 
-<<<<<<< HEAD
-import java.util.*;
 
-=======
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
->>>>>>> refs/heads/main
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -17,22 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-<<<<<<< HEAD
-import com.spring.gotgongbang.craft.model.CraftVO;
-import com.spring.gotgongbang.craft.model.PartnerVO;
-=======
+
 import com.spring.gotgongbang.common.FileManager;
 import com.spring.gotgongbang.craft.model.CraftVO;
->>>>>>> refs/heads/main
+import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.craft.service.InterCraftService;
 
 @Controller
 public class CraftController {
 	
-<<<<<<< HEAD
-	@Autowired
-	private InterCraftService service;
-=======
 
 	@Autowired			//spring이 알아서 type에 따라서 bean을 주입해준다.
 	private InterCraftService service;
@@ -42,9 +32,7 @@ public class CraftController {
     private FileManager fileManager;
 	   
 	
-	
->>>>>>> refs/heads/main
-	
+
 	// 김나윤 시작
 	// ===========================================================================
 	@RequestMapping(value="/crafts_detail.got")
