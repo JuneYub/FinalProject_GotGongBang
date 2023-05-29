@@ -12,21 +12,16 @@ public class AdminController {
 	// 김진솔 시작
 	// ===========================================================================
 
-	@RequestMapping(value = "/adminAgree.got")
-	public ModelAndView adminAgree(ModelAndView mav) {
-		mav.setViewName("admin/agree.tiles1");
+	@RequestMapping(value = "/craft_list.got")
+	public ModelAndView craftList(ModelAndView mav) {
+		mav.setViewName("admin/craftList.tiles1");
 		return mav;
 	}
 	
-	@RequestMapping(value = "/adminApplication.got")
-	public ModelAndView adminApplication(ModelAndView mav) {
-		mav.setViewName("admin/application.tiles1");
-		return mav;
-	}
 
-	@RequestMapping(value = "/adminComplete.got")
-	public ModelAndView adminComplete(ModelAndView mav) {
-		mav.setViewName("admin/complete.tiles1");
+	@RequestMapping(value = "/craft_view.got")
+	public ModelAndView craftView(ModelAndView mav) {
+		mav.setViewName("admin/craftView.tiles1");
 		return mav;
 	}
 	

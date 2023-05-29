@@ -228,7 +228,7 @@
 					<div class="banner-title">
 					갗공방에 대해서 알려드릴게요!!
 					</div>
-					<div class="banner-cont-txt">
+					<div class="banner-cont-txt" onclick="location.href = '<%= ctxPath%>/service_info.got'" style="cursor: pointer">
 					서비스에 대해서 알고싶으시다면 >>
 					</div>
 				</div>

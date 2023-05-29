@@ -7,8 +7,15 @@
 <%
    String ctxPath = request.getContextPath();
 %>   
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <script>
+
+	$(document).ready(function() {
+		
+		
+		
+	});
+
 </script>
 
 
@@ -26,7 +33,7 @@
                         Admin
                     </div>
                     <div>
-                        <image src="image/icon_check.png" width="18"/><span>공방 목록</span>
+                        <image src="resources/img/admin/icon_check.png" width="18"/><span>공방 목록</span>
                     </div>
                     
                 </div>
@@ -39,9 +46,9 @@
                         <div class="frm_border" style="height:80px;">
                             <span> <p>공방 상태<br>(임시/정식)</p>
                                 <div id="specialized_chkBox" style="margin-top: 17px;">
-                                    임시<input type="checkbox" value="temporarily"/>
+                                     	임시<input type="checkbox" id="temporarily" value="temporarily"/>
                                     <label for=""></label>
-                                    정식<input type="checkbox" value="formal"/>
+                                    	정식<input type="checkbox" id="formal" value="formal"/>
                                     <label for="specialized_chk2"></label>          
                                 </div>                      
                             </span>
@@ -118,14 +125,18 @@
                                <input type="text" class="view" style="text-align:right; padding-right: 15px;" /><span>천원</span>
                             </span>
                         </div>
+                        <div class="frm_border">
+                            <span> <p> * 평점</p> 
+                               <input type="text" class="view" style="padding-right: 15px;" />
+                            </span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="application_right">
                     <div class="craftOneView_btn">
                         <button class="del" type="button" onclick="">삭제</button>
-                        <!--임시공방일 때-->
-			    <button class="update" type="button" onclick="">수정</button>
+					    <button class="update" type="button" onclick="">수정</button>
                     </div>
                 </div>
 
