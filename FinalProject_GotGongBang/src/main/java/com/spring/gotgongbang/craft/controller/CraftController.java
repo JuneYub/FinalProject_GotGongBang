@@ -92,7 +92,7 @@ public class CraftController {
 	}
 	
 	
-	// == 공방이름 중복체크를 알아오기 위한 것 == //
+	// == 이미 존재하는 '공방이름'인지 알아오기 위한 것 == //
 	@ResponseBody
 	@RequestMapping(value = "/craft_check_name.got", method = {RequestMethod.POST})
 	public String craft_check_name(HttpServletRequest request, HttpServletResponse response) {
