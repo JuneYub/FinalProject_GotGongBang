@@ -21,7 +21,8 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.spring.gotgongbang" />
+	<!-- <context:component-scan base-package="com.spring.gotgongbang" /> -->
+	<context:component-scan base-package="com.spring.*" name-generator="com.spring.gotgongbang.common.FullBeanNameGenerator"/>
 	
 	
    <!-- ======= #20. 실행시 모든 페이지에 기본틀이 되어지는 틀을 배치하기 위한 템플릿 프레임워크인 TilesViewResolver 를 사용하기 위해 빈으로 등록한다. ======= -->
@@ -37,5 +38,31 @@
         <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
         <beans:property name="order" value="1"/>
     </beans:bean>
-	
+    
+    
+	<!-- ===== #21. 파일업로드 및 파일다운로드에 필요한 의존객체 설정하기 ===== -->
+   <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">   
+   <!-- 자바파일이 UTF-8로 저장된 경우 한글파일명이 깨지지 않게하기 위해 -->
+        <beans:property name="defaultEncoding" value="utf-8" />
+      <beans:property name="maxUploadSize" value="10485760" />
+   </beans:bean> 
+   
+   
+   
+	<!-- === #44. 양방향 암호화 알고리즘인 AES256 를 사용하여 복호화 하기 위한 클래스(파라미터가 있는 생성자) 의존객체 bean 생성하기 === --> 
+   <beans:bean id="aes" class="com.spring.gotgongbang.common.AES256">
+      <beans:constructor-arg>
+         <beans:value>abcd0070#gclass$</beans:value>    <!-- abcd0070#gclass$ 은 각자 com.spring.board.common.SecretMyKey 에 사용되던 암호화/복호화 키 이다. -->    
+      </beans:constructor-arg>
+   </beans:bean>
+ 
+	 <!--  AOP 관련 어노테이션 동작이 가능하게 설정 -->   
+	<!--    <aop:aspectj-autoproxy />      
+    
+   <aop:config proxy-target-class="true">
+     <aop:pointcut id="controllerOperation" expression="execution(public * com.spring..*Controller.*(..))" />
+    </aop:config>
+	 -->
+	 
+	 
 </beans:beans>

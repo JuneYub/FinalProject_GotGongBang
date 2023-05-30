@@ -562,7 +562,13 @@ div.contents-review-promotional {
 	width: 950px;
 }
 
-.myPage-cont table.tbl-estimateList {
+.myPage-container .myPage-contents .myPage-cont h4 {
+	margin: 25px 0 10px 15px;
+    color: #400099;
+    font-weight: 600;
+}
+
+.myPage-cont table.tbl-myPageList {
     border-bottom: 1px #6d6d6d solid;
     margin-top: 10px;
     font-size: 20px;
@@ -571,24 +577,24 @@ div.contents-review-promotional {
     overflow: hidden;
 }
 
-.myPage-cont table.tbl-estimateList thead {
+.myPage-cont table.tbl-myPageList thead {
 	font-weight: bold;
 	color: #fff;
 	background: #400099;
 }
 
-.myPage-cont table.tbl-estimateList thead th {
+.myPage-cont table.tbl-myPageList thead th {
 	text-align: center;
 }
 
-.myPage-cont table.tbl-estimateList tbody td {
+.myPage-cont table.tbl-myPageList tbody td {
 	text-align: center;
 	font-size: 17px;
 	padding: 10px 0px;
 
 }
 
-.myPage-cont table.tbl-estimateList tbody tr {
+.myPage-cont table.tbl-myPageList tbody tr {
 	box-shadow: 1px 1px 1px #6D6D6D;
 }
 
@@ -599,16 +605,153 @@ div.contents-review-promotional {
 	margin: 0px auto;
 }
 
+.txt-estimate-info {
+	text-align: left;
+	font-size: 14px;
+}
+
 .btn-estimateDetail {
 	border: 1px solid #6D6D6D;
 	background-color: white;
 	padding: 4px;
+	box-shadow: 1px 1px 1px black;
+	margin-bottom: 5px;
 }
 
 .btn-estimateDetail:hover {
 	border: 3px solid #6D6D6D;
 	transition: 0.1s ease;
 }
+
+.popup-container {
+	padding: 30px 15px;
+}
+
+.popup-container #requestEstimate {
+	border: 1px solid black;
+	box-shadow: 1px 1px 1px;
+	border-radius: 5px;
+}
+
+.popup-container #requestEstimate .tit-estimate {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
+}
+
+.popup-container #requestEstimate .tbl-estimate {
+	width: 100%;
+}
+
+.popup-container #requestEstimate .tbl-estimate td {
+	border-top: 1px solid black;
+	width: 30px;
+	padding: 5px 6px;
+}
+
+.popup-container #requestEstimate .tbl-estimate tr td:first-child {
+	text-align: center;
+	border-right: 1px solid black;
+}
+
+.cont-proposal {
+	display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.cont-proposal h3 {
+	display: inline-block;
+}
+
+.cont-proposal .input-proposal {
+	margin-left: 20px;
+	text-align: right;
+}
+
+.cont-bid-final {
+	display: flex;
+	justify-content: center;
+	color: white;
+	font-size: 20px;
+	margin-top: 50px;
+}
+
+.cont-bid-final a {
+	width: 190px;
+	height: 60px;
+	background-color: #400099;
+	justify-content: center;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    
+}
+
+.cont-bid-final a:hover {
+	box-shadow: 1px 1px 1px black;
+}
+
+.tbl-myPageList .btn-save-state {
+	display: block;
+    margin: 15px auto;
+    border: 1px solid #6D6D6D;
+    background-color: white;
+    padding: 8px;
+    box-shadow: 1px 1px 1px black;
+}
+
+.tbl-myPageList .btn-save-state:hover {
+	border: 3px solid #6D6D6D;
+	transition: 0.1s ease;
+}
+
+.tbl-myPageList .txt-order-info {
+	font-size: 14px;
+	text-align: left;
+}
+
+.tbl-edit-myInfo {
+	border-top: 2px solid black;
+	width: 100%;
+	font-size: 15px;
+}
+
+.tbl-edit-myInfo tbody tr th, td {
+	border-bottom: 1px solid #6D6D6D;
+	text-align: left;
+    vertical-align: middle;
+}
+
+.tbl-edit-myInfo tbody tr th {
+	background-color: #f7f7f7;
+	padding: 4px 0 0 19px;
+	color: #777;
+}
+
+.tbl-edit-myInfo td { 
+	padding: 8px 12px 6px 12px;
+	color: #444;
+}
+
+.btn-center {
+	width: 100%;
+	text-align: center;
+}
+
+.btn-center .btn-edit-info {
+	display: inline-block;
+	background-color: #400099;
+	color: white;
+	margin-top: 30px;
+	width: 130px;
+	height: 40px;
+	padding-top: 5px;
+	box-shadow: 1px 1px 2px black;
+}
+
+
 
 
 /* ======================== 애니메이션 모음 =========================================== */
@@ -713,12 +856,12 @@ body #admin_container #admin_contents .fpmgBt2{
 /* 공방 신청 form */
 body #admin_container #admin_contents #craft_application{
     /* border: solid 1px rgb(230, 230, 230); */
-    height: 1700px;
+    height: 2000px;
 }
 
 body #admin_container #admin_contents #craft_application #application_left{
     width: 270px;
-    height: 1700px;
+    height: 2000px;
     float: left;    
 }
 
@@ -993,6 +1136,94 @@ body #admin_container #admin_contents #complete_content{
 }
 
 
+/********************************************************/
+/*admin 공방 목록보기*/
+
+body #admin_container #craft_application .craft_list {
+   /* border: solid 1px rgb(145, 145, 145); */
+    margin: 30px auto;
+}
+
+body #admin_container #craft_application table{
+    border-collapse: collapse;
+}
+
+body #admin_container #craft_application .craft_list thead{
+    background-color: #f0f0f0d1;
+    color: #868686;
+}
+
+body #admin_container #craft_application .craft_list thead tr th{
+    padding: 13px;
+    font-size: 13pt;
+}
+body #admin_container #craft_application .craft_list tbody tr td {
+    padding: 13px;
+    text-align: center;
+    font-size: 12pt;
+    border-bottom: 1px solid #c7c7c7;
+    color:rgb(95, 95, 95);
+}
+
+/*admin 공방 정보 상세 보기*/
+
+body #admin_container #craft_application .craftOneView .view{
+    width: 300px;
+    height: 38px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-top: 5px;
+    padding-left: 10px;
+    background-color: rgb(233, 233, 233);
+}
+
+body #admin_container #craft_application #view_address span span{
+    width: 738px;
+    float: right;
+}
+
+body #craft_application .application_right .craftOneView_btn{
+    text-align: center;
+    margin:30px 0;
+}
+
+
+body #craft_application .application_right .craftOneView_btn .del{
+    border-radius: 28px;
+    box-sizing: border-box;
+    background-color: #400099;
+    border:#400099 ;
+    color: #fff;
+    display: inline-block;
+    font-size: 18px;
+    height: 56px;
+    letter-spacing: -.45px;
+    line-height: 26px;
+    padding: 14px 15px;
+    text-align: center;
+    width: 180px;
+}
+
+body #craft_application .application_right .craftOneView_btn .update {
+    border-radius: 28px;
+    box-sizing: border-box;
+    background: #fff;
+    border: solid 0.4px #b9b9b9;
+    color: #1a1325;
+    display: inline-block;
+    font-size: 18px;
+    height: 56px;
+    letter-spacing: -.45px;
+    line-height: 26px;
+    padding: 14px 15px;
+    text-align: center;
+    width: 180px;
+}
+
+
+
 /* ==== 김진솔 끝========================================================================================= */
 
 
@@ -1149,8 +1380,7 @@ div.listFlex{
 
 img.listImg{
 	padding-left: 30px; 
-	width:150px; 
-	height:150px;
+
 }
 
 p.listMarginLeft{
@@ -1164,6 +1394,34 @@ p.listpText{
 	position: relative;
 	bottom: 120px;
 	left: 180px;
+}
+
+p.listCondition{
+	 font-size: 25pt;  
+	 font-weight: bold; 
+	 margin-bottom: 13px;
+}
+
+div.listBorderDiv{
+	width:fit-content; 
+	margin-left: 46px; 
+	padding-top:55px; 
+}
+
+p.listDate{
+	color: grey;
+	font-size: 14pt;
+}
+
+p.listOrderName{
+	font-size: 21pt; 
+	padding-bottom: 101px;
+}
+
+a.listAnchor{
+	color:#400099; 
+	font-weight:bold; 
+	font-size: 22px;
 }
 
 ----------orderDetail
@@ -1189,21 +1447,32 @@ img.detailImage{
 	padding-left: 30px;
 }
 
+div.detailDivBorder{
+	border:solid 1px gray; 
+	border-radius:10px;
+	background-color:white;
+	margin:15px 0; 
+	padding:25px 0; 
+	padding-left:40px; 
+	display:flex;
+	
+}
+
 p.detailPName{
 	margin-left:30px; 
 	font-weight:bold;
-	margin-top:20px; 
+	margin-top:-3px; 
 	font-size:15pt;
 }
 
 div.detailMargin{
-	margin-top:40px;
+	margin-top:30px;
 }
 
 
 div.detailDiv{
 	display:flex; 
-	margin-left:30px; 
+	margin-left:72px; 
 	margin-bottom:8px;
 }
 
@@ -1211,6 +1480,13 @@ div.detailBorder{
 	border:solid 1px gray; 
 	border-radius:10px; 
 	background-color:white; 
+	margin:15px 0; 
+	height: 200px; 
+	padding:25px 10px;
+}  
+
+div.detailNoBorder{
+	border-radius:10px; 
 	margin:15px 0; 
 	height: 200px; 
 	padding:25px 10px;
@@ -1266,8 +1542,15 @@ div.payDivFlex2{
 div.payDivFlex3{
 	display:flex; 
 	margin-left:30px; 
-	margin-top:10px; 
+	margin-top:40px; 
 	margin-bottom:8px;
+}
+
+div.payDivFlex4{
+	display:flex; 
+	margin-left:30px; 
+	margin-bottom:8px;
+	
 }
 
 p.payFont{
@@ -1319,6 +1602,7 @@ div#resultContent{
 	
 }
 
+<<<<<<< HEAD
 /* ==== 이지현 끝========================================================================================= */
 /* ============ 홍용훈 시작 ==================================================================== */
 
@@ -1873,3 +2157,3185 @@ div#resultContent{
 	
 /* register_member 끝 */
 /* ============ 홍용훈 끝 ==================================================================== */
+=======
+div.resultDivFlex3{
+	display:flex; 
+	margin-left:30px; 
+	margin-top:10px;
+	margin-bottom: 20px;
+}
+
+div.resultDivFlex4{
+	display:flex; 
+	margin-left:30px; 
+	margin-top:50px;
+	margin-bottom: 20px;
+}
+
+div.resultDivNoBorder{
+	border-radius:10px;
+	margin:15px 0; 
+	padding:25px 0; 
+	padding-left:20px; 
+	display:flex;
+	
+}
+
+
+------selectGongbang
+
+hr.hrMarginTop{
+	margin-top: 50px;
+}
+
+----
+div.imgCircle
+{
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+img.imgCircle
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+div.imgCircle2 {
+   width: 200px;
+   height: 200px;
+}
+img.imgCircle2 {
+   position: static;
+}
+
+/* ==== 이지현 끝========================================================================================= */
+
+
+/* ================================= 오 준 혁 시 작 =============================== */
+
+a {
+    text-decoration: none;
+}
+
+#ojh_content {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/* ------------상단 배너 시작------------- */
+.ojh_page_content_inquire {
+    border: solid 0px red;
+    padding-bottom: 200px;
+}
+
+.ojh_page-header {
+    border: solid 0px #5411d2;
+    width: 1200px;
+   
+    margin: 0px auto;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.ojh_page-header--customer {
+    background-color: #400099;
+    
+}
+
+.page-header__title {
+    padding: 75px 0px 0px 0px;
+    color: #fff;
+    font-size: 35px;
+    font-weight: 700;
+    font-family: NanumSquare,Arial,sans-serif;
+}
+
+.page-header__title [aria-hidden=true] {
+    clip: rect(0,0,0,0);
+    border: 0;
+    -webkit-clip-path: inset(0 0 99.9% 99.9%);
+    clip-path: inset(0 0 99.9% 99.9%);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.page-header__backdrop-item {
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    left: 50%;
+    position: absolute;
+
+    animation: 5s ease infinite;
+}
+
+
+
+.ojh_page-header .page-header__backdrop-item:first-child {
+    border: solid 0px #000;
+    animation-name: page-header-backdrop-1;
+    background-image: url(../img/board/bg_header_backgrop_1.png);
+    height: 220px;
+    width: 135px;
+    margin-left: -500px;
+}
+
+@keyframes page-header-backdrop-1 {
+    0% {
+         opacity:0; 
+         transform:translateY(-50px); 
+    }
+
+    15% {
+         opacity:1; 
+         transform:translateY(0); 
+    }
+
+    95% {
+         opacity:1; 
+         transform:translateY(0); 
+    }
+
+    to {
+         opacity:0; 
+    }
+}
+
+.ojh_page-header .page-header__backdrop-item:nth-child(2) {
+    border: solid 0px #000;
+    animation-name: page-header-backdrop-2;
+    background-image: url(../img/board/bg_header_backgrop_1.png);
+    height: 159px;
+    margin-left: -384px;
+    width: 78px;
+}
+
+@keyframes page-header-backdrop-2 {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    3% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    18% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    95% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    to {
+        opacity: 0
+    }
+}
+
+.ojh_page-header .page-header__backdrop-item:nth-child(3) {
+    animation-name: page-header-backdrop-3;
+    background-image: url(../img/board/bg_header_backgrop_1.png);
+    height: 210px;
+    margin-left: 245px;
+    width: 110px;
+}
+
+@keyframes page-header-backdrop-3 {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    3% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    18% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    95% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    to {
+        opacity: 0
+    }
+}
+
+.ojh_page-header .page-header__backdrop-item:nth-child(4) {
+    animation-name: page-header-backdrop-3;
+    background-image: url(../img/board/bg_header_backgrop_2.png);
+    height: 216px;
+    margin-left: 318px;
+    width: 135px;
+}
+
+@keyframes page-header-backdrop-4 {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    9% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    24% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    95% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    to {
+        opacity: 0
+    }
+}
+
+/* ------------ 상단 배너 끝 ------------- */
+
+
+/* ------------ 카테고리 시작------------- */
+
+#ojh_category {
+    border: solid 0px red;
+    width: 250px;
+    height: 500px;
+    position: absolute;
+}
+
+.ojh_center {
+    height: 75px;
+    padding: 5px 0px 35px 1px;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 35px;
+    color: rgb(51, 51, 51);
+    letter-spacing: -1px;
+
+    padding: 26px 0px 0px 15px;
+}
+
+.ojh_sub_category_info {
+    cursor: pointer;
+    border-bottom: 1px solid rgb(242, 242, 242);
+    padding: 15px 13px 15px 20px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    line-height: 19px;
+    letter-spacing: -0.3px;
+    font-size: 14px;
+    color: rgb(102, 102, 102);
+}
+
+.ojh_sub_category_info:hover {
+    background-color: #f2f2f2;
+    color: #400099;
+}
+
+.ojh_sub_category {
+border: 1px solid rgb(242, 242, 242);
+width: 210px
+}
+
+/* ------------ 카테고리 끝------------- */
+
+
+/* ------------ 본문 시작------------- */
+/* ------------BoardInquiry ------- */
+.ojh_form{
+    margin: 50px auto 0;
+    /* width: 900px; */
+    padding: 0px 0px 0px 289px;
+}
+
+
+.ojh_form strong {
+    color: #e6344a;
+    font-weight: 700;
+}
+
+.ojh_form-input[type=text] {
+    border-radius: 0;
+    border-width: 0 0 1px;
+    height: 60px;
+}
+
+.ojh_form legend {
+    border: solid 0px #5411d2;
+    color: #000;
+    font-family: inherit;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 30px 0;
+}
+
+.ojh_form legend+p {
+    border: solid 0px #5411d2;
+    height: 50px;
+    margin-top: -50px;
+    padding-left: 165px;
+}
+.ojh_table {
+    border-collapse: collapse;
+    border-top: 1px solid #000;
+    width: 100%;
+}
+
+.ojh_table th, .ojh_table td{
+   
+    padding-top: 30px;
+}
+
+.ojh_table th {
+    padding: 30px 0px 0px 25px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 3.0;
+    vertical-align: top;
+    width: 170px;
+    text-align: left
+}
+
+.ojh_form-input {
+    width: 100%;
+    font-family: NanumSquare,Arial,sans-serif;
+    font-weight: 700;
+    box-sizing: border-box;
+    padding: 13px 20px;
+    border-color: #b9b9b9;
+    
+}
+
+.ojh_form-attached-file {
+    align-items: flex-start;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.ojh_form-attached-file__trigger-name {
+    background: #400099 url(../img/board/icon_attached_file_trigger.png) no-repeat 22px 50%/24px auto;
+    color: white;
+    display: block;
+    font-size: 14px;
+    height: 52px;
+    line-height: 52px;
+    padding-left: 25px;
+    text-align: center;
+    width: 136px;
+    box-sizing: border-box;
+}
+
+.ojh_form-attached-file__trigger-file {
+    border: solid 0px #5411d2;
+    clip: rect(0,0,0,0);
+    border: 0;
+    -webkit-clip-path: inset(0 0 99.9% 99.9%);
+    clip-path: inset(0 0 99.9% 99.9%);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.ojh_form-attached-file__info {
+    color: #565656;
+    font-size: 16px;
+    line-height: 1.5;
+    position: relative;
+    padding:10px 10px 10px 20px;
+
+}
+
+.ojh_cancle_button {
+    background: #fff;
+    color: #400099;
+}
+
+
+.ojh_button {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: #fff;
+    border: solid 0px #5411d2;
+    appearance: none;
+    background: #400099;
+    border: 1px solid #400099;
+    border-radius: 28px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 18px;
+    height: 56px;
+    letter-spacing: -.45px;
+    line-height: 26px;
+    padding: 14px 15px;
+    text-align: center;
+    width: 180px;
+}
+
+#ojh_form_ul {
+    border: solid 0px #5411d2;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+}
+
+#ojh_form_ul li {
+   
+}
+
+/* ------------BoardInquiry 끝------- */
+
+
+/* ------------BoardNoice ------- */
+.ojh_table2 {
+    border-collapse: collapse;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000; 
+    padding: 20px 0px;
+    width: 100%;
+    display: flex;
+}
+
+.t11 {
+flex-basis: 50px;
+    text-align: center;
+    line-height: 20px;
+    font-weight: 400;
+    color: rgb(51, 51, 51);
+}
+
+.t12 {
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    text-align: center;
+    line-height: 20px;
+    font-weight: 400;
+    color: rgb(51, 51, 51);
+}
+
+.t13 {
+    flex-basis: 100px;
+    text-align: center;
+    line-height: 20px;
+    font-weight: 400;
+    color: rgb(51, 51, 51);
+}
+
+.ojh_table2_notice1 {
+    display: flex;
+    border-bottom: 1px solid rgb(244, 244, 244);
+}
+
+.t14 {
+    text-align: center;
+    padding: 20px 0px;
+    color: rgb(76, 76, 76);
+    flex-basis: 50px;
+}
+
+.t15 {
+    padding: 20px 0px 20px 20px;
+    color: rgb(76, 76, 76);
+    flex: 1 1 0%;
+    text-align: left;
+}
+
+.t16 {
+    text-align: center;
+    padding: 20px 0px;
+    color: rgb(76, 76, 76);
+    flex-basis: 100px;
+}
+
+.t17 {
+    text-align: center;
+    padding: 20px 0px;
+    flex-basis: 100px;
+    color: rgb(153, 153, 153);
+}
+
+.ojh_pagination_nav {
+    padding: 60px;
+}
+
+.ojh_pagination {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.ojh_pagination_name {
+    padding: 0px 10px;
+
+}
+/* ------------BoardNoice, Question 끝 ------- */
+
+
+/* ------------BoardFAQ ------- */
+
+.ojh_page_header_search {
+    padding: 49px 0px 0px 0px;
+}
+
+.ojh_page_header_search_fieldset {
+    align-items: center;
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 6px 10px rgba(49,51,65,.15);
+    display: flex;
+    flex-direction: row-reverse;
+    height: 60px;
+    justify-content: space-between;
+    padding: 0 20px;
+    width: 700px;
+}
+
+.ojh_page_header_search_input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    height: 40px;
+    line-height: 24px;
+    outline: 0;
+    padding: 8px 0;
+    width: calc(100% - 50px);
+}
+
+.ojh_page_header_search_submit{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url(../img/board/icon_search.png) no-repeat 50%/30px auto;
+    border: 0;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+}
+
+.ojh_page_header_search_submit > span {
+    clip: rect(0,0,0,0);
+    border: 0;
+    -webkit-clip-path: inset(0 0 99.9% 99.9%);
+    clip-path: inset(0 0 99.9% 99.9%);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.ojh_list {
+    padding: 15px 0px 0px 0px;
+}
+
+.ojh_list_total {
+    color: #000;
+    font-size: 26px;
+    letter-spacing: -.65px;
+    line-height: 1.1;
+    padding-bottom: 30px;
+
+    border-bottom: 2px solid #000;
+    padding: -1px 0px 0px 0px;
+
+}
+
+.ojh_.customer-faq .accordion__item--fade {
+    opacity: 1;
+    transform: translateZ(0);
+    transition-duration: .4s;
+    transition-property: opacity,transform;
+}
+
+.ojh_.customer-faq .accordion__trigger--expand {
+    color: #400099;
+    font-weight: 700;
+}
+
+.ojh_accordion__trigger {
+    background: transparent;
+    border: 0;
+    color: #000;
+    cursor: pointer;
+    display: block;
+    
+    font-weight: 700;
+
+    border-bottom: 1px solid rgba(0,0,0,.102);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 30px 100px;
+    text-align: left;
+    width: 100%;
+}
+
+.ojh_accordion__trigger >strong {
+    float: left;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.1538461538;
+    margin-left: -60px;
+    color: #400099;
+}
+
+.ojh_accordion__collapse {
+    background: rgba(0,0,0,.04);
+    max-height: 500px;
+
+    box-sizing: border-box;
+    max-height: 0;
+    overflow: hidden;
+    transition: background-color .4s ease;
+}
+
+.ojh_accordion__body{
+    border-bottom: 1px solid rgba(0,0,0,.102);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.625;
+    padding: 40px 100px;
+    text-align: left;
+
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .35s ease .15s,transform .35s ease .15s;
+
+    opacity: 1;
+    transform: translateY(0);
+
+}
+
+/* ------------BoardFAQ 끝------- */
+
+
+/* ------------ 본문 끝------------- */
+
+
+/* ================================= 오 준 혁 끄 읕 =============================== */
+=======
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+/* ==== 박준엽 시작 ========================================================================================= */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, 
+h6, pre, code, form, fieldset, legend, textarea, p, 
+blockquote, th, td, input, select, textarea, button {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+	color: black;
+	cursor: pointer;
+}
+
+a:hover {
+	text-decoration: none;
+	color: black;
+}
+
+dl, ul, ol, li {
+    list-style: none;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body #header {
+    width: 100%;
+}
+
+body #header .header-section {
+    margin: 80px auto;
+    width: 1200px;
+    height: 75px;
+    min-height: 40px;
+    display: flex;
+    justify-content : space-between;
+}
+
+body #header .header-section .h1-logo {
+    height: 100%;
+    font-weight: bold;
+    color: rgb(122, 75, 15);
+    display: inline-block;
+}
+
+body #header .header-section .h1-logo{
+}
+
+
+body #header .header-section .header-nav {
+    display: inline-block;
+    
+}
+
+body #header .header-section .header-nav ul li {
+    display: inline-block;
+}
+
+body #header .header-section .header-nav ul li a {
+    display: block;
+    font-weight: 500;
+    font-size: 25px;
+    padding : 20px 30px;
+}
+
+body #header .header-section .header-member-box {
+    display: flex;
+    align-items: center;
+}
+
+body #header .header-section .header-member-box ul {
+    font-size: 15px;
+    color: #878787;
+}
+
+body #header .header-section .header-member-box ul li {
+    display: inline-block;
+}
+
+.txt_bar {
+    display: inline-block;
+    width: 1px;
+    height: 10px;
+    margin: 0 10px 0 10px;
+    background: #dedede;
+    vertical-align: -1px;
+}
+
+body #footer {
+    width: 100%;
+    height: 200px;
+    background-color: #333333;
+}
+
+body #footer .footer-container {
+
+    width: 1000px;
+    height: 100%;
+    margin: 0 auto;
+    color: white;
+}
+
+body #footer .footer-container .footer-company-info {
+    padding-top: 5%;
+}
+
+body #footer .footer-container .footer-company-info .footer-company-email {
+    display: inline-block;
+    font-size : 15px;
+    font-weight: 300;
+}
+
+body #footer .footer-container .footer-company-info .footer-company-name {
+    float: right;
+    font-size: 24px;
+}
+
+body #container {
+    margin: 0;
+    border-top: none;
+
+}
+
+body #container #contents {
+    min-height: 400px;
+    padding: 0 0 80px 0;
+    width: 1200px;
+    border: 1px solid black; 
+    margin: 30px auto;
+}
+
+body #container .container-top-animator-background {
+    background-color: #400099;
+    height: 500px;
+    
+}
+
+body #container .container-top-animator-background .container-top-copy {
+    padding: 120px 0 0 190px;
+}
+
+body #container .container-top-animator-background p:first-child {
+    color: white;
+    font-size: 56px;
+    font-weight: bold;
+}
+
+body #container .container-top-animator-background p:last-child {
+    color: white;
+    font-size: 48px;
+    font-weight: lighter;
+}
+
+body #container .container-bottom-animator-background {
+    background-color: #ffffff;
+    height: 500px;
+}
+
+body #container .container-bottom-animator-background .container-botton-copy {
+    padding: 60px 0 0 190px;
+}
+
+body #container .container-bottom-animator-background p:first-child {
+    color: #400099;
+    font-size: 64px;
+    font-weight: bold;
+}
+
+body #container .container-bottom-animator-background p:last-child {
+    color: #400099;
+    font-size: 64px;
+    font-weight: lighter;
+}
+
+
+.circle-white {
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    z-index: 3;
+    position: absolute;
+    top:350px;
+    right: -72px;
+}
+
+.circle-purple {
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background-color: #400099;
+    z-index: 4;
+    position: absolute;
+    top:403px;
+    right: -24px;
+}
+
+div.contents-prolist-promotional {
+	position: relative;
+	top:30px;
+    line-height: 36px;
+}
+
+div#contents p#contents-prolist-promotional-msg {
+	display:inline-block;
+	font-size: 24px;
+	font-weight: bold;
+	color: #400099;
+	position: relative;
+	left:50px;
+}
+
+div#contents p#contents-prolistAll-link {
+	display:inline-block;
+	font-size: 16px;
+	font-weight:400;
+	color: #400099;
+	position: relative;
+    right:55px;
+	float:right;
+	cursor: pointer;
+}
+
+.swiper {
+  	width: 1100px;
+  	margin-top: 50px;
+}
+
+.swiper-slide {
+
+}
+
+.swiper .swiper-wrapper {
+}
+
+.swiper-slide-card {
+	border:1px solid #b8b8b8;
+  	border-radius: 30px;
+  	overflow:hidden;
+  	height: 400px;
+  	cursor: pointer;
+  	box-shadow: 12px 8px 14px -15px;
+}
+
+.swiper .swiper-card-img {
+    position: relative;
+    width: 100%;
+    height: 200px;
+}
+
+.swiper .swiper-img-span {
+	box-sizing: border-box;
+    display: block;
+    overflow: hidden;
+    width: initial;
+    height: initial;
+    background: none;
+    opacity: 1;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+    inset: 0px;
+}
+
+.swiper .swiper-img-span img {
+	position: absolute;
+    inset: 0px;
+    box-sizing: border-box;
+    padding: 0px;
+    border: none;
+    margin: auto;
+    display: block;
+    width: 0px;
+    height: 0px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    object-fit: fill;
+}
+
+.swiper .swiper-card-info {
+	padding : 20px;
+	color: #363636;
+}
+
+.swiper .swiper-card-info .card-craft-name {
+	font-size: 30px;
+}
+
+.swiper .swiper-pagination-bullet {
+	background-color: #5F26FF !important;
+}
+
+.swiper .swiper-card-info p {
+	margin-top: 5px;
+}
+
+.swiper .swiper-card-info .craft-strength {
+	border: 1px solid #b8b8b8;
+	border-radius: 8px;
+	color: white;
+	background-color: #5F26FF;
+    display: inline-block;
+    padding: 3px;
+    margin: 5px 0 5px 0;
+}
+
+.swiper .swiper-card-info .card-craft-place .material-symbols-outlined {
+	position: relative;
+    top: 5px;
+}
+
+.banner-service-info {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    width: 100%;
+    height: 300px;
+    padding: 115px 30px;
+    color: white;
+    line-height: 40px;
+    background: #400099;
+}
+
+.banner-title {
+	font-size: 40px;
+	font-weight: 700;
+}
+
+.banner-cont-txt {
+	
+}
+
+
+div#review-slide {
+	margint-top: 50px;
+}
+
+.reviewSwiper {
+    overflow: hidden;
+    width: 1100px;
+    margin-top: 50px;
+    
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    z-index: 1;
+    display: block;
+    
+}
+
+div.contents-review-promotional {
+    position: relative;
+    top: 30px;
+    line-height: 36px;
+}
+
+#review-list-title{
+    display:inline-block;
+	font-size: 24px;
+	font-weight: bold;
+	color: #7c7c7c;
+	position: relative;
+	left:50px;
+}
+
+#review-list-link {
+	display:inline-block;
+	font-size: 16px;
+	font-weight:400;
+	color: #7c7c7c;
+	position: relative;
+    right:55px;
+	float:right;
+	cursor: pointer;
+}
+
+.review-img {
+    display: flex;
+    justify-content: space-between;
+    width: 445px;
+    margin: 30px 30px 10px 30px
+}
+
+.reviewSwiper .swiper-wrapper .swiper-slide .swiper-slide-card .review-before-img, .review-after-img {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.reviewSwiper .swiper-wrapper .swiper-slide .swiper-slide-card .review-after-img {
+}
+
+.review-img-span {
+    box-sizing: border-box;
+    overflow: hidden;
+    inset: 0px;
+}
+
+.review-img-span img {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    object-fit: fill;
+}
+
+.slide-review-card {
+	border-radius: 5px;
+}
+
+.swiper-slide .slide-review-card .card-review {
+    margin: 0 30px;
+}
+
+.card-review .card-review-craft {
+	font-weight: 600;
+}
+
+.card-review .card-review-content {
+	font-weight: 500;
+	font-size: 14px;
+	color: #4f4f4f;
+}
+
+.card-review .card-review-info {
+	font-weight:300;
+	font-size: 13px;
+	color: #848484;
+}
+
+.swiper-reivew-pagination {
+	text-align: center;
+    transition: .3s opacity;
+    transform: translate3d(0,0,0);
+}
+
+.reviewSwiper .swiper-pagination-bullet, .swiper-pagination-bullet-active {
+	background-color: #5F26FF !important;
+}
+
+#container .video-theme {
+	display: flex;
+	align-items: center;
+}
+
+#container .video-theme video {
+	width: 100%;
+	position: sticky;
+	top: 0;
+}
+
+#container .video-theme .copywright {
+	color: white;
+    font-size: 50px;
+    font-weight: 50;
+    z-index: 5;
+    position: absolute;
+    line-height: 75px;
+    left: 16%;
+}
+
+.serviceInfo-text-block {
+	width: 100%;
+	background-color: #333333;
+	color: #ffffff;
+	padding: 10% 0;
+}
+
+.serviceInfo-text-block #contents .copywright {
+	font-size: 30px;
+    font-weight: 50;
+    margin-top: 78px;
+}
+
+.serviceInfo-text-block-white #contents .copywright {
+	margin-top: 80px;
+	display:flex;
+	font-size:30px;
+	justify-content:center;
+	background-color: #ffffff;
+	color: #333333;
+}
+
+.serviceInfo-text-block-white #contents .imgList-serviceInfo-intro {
+	margin-top: 55px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.serviceInfo-text-block-white #contents .imgList-serviceInfo-intro li {
+	display: inline-block;
+}
+
+.img-serviceInfo-intro img {
+	width: 300px;
+	height: 300px;
+	filter: drop-shadow(4px 5px 6px #000) 
+}
+
+.hide-item {
+	opacity: 0;
+	margin-bottom: -300px;
+}
+
+.myPage-container {
+	width: 100%;
+	overflow: hidden;
+    height: auto;
+    border-top: 2px solid black;
+}
+
+.myPage-container .myPage-tit {
+	border-bottom: 1px solid #6D6D6D;
+	margin: 0px auto;
+	width: 1200px;
+}
+
+.myPage-container .myPage-tit h1 {
+	margin: 15px 0 15px 0;
+}
+
+.myPage-container .myPage-contents {
+	margin: 0px auto;
+	width: 1200px;
+}
+
+.myPage-container .myPage-contents .myPage-menu-list {
+	float:left;
+	width: 240px;
+}
+
+.myPage-container .myPage-contents .myPage-menu-list ul li {
+	font-size : 20px;
+	padding: 10px 0 20px 10px;
+	border-bottom: 1px solid #6D6D6D;
+	cursor: pointer;
+}
+
+.myPage-menu-list ul li:hover, .myPage-menu-list ul li:hover a {
+	background-color: #6D6D6D;
+	color: white;
+}
+
+.menu-list-selected {
+	background-color: #6D6D6D;
+	color: white;
+	pointer-events:none;
+}
+
+.myPage-container .myPage-contents .myPage-cont {
+	float:right;
+	min-height : 700px;
+	width: 950px;
+	margin-bottom: 50px;
+}
+
+.myPage-container .myPage-contents .myPage-cont h4 {
+	margin: 25px 0 10px 15px;
+    color: #400099;
+    font-weight: 600;
+}
+
+.myPage-cont table.tbl-myPageList {
+    border-bottom: 1px #6d6d6d solid;
+    margin-top: 10px;
+    font-size: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+.myPage-cont table.tbl-myPageList thead {
+	font-weight: bold;
+	color: #fff;
+	background: #400099;
+}
+
+.myPage-cont table.tbl-myPageList thead th {
+	text-align: center;
+}
+
+.myPage-cont table.tbl-myPageList tbody td {
+	text-align: center;
+	font-size: 17px;
+	padding: 10px 0px;
+
+}
+
+.myPage-cont table.tbl-myPageList tbody tr {
+	box-shadow: 1px 1px 1px #6D6D6D;
+}
+
+.img-estimate {
+	width: 100px;
+	height: 100px;
+	border: 1px solid #6D6D6D;
+	margin: 0px auto;
+}
+
+.txt-estimate-info {
+	text-align: left;
+	font-size: 14px;
+}
+
+.btn-estimateDetail {
+	border: 1px solid #6D6D6D;
+	background-color: white;
+	padding: 4px;
+	box-shadow: 1px 1px 1px black;
+	margin-bottom: 5px;
+}
+
+.btn-estimateDetail:hover {
+	border: 3px solid #6D6D6D;
+	transition: 0.1s ease;
+}
+
+.popup-container {
+	padding: 30px 15px;
+}
+
+.popup-container #requestEstimate {
+	border: 1px solid black;
+	box-shadow: 1px 1px 1px;
+	border-radius: 5px;
+}
+
+.popup-container #requestEstimate .tit-estimate {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
+}
+
+.popup-container #requestEstimate .tbl-estimate {
+	width: 100%;
+}
+
+.popup-container #requestEstimate .tbl-estimate td {
+	border-top: 1px solid black;
+	width: 30px;
+	padding: 5px 6px;
+}
+
+.popup-container #requestEstimate .tbl-estimate tr td:first-child {
+	text-align: center;
+	border-right: 1px solid black;
+}
+
+.cont-proposal {
+	display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.cont-proposal h3 {
+	display: inline-block;
+}
+
+.cont-proposal .input-proposal {
+	margin-left: 20px;
+	text-align: right;
+}
+
+.cont-bid-final {
+	display: flex;
+	justify-content: center;
+	color: white;
+	font-size: 20px;
+	margin-top: 50px;
+}
+
+.cont-bid-final a {
+	width: 190px;
+	height: 60px;
+	background-color: #400099;
+	justify-content: center;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    
+}
+
+.cont-bid-final a:hover {
+	box-shadow: 1px 1px 1px black;
+}
+
+.tbl-myPageList .btn-save-state {
+	display: block;
+    margin: 15px auto;
+    border: 1px solid #6D6D6D;
+    background-color: white;
+    padding: 8px;
+    box-shadow: 1px 1px 1px black;
+}
+
+.tbl-myPageList .btn-save-state:hover {
+	border: 3px solid #6D6D6D;
+	transition: 0.1s ease;
+}
+
+.tbl-myPageList .txt-order-info {
+	font-size: 14px;
+	text-align: left;
+}
+
+.tbl-edit-myInfo {
+	border-top: 2px solid black;
+	width: 100%;
+	font-size: 15px;
+}
+
+.tbl-edit-myInfo tbody tr th, td {
+	border-bottom: 1px solid #6D6D6D;
+	text-align: left;
+    vertical-align: middle;
+}
+
+.tbl-edit-myInfo tbody tr th {
+	background-color: #f7f7f7;
+	padding: 4px 0 0 19px;
+	color: #777;
+}
+
+.tbl-edit-myInfo td { 
+	padding: 20px 12px 20px 12px;
+	color: #444;
+}
+
+.tbl-edit-myInfo tbody tr td div.address_input input#address, input#detailAddress {
+	margin-top: 15px;
+}
+
+.tbl-edit-myInfo tbody tr td div.address_input input#detailAddress {
+	width: 300px;
+}
+
+.tbl-edit-myInfo tbody tr td div.address_input input#extraAddress {
+	width: 300px;
+}
+
+.btn-center {
+	width: 100%;
+	text-align: center;
+}
+
+.btn-center .btn-edit-info {
+	display: inline-block;
+	background-color: #400099;
+	color: white;
+	margin-top: 30px;
+	width: 130px;
+	height: 40px;
+	padding-top: 5px;
+	box-shadow: 1px 1px 2px black;
+}
+
+
+
+
+
+
+/* ======================== 애니메이션 모음 =========================================== */
+.fade-in {
+  opacity: 0;
+  animation: fade-in 2s forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in-1s {
+  opacity: 0;
+  animation: fade-in 0.7s forwards;
+}
+
+@keyframes fade-in-1s {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* ==== 박준엽 끝 ========================================================================================= */
+
+
+
+
+
+
+
+
+
+/* ==== 김진솔 시작========================================================================================= */
+
+/*-- admin--------------------------------------------------------------*/
+
+/*약관동의 form*/
+body #admin_container {
+    margin: 0;
+    border-top: none;
+
+}
+
+body #admin_container #admin_contents {
+    min-height: 400px;
+    padding: 0 0 80px 0;
+    width: 1200px;
+   /*  border: 1px solid black; */
+    margin: 30px auto;
+
+}
+body #admin_container #admin_contents #joinForm{
+    width: 500px;
+    margin: 0 auto;}
+body #admin_container #admin_contents ul.join_box{
+    border: 1px solid #ddd;background-color: #fff;
+}
+body #admin_container #admin_contents .checkBox>ul{
+    position: relative;
+}
+
+
+body #admin_container #admin_contents .checkBox>ul>li:first-child{
+    width: 85%;padding: 15px;font-weight: 600;color: #888;
+}
+body #admin_container #admin_contents .checkBox>ul>li:nth-child(2){
+    position: absolute;top: 50%;right: 30px; margin-top: -12px;
+}
+body #admin_container #admin_contents .checkBox textarea{
+    width: 96%;height: 90px; margin: 0 2%;background-color: #f7f7f7;color: #888; border: none;
+}
+body #admin_container #admin_contents .footBtwrap{
+    margin-top: 15px;
+}
+body #admin_container #admin_contents .footBtwrap>li{
+    float: left;width: 50%;height: 60px;
+}
+body #admin_container #admin_contents .footBtwrap>li>button{
+    display: block; width: 100%;height: 100%; font-size: 20px;text-align: center;line-height: 60px;
+
+}
+body #admin_container #admin_contents .fpmgBt1{
+     background-color: #fff; 
+    border: solid 1px rgb(164, 163, 163);
+}
+body #admin_container #admin_contents .fpmgBt2{
+     background-color: #400099;
+    border: solid 1px rgb(164, 163, 163);
+    color: white;
+}
+
+
+
+/* 공방 신청 form */
+body #admin_container #admin_contents #craft_application{
+    /* border: solid 1px rgb(230, 230, 230); */
+    height: 2000px;
+}
+
+body #admin_container #admin_contents #craft_application #application_left{
+    width: 270px;
+    height: 2000px;
+    float: left;    
+}
+
+body #admin_container #admin_contents #craft_application .left_list{
+    margin-top: 30px;
+    border: solid 1px rgb(217, 217, 217);
+    width: 220px;
+    height: 320px;
+    border-radius: 10px;
+}
+body #admin_container #admin_contents #craft_application .left_list span{
+    margin-left: 8px;
+}
+
+body #admin_container #admin_contents  .left_list span{
+    font-size: 13pt;
+    cursor: pointer;
+    color: #595a61b8;
+    display: inline-block;
+}
+body #admin_container #admin_contents  .left_list div{
+    margin: 8%;
+}
+
+body #admin_container #admin_contents .application_right{
+    width: 928px;
+    height: auto;
+    display: inline-block;
+}
+body #admin_container #admin_contents .application_right .list{
+    border: solid 1px 0015a;
+    width: 920px;
+    height: 50px;
+    color: #400099;
+    font-size: 17pt;
+    font-weight: 600;
+}
+body #admin_container #admin_contents .application_right .list span{
+    border-bottom: solid 1px whitesmoke;
+    padding: 0 0 12px 20px;
+    margin-top: 20px;
+}
+
+body #admin_container #admin_contents .application_right span{
+    display: flex;
+    padding-top: 9px;
+    padding-left: 11px;
+}
+body #admin_container #admin_contents .application_right .image{
+    border: solid 1px rgb(214, 214, 214);
+    border-radius: 15px;
+    margin: 40px 10px;
+    height: 60px;
+}
+
+body #admin_container #admin_contents .filebox .upload-name {
+    display: inline-block;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    width: 200px;
+    color: #999999;
+}
+body #admin_container #admin_contents  .filebox label {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #999999;
+    cursor: pointer;
+    height: 44px;
+    margin-left: 10px;
+}
+body #admin_container #admin_contents .filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+
+
+body #admin_container #admin_contents .application_right  .upload{
+    width: 300px;
+    height: 38px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-top: 5px;
+    padding-left: 10px;
+    background-color: rgb(233, 233, 233);
+  }
+  body #admin_container #admin_contents .application_right #self_introduce {
+    width: 500px;
+    height: 180px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-top: 5px;
+    padding-left: 10px;
+    background-color: rgb(233, 233, 233);
+  }
+body #admin_container #admin_contents .application_right .frm_border{
+    border: solid 1px rgb(214, 214, 214);
+    border-radius: 15px;
+    margin: 40px 10px;
+    height: 60px;
+}
+
+body #admin_container #admin_contents .application_right .frm_border_2{
+    border: solid 1px rgb(214, 214, 214);
+    border-radius: 15px;
+    margin: 40px 10px;
+    height: 200px;
+}
+
+body #admin_container #admin_contents .application_right .frm_border_3{
+    border: solid 1px rgb(214, 214, 214);
+    border-radius: 15px;
+    margin: 40px 10px;
+    height: 105px;
+}
+
+body #admin_container #admin_contents .application_right #other_career{
+    width: 500px;
+    height: 80px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-top: 5px;
+    padding-left: 10px;
+    background-color: rgb(233, 233, 233);
+}
+
+
+body #admin_container #admin_contents .application_right p {
+    color: rgb(95, 95, 95);
+    font-weight: 500;
+    font-size: 13pt; 
+    margin-top: 6px;
+    width: 150px;
+    padding-left: 4px;
+}
+
+/*중복검사 버튼*/
+body #admin_container #admin_contents .application_right .check_button{
+    padding: 10px 10px;
+    color: #fff;
+    font-size: 11pt;
+    vertical-align: middle;
+    background-color: #999999;
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    margin-left: 10px;
+    border: #f7f7f7;
+    border-radius: 10px;
+}
+
+/* 전문분야 체크박스*/
+
+body #admin_container #admin_contents .application_right #specialized_chkBox{
+    margin-top: 6px;
+    width: 350px;
+    font-size: 13pt;
+    color: 444;
+    color: rgb(86, 86, 86);
+
+}
+
+body #admin_container #admin_contents .application_right #specialized_chkBox input[type="checkbox"] {
+    margin: 2%;
+}
+
+
+
+/*총 경력기간 select 태그 css*/
+body #admin_container #admin_contents .application_right select {
+    font-size: 12pt;
+    width: 150px;
+    height: 35px;
+    padding: 5px 30px 5px 10px;
+    border-radius: 4px;
+    outline: 0 none;
+  }
+
+body #admin_container #admin_contents .application_right select option{
+    background:#efefefe2;
+    color: rgb(67, 67, 67);
+    padding: 3px 0;
+}
+
+
+body #admin_container #admin_contents .application_right .Certificate{
+    border: solid 1px rgb(214, 214, 214);
+    border-radius: 15px;
+    margin: 40px 10px;
+    height: 60px;
+}
+
+body #admin_container #admin_contents .submit_box{
+    margin: 40px 10px;
+    height: 60px;
+    text-align: center;
+    padding-top: 35px;
+}
+
+body #admin_container #admin_contents .submit_box .submit_go{
+    border-radius: 28px;
+    box-sizing: border-box;
+    background-color: #400099;
+    border:#400099 ;
+    color: #fff;
+    display: inline-block;
+    font-size: 18px;
+    height: 56px;
+    letter-spacing: -.45px;
+    line-height: 26px;
+    padding: 14px 15px;
+    text-align: center;
+    width: 180px;
+}
+
+body #admin_container #admin_contents .submit_box .submit_back{
+    border-radius: 28px;
+    box-sizing: border-box;
+    background: #fff;
+    border: solid 0.4px #b9b9b9;
+    color: #1a1325;
+    display: inline-block;
+    font-size: 18px;
+    height: 56px;
+    letter-spacing: -.45px;
+    line-height: 26px;
+    padding: 14px 15px;
+    text-align: center;
+    width: 180px;
+}
+
+
+/* (어드민) 공방 신청 완료 본문시작 */
+body #admin_container #admin_contents #admin_complete{
+    border: solid 1px rgb(177, 177, 177);
+    border-radius: 12px;
+    margin: 0 auto;
+    width: 1100px;
+    height: 330px;
+}
+
+body #admin_container #admin_contents #complete{
+    border-bottom: solid 1px rgb(177, 177, 177);
+    margin: 0 auto;
+    width: 950px;
+    font-size: 20pt;
+    padding: 30px 0px 20px 0px;
+    font-weight: 600;
+    color: #400099;
+}
+
+body #admin_container #admin_contents #complete_content{
+    margin: 0 auto;
+    width: 940px;
+    font-size: 14pt;
+    padding: 20px 10px;
+    color: #646464;
+}
+
+
+/********************************************************/
+/*admin 공방 목록보기*/
+
+body #admin_container #craft_application .craft_list {
+   /* border: solid 1px rgb(145, 145, 145); */
+    margin: 30px auto;
+}
+
+body #admin_container #craft_application table{
+    border-collapse: collapse;
+}
+
+body #admin_container #craft_application .craft_list thead{
+    background-color: #f0f0f0d1;
+    color: #868686;
+}
+
+body #admin_container #craft_application .craft_list thead tr th{
+    padding: 13px;
+    font-size: 13pt;
+}
+body #admin_container #craft_application .craft_list tbody tr td {
+    padding: 13px;
+    text-align: center;
+    font-size: 12pt;
+    border-bottom: 1px solid #c7c7c7;
+    color:rgb(95, 95, 95);
+}
+
+/*admin 공방 정보 상세 보기*/
+
+body #admin_container #craft_application .craftOneView .view{
+    width: 300px;
+    height: 38px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-top: 5px;
+    padding-left: 10px;
+    background-color: rgb(233, 233, 233);
+}
+
+body #admin_container #craft_application #view_address span span{
+    width: 738px;
+    float: right;
+}
+
+body #craft_application .application_right .craftOneView_btn{
+    text-align: center;
+    margin:30px 0;
+}
+
+
+body #craft_application .application_right .craftOneView_btn .del{
+    border-radius: 28px;
+    box-sizing: border-box;
+    background-color: #400099;
+    border:#400099 ;
+    color: #fff;
+    display: inline-block;
+    font-size: 18px;
+    height: 56px;
+    letter-spacing: -.45px;
+    line-height: 26px;
+    padding: 14px 15px;
+    text-align: center;
+    width: 180px;
+}
+
+body #craft_application .application_right .craftOneView_btn .update {
+    border-radius: 28px;
+    box-sizing: border-box;
+    background: #fff;
+    border: solid 0.4px #b9b9b9;
+    color: #1a1325;
+    display: inline-block;
+    font-size: 18px;
+    height: 56px;
+    letter-spacing: -.45px;
+    line-height: 26px;
+    padding: 14px 15px;
+    text-align: center;
+    width: 180px;
+}
+
+
+
+/* ==== 김진솔 끝========================================================================================= */
+
+
+
+
+/* ==== 이지현 시작========================================================================================= */
+
+---------orderForm
+div#orderContent {
+   padding: 50px;
+   width: 1000px;
+   margin: 30px auto;
+   border: 1px solid #400099;
+   /* background-color:#cceeff; */
+    border-radius:10px;
+	height:fit-content;
+
+}
+span.hightlight{
+	background:linear-gradient(to top,#b3d1ff 60%, transparent 60%);
+	font-weight:bold;
+}
+
+td.orderTd{
+	padding: 20px 30px;
+}
+
+td.orderTdTitle{
+	text-align:right;
+	font-weight:bold;
+}
+
+a.orderPop {
+	padding: 0;
+	border: none;
+}
+
+p.orderMargin{
+	text-align:center;
+	margin-top:8px;
+	
+}
+
+p.orderTitle{
+	font-size:30pt; 
+	font-weight:bold; 
+	margin-bottom:60px;
+}
+
+hr.orderHr{
+	border: solid 2px #400099;
+}
+
+select.orderSelect{
+	width:600px; 
+	height:50px; 
+	border:solid 1px gray; 
+	border-radius:5px;
+}
+
+input.orderInput{
+	border-radius:8px; 
+	width:600px; 
+	height:50px; 
+}
+
+div.orderDivPic{
+	border:solid 1px gray;  
+	background-color: white;  
+	border-radius:10px; 
+	width: fit-content; 
+	padding:15px; 
+	display:flex; 
+	flex-direction:column;  
+	justify-content: center; 
+	align-items: center;
+}
+
+div.orderReq{
+	border:solid 2px lightgray; 
+	background-color: white; 
+	border-radius:5px; 
+	width:600px; 
+	height:180px; 
+	padding:20px;
+}
+
+div.orderDivArea{
+  	width:500px; 
+  	height:180px; 
+  	margin-top:10px;
+ }
+ 
+  textarea#orderTextarea{
+  	border:solid 2px lightgray; 
+  	resize: none; 
+  	border-radius:5px; 
+  	width:600px; 
+  	height:180px; 
+  	margin:0 auto; 
+  	padding:20px;
+  }
+  
+p.pCenter{
+  	text-align:center;
+  }
+
+ button.orderButton{
+ 	margin-top:60px;  
+ 	border-radius:15px; 
+ 	font-size:15pt; 
+ 	width:200px; 
+ 	height:50px; 
+ 	background-color:#400099; 
+ 	color:white;
+  }
+  
+----orderList
+div#listContent {
+    padding: 20px 50px;
+    width: 1000px;
+    margin: 20px auto;
+    border: 0px solid blue;
+     background-color:#f2f2f2; 
+    border-radius:10px;
+	height:fit-content;
+}  
+
+p.listCenter{
+	font-size:30pt; 
+	font-weight:bold; 	
+	margin:60px 0;	
+}
+
+div.listBorder{
+	border:solid 1px gray; 
+	border-radius:10px; 
+	background-color:white; 
+	margin:15px 0; 
+	height: 300px;
+}
+
+p.listTitle{
+	font-size:20pt;
+	font-weight:bold; 
+	margin:30px 0; 
+	margin-left:30px;
+}
+
+div.listFlex{
+	display:flex; 
+	margin-left:30px;
+}
+
+img.listImg{
+	padding-left: 30px; 
+
+}
+
+p.listMarginLeft{
+	margin-left: 32px;
+}
+
+p.listpText{
+	margin-left:30px; 
+	font-weight:bold;  
+	font-size:15pt; 
+	position: relative;
+	bottom: 120px;
+	left: 180px;
+}
+
+p.listCondition{
+	 font-size: 25pt;  
+	 font-weight: bold; 
+	 margin-bottom: 13px;
+}
+
+div.listBorderDiv{
+	width:fit-content; 
+	margin-left: 46px; 
+	padding-top:55px; 
+}
+
+p.listDate{
+	color: grey;
+	font-size: 14pt;
+}
+
+p.listOrderName{
+	font-size: 21pt; 
+	padding-bottom: 101px;
+}
+
+a.listAnchor{
+	color:#400099; 
+	font-weight:bold; 
+	font-size: 22px;
+}
+
+----------orderDetail
+div#detailContent {
+   padding: 20px 50px;
+   width: 1200px;
+   margin: 20px auto;
+   border: 0px solid blue;
+   background-color:#f2f2f2; 
+   border-radius:10px;
+   height:fit-content;
+
+/* 	padding:0 50px; 
+	width:100%; 
+	height:150px;  */
+}
+
+div.detailDivFlex{
+	display:flex;
+}
+
+img.detailImage{
+	padding-left: 30px;
+}
+
+div.detailDivBorder{
+	border:solid 1px gray; 
+	border-radius:10px;
+	background-color:white;
+	margin:15px 0; 
+	padding:25px 0; 
+	padding-left:40px; 
+	display:flex;
+	
+}
+
+p.detailPName{
+	margin-left:30px; 
+	font-weight:bold;
+	margin-top:-3px; 
+	font-size:15pt;
+}
+
+div.detailMargin{
+	margin-top:30px;
+}
+
+
+div.detailDiv{
+	display:flex; 
+	margin-left:72px; 
+	margin-bottom:8px;
+}
+
+div.detailBorder{
+	border:solid 1px gray; 
+	border-radius:10px; 
+	background-color:white; 
+	margin:15px 0; 
+	height: 200px; 
+	padding:25px 10px;
+}  
+
+div.detailNoBorder{
+	border-radius:10px; 
+	margin:15px 0; 
+	height: 200px; 
+	padding:25px 10px;
+}  
+
+--------payment
+div#payContent {
+	padding: 20px 50px;
+	width: 1200px;
+	margin: 20px auto;
+	border: 0px solid blue;
+	/* background-color:#cceeff; */
+	  border-radius:10px;
+	height:fit-content;
+}
+
+div.payFlex{
+	display:flex; 
+	margin-top:50px;
+}
+
+div.payFlex2{
+	display:flex; 
+	margin-top:70px;
+}
+
+div.payCircleDiv{
+	border-radius:50%; 
+	background-color:#cce0ff; 
+	width:40px; 
+	height:40px;	
+}
+
+p.payNum{
+	text-align:center; 
+	font-size:20pt; 
+	font-weight:bold;	
+}
+
+p.paySubject{
+	font-size:20pt;
+	font-weight:bold; 
+	margin-bottom:50px;
+	margin-left:10px;
+}
+
+div.payDivFlex2{
+	display:flex; 
+	margin-left:30px; 
+	margin-top:10px;
+}
+
+div.payDivFlex3{
+	display:flex; 
+	margin-left:30px; 
+	margin-top:40px; 
+	margin-bottom:8px;
+}
+
+div.payDivFlex4{
+	display:flex; 
+	margin-left:30px; 
+	margin-bottom:8px;
+	
+}
+
+p.payFont{
+	font-weight:bold; 
+	font-size:20px;
+}
+
+hr.lightgray{
+	border:solid 1px lightgray;
+}
+
+input.payInput{
+	width:500px; 
+	height: 35px; 
+	font-size:10pt;
+}
+
+input.inputHeight{
+	height: 35px;
+}
+
+button.payBtnPost{
+	margin-bottom:5px; 
+	background-color:#400099; 
+	color:white; 
+	height: 35px;
+}
+
+input.payInput2{
+	width:100%; 
+	margin-bottom:5px; 
+	height: 35px;
+}
+
+----buyResult
+
+div#resultContent{
+	padding: 20px 50px;
+    width: 1200px;
+    margin: 20px auto;
+    border: 0px solid blue;
+    background-color:#f2f2f2; 
+    border-radius:10px;
+	height:fit-content;
+	
+/* 	padding:0 50px; 
+	width:100%; 
+	height:150px;  */
+	
+}
+
+div.resultDivFlex3{
+	display:flex; 
+	margin-left:30px; 
+	margin-top:10px;
+	margin-bottom: 20px;
+}
+
+div.resultDivFlex4{
+	display:flex; 
+	margin-left:30px; 
+	margin-top:50px;
+	margin-bottom: 20px;
+}
+
+div.resultDivNoBorder{
+	border-radius:10px;
+	margin:15px 0; 
+	padding:25px 0; 
+	padding-left:20px; 
+	display:flex;
+	
+}
+
+
+------selectGongbang
+
+hr.hrMarginTop{
+	margin-top: 50px;
+}
+
+----
+div.imgCircle
+{
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+img.imgCircle
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+div.imgCircle2 {
+   width: 200px;
+   height: 200px;
+}
+img.imgCircle2 {
+   position: static;
+}
+
+/* ==== 이지현 끝========================================================================================= */
+
+
+/* ================================= 오 준 혁 시 작 =============================== */
+
+a {
+    text-decoration: none;
+}
+
+#ojh_content {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/* ------------상단 배너 시작------------- */
+.ojh_page_content_inquire {
+    border: solid 0px red;
+    padding-bottom: 200px;
+}
+
+.ojh_page-header {
+    border: solid 0px #5411d2;
+    width: 1200px;
+    height: 200px;
+    margin: 0px auto;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.ojh_page-header--customer {
+    background-color: #400099;
+}
+
+.page-header__title {
+    padding: 75px 0px 0px 0px;
+    color: #fff;
+    font-size: 35px;
+    font-weight: 700;
+    font-family: NanumSquare,Arial,sans-serif;
+}
+
+.page-header__title [aria-hidden=true] {
+    clip: rect(0,0,0,0);
+    border: 0;
+    -webkit-clip-path: inset(0 0 99.9% 99.9%);
+    clip-path: inset(0 0 99.9% 99.9%);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.page-header__backdrop-item {
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    left: 50%;
+    position: absolute;
+
+    animation: 5s ease infinite;
+}
+
+
+
+.ojh_page-header .page-header__backdrop-item:first-child {
+    border: solid 0px #000;
+    animation-name: page-header-backdrop-1;
+    background-image: url(../img/board/bg_header_backgrop_1.png);
+    height: 220px;
+    width: 135px;
+    margin-left: -500px;
+}
+
+@keyframes page-header-backdrop-1 {
+    0% {
+         opacity:0; 
+         transform:translateY(-50px); 
+    }
+
+    15% {
+         opacity:1; 
+         transform:translateY(0); 
+    }
+
+    95% {
+         opacity:1; 
+         transform:translateY(0); 
+    }
+
+    to {
+         opacity:0; 
+    }
+}
+
+.ojh_page-header .page-header__backdrop-item:nth-child(2) {
+    border: solid 0px #000;
+    animation-name: page-header-backdrop-2;
+    background-image: url(../img/board/bg_header_backgrop_1.png);
+    height: 159px;
+    margin-left: -384px;
+    width: 78px;
+}
+
+@keyframes page-header-backdrop-2 {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    3% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    18% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    95% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    to {
+        opacity: 0
+    }
+}
+
+.ojh_page-header .page-header__backdrop-item:nth-child(3) {
+    animation-name: page-header-backdrop-3;
+    background-image: url(../img/board/bg_header_backgrop_1.png);
+    height: 210px;
+    margin-left: 245px;
+    width: 110px;
+}
+
+@keyframes page-header-backdrop-3 {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    3% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    18% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    95% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    to {
+        opacity: 0
+    }
+}
+
+.ojh_page-header .page-header__backdrop-item:nth-child(4) {
+    animation-name: page-header-backdrop-3;
+    background-image: url(../img/board/bg_header_backgrop_2.png);
+    height: 216px;
+    margin-left: 318px;
+    width: 135px;
+}
+
+@keyframes page-header-backdrop-4 {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    9% {
+        opacity: 0;
+        transform: translateY(-50px)
+    }
+
+    24% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    95% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    to {
+        opacity: 0
+    }
+}
+
+/* ------------ 상단 배너 끝 ------------- */
+
+
+/* ------------ 카테고리 시작------------- */
+
+#ojh_category {
+    border: solid 0px red;
+    width: 250px;
+    height: 500px;
+    position: absolute;
+}
+
+.ojh_center {
+    height: 75px;
+    padding: 5px 0px 35px 1px;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 35px;
+    color: rgb(51, 51, 51);
+    letter-spacing: -1px;
+
+    padding: 26px 0px 0px 15px;
+}
+
+.ojh_sub_category_info {
+    cursor: pointer;
+    border-bottom: 1px solid rgb(242, 242, 242);
+    padding: 15px 13px 15px 20px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    line-height: 19px;
+    letter-spacing: -0.3px;
+    font-size: 14px;
+    color: rgb(102, 102, 102);
+}
+
+.ojh_sub_category_info:hover {
+    background-color: #f2f2f2;
+    color: #400099;
+}
+
+.ojh_sub_category {
+border: 1px solid rgb(242, 242, 242);
+width: 210px
+}
+
+/* ------------ 카테고리 끝------------- */
+
+
+/* ------------ 본문 시작------------- */
+.ojh_form{
+    margin: 50px auto 0;
+    /* width: 900px; */
+    padding: 0px 0px 0px 289px;
+}
+
+
+.ojh_form strong {
+    color: #e6344a;
+    font-weight: 700;
+}
+
+.ojh_form-input[type=text] {
+    border-radius: 0;
+    border-width: 0 0 1px;
+    height: 60px;
+}
+
+.ojh_form legend {
+    border: solid 0px #5411d2;
+    color: #000;
+    font-family: inherit;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 30px 0;
+}
+
+.ojh_form legend+p {
+    border: solid 0px #5411d2;
+    height: 50px;
+    margin-top: -50px;
+    padding-left: 165px;
+}
+.ojh_table {
+    border-collapse: collapse;
+    border-top: 1px solid #000;
+    width: 100%;
+}
+
+.ojh_table th, .ojh_table td{
+   
+    padding-top: 30px;
+}
+
+.ojh_table th {
+    padding: 30px 0px 0px 25px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 3.0;
+    vertical-align: top;
+    width: 170px;
+    text-align: left
+}
+
+.ojh_form-input {
+    width: 100%;
+    font-family: NanumSquare,Arial,sans-serif;
+    font-weight: 700;
+    box-sizing: border-box;
+    padding: 13px 20px;
+    border-color: #b9b9b9;
+    
+}
+
+.ojh_form-attached-file {
+    align-items: flex-start;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.ojh_form-attached-file__trigger-name {
+    background: #400099 url(../img/board/icon_attached_file_trigger.png) no-repeat 22px 50%/24px auto;
+    color: white;
+    display: block;
+    font-size: 14px;
+    height: 52px;
+    line-height: 52px;
+    padding-left: 25px;
+    text-align: center;
+    width: 136px;
+    box-sizing: border-box;
+}
+
+.ojh_form-attached-file__trigger-file {
+    border: solid 0px #5411d2;
+    clip: rect(0,0,0,0);
+    border: 0;
+    -webkit-clip-path: inset(0 0 99.9% 99.9%);
+    clip-path: inset(0 0 99.9% 99.9%);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.ojh_form-attached-file__info {
+    color: #565656;
+    font-size: 16px;
+    line-height: 1.5;
+    position: relative;
+    padding:10px 10px 10px 20px;
+
+}
+
+.ojh_cancle_button {
+    background: #fff;
+    color: #400099;
+}
+
+
+.ojh_button {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: #fff;
+    border: solid 0px #5411d2;
+    appearance: none;
+    background: #400099;
+    border: 1px solid #400099;
+    border-radius: 28px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 18px;
+    height: 56px;
+    letter-spacing: -.45px;
+    line-height: 26px;
+    padding: 14px 15px;
+    text-align: center;
+    width: 180px;
+}
+
+#ojh_form_ul {
+    border: solid 0px #5411d2;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+}
+
+#ojh_form_ul li {
+   
+}
+
+/* ------------ 본문 끝------------- */
+
+
+/* ================================= 오 준 혁 끄 읕 =============================== */
+
+/* ================================= 김나윤 시작 ================================ */
+/* [영역1] "수선사 찾기" 박스 영역 시작 ==================================================================================== */
+.craftListBox {
+	border: none;
+	background-image: url("https://fapis.io/_next/image?url=%2Fimg%2Fbanner%2Frolling%2Ftrust.png&w=768&q=75");
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 200px;
+} 
+
+.craftSearchBox {
+	/* border: solid 1px red; */
+	width: 100%;
+}
+
+.craftSearchTxt {
+	/* border: solid 1px #000; */
+	margin: 0 auto;
+	color: #000;
+	font-size: 52px;
+	font-weight: 700;
+	width: 35%;
+}
+
+
+.craftSearchFrmBox {
+	width: 800px;
+	margin: 0 auto;
+}
+
+.craftSearchFrm {
+    align-items: center;
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 6px 10px rgba(49,51,65,.15);
+    display: flex;
+    flex-direction: row-reverse;
+    height: 60px;
+    justify-content: space-between;
+    padding: 0 20px;
+    width: 700px;
+}
+
+.craftSearchFrm_title {
+	overflow: hidden;
+	visibility: hidden;
+}
+
+input#searchInput {
+	width: 93%;
+	/* height: 40px; */
+	border: none;
+	font-size: 20px;
+}
+input#searchInput:focus {
+	outline: none;    /* input칸 클릭했을 때 나오는 테두리 선 없애기 */
+}
+
+button.searchBtn {
+	background: url(https://hyphen.im/assets/images/product/icon_search.png) no-repeat 50%/30px auto;
+	height: 30px;
+	width: 30px;
+	/* border: 0; */
+	cursor: pointer;
+}
+
+ul.keyWord {
+	margin: 0 auto;
+	/* border: solid 1px red; */
+}
+ul.keyWord > li {
+	display: inline-block;
+	/* border: solid 1px blue; */
+	border-radius: 10px;
+	background-color: #e8e8e8;
+}
+ul.keyWord > li > a{
+	text-decoration: none;
+	color: #a6a6a6;
+	margin: 10px 20px;
+	padding-right: 10px;
+}
+ul.keyWord > li:hover {
+	color: #fff;
+	background-color: #ccc;
+	text-decoration: none;
+}
+/* [영역1] "수선사 찾기" 박스 영역 끝 ==================================================================================== */
+
+
+
+/* [영역2] "갗공방 스와이퍼" 영역 시작 ==================================================================================== 
+.craftListIntro {
+	border: solid 2px green;
+	margin: 0 auto;
+	width: 90%;
+}
+
+swiper-container {
+  width: 90%;
+  height: 100%;
+  margin-top: 100px;
+}
+
+swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
+
+swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+ [영역2] "갗공방 스와이퍼" 영역 끝 ==================================================================================== */
+
+
+
+/* [영역3] "신규등록공방" 영역 시작 ==================================================================================== */
+.craftListCard {
+	width: 90%;
+}
+/* [영역3] "신규등록공방" 영역 끝 ==================================================================================== */
+
+
+
+/* [영역4] "상단메뉴바" 영역 시작 ==================================================================================== */
+.topMenu {          
+		/* border: solid 3px green; */ 
+        height: 68px; 
+        width: 1100px; 
+}
+
+.topMenu > ul {
+	margin: 110px auto 80px;
+	width: 1200px;
+	display: flex;
+}
+
+.topMenu ul li {                       /* topMenu의 ID를 가진 태그 안에 <ul> 태그 안에 <li> 태그의 스타일을 지정 */
+        list-style: none;           /* <li> 태그는 위의 이미지처럼 목록을 나타내는 점을 없앤다  */
+        color: #999;               /* 글씨 색을 흰색으로 설정 */
+        /* float: left; */                /* <li>태그들이 왼쪽에 흐르게 설정(그러면 아래있는 내용은 오른쪽으로 옴) */
+        line-height: 68px;          /* 글씨가 가운데로 오도록 설정하기 위해 한줄의 높이를 30px로 설정 */
+        vertical-align: middle;     /* 세로 정렬을 가운데로 설정(위의 line-height와 같이 설정 필요함) */
+        text-align: center;         /* 글씨 정렬을 가운데로 설정 */
+        border: solid 1px #e6e6e6;
+}
+.topMenu .menuLink {                              
+	text-decoration:none;                      
+	color: #999;                             
+	display: block;    /* 링크를 글씨가 있는 부분 뿐만아니라 전체 영역을 클릭해도 링크가 걸리게 설정 */
+	width: 240px;      /* 메뉴링크의 넓이 설정 */
+	font-size: 17px;                          
+	font-weight: bold;                        
+}
+.topMenu .menuLink:hover {            
+	color: #999;                   
+	border: solid 1px #400099;
+	font-weight: 700;
+}
+/* [영역4] "상단메뉴바" 영역 끝 ==================================================================================== */
+
+
+
+/* [영역5] "수선사 리스트" 영역 시작 ==================================================================================== */
+.cardList {
+	clear: left;
+	width: 1200px;
+}
+.cardSelect {
+	cursor:pointer;
+}
+
+.item_cardBox {
+	/* border: solid 1px red; */
+	border: solid 1px #e6e6e6;
+	border-radius: 17px;
+	width: 25%;
+	height:385px;
+	margin: 1.2rem;
+}
+
+img.cardImg {
+	width: 100%;
+	overflow-clip-margin: content-box;
+    overflow: clip;
+}
+
+
+
+
+.recommend-card {
+	margin: 2.4rem 0;
+	padding-bottom: 1.6rem;
+}
+.grid--large {
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
+.catalog-title {
+	margin-bottom: 1.6rem;
+	font-weight: 700;
+	font-size: 1.6rem;
+}
+ul.grid {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.card__block, .card__link {
+	border-radius: 1rem;
+	overflow: hidden;
+}
+
+/* [영역5] "수선사 리스트" 영역 끝 ==================================================================================== */
+
+
+* {scroll-behavior: smooth;}
+    
+	.master_container {
+		width: 100%;
+		scroll-behavior: smooth;
+	}
+	
+	.master_container > .master_contents > .master_intro {
+		background-color: #000;
+		padding-bottom: 70px;
+	}
+	
+	.master_container > .master_contents > .master_intro > .title {
+		color: #fff;
+		text-align: center;
+	}
+
+
+
+   
+   
+	/* ============== 버튼 CSS 시작 ============== */
+	.box_suggest {
+		margin-top: 10px;
+		text-align: center;
+	}
+	
+	button#btn_suggest {
+  		min-width: 18rem;
+  		height: 3rem;
+  		border-radius: 10px;
+  		background-color: #5F26FF;
+  		border: none;
+  		color: #fff;
+  		font-size: 1rem;
+  		font-weight: bold;
+  		cursor: pointer;
+	}
+
+	button#btn_suggest:hover {
+		background-color:#002ead;
+		transition: 0.7s;
+	}
+	/* ============== 버튼 CSS 끝 ============== */
+	
+	
+	
+	
+	/* ============== 공방상세정보 CSS 시작 ============== */
+	.master_detail {
+		/* border: solid 1px #fff; */
+		width: 80%;
+		margin: 0 auto;
+		color: #fff;
+	}
+	 
+	.master_detail > .master_detail_title {
+		font-size: 2rem;
+		/* border: solid 1px white; */
+		margin-top: 30px;
+	}
+	
+	.master_detail> .master_detail_title, .master_detail_1 {
+		width: 50%;
+	}
+	
+	.master_detail> .master_detail_1 {
+		border-right: solid 1px white;
+	}	
+	
+	.master_detail> .master_detail_2 {
+		/* border: solid 1px white; */
+		padding-top: 0px;
+	}
+	
+	.master_detail> .master_detail_1, .master_detail_2  {
+		display: inline-block;
+	}	
+	
+	.master_container > .master_contents > .master_intro > .title > .category {
+		margin-top: 40px;
+	}
+  
+	.master_container > .master_contents > .master_intro > .title > .ad_sentence {
+		font-size: 4rem;
+  	    margin-bottom: 15px; 
+	}	
+	/* ============== 공방상세정보 CSS 끝 ============== */
+
+
+	.nice-header {
+   		/* background-color: #D9D8F3; */
+   		position: relative;
+		height: 700px;
+		background: center center;
+	    background-size: cover;
+		background-image: url("https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/KakaoTalk_20221130_123419974_02_1.original.jpg");
+   }
+   .header-overlay {
+   	   position: absolute;
+	   top: 0;
+	   left: 0;
+	   width: 100%;
+	   height: 100%;
+	   background: rgb(256, 256, 256);
+	   /* background: rgb(0, 0, 0); */
+	   opacity: 0;
+   }
+   
+  /*  .dummy {
+	  height: 900px;
+	} */
+	
+	
+
+	
+	.detail_2 {
+   		/* background-color: #d9d8f3; */
+   		color: #000;
+   		height: 30rem;
+   }
+   
+   .detail_3 {
+   		background-color: #fff;
+   }
+   .detail_4_sub {
+   		borer: solid 1px #000;
+   		margin: 0 auto;
+   }
+   
+   .writerID {
+   		color: #400099;
+   }
+   
+   .writeDate {
+   		color: gray;
+   		margin-left: 2.2rem;
+   }
+   
+   .parent {
+    display: flex;
+	}
+	.child {
+	    flex: 1;
+	    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.6);
+	    background-color: #fff;
+	}
+
+.pagination {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.parent {
+	 width:62rem; 
+	 height: 100%;
+}
+
+.child_title {
+	margin: 0 auto;
+}
+
+
+table#reviewTbl td, th {
+	border-bottom: solid 1px #eaeaea;
+	font-size: 16pt;
+	padding: 18px 12px;
+	box-sizing: border-box;
+}
+
+
+/* ================================= 김나윤 끝 ================================ */
+
+>>>>>>> refs/heads/main

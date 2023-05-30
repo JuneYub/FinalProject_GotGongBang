@@ -8,6 +8,17 @@
 
 %>   
 
+<style type="text/css">
+div#listContent {
+    padding: 20px 50px;
+    width: 1000px;
+    margin: 20px auto;
+    border: 0px solid blue;
+     background-color:#f2f2f2; 
+    border-radius:10px;
+	height:fit-content;
+}  
+</style>
 	
 <script type="text/javascript">
 
@@ -19,30 +30,27 @@
 	<div id="listContent">
      	<p class="listCenter">의뢰내역</p> 
      	
-		<div class="listBorder">
-			<p class="orderMargin listTitle" >견적완료</p>
-			<div class="listFlex">
-				<img src="./img/got_2.png" width="300" class="listImg">
-				<p class="listMarginLeft">2023.01.02</p>	
+     	
+		<div class="detailDivBorder">
+			<div>
+				<p class="listCondition">견적완료</p>
+				<div class=" imgCircle imgCircle2" >
+					<img src="<%=ctxPath%>/resources/img/main_test.jpg" class=" imgCircle2 imgCircle" >
+				</div>
 			</div>
-			<p class="orderMargin listpText">샤넬 가방 수선 의뢰</p>
-			<p class="orderMargin listpText">200,000</p>
-			<a href="" class="listpText">의뢰상세</a>
+			
+			<div class="listBorderDiv">
+				<div>
+					<p class="listDate" >2023.05.21</p>
+					<p class="listOrderName">샤넬 가방 수선 의뢰</p>
+					<a href="" class="listAnchor" >의뢰상세</a>
+				</div>
+			</div>
+			
 		</div>
 
-		<hr>
-
-		<div class="listBorder">>
-			<p class="orderMargin listTitle">견적대기중</p>
-			<div  class="listFlex">
-				<img src="./img/got_2.png" width="300" class="listImg">
-				<p class="listMarginLeft">2023.05.21</p>
-				
-			</div>
-			<p class="orderMargin listpText">발렌시아가 신발 수선 의뢰</p>
-			<p class="orderMargin listpText">200,000</p>
-			<a href="" class="listpText">의뢰상세</a>
-		</div>
+		
+		
 
 	</div>
 

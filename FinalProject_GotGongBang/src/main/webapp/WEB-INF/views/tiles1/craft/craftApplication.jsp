@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%
    String ctxPath = request.getContextPath();
@@ -12,18 +13,24 @@
 	let b_flag_nickname_click = false;
 	// "공방이름 중복확인"을 클릭했는지 안했는지 여부를 알아오기위한 변수
 	let b_flag_zipcodeSearch_click = false;
-	
+	// "우편번호"를 클릭했는지 안했는지 여부를 알아오기위한 변수
+
 	
  	$(document).ready(function() {
  		
  		$("span.error").hide();
  		$("span.error_2").hide();
+ 		$("span.error_3").hide();
+ 		$("span.available").hide();
+		$("span.error_4").hide();
+
  		$("input#nickname").focus();
  		
  		
  		
  		// 공방이름 필수 입력
 		$("input#nickname").blur( (e) => {
+			
 			if($(e.target).val().trim() == ""){	
 			
 				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
@@ -33,34 +40,70 @@
 				$(e.target).parent().find("span.error").show();
 				$(e.target).focus();	//다른곳을 클릭 못하게 함 e.target에 포커스 머무름
 				
-			}else{
+			}
+			else{
 				//공백이 아닌 글자를 입력했을 경우
 				const regExp = /^[가-힣]*$/;
 				const bool = regExp.test($(e.target).val());
 				
 				$(e.target).parent().find("span.error_2").hide();
-				
+
 				if(bool){	//정규표현식에 만족한 경우
-					$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
-					$(e.target).parent().find("span.error").hide();
-	
-					$("input#hp1").focus();
+					// 이미 존재하는 '공방 이름'인지 알아오기 (Ajax)
+					$("input#check_button").click(function(){
+						b_flag_nickname_click = true;
+						const nickname = $("input#nickname").val();
+						console.log("확인용 nickname : " +nickname);
+							   	$.ajax({
+						    	url:"<%= ctxPath%>/craft_check_name.got",
+						    	data:{"nickname":$("input#nickname").val()},
+						    	type:"post",
+						    	success:function(text){ 
+						    		const json = JSON.parse(text); // 객체로 파싱 
+
+						    		console.log("확인용 json : "+ json);
+						    		//확인용 json : {"n":0}  확인용 json : {"n":1} 
+
+						  			 if(json.n) {	//사용 불가능한 공방이름인 경우
+						 				$("form :input").prop("disabled", true);	
+						 				$("input#nickname").prop("disabled", false);
+										$("input#nickname").parent().find("span.available").hide();
+						 				$("input#nickname").parent().find("span.error_3").show();	//"이미 존재하는 공방입니다"
+						    			$("input#nickname").val("");
+						  			 }
+						  			 else if(!json.n && $("input#nickname").val().trim() !="" ){	//사용 가능한 공방이름일 경우
+										$("input#nickname").parent().find("span.error_3").hide();
+										$("input#nickname").parent().find("span.available").show();
+
+						  				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+						  			 }
+						  			 
+						    	},
+						    	error: function(request, status, error){
+						            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+						          }
+							}); // end of  $.ajax({ -----------------------		
+								
+								
+						});// end of $("input#check_button").click(function()-----------------
 				}
-				else{	//정규표현식 만족하지 못 한 경우
+				else{	//정규표현식 만족하지 못 한 경우 (!bool)
 					$(e.target).parent().find("span.error_2").show();	//한글로만 입력 가능합니다 출력
 					$(e.target).focus();
 				}
-
+			
+				
 			}
-		
-		});
- 		
+			
+	});
+
+
  		
  		//공방 연락처 필수입력
 		$("input#hp1").blur( (e) => {
+
 			const regExp = /^[0-9][0-9]{1,2}$/g; 
 			const bool = regExp.test($(e.target).val());
-
 
 			if(!bool){
 				//국번이 정규표현식에 위배된 경우
@@ -126,7 +169,26 @@
 			
 		});
 		
+		/*
+		// 우편번호 주소 필수입력
+		$("input#postcode").blur( (e) => {
+			if($(e.target).val() == ""){	
+				//공백입력 경우
+				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
+				$("button#btnPostcode").prop("disabled", false);
+				
+				
+				$(e.target).parent().find("span.error").show();
 		
+			}
+			else{
+				alert("호호호");
+				$(e.target).parent().find("span.error").hide();
+				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+			}
+
+		});	
+		*/
 		
 		//////////////////////////////////////////////////////////////////////
 		//우편번호 찾기 클릭했을 때
@@ -180,31 +242,175 @@
 	           }).open();
 
 		}); //end of $("button#btnPostcode").click(function() ---------------------
-		/*		
-		$("button#btnPostcode").blur( (e) => {
-			
-			if($("input#address").click(function name() {
-				
-			});
-		});				
-			*/	
+		
 		//////////////////////////////////////////////////////////////////////
 
+		
+		// 자기소개 필수입력
+		$("textarea#self_introduce").blur( (e) => {
+			if($(e.target).val().trim() == ""){	
+				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
+				$(e.target).prop("disabled", false);
 				
+				
+				$(e.target).parent().find("span.error").show();
+				$(e.target).focus();	//다른곳을 클릭 못하게 함 e.target에 포커스 머무름
+			}else{
+				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+				$(e.target).parent().find("span.error").hide();
+				$("input.specialized_field").focus();
+			}
+		});
+		
+		
+		//전문 품목 한 개 이상 체크
+		$("input.specialized_field").blur( (e) => {
+			const chk_cnt = $("input.specialized_field:checked").length;
+			
+			if(chk_cnt < 1){
+				$(e.target).parent().parent().find("span.error").show();
 
+				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
+				$("input.specialized_field").prop("disabled", false);
+
+			}
+			else{
+				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+				$(e.target).parent().parent().find("span.error").hide();		
+			}
+			
+			
+		});
+		
+		
+		// 총 경력사항 선택 필수입력
+		$("select#career").blur( (e) => {
+			let career = $("#career").val();
+			if(!career){
+				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
+				$(e.target).prop("disabled", false);
+
+				$(e.target).parent().find("span.error").show();
+				$("#career").focus();	//다른곳을 클릭 못하게 함 e.target에 포커스 머무름
+				return false;
+			}
+			$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+			$(e.target).parent().find("span.error").hide();
+		});
+		
+		
+
+		
+		// 희망급여 필수입력
+		$("input#salary").blur( (e) => {
+			if($(e.target).val().trim() == ""){	
+				
+				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
+				$(e.target).prop("disabled", false);
+				
+				
+				$(e.target).parent().find("span.error").show();
+				$(e.target).focus();	//다른곳을 클릭 못하게 함 e.target에 포커스 머무름
+				
+			}else{
+				//공백이 아닌 숫자를 입력했을 경우
+				/*
+				const regExp = /^[1-9][0-9]{1,5}$/g;
+				const bool = regExp.test($(e.target).val());
+				
+				$(e.target).parent().find("span.error_2").hide();
+				
+				if(bool){	//정규표현식에 만족한 경우
+					$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+					$(e.target).parent().find("span.error").hide();
+					
+				}
+				else{	//정규표현식 만족하지 못 한 경우
+					$(e.target).parent().find("span.error_2").show();
+				}
+				*/
+				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+
+			}
+		});
+		
+		
+		
+		
 	}); // end of $(document).ready(function() ----------------------------
 				
-
-////////////Function declare ////////////
-function goComplete() {
-		
 	
-	/*const frm = document.craft_application_frm;
-	frm.action = "adminComplete.got";
-	frm.method = "post";
-	frm.submit();
-	*/
-}
+			
+	////////////Function Declaration ////////////
+	
+	// === '신청' 버튼을 눌렀을 때  ===
+	function goComplete() {
+		// 이미지파일(공방 사진, 공방대표자 사진, 자격증 사진)이 모두 입력되었는지 확인
+		let b_Flag_attach = false;
+
+		
+
+		// "우편번호찾기"를 클릭했는지 여부 알아오기
+		if(!b_flag_zipcodeSearch_click){
+			//클릭 안 했을 때
+			$("#btnPostcode").parent().parent().find("span.error").show();
+			$("#btnPostcode").focus();
+			return;		//함수종료
+		}
+		else{
+			//클릭 했을 때 상세주소, 상세주소가 공백이면 안 됨.
+			if($("input#detailAddress").val().trim()==""){
+				$("#btnPostcode").parent().parent().find("span.error").hide();
+				$("input#detailAddress").parent().parent().find("span.error_2").show();
+				$("input#detailAddress").focus();
+			}else{
+				$("input#detailAddress").parent().parent().find("span.error_2").hide();
+
+			}
+			
+		}
+			
+		
+		// 이미지파일(공방 사진, 공방대표자 사진, 자격증 사진) 업로드하기
+		$("form[name='craft_application_frm']").ajaxForm({
+			url:"<%=%>/_withAttach"
+		});	// end of $("form[name='craft_application_frm']").ajaxForm -----
+		
+		
+		
+		/*const frm = document.craft_application_frm;
+		frm.action = "adminComplete.got";
+		frm.method = "post";
+		frm.submit();
+		*/
+	}
+	
+	
+	////// 희망급여 콤마포함 숫자만 입력 /////
+	function comma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    }
+
+    function uncomma(str) {
+        str = String(str);
+        return str.replace(/[^\d]+/g, '');
+    } 
+    
+    function inputNumberFormat(obj) {
+        obj.value = comma(uncomma(obj.value));
+    }
+    //////////////////////////////
+	
+    
+    
+    
+    
+    
+    
+    
+    
+	
 </script>
 
 <!-- (어드민) 공방 신청 본문시작 -->
@@ -234,31 +440,45 @@ function goComplete() {
                 </div>
             </div>
 
-            <form name="craft_application_frm">
+            <form name="craft_application_frm" >
 
                 <div class="application_right">
 	                    <p style="display: inline; magin:0; float: right; width: 210px; height: 10px; font-size: 12pt;"> * 표시는 필수 입력사항입니다.</p>
 	                <div class="list">
 	                    <span><image src="resources/img/admin/single (1).png" width="35"/>&nbsp;&nbsp;공방 기본 정보</span>
                     </div>
+                     <div class="frm_border">
+                        <span> <p> * 공방 이름</p>
+                            <input type="text" class="upload" id="nickname" maxlength="10" value=""/>
+                            <input type="button" class="check_button" id="check_button" value="중복 확인">
+                            <span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 이름은 필수 입력 사항입니다.</span>
+                            <span class="error_2" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 이름은 한글로만 입력 가능합니다.</span>
+                            <span class="error_3" style="display: inline-block; color:#400099; margin-left:20px;">※ 이미 존재하는 공방 이름입니다.</span>
+                            <span class="error_4" style="display: inline-block; color:#400099; margin-left:20px;">※ 중복확인 버튼을 클릭하셔야 합니다.</span>
+                            <span class="available" style="display: inline-block; color:#400099; margin-left:20px;">사용가능한 공방 이름입니다.</span>
+                        </span>
+                    </div>
                     <div class="image">
                         <span> <p> * 공방 사진</p>
                             <div class="filebox" >
                                 <input class="upload-name" id="upload-image" value="" placeholder="첨부파일" style="margin-bottom: 10px;" readonly="readonly" required="required"/>
                                 <label for="file">파일찾기</label> 
-                                <input type="file" id="file"/>
-                                <span class="error" style="display: inline-block; margin:0 0 30px 20px; color:#400099;">※ 공방 사진은 필수입력 사항입니다.</span>
+                                <input type="file" id="file" name="attach" />
+                                <span class="error" style="display: inline-block; margin:0 0 30px 20px; color:#400099;">※ 공방 사진은 필수 입력 사항입니다.</span>
                             </div>
                         </span>
                     </div>
-                    <div class="frm_border">
-                        <span> <p> * 공방 이름</p>
-                            <input type="text" class="upload" id="nickname" maxlength="10"/>
-                            <input type="button" class="check_button" id="check_button" value="중복 확인" onclick="">
-                            <span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 이름은 필수입력 사항입니다.</span>
-                            <span class="error_2" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 이름은 한글로만 입력 가능합니다.</span>
+                    <div class="image">
+                        <span> <p> * 공방 대표자 사진</p>
+                            <div class="filebox" >
+                                <input class="upload-name" id="upload-image" value="" placeholder="첨부파일" style="margin-bottom: 10px;" readonly="readonly" required="required"/>
+                                <label for="file">파일찾기</label> 
+                                <input type="file" id="file" name="attach" />
+                                <span class="error" style="display: inline-block; margin:0 0 30px 20px; color:#400099;">※ 공방 대표자 사진은 필수 입력 사항입니다.</span>
+                            </div>
                         </span>
                     </div>
+            
                  
                     <!-- <div class="frm_border">
                         <span> <p> * 지역</p>
@@ -276,26 +496,26 @@ function goComplete() {
              		 </span>
                    </div>
                     
-                    <div class="frm_border" style="height: 205px;">
+                    <div class="frm_border" style="height: 220px;">
+                  
                      <span> <p> * 공방 주소</p>
-	                     <input type="text" id="postcode" class="upload" name="postcode" size="6" maxlength="5" style="width: 201px;"  placeholder="우편번호 찾기를 클릭하세요."  readonly="readonly"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                     <input type="text" id="postcode" class="upload" name="postcode" value="" size="6" maxlength="5" style="width: 201px;"  placeholder="우편번호 찾기를 클릭하세요."  readonly="readonly"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            				 <%-- 우편번호 찾기 --%>
 							<button type="button" id="btnPostcode" class="check_button" style="width: 120px; height: 40px;"> 우편번호 찾기</button>           				 
-							<span class="error" style="display: inline-block; color:#400099; margin-left:20px;"> * 우편번호 형식이 아닙니다.</span>
+							<span class="error" style="display: inline-block; color:#400099; margin-left:20px;"> * 우편번호는 필수 입력 사항입니다.</span>
            		     </span>
            		     
-           		     <div id="addClick">
            		     <span style="margin:10px 0 0 150px;">
            				 <input type="text" id="address" class="upload" name="address" size="40" placeholder="주소"  style="width: 300px; "/>&nbsp;&nbsp;&nbsp;
-           				 <input type="text" id="detailAddress" class="upload" name="detailAddress" size="40" placeholder="상세주소" style="width: 300px;"/>&nbsp;
+            			 <input type="text" class="upload" id="extraAddress" placeholder="부가주소" name="extraAddress" class="extra_address" />
             		</span>
+            		
 					<span style="margin:10px 0 0 150px;">
-            			<input type="text" class="upload" id="extraAddress" placeholder="부가주소" name="extraAddress"
-                                                       class="extra_address" />
+           				 <input type="text" id="detailAddress" class="upload" name="detailAddress" size="40" placeholder="상세주소" style="width: 300px;" value=""/>&nbsp;
             		 </span>
-            		 </div>
             		 
-            		 <span class="error" style="display: inline-block; margin-left:150px; color:#400099;">※ 주소는 필수입력 사항입니다.</span> 
+            		 <span class="error_2" style="display: inline-block; margin-left:150px; color:#400099;">※ 상세주소는 필수입력 사항입니다.</span> 
+                   
                    </div>
                    
                     <div class="frm_border_2">
@@ -307,16 +527,16 @@ function goComplete() {
                     <div class="frm_border">
                         <span><p> * 전문 품목</p>
                             <div id="specialized_chkBox">
-                              	  가방/핸드백<input type="checkbox" name="specialized_field" value="bag"/>
+                              	  가방/핸드백<input type="checkbox" class="specialized_field" value="bag"/>
                                 <label for="specialized_chk1"></label>
-                             	  신발<input type="checkbox" name="specialized_field" value="shoes"/>
+                             	  신발<input type="checkbox" class="specialized_field" value="shoes"/>
                                 <label for="specialized_chk2"></label>
-                              	  지갑<input type="checkbox" name="specialized_field" value="wallet"/>
+                              	  지갑<input type="checkbox" class="specialized_field" value="wallet"/>
                                 <label for="specialized_chk3"></label>
-                              	  벨트<input type="checkbox" name="specialized_field" value="belt"/>
+                              	  벨트<input type="checkbox" class="specialized_field" value="belt"/>
                                 <label for="specialized_chk4"></label>
                              </div>                                
-                             <span class="error" style="display: inline-block; color:#400099;">※ 전문 품목은 필수입력 사항입니다.</span>
+                             <span class="error" style="display: inline-block; color:#400099;">※ 전문 품목은 한 개 이상 선택하셔야 합니다.</span>
                         </span>
                     </div>
                 </div>
@@ -326,8 +546,8 @@ function goComplete() {
                     <div class="frm_border">
                         <span> <p> * 총 경력기간</p>
                             <label for="career_term"></label>
-                            <select name = "career">
-                                <option value="select" selected >선택하세요</option>
+                            <select name = "career" id="career">
+                                <option value="">선택하세요</option>
                                 <option value="newcomer">신입</option>
                                 <option value="one">1년</option>
                                 <option value="two">2년</option>
@@ -336,11 +556,9 @@ function goComplete() {
                                 <option value="five">5년</option>
                                 <option value="six">6년</option>
                                 <option value="seven">7년</option>
-                                <option value="eight">8년</option>
-                                <option value="nine">9년</option>
-                                <option value="tenover">10년 이상</option>
+                                <option value="eight">8년이상</option>
                             </select>
-                            <span class="error" style="display: inline-block; color:#400099;  margin-left:20px;">※ 전문분야는 필수입력 사항입니다.</span>
+                            <span class="error" style="display: inline-block; color:#400099;  margin-left:20px;">※ 경력사항은 필수입력 사항입니다.</span>
                         </span>
                     </div>
                     <div class="frm_border_3">
@@ -357,7 +575,7 @@ function goComplete() {
                             <div class="filebox">
                                 <input class="upload-name" value="첨부파일" placeholder="첨부파일" style="margin-bottom: 10px;" readonly="readonly"/>
                                 <label for="Certificate_file">파일찾기</label> 
-                                <input type="file" id="Certificate_file"/>
+                                <input type="file" id="Certificate_file" name="attach" />
                             </div>
                             <span class="error" style="display: inline-block; color:#400099;  margin-left:20px;">※ 자격증은 필수입력 사항입니다.</span>
                         </span>
@@ -369,8 +587,10 @@ function goComplete() {
                     <div class="list"><span><image src="resources/img/admin/single (1).png" width="32" />&nbsp;&nbsp;희망급여</span></div>
                     <div class="frm_border">
                         <span> <p> * 희망급여</p> 
-                            <input type="text" class="upload" id="salary" style="text-align:right; padding-right: 15px;" placeholder="1,000원 단위로 입력하세요."/><span>원</span>
+                           <input type="text" class="upload" id="salary" maxlength="7"  style="text-align:right; padding-right: 15px;" onkeyup="inputNumberFormat(this);" placeholder="1,000원 단위로 입력하세요."/><span>천원</span>
                         	<span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 희망급여는 필수입력 사항입니다.</span>
+                            <span class="error_2" style="display: inline-block; color:#400099; margin-left:20px;">※ 희망급여는 숫자로만 입력 가능합니다.</span>
+                        
                         </span>
                     </div>
                 </div>
