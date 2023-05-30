@@ -1602,6 +1602,7 @@ div#resultContent{
 	
 }
 
+
 div.resultDivFlex3{
 	display:flex; 
 	margin-left:30px; 
@@ -3492,7 +3493,8 @@ body #admin_container #craft_application .craftOneView .view{
     outline: none;
     padding-top: 5px;
     padding-left: 10px;
-    background-color: rgb(233, 233, 233);
+
+  background-color: rgb(233, 233, 233);
 }
 
 body #admin_container #craft_application #view_address span span{
@@ -3540,7 +3542,11 @@ body #craft_application .application_right .craftOneView_btn .update {
 
 
 
-/* ==== 김진솔 끝========================================================================================= */
+/* ==== 김진솔 끝
+
+
+
+==================================================================================== */
 
 
 
@@ -4780,5 +4786,4 @@ table#reviewTbl td, th {
 }
 
 
-/* ================================= 김나윤 끝 ================================ */
-
+/* ================================= 김나윤 끝 ======================>>> main
