@@ -2275,7 +2275,7 @@ flex-basis: 50px;
     transition: background-color .4s ease;
 }
 
-.ojh_accordion__body {
+.ojh_accordion__body{
     border-bottom: 1px solid rgba(0,0,0,.102);
     font-size: 16px;
     font-weight: 400;
