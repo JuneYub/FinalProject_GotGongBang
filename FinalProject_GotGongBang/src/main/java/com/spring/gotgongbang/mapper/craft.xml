@@ -15,4 +15,13 @@
 
 
 
+<!--==================== 김나윤 시작 ====================== -->
+<select id="crafts_list_select" parameterType="String" resultType="com.spring.gotgongbang.craft.model.CraftVO">
+	SELECT *
+	FROM CRAFT
+	where craft_specialty=#{craft_specialty}
+</select>
+<!--==================== 김나윤 끝 ====================== -->
+
+
 </mapper>
