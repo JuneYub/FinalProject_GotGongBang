@@ -28,12 +28,21 @@ public class CratfService implements InterCraftService {
 	
 	@Override
 	public PartnerVO getPartnerInfoByUserId(String userid) {
-		
 		PartnerVO pvo = new PartnerVO();
-		
 		pvo = cdao.getPartnerInfoByUserId(userid);
-		
 		return pvo;
+	}
+	
+	@Override
+	public int updatePartnerInfo(PartnerVO pvo) {
+		int n = cdao.updatePartnerInfo(pvo);
+		return n;
+	}
+	
+	@Override
+	public int updatePartnerPwd(PartnerVO pvo) {
+		int n = cdao.updatePartnerPwd(pvo);
+		return n;
 	}
 
 	// =============== 박준엽 끝 ==================== // 

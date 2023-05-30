@@ -16,9 +16,12 @@ public interface InterCraftDAO {
 	// =============== 김진솔 끝 =================//
 	
 	// =============== 박준엽 시작 =================//
-	
-	// 파트너 공방 정보 가져오기 
+
 	PartnerVO getPartnerInfoByUserId(String userid);
+	
+	int updatePartnerInfo(PartnerVO pvo);
+
+	int updatePartnerPwd(PartnerVO pvo);
 	
 	// =============== 박준엽 끝 =================//
 }

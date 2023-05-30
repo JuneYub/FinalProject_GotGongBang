@@ -1,13 +1,29 @@
 package com.spring.gotgongbang.order.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.gotgongbang.common.FileManager;
+import com.spring.gotgongbang.order.model.TypesVO;
+import com.spring.gotgongbang.order.service.InterOrderService;
+
 @Component
 @Controller
 public class OrderController {
+	
+	@Autowired	// Type에 따라 알아서 Bean을 주입해준다.
+	private InterOrderService service;
+	
+	// === #155. 파일업로드 및 다운로드를 해주는 FileManager 클래스 의존객체 주입하기(DI : Dependency Injection) ===  
+		@Autowired     // Type에 따라 알아서 Bean 을 주입해준다.
+		private FileManager fileManager;
 	// 김나윤 시작 ===========================================================================
 	// 김나윤 끝 ===========================================================================
 	
@@ -33,9 +49,19 @@ public class OrderController {
 		return mav;
 	}
 	
+
+	
+	
 	@RequestMapping(value = "/orderForm.got")
-	public ModelAndView orderForm(ModelAndView mav) {
+	public ModelAndView orderForm(ModelAndView mav,HttpServletRequest request) {
+		
+		List<TypesVO> typesList = service.select_types();
+		
+		request.setAttribute("typesList", typesList);
+		
 		mav.setViewName("order/orderForm.tiles1");
+		
+		
 		return mav;
 	}
 	
@@ -54,6 +80,18 @@ public class OrderController {
 	@RequestMapping(value = "/selectGongbang.got")
 	public ModelAndView selectGongbang(ModelAndView mav) {
 		mav.setViewName("order/selectGongbang.tiles1");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/choiceGongbang.got")
+	public ModelAndView choiceGongbang(ModelAndView mav) {
+		mav.setViewName("order/choiceGongbang.tiles1");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/selectReq.got")
+	public ModelAndView selectReq(ModelAndView mav) {
+		mav.setViewName("order/selectReq.tiles1");
 		return mav;
 	}
 	// 이지현 끝 ===========================================================================
