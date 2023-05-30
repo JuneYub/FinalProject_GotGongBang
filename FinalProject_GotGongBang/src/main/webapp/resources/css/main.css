@@ -1279,6 +1279,13 @@ select.orderSelect{
 	border-radius:5px;
 }
 
+div.orderSelect{
+	width:600px; 
+	height:50px; 
+	border:solid 1px gray; 
+	border-radius:5px;
+}
+
 input.orderInput{
 	border-radius:8px; 
 	width:600px; 
@@ -1287,6 +1294,17 @@ input.orderInput{
 
 div.orderDivPic{
 	border:solid 1px gray;  
+	background-color: white;  
+	border-radius:10px; 
+	width: fit-content; 
+	padding:15px; 
+	display:flex; 
+	flex-direction:column;  
+	justify-content: center; 
+	align-items: center;
+}
+
+div.orderDivNoBorder{
 	background-color: white;  
 	border-radius:10px; 
 	width: fit-content; 
