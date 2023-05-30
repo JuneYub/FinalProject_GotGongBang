@@ -2141,12 +2141,18 @@ button.searchBtn {
 	background: url(https://hyphen.im/assets/images/product/icon_search.png) no-repeat 50%/30px auto;
 	height: 30px;
 	width: 30px;
-	/* border: 0; */
+	border: 0;
 	cursor: pointer;
 }
 
-ul.keyWord {
+
+div.keyWordBox {
+	border: solid 1px red;
 	margin: 0 auto;
+}
+
+ul.keyWord {
+	/* margin: 0 auto; */
 	/* border: solid 1px red; */
 }
 ul.keyWord > li {
@@ -2280,6 +2286,7 @@ img.cardImg {
 .recommend-card {
 	margin: 2.4rem 0;
 	padding-bottom: 1.6rem;
+	margin-right: 100px;
 }
 .grid--large {
 	padding-left: 2rem;
