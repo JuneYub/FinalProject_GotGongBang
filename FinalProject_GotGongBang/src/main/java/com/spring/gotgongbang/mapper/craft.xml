@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="craft">
+
+
+ <!--==================== 김진솔 시작 ====================== -->
+<select id="craft_check_name" parameterType="String" resultType="int">
+ 	select count(*) from CRAFT where craft_name=#{craft_name}
+</select>
+
+ <!--==================== 김진솔 끝 ====================== -->
+
+
+
+<!--==================== 박준엽 시작 ====================== -->
+
+<select id="getPartnerInfoByUserId" parameterType="String" resultType="com.spring.gotgongbang.craft.model.PartnerVO">
+	select  partner_id_pk, partner_name, partner_email, partner_mobile, partner_post_code, partner_address, partner_detail_address, partner_extra_address
+	from PARTNER
+	where partner_id_pk = #{userid}
+</select>
+
+<!--==================== 박준엽 끝 ====================== -->
+</mapper>
