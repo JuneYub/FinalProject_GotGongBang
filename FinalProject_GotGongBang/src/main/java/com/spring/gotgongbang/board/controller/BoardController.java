@@ -36,7 +36,30 @@ public class BoardController {
 		
 		return mav;
 	}
-			
+	
+	@RequestMapping(value="/BoardNotice.got")
+    public ModelAndView getBoardNotice(ModelAndView mav) {
+		
+		mav.setViewName("/board/board_Notice.tiles1");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/BoardQuestion.got")
+    public ModelAndView getBoardQuestion(ModelAndView mav) {
+		
+		mav.setViewName("/board/board_BoardQuestion.tiles1");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/BoardFaq.got")
+    public ModelAndView getBoardFaq(ModelAndView mav) {
+		
+		mav.setViewName("/board/board_BoardFaq.tiles1");
+		
+		return mav;
+	}
 	
 		// 오준혁 끝
 		// ===========================================================================
