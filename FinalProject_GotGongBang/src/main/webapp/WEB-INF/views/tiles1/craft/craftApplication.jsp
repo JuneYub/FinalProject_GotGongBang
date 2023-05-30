@@ -22,6 +22,7 @@
  		$("span.error_2").hide();
  		$("span.error_3").hide();
  		$("span.available").hide();
+		$("span.error_4").hide();
 
  		$("input#nickname").focus();
  		
@@ -39,74 +40,70 @@
 				$(e.target).parent().find("span.error").show();
 				$(e.target).focus();	//다른곳을 클릭 못하게 함 e.target에 포커스 머무름
 				
-			}else{
+			}
+			else{
 				//공백이 아닌 글자를 입력했을 경우
 				const regExp = /^[가-힣]*$/;
 				const bool = regExp.test($(e.target).val());
 				
 				$(e.target).parent().find("span.error_2").hide();
-				
-				if(bool){	//정규표현식에 만족한 경우
-					$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
-					$(e.target).parent().find("span.error_2").hide();
 
+				if(bool){	//정규표현식에 만족한 경우
+					// 이미 존재하는 '공방 이름'인지 알아오기 (Ajax)
+					$("input#check_button").click(function(){
+						b_flag_nickname_click = true;
+						const nickname = $("input#nickname").val();
+						console.log("확인용 nickname : " +nickname);
+							   	$.ajax({
+						    	url:"<%= ctxPath%>/craft_check_name.got",
+						    	data:{"nickname":$("input#nickname").val()},
+						    	type:"post",
+						    	success:function(text){ 
+						    		const json = JSON.parse(text); // 객체로 파싱 
+
+						    		console.log("확인용 json : "+ json);
+						    		//확인용 json : {"n":0}  확인용 json : {"n":1} 
+
+						  			 if(json.n) {	//사용 불가능한 공방이름인 경우
+						 				$("form :input").prop("disabled", true);	
+						 				$("input#nickname").prop("disabled", false);
+										$("input#nickname").parent().find("span.available").hide();
+						 				$("input#nickname").parent().find("span.error_3").show();	//"이미 존재하는 공방입니다"
+						    			$("input#nickname").val("");
+						  			 }
+						  			 else if(!json.n && $("input#nickname").val().trim() !="" ){	//사용 가능한 공방이름일 경우
+										$("input#nickname").parent().find("span.error_3").hide();
+										$("input#nickname").parent().find("span.available").show();
+
+						  				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+						  			 }
+						  			 
+						    	},
+						    	error: function(request, status, error){
+						            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+						          }
+							}); // end of  $.ajax({ -----------------------		
+								
+								
+						});// end of $("input#check_button").click(function()-----------------
 				}
-				else{	//정규표현식 만족하지 못 한 경우
+				else{	//정규표현식 만족하지 못 한 경우 (!bool)
 					$(e.target).parent().find("span.error_2").show();	//한글로만 입력 가능합니다 출력
 					$(e.target).focus();
 				}
-
-			}
-		
-		});
- 		
- 		
-
-		// '공방 이름' 중복 체크 했는지 알아오기 (Ajax)
-		$("input#check_button").click(function(){
-			b_flag_nickname_click = true;
 			
-			const nickname = $("input#nickname").val();
-			console.log("확인용 nickname : " +nickname);
-		
-			   	$.ajax({
-			    	url:"<%= ctxPath%>/craft_check_name.got",
-			    	data:{"nickname":$("input#nickname").val()},
-			    	type:"post",
-			    	success:function(text){ 
-			    		const json = JSON.parse(text); // 객체로 파싱 
+				
+			}
+			
+	});
 
-			    		console.log("확인용 json : "+ json);
-			    		//확인용 json : {"n":0}  확인용 json : {"n":1} 
 
-			  			 if(json.n) {	//1이라면 (이미 존재함)
-			 				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
-			 				$("input#nickname").prop("disabled", false);
-			 				
-			 				$("input#nickname").parent().find("span.error_3").show();	//"이미 존재하는 공방입니다"
-			    			$("input#nickname").val("");
-			  			 }
-			  			 else if(!json.n && $("input#nickname").val().trim() !="" ){
-							$("input#nickname").parent().find("span.error_3").hide();
-							$("input#nickname").parent().find("span.available").show();
-
-			  				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
-			  			 }
-			  			 
-			    	},
-			    	error: function(request, status, error){
-			            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-			          }
-			      });
-
- 		
  		
  		//공방 연락처 필수입력
 		$("input#hp1").blur( (e) => {
 
 			const regExp = /^[0-9][0-9]{1,2}$/g; 
 			const bool = regExp.test($(e.target).val());
-
 
 			if(!bool){
 				//국번이 정규표현식에 위배된 경우
@@ -339,18 +336,47 @@
 		
 		
 		
-
-		  });	//end of $("input#check_button").click(function() ------------------------
-		    		
-		
 		
 	}); // end of $(document).ready(function() ----------------------------
 				
 	
 			
-	////////////Function declare ////////////
+	////////////Function Declaration ////////////
+	
+	// === '신청' 버튼을 눌렀을 때  ===
 	function goComplete() {
+		// 이미지파일(공방 사진, 공방대표자 사진, 자격증 사진)이 모두 입력되었는지 확인
+		let b_Flag_attach = false;
+
+		
+
+		// "우편번호찾기"를 클릭했는지 여부 알아오기
+		if(!b_flag_zipcodeSearch_click){
+			//클릭 안 했을 때
+			$("#btnPostcode").parent().parent().find("span.error").show();
+			$("#btnPostcode").focus();
+			return;		//함수종료
+		}
+		else{
+			//클릭 했을 때 상세주소, 상세주소가 공백이면 안 됨.
+			if($("input#detailAddress").val().trim()==""){
+				$("#btnPostcode").parent().parent().find("span.error").hide();
+				$("input#detailAddress").parent().parent().find("span.error_2").show();
+				$("input#detailAddress").focus();
+			}else{
+				$("input#detailAddress").parent().parent().find("span.error_2").hide();
+
+			}
 			
+		}
+			
+		
+		// 이미지파일(공방 사진, 공방대표자 사진, 자격증 사진) 업로드하기
+		$("form[name='craft_application_frm']").ajaxForm({
+			url:"<%=%>/_withAttach"
+		});	// end of $("form[name='craft_application_frm']").ajaxForm -----
+		
+		
 		
 		/*const frm = document.craft_application_frm;
 		frm.action = "adminComplete.got";
@@ -376,6 +402,14 @@
     }
     //////////////////////////////
 	
+    
+    
+    
+    
+    
+    
+    
+    
 	
 </script>
 
@@ -417,9 +451,10 @@
                         <span> <p> * 공방 이름</p>
                             <input type="text" class="upload" id="nickname" maxlength="10" value=""/>
                             <input type="button" class="check_button" id="check_button" value="중복 확인">
-                            <span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 이름은 필수입력 사항입니다.</span>
+                            <span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 이름은 필수 입력 사항입니다.</span>
                             <span class="error_2" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 이름은 한글로만 입력 가능합니다.</span>
                             <span class="error_3" style="display: inline-block; color:#400099; margin-left:20px;">※ 이미 존재하는 공방 이름입니다.</span>
+                            <span class="error_4" style="display: inline-block; color:#400099; margin-left:20px;">※ 중복확인 버튼을 클릭하셔야 합니다.</span>
                             <span class="available" style="display: inline-block; color:#400099; margin-left:20px;">사용가능한 공방 이름입니다.</span>
                         </span>
                     </div>
@@ -428,8 +463,8 @@
                             <div class="filebox" >
                                 <input class="upload-name" id="upload-image" value="" placeholder="첨부파일" style="margin-bottom: 10px;" readonly="readonly" required="required"/>
                                 <label for="file">파일찾기</label> 
-                                <input type="file" id="file"/>
-                                <span class="error" style="display: inline-block; margin:0 0 30px 20px; color:#400099;">※ 공방 사진은 필수입력 사항입니다.</span>
+                                <input type="file" id="file" name="attach" />
+                                <span class="error" style="display: inline-block; margin:0 0 30px 20px; color:#400099;">※ 공방 사진은 필수 입력 사항입니다.</span>
                             </div>
                         </span>
                     </div>
@@ -438,8 +473,8 @@
                             <div class="filebox" >
                                 <input class="upload-name" id="upload-image" value="" placeholder="첨부파일" style="margin-bottom: 10px;" readonly="readonly" required="required"/>
                                 <label for="file">파일찾기</label> 
-                                <input type="file" id="file"/>
-                                <span class="error" style="display: inline-block; margin:0 0 30px 20px; color:#400099;">※ 공방 대표자 사진은 필수입력 사항입니다.</span>
+                                <input type="file" id="file" name="attach" />
+                                <span class="error" style="display: inline-block; margin:0 0 30px 20px; color:#400099;">※ 공방 대표자 사진은 필수 입력 사항입니다.</span>
                             </div>
                         </span>
                     </div>
@@ -461,26 +496,25 @@
              		 </span>
                    </div>
                     
-                    <div class="frm_border" style="height: 205px;">
+                    <div class="frm_border" style="height: 220px;">
                   
                      <span> <p> * 공방 주소</p>
 	                     <input type="text" id="postcode" class="upload" name="postcode" value="" size="6" maxlength="5" style="width: 201px;"  placeholder="우편번호 찾기를 클릭하세요."  readonly="readonly"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            				 <%-- 우편번호 찾기 --%>
 							<button type="button" id="btnPostcode" class="check_button" style="width: 120px; height: 40px;"> 우편번호 찾기</button>           				 
-							<span class="error" style="display: inline-block; color:#400099; margin-left:20px;"> * 우편번호 형식이 아닙니다.</span>
+							<span class="error" style="display: inline-block; color:#400099; margin-left:20px;"> * 우편번호는 필수 입력 사항입니다.</span>
            		     </span>
            		     
            		     <span style="margin:10px 0 0 150px;">
            				 <input type="text" id="address" class="upload" name="address" size="40" placeholder="주소"  style="width: 300px; "/>&nbsp;&nbsp;&nbsp;
-           				 <input type="text" id="detailAddress" class="upload" name="detailAddress" size="40" placeholder="상세주소" style="width: 300px;"/>&nbsp;
+            			 <input type="text" class="upload" id="extraAddress" placeholder="부가주소" name="extraAddress" class="extra_address" />
             		</span>
             		
 					<span style="margin:10px 0 0 150px;">
-            			<input type="text" class="upload" id="extraAddress" placeholder="부가주소" name="extraAddress"
-                                                       class="extra_address" />
+           				 <input type="text" id="detailAddress" class="upload" name="detailAddress" size="40" placeholder="상세주소" style="width: 300px;" value=""/>&nbsp;
             		 </span>
             		 
-            		 <span class="error" style="display: inline-block; margin-left:150px; color:#400099;">※ 주소는 필수입력 사항입니다.</span> 
+            		 <span class="error_2" style="display: inline-block; margin-left:150px; color:#400099;">※ 상세주소는 필수입력 사항입니다.</span> 
                    
                    </div>
                    
@@ -541,7 +575,7 @@
                             <div class="filebox">
                                 <input class="upload-name" value="첨부파일" placeholder="첨부파일" style="margin-bottom: 10px;" readonly="readonly"/>
                                 <label for="Certificate_file">파일찾기</label> 
-                                <input type="file" id="Certificate_file"/>
+                                <input type="file" id="Certificate_file" name="attach" />
                             </div>
                             <span class="error" style="display: inline-block; color:#400099;  margin-left:20px;">※ 자격증은 필수입력 사항입니다.</span>
                         </span>

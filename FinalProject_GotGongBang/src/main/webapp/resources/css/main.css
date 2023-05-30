@@ -8,6 +8,16 @@ blockquote, th, td, input, select, textarea, button {
     padding: 0;
 }
 
+a {
+	color: black;
+	cursor: pointer;
+}
+
+a:hover {
+	text-decoration: none;
+	color: black;
+}
+
 dl, ul, ol, li {
     list-style: none;
 }
@@ -200,7 +210,7 @@ div#contents p#contents-prolist-promotional-msg {
 	font-weight: bold;
 	color: #400099;
 	position: relative;
-	left:7px;
+	left:50px;
 }
 
 div#contents p#contents-prolistAll-link {
@@ -335,6 +345,15 @@ div#review-slide {
     width: 1100px;
     margin-top: 50px;
     
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    z-index: 1;
+    display: block;
+    
 }
 
 div.contents-review-promotional {
@@ -349,7 +368,7 @@ div.contents-review-promotional {
 	font-weight: bold;
 	color: #7c7c7c;
 	position: relative;
-	left:7px;
+	left:50px;
 }
 
 #review-list-link {
@@ -358,7 +377,7 @@ div.contents-review-promotional {
 	font-weight:400;
 	color: #7c7c7c;
 	position: relative;
-    right:20px;
+    right:55px;
 	float:right;
 	cursor: pointer;
 }

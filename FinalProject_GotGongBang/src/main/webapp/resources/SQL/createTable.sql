@@ -1,21 +1,21 @@
 -- 공방회원정보(파트너)
 CREATE TABLE PARTNER (
-    partner_id_pk VARCHAR2(20)                         not null,            -- 파트너 아이디
-    partner_name VARCHAR2(20)                          not null,            -- 파트너 이름
-    partner_pwd VARCHAR2(20)                           not null,            -- 파트너 비밀번호
-    partner_email VARCHAR2(40)                         not null,            -- 파트너 이메일
-    partner_mobile VARCHAR2(20)                        not null,            -- 파트너 전화번호
-    partner_post_code VARCHAR2(5)                      not null,            -- 파트너 우편번호
-    partner_address NVARCHAR2(40)                      not null,            -- 파트너 주소
-    partner_detail_address NVARCHAR2(40)               null,                -- 파트너 상세 주소
-    partner_extra_address NVARCHAR2(40)                null,                -- 파트너 나머지 주소
-    partner_gender NVARCHAR2(1)                        not null,            -- 파트너 성별
-    partner_birthday DATE                              not null,            -- 파트너 생일
-    partner_registerday DATE                           not null ,           -- 파트너 회원가입 날짜
-    partner_lastPwdChange DATE                         not null,            -- 파트너 마지막 비밀번호 변경 날짜
-    partner_idle NUMBER(1)                   DEFAULT 0 not null,            -- 파트너 휴먼회원 여부  0
-    partner_pwd_change_required NUMBER(1)    DEFAULT 0 not null,            -- 파트너 비밀번호 갱신 필요 여부 0
-    partner_status NUMBER(1)                 DEFAULT 1 not null             -- 파트너 회원 탈퇴 여부 1
+    partner_id_pk VARCHAR2(20)                                      not null,            -- 파트너 아이디
+    partner_name VARCHAR2(20)                                       not null,            -- 파트너 이름
+    partner_pwd VARCHAR2(20)                                        not null,            -- 파트너 비밀번호
+    partner_email VARCHAR2(40)                                      not null,            -- 파트너 이메일
+    partner_mobile VARCHAR2(20)                                     not null,            -- 파트너 전화번호
+    partner_post_code VARCHAR2(5)                                   not null,            -- 파트너 우편번호
+    partner_address NVARCHAR2(40)                                   not null,            -- 파트너 주소
+    partner_detail_address NVARCHAR2(40)                            null,                -- 파트너 상세 주소
+    partner_extra_address NVARCHAR2(40)                             null,                -- 파트너 나머지 주소
+    partner_gender NVARCHAR2(1)                                     not null,            -- 파트너 성별
+    partner_birthday DATE                                           not null,            -- 파트너 생일
+    partner_registerday DATE                 default sysdate        not null ,           -- 파트너 회원가입 날짜
+    partner_lastPwdChange DATE               default sysdate        not null,            -- 파트너 마지막 비밀번호 변경 날짜
+    partner_idle NUMBER(1)                   DEFAULT 0 not null,                         -- 파트너 휴먼회원 여부  0
+    partner_pwd_change_required NUMBER(1)    DEFAULT 0 not null,                         -- 파트너 비밀번호 갱신 필요 여부 0
+    partner_status NUMBER(1)                 DEFAULT 1 not null                          -- 파트너 회원 탈퇴 여부 1
     , CONSTRAINT PK_PARTNER_partner_id_pk primary key(partner_id_pk)
     ,constraint UQ_PARTNER_partner_email  unique(partner_email)
     ,constraint CK_PARTNER_partner_gender check( partner_gender in('1','2') )
