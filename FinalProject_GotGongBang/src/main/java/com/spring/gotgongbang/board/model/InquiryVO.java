@@ -2,15 +2,15 @@ package com.spring.gotgongbang.board.model;
 
 public class InquiryVO {
 	
-	private String inquiry_num_pk; // 문의번호
-	private String user_id_fk ; // 아이디
-	private String inquiry_title; // 문의제목
-	private String inquiry_content; // 문의내용
-	private String inquiry_date; // 작성날짜
-	private String inquiry_viewcount; // 조회수
-	private String inquiry_group; // 그룹번호
-	private String inquiry_original; // 원글문의번호
-	private String inquiry_depth ; // 깊이번호
+	private String inquiry_num_pk; 		// 문의번호
+	private String user_id_fk ; 		// 아이디
+	private String inquiry_title;   	// 문의제목
+	private String inquiry_content; 	// 문의내용
+	private String inquiry_date; 		// 작성날짜
+	private String inquiry_viewcount; 	// 조회수
+	private String inquiry_group; 		// 그룹번호
+	private String inquiry_original; 	// 원글문의번호
+	private String inquiry_depth ; 		// 깊이번호
 	
 	public InquiryVO() {}
 	
