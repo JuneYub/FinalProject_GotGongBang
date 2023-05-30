@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="order">
+
+
+ 	<!--==================== 이지현 시작 ====================== -->
+
+	<!-- 품목 셀렉트 리스트 가져오기 -->
+	<select id="select_types" resultType="com.spring.gotgongbang.order.model.TypesVO">
+		select type_code_pk, type_name
+		from TYPES
+	</select>
+
+
+	 <!--==================== 이지현 끝 ====================== -->
+
+
+
+</mapper>
