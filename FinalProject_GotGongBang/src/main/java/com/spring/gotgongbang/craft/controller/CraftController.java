@@ -73,8 +73,6 @@ public class CraftController {
 	}
 	
 	
-	
-	
 /*	
 	@ResponseBody
 	@RequestMapping(value="/crafts_list.got")
