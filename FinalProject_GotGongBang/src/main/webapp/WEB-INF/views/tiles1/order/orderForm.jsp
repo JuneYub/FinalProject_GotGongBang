@@ -309,7 +309,7 @@ div#orderContent {
   <!-- 비밀번호 찾기 실패 후 x 표나 닫기 누르면 새로고침하게 -->
   <%-- ****** 비밀번호 찾기 Modal ****** --%>
   <div class="modal fade" id="selectReq"> <%-- 만약에 모달이 안보이거나 뒤로 가버릴 경우에는 모달의 class 에서 fade 를 뺀 class="modal" 로 하고서 해당 모달의 css 에서 zindex 값을 1050; 으로 주면 된다. --%> 
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
       
         <!-- Modal header -->
@@ -321,7 +321,7 @@ div#orderContent {
         <!-- Modal body -->
         <div class="modal-body">
           <div id="idFind">
-             <iframe id="iframe_idFind" style="border: none; width: 100%; height: 600px;" src="<%= request.getContextPath()%>/selectReq.got">
+             <iframe id="iframe_idFind" style="border: none; width: 100%; height: 600px;" src="<%= request.getContextPath()%>/selectReq.got?">
              </iframe>
           </div>
         </div>

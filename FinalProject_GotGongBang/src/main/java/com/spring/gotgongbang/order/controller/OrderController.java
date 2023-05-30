@@ -91,7 +91,7 @@ public class OrderController {
 	
 	@RequestMapping(value = "/selectReq.got")
 	public ModelAndView selectReq(ModelAndView mav) {
-		mav.setViewName("order/selectReq.tiles1");
+		mav.setViewName("/none_tiles/order/selectReq");
 		return mav;
 	}
 	// 이지현 끝 ===========================================================================
