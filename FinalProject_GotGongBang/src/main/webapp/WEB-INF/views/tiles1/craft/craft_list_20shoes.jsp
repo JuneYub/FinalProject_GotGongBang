@@ -30,17 +30,16 @@
 </script>
 
 
-
 <%-- 본문 시작 --%>
 <div class="craftList_container">
 
-<h2 style="margin-left: 200px;"><a href="<%= ctxPath%>/crafts_list.got">수선사 찾기</a> > <a href="#">지갑/벨트</a> </h2>
+<h2 style="margin-left: 200px;"><a href="<%= ctxPath%>/crafts_list.got">수선사 찾기</a> > <a href="#">신발</a> </h2>
 <hr style="border: solid 1px #e8e8e8; with:90%;">
 		
 		<section class="recommend-card">
 			<div class="grid--large">
 				<div class="catalog-wrapper">
-					<h2 class="catalog-title">지갑/벨트</h2>
+					<h2 class="catalog-title">신발</h2>
 						<ul class="grid" style="margin-bottom: 80px;">
 							<li class="grid-column__item">
 								<figure class="card responsive-card">

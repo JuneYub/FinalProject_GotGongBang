@@ -48,9 +48,27 @@ public class CraftController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/crafts_listDetail.got")
-	public ModelAndView craftListDetail(ModelAndView mav) {
-		mav.setViewName("/craft/craft_listDetail.tiles1");
+	@RequestMapping(value="/crafts_list_10bag.got")
+	public ModelAndView craftList_10bag(ModelAndView mav) {
+		mav.setViewName("/craft/craft_list_10bag.tiles1");
+		return mav;
+	}
+	
+	@RequestMapping(value="/crafts_list_20shoes.got")
+	public ModelAndView craftList_20shoes(ModelAndView mav) {
+		mav.setViewName("/craft/craft_list_20shoes.tiles1");
+		return mav;
+	}
+	
+	@RequestMapping(value="/crafts_list_30wallet.got")
+	public ModelAndView craftList_30wallet(ModelAndView mav) {
+		mav.setViewName("/craft/craft_list_30wallet.tiles1");
+		return mav;
+	}
+	
+	@RequestMapping(value="/crafts_list_40cloth.got")
+	public ModelAndView craftList_40cloth(ModelAndView mav) {
+		mav.setViewName("/craft/craft_list_40cloth.tiles1");
 		return mav;
 	}
 	
