@@ -156,15 +156,43 @@ public class CraftController {
 	@RequestMapping(value="/edit_craft_user_info.got")
 	public ModelAndView editCraftInfo(ModelAndView mav) {
 		
-		String userid = "test1234"; // 현재는 테스트 계저으로 로그인 이후에 세션 값으로 수정할 것
+		String userid = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
 		
 		PartnerVO pvo = new PartnerVO();
 		pvo = service.getPartnerInfoByUserId(userid);
-		
 		mav.addObject("pvo", pvo);
 		mav.setViewName("/craft/editCraftUserInfo.tiles1");
 		return mav;
 	}
+	
+	@RequestMapping(value="/edit_craft_user_info_end.got")
+	public ModelAndView editCraftInfoEnd(ModelAndView mav, HttpServletRequest request, PartnerVO pvo) {
+		
+		int n = 0;
+		n = service.updatePartnerInfo(pvo);
+		
+		if(pvo.getPartner_pwd() != null && pvo.getPartner_pwd() != "") {
+			n = service.updatePartnerPwd(pvo);
+		}
+		String message = "";
+		String loc = "";
+		
+		if (n == 1) {
+			message = "정상적으로 변경되었습니다.";
+			loc = request.getContextPath()+"/index.got";
+		}
+		
+		else {
+			message = "오류가 발생했습니다";
+			loc ="javascript:history.back();";
+		}
+
+		request.setAttribute("message", message);
+		request.setAttribute("loc", loc);
+		mav.setViewName("msg");
+		return mav;
+	}
+	
 	
 	// 박준엽 끝
 	// ===========================================================================

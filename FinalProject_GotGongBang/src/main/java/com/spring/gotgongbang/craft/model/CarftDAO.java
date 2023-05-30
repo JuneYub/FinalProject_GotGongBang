@@ -34,6 +34,22 @@ public class CarftDAO implements InterCraftDAO {
 		PartnerVO pvo = sqlsession.selectOne("craft.getPartnerInfoByUserId", userid);
 		return pvo;
 	}
+
+
+	@Override
+	public int updatePartnerInfo(PartnerVO pvo) {
+		int n = sqlsession.update("craft.updatePartnerInfo", pvo);
+		return n;
+	}
+
+
+	@Override
+	public int updatePartnerPwd(PartnerVO pvo) {
+		int n = sqlsession.update("craft.updatePartnerPwd", pvo);
+		return n;
+	}
+	
+	
 	// =============== 박준엽 끝 =================//
 	
 }
