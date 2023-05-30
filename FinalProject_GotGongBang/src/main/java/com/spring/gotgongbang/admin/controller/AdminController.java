@@ -32,6 +32,11 @@ public class AdminController {
 
 	// 김나윤 시작
 	// ===========================================================================
+	@RequestMapping(value="/admin_login.got")
+	public ModelAndView adminLogin(ModelAndView mav) {
+		mav.setViewName("admin/admin_login.tiles1");
+		return mav;
+	}
 	// 김나윤 끝
 	// ===========================================================================
 
