@@ -29,10 +29,22 @@
 <!--==================== 박준엽 시작 ====================== -->
 
 <select id="getPartnerInfoByUserId" parameterType="String" resultType="com.spring.gotgongbang.craft.model.PartnerVO">
-	select  partner_id_pk, partner_name, partner_email, partner_mobile, partner_post_code, partner_address, partner_detail_address, partner_extra_address
+	select  partner_id_pk, partner_pwd, partner_name, partner_email, partner_mobile, partner_post_code, partner_address, partner_detail_address, partner_extra_address, to_char(partner_birthday, 'YYYY-MM-DD') AS partner_birthday
 	from PARTNER
 	where partner_id_pk = #{userid}
 </select>
+
+<update id="updatePartnerInfo" parameterType="com.spring.gotgongbang.craft.model.PartnerVO">
+	UPDATE PARTNER SET partner_name = #{partner_name}, partner_email = #{partner_email}, partner_mobile = #{partner_mobile}, partner_post_code = #{partner_post_code}, partner_address = #{partner_address},
+	partner_detail_address = #{partner_detail_address}, partner_extra_address = #{partner_extra_address}, partner_birthday = to_date(#{partner_birthday}, 'YYYY-MM-DD')
+	WHERE partner_id_pk = #{partner_id_pk}
+</update>
+
+<update id="updatePartnerPwd" parameterType="com.spring.gotgongbang.craft.model.PartnerVO">
+	UPDATE PARTNER SET partner_pwd = #{partner_pwd}
+	WHERE partner_id_pk = #{partner_id_pk}
+</update>
+
 
 <!--==================== 박준엽 끝 ====================== -->
 
