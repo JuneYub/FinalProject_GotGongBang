@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MailSendService {
+	
 	@Autowired
 	private JavaMailSenderImpl mailSender;
 	private int authNumber; 
