@@ -34,7 +34,7 @@ public class CarftDAO implements InterCraftDAO {
 	// 파트너 개인정보 변경을 위한 정보 가져오기
 	@Override
 	public PartnerVO getPartnerInfoByUserId(String userid) {
-		PartnerVO pvo = sqlsession.selectOne("gotgongbang.getPartnerInfoByUserId", userid);
+		PartnerVO pvo = sqlsession.selectOne("craft.getPartnerInfoByUserId", userid);
 		return pvo;
 	}
 	// =============== 박준엽 끝 =================//

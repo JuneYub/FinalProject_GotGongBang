@@ -15,6 +15,7 @@
 
 
 
+
 <!--==================== 김나윤 시작 ====================== -->
 <select id="crafts_list_select" parameterType="String" resultType="com.spring.gotgongbang.craft.model.CraftVO">
 	SELECT *
@@ -23,5 +24,16 @@
 </select>
 <!--==================== 김나윤 끝 ====================== -->
 
+
+=======
+<!--==================== 박준엽 시작 ====================== -->
+
+<select id="getPartnerInfoByUserId" parameterType="String" resultType="com.spring.gotgongbang.craft.model.PartnerVO">
+	select  partner_id_pk, partner_name, partner_email, partner_mobile, partner_post_code, partner_address, partner_detail_address, partner_extra_address
+	from PARTNER
+	where partner_id_pk = #{userid}
+</select>
+
+<!--==================== 박준엽 끝 ====================== -->
 
 </mapper>
