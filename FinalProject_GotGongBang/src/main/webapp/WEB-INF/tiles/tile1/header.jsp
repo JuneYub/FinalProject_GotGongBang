@@ -10,7 +10,7 @@
 	String ctxPath = request.getContextPath();
 
 %>
-     <!-- headr 시작 -->
+    <!-- headr 시작 -->
 
     <div id="header">
         <section class="header-section">
@@ -20,7 +20,7 @@
             <div class="header-nav">
                 <ul>
                     <li>
-                        <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/ServiceInfo.got'">서비스 소개</a>
+                        <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/service_info.got'">서비스 소개</a>
                     </li>
                     <li>
                         <a class="header-nav-button">수선사 찾기</a>
@@ -29,7 +29,7 @@
                         <a class="header-nav-button">견적 의뢰</a>
                     </li>
                     <li>
-                        <a class="header-nav-button">문의하기</a>
+                        <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/Boardinquiry.got'">고객센터</a>
                     </li>
                 </ul>
                 

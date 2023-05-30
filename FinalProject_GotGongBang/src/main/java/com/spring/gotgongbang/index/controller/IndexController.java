@@ -35,7 +35,7 @@ public class IndexController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/ServiceInfo.got")
+	@RequestMapping(value = "/service_info.got")
 	public ModelAndView serviceInfo(ModelAndView mav) {
 		mav.setViewName("index/serviceInfo.tiles1");
 		return mav;

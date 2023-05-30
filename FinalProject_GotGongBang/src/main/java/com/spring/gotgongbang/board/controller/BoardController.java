@@ -1,6 +1,8 @@
 package com.spring.gotgongbang.board.controller;
 
 import org.springframework.stereotype.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Component
 @Controller
@@ -27,6 +29,38 @@ public class BoardController {
 
 	// 오준혁 시작
 		// ===========================================================================
+	@RequestMapping(value="/Boardinquiry.got")
+    public ModelAndView getBoardinquiry(ModelAndView mav) {
+		
+		mav.setViewName("/board/board_inquiry.tiles1");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/BoardNotice.got")
+    public ModelAndView getBoardNotice(ModelAndView mav) {
+		
+		mav.setViewName("/board/board_Notice.tiles1");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/BoardQuestion.got")
+    public ModelAndView getBoardQuestion(ModelAndView mav) {
+		
+		mav.setViewName("/board/board_BoardQuestion.tiles1");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/BoardFaq.got")
+    public ModelAndView getBoardFaq(ModelAndView mav) {
+		
+		mav.setViewName("/board/board_BoardFaq.tiles1");
+		
+		return mav;
+	}
+	
 		// 오준혁 끝
 		// ===========================================================================
 
