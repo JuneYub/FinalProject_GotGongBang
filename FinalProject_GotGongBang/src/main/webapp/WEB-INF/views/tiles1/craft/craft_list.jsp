@@ -5,7 +5,6 @@
    String ctxPath = request.getContextPath();
 %>   
     
-    
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
 <!-- Required meta tags -->
