@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.board.model.BoardVO;
-import com.spring.board.service.InterBoardService;
+
 import com.spring.gotgongbang.board.model.InquiryVO;
 import com.sun.media.jai.util.Service;
 
@@ -43,25 +42,7 @@ public class BoardController {
 	// 오준혁 시작
 	// ===========================================================================
 	
-	// 온라인 문의 페이지 불러오기
-	@RequestMapping(value="/Boardinquiry.got")
-    public ModelAndView getBoardinquiry(ModelAndView mav) {
-		List<InquiryVO> inquiryvoList = Service.inquiryvo();
-		
-		
-		mav.setViewName("/board/board_inquiry.tiles1");
-		
-		return mav;
-	}
 	
-	// 온라인 문의 완료.
-	@RequestMapping(value="/BoardinquiryEnd.action", method= {RequestMethod.POST})
-	public ModelAndView getBoardinquiryEnd(ModelAndView mav) {
-		
-		List<InquiryVO> inquriyList = ;
-		
-		return "";
-	}
 			
 	
 	
