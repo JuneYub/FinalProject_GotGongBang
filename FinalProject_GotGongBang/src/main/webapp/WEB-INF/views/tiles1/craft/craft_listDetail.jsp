@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+   String ctxPath = request.getContextPath();
+%>    
+    
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
 <!-- Required meta tags -->
@@ -29,7 +34,7 @@
 <%-- 본문 시작 --%>
 <div class="craftList_container">
 
-<h2 style="margin-left: 200px;"><a href="#">수선사 찾기</a> > <a href="#">지갑/벨트</a> </h2>
+<h2 style="margin-left: 200px;"><a href="<%= ctxPath%>/crafts_list.got">수선사 찾기</a> > <a href="#">지갑/벨트</a> </h2>
 <hr style="border: solid 1px #e8e8e8; with:90%;">
 		
 		<section class="recommend-card">

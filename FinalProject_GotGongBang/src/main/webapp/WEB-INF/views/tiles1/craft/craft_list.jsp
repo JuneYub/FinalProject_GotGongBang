@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+   String ctxPath = request.getContextPath();
+%>   
+    
+    
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
 <!-- Required meta tags -->
@@ -41,9 +47,9 @@
 				</fieldset>
 			</form>
 			<ul class="keyWord">
-				<li><a href="#">#가방/핸드백</a></li>
+				<li><a href="#">가방/핸드백</a></li>
 				<li><a href="#">#신발</a></li>
-				<li><a href="#">#지갑/벨트</a></li>
+				<li><a href="<%= ctxPath%>/crafts_listDetail.got">#지갑/벨트</a></li>
 				<li><a href="#">#의류</a></li>
 				<li><a href="#">#악세서리</a></li>
 			</ul>
@@ -315,10 +321,10 @@
 										<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75 2x" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75" style="color: transparent;">
 										<figcaption class="card__caption">
 											<ul class="card__labels" data-badge-label="" data-badge-color="RED" data-badge-display="비즈니스">
-												<li class="caption">수강가능</li>
+												<li class="caption">${craftvo.craft_name}</li>
 											</ul>
-											<strong class="card__title">매력적인 사람이 되는 12가지 대화 스킬</strong>
-											<i class="card__note">공방명</i>
+											<strong class="card__title">${craftvo.craft_introduce}</strong>
+											<i class="card__note">${craftvo.craft_representative}</i>
 										</figcaption>
 									</a>
 								</figure>

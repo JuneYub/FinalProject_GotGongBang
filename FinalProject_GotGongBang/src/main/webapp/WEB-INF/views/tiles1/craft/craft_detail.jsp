@@ -149,7 +149,7 @@ $(window).scroll(function() {
 		<div>
 			<h2 style="font-size: 30px; font-weight: bold; margin-left:155px; margin-bottom: 10px;">후기가 증명합니다.</h2>
 		</div>
-		<table style="width:80%; margin: 0 auto; padding-bottom: 100px;" class="table table--col customer-notice-list__table aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+		<table id="reviewTbl" style="width:80%; margin: 0 auto; padding-bottom: 100px;" class="table table--col customer-notice-list__table aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
 			<%-- <colgroup style="width: 80%;">
 			    <col width="160">
 			    <col width="*">

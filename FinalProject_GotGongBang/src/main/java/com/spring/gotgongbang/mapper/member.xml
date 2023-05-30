@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+
+	<insert id="insertMember" parameterType="com.spring.gotgongbang.member.model.MemberVO">
+		insert into MEMBER (user_id_pk, name, pwd, email, mobile, post_code, address,detail_address, extra_address, gender, birthday,mileage, registerday, last_pwd_change, idle, pwd_change_required, status)
+		values(#{user_id_pk},#{name},#{pwd},#{email},#{mobile},#{post_code},#{address},#{detail_address},#{extra_address},#{gender},#{birthday},default,default,default,default,default,default)
+	</insert>
+	
+</mapper>

@@ -1,9 +1,12 @@
 package com.spring.gotgongbang.craft.controller;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -12,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import com.spring.gotgongbang.common.FileManager;
 import com.spring.gotgongbang.craft.model.CraftVO;
+import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.craft.service.InterCraftService;
 
 @Controller
@@ -28,8 +33,7 @@ public class CraftController {
     private FileManager fileManager;
 	   
 	
-	
-	
+
 	// 김나윤 시작
 	// ===========================================================================
 	@RequestMapping(value="/crafts_detail.got")
@@ -51,9 +55,34 @@ public class CraftController {
 	}
 	
 	
-	
-	
-	
+/*	
+	@ResponseBody
+	@RequestMapping(value="/crafts_list.got")
+	public ModelAndView crafts_list_select(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+		
+		String craft_specialty = request.getParameter("craft_specialty");
+		
+		List<CraftVO> cvo = service.crafts_list_select(craft_specialty);
+		
+		JSONArray jsonArr = new JSONArray();
+		
+		for(CraftVO craftvo : cvo ) {
+			JSONObject jsonObj = new JSONObject();
+			jsonObj.put("craft_name", craftvo.getCraft_name());
+			jsonObj.put("craft_introduce", craftvo.getCraft_Introduce());
+			jsonObj.put("craft_representative", craftvo.getCraft_representative());
+			jsonObj.put("craft_image", craftvo.getCraft_image());
+			
+			jsonArr.put(jsonObj);
+			
+		}
+		
+		System.out.println(jsonArr);
+//		console.log(jsonArr);
+		mav.setViewName("/craft/craft_list.tiles1");
+		return mav;
+	}
+*/	
 	
 	
 	
@@ -92,7 +121,7 @@ public class CraftController {
 	}
 	
 	
-	// == 공방이름 중복체크를 알아오기 위한 것 == //
+	// == 이미 존재하는 '공방이름'인지 알아오기 위한 것 == //
 	@ResponseBody
 	@RequestMapping(value = "/craft_check_name.got", method = {RequestMethod.POST})
 	public String craft_check_name(HttpServletRequest request, HttpServletResponse response) {
@@ -152,9 +181,44 @@ public class CraftController {
 	
 	@RequestMapping(value="/edit_craft_user_info.got")
 	public ModelAndView editCraftInfo(ModelAndView mav) {
+		
+		String userid = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+		
+		PartnerVO pvo = new PartnerVO();
+		pvo = service.getPartnerInfoByUserId(userid);
+		mav.addObject("pvo", pvo);
 		mav.setViewName("/craft/editCraftUserInfo.tiles1");
 		return mav;
 	}
+	
+	@RequestMapping(value="/edit_craft_user_info_end.got")
+	public ModelAndView editCraftInfoEnd(ModelAndView mav, HttpServletRequest request, PartnerVO pvo) {
+		
+		int n = 0;
+		n = service.updatePartnerInfo(pvo);
+		
+		if(pvo.getPartner_pwd() != null && pvo.getPartner_pwd() != "") {
+			n = service.updatePartnerPwd(pvo);
+		}
+		String message = "";
+		String loc = "";
+		
+		if (n == 1) {
+			message = "정상적으로 변경되었습니다.";
+			loc = request.getContextPath()+"/index.got";
+		}
+		
+		else {
+			message = "오류가 발생했습니다";
+			loc ="javascript:history.back();";
+		}
+
+		request.setAttribute("message", message);
+		request.setAttribute("loc", loc);
+		mav.setViewName("msg");
+		return mav;
+	}
+	
 	
 	// 박준엽 끝
 	// ===========================================================================
