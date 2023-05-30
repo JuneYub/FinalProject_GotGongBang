@@ -2,7 +2,7 @@ package com.spring.gotgongbang.board.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.spring.board.model.InterBoardDAO;
+import com.spring.gotgongbang.board.model.InterBoardDAO;
 
 public class BoardService implements InterBoardService {
 	

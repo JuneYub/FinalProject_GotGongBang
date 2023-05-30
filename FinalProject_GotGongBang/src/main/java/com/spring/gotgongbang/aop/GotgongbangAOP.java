@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 
 //=== 
- 공통관심사 클래스(Aspect Class) 생성하기 === //
+// 공통관심사 클래스(Aspect Class) 생성하기 === //
 //    AOP(Aspect Oriented Programming) 
 @Aspect
 @Component  // bean 으로 등록된다.
