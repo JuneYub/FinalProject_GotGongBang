@@ -15,7 +15,8 @@
 			$( "#editBirthDay" ).datepicker({
 				 changeMonth: true,
 				 changeYear: true,
-				 showMonthAfterYear: true
+				 showMonthAfterYear: true,
+				 dateFormat: 'yy-mm-dd'
 			});
 		} );
 		
@@ -52,6 +53,12 @@
 			}
 		}
 		
+		var editPw = $("input#editPw").val();
+		var editPwCheck = $("input#editPwCheck").val();
+		if(editPw.trim() != "" || editPwCheck.trim() != "") {
+			const boolEdit
+		}
+		
 		var editEmail = $("input#editEmail").val();
 		if(editEmail.trim() != "") {
 			const boolEditEmail = regEmail.test(editEmail);
@@ -73,7 +80,6 @@
 		}
 		
 		var editPost = $("input#postcode").val();
-		
 		if(editPost.trim() != "") {
 			const boolEditPost = regPost.test(Number(editPost));
 			if(!boolEditPost) {
