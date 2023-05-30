@@ -4772,7 +4772,7 @@ ul.grid {
 }
 
 
-table td, th {
+table#reviewTbl td, th {
 	border-bottom: solid 1px #eaeaea;
 	font-size: 16pt;
 	padding: 18px 12px;
