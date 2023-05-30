@@ -25,7 +25,7 @@
 <!--==================== 김나윤 끝 ====================== -->
 
 
-=======
+
 <!--==================== 박준엽 시작 ====================== -->
 
 <select id="getPartnerInfoByUserId" parameterType="String" resultType="com.spring.gotgongbang.craft.model.PartnerVO">
