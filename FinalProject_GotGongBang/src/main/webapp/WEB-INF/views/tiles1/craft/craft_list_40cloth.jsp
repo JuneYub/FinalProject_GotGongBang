@@ -29,8 +29,6 @@
 
 </script>
 
-
-
 <%-- 본문 시작 --%>
 <div class="craftList_container">
 
