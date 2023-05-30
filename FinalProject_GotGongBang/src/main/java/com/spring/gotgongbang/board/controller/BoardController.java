@@ -19,8 +19,7 @@ import com.sun.media.jai.util.Service;
 @Controller
 public class BoardController {
 
-	@Autowired  // Type 에 따라 알아서 Bean 을 주입해준다.
-	private InterBoardService service;
+	
 	
 	// 김진솔 시작
 		// ===========================================================================
