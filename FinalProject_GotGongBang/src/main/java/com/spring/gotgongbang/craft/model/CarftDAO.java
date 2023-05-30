@@ -1,9 +1,12 @@
 package com.spring.gotgongbang.craft.model;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
 
 @Repository
 public class CarftDAO implements InterCraftDAO {
@@ -51,5 +54,18 @@ public class CarftDAO implements InterCraftDAO {
 	
 	
 	// =============== 박준엽 끝 =================//
+	
+	
+	// ================ 김나윤 시작 ==================//
+	
+	// 공방 목록을 보여주기 위해 공방정보 조회해오기
+	@Override
+	public List<CraftVO> crafts_list_select(String craft_specialty) {
+		List<CraftVO> craftvo = sqlsession.selectOne("craft.crafts_list_select", craft_specialty);
+		return craftvo;
+	}
+	
+	
+	// ================ 김나윤 끝 ==================//
 	
 }

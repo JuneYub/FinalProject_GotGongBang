@@ -1,5 +1,6 @@
 package com.spring.gotgongbang.craft.service;
 
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import com.spring.gotgongbang.craft.model.PartnerVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.craft.model.InterCraftDAO;
 
 
@@ -58,4 +60,16 @@ public class CratfService implements InterCraftService {
 	
 	// ================ 김진솔 끝 ================== //
 	
+	
+	
+	// ================ 김나윤 시작 ================== //
+	
+	// 공방 목록을 보여주기 위해 공방정보 조회해오기
+	@Override
+	public List<CraftVO> crafts_list_select(String craft_specialty) {
+		List<CraftVO> craftvo = cdao.crafts_list_select(craft_specialty);
+		return craftvo;
+	}
+	
+	// ================ 김나윤 끝 ================== //
 }

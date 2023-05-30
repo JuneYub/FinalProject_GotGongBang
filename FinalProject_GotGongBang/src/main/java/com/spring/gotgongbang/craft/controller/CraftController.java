@@ -4,6 +4,7 @@ package com.spring.gotgongbang.craft.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +55,34 @@ public class CraftController {
 	}
 	
 	
-	
-	
-	
+/*	
+	@ResponseBody
+	@RequestMapping(value="/crafts_list.got")
+	public ModelAndView crafts_list_select(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+		
+		String craft_specialty = request.getParameter("craft_specialty");
+		
+		List<CraftVO> cvo = service.crafts_list_select(craft_specialty);
+		
+		JSONArray jsonArr = new JSONArray();
+		
+		for(CraftVO craftvo : cvo ) {
+			JSONObject jsonObj = new JSONObject();
+			jsonObj.put("craft_name", craftvo.getCraft_name());
+			jsonObj.put("craft_introduce", craftvo.getCraft_Introduce());
+			jsonObj.put("craft_representative", craftvo.getCraft_representative());
+			jsonObj.put("craft_image", craftvo.getCraft_image());
+			
+			jsonArr.put(jsonObj);
+			
+		}
+		
+		System.out.println(jsonArr);
+//		console.log(jsonArr);
+		mav.setViewName("/craft/craft_list.tiles1");
+		return mav;
+	}
+*/	
 	
 	
 	

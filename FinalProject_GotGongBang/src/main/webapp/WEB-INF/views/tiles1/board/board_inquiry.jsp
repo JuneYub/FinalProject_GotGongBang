@@ -8,7 +8,7 @@
 
  <div id="ojh_content">
         <section class="ojh_page_content_inquire">
-            <header class="ojh_page-header ojh_page-header--customer">
+            <header class="ojh_page-header ojh_page-header--customer" style="height: 200px;">
               <span class="page-header__backdrop">
                 <span class="page-header__backdrop-item"></span>
                 <span class="page-header__backdrop-item"></span>
@@ -27,19 +27,19 @@
                     <div class="ojh_center"> 고객센터 </div>
                     <ul class="ojh_sub_category">
                         <li>
-                            <a class="ojh_sub_category_info">공지사항</a>
+                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/BoardNotice.got'">공지사항</a>
                         </li>
 
                         <li>
-                            <a class="ojh_sub_category_info">온라인 문의</a>
+                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/Boardinquiry.got'">온라인 문의</a>
                         </li>
 
                         <li>
-                            <a class="ojh_sub_category_info">질문 게시판</a>
-                        </li>
+                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/BoardQuestion.got'">질문 게시판</a>
+                        </li> 
 
                         <li>
-                            <a class="ojh_sub_category_info">FAQ</a>
+                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/BoardFaq.got'">FAQ</a>
                         </li>
                     </ul>
                 </div>
