@@ -40,7 +40,7 @@
 		var regName = /^[가-힣]{2,6}$/;  
 		var regMobile= /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
 		var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; 
-		var regPost = /^d{5}$/g;
+		var regPost = /^\d{5}$/;
 		
 		var editName = $("input#editName").val();
 		if(editName.trim() != "") {
@@ -72,9 +72,10 @@
 			}
 		}
 		
-		var editPost = $("input#postcode")
+		var editPost = $("input#postcode").val();
+		
 		if(editPost.trim() != "") {
-			const boolEditPost = regPost.test(editPost);
+			const boolEditPost = regPost.test(Number(editPost));
 			if(!boolEditPost) {
 				alert("우편번호 형식이 맞지 않습니다");
 				$("input#postcode").val("");
@@ -83,9 +84,10 @@
 			}
 		}
 		
-		const frm = document.editMyInfo;
+<%-- 		const frm = document.editMyInfo;
 		frm.action = "<%= ctxPath%>/editMyInfo.action"
-		frm.submit();
+		frm.submit(); --%>
+		alert($("input#editBirthDay").val());
 
 		
 	}
@@ -169,6 +171,8 @@
                 document.getElementById("address").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById("detailAddress").focus();
+                
+                document.getElementById("detailAddress").value = "";
             }
         }).open();
     }
@@ -194,7 +198,7 @@
 					<tbody>
 						<tr>
 						<th>이름</th> 
-						<td><input type="text" id="editName" autocomplete="off" /> </td>
+						<td><input type="text" value="${pvo.partner_name}" id="editName" autocomplete="off" /> </td>
 						</tr>
 						
 						<tr>
@@ -221,7 +225,7 @@
 						<tr>
 						<th>E-mail</th> 
 						<td>
-						<input id="editEmail" />
+						<input id="editEmail" value="${pvo.partner_email}"/>
                         <select id="emailDomain" name="emailDomain_select" class="emailDomain_select">
 	                        <option value="직접입력">직접입력</option>
 	                        <option value="naver.com">naver.com</option>
@@ -236,20 +240,20 @@
 						
 						</tr>
 						<tr><th>휴대폰번호</th> 
-						<td><input type="text" id="editMobile" autocomplete="off" placeholder="'-' 없이 번호만 적어주세요"/></td>
+						<td><input type="text" id="editMobile" value="${pvo.partner_mobile}" autocomplete="off" placeholder="'-' 없이 번호만 적어주세요"/></td>
 						</tr>
 						
 						<tr>
 						<th>주소</th>
 					 	<td>
 						<div class="address_postcode">
-							<input type="text" id="postcode" name="postcode" placeholder="우편번호">
+							<input type="text" id="postcode" name="postcode" value="${pvo.partner_post_code}" placeholder="우편번호">
 							<input type="button" id="zipcodeSearch" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
 						</div>
 						<div class="address_input">
-							<input type="text" id="address" name="address" placeholder="주소" readonly="readonly"><br>
-							<input type="text" id="detailAddress"  name="detailAddress" placeholder="상세주소" >
-							<input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목" readonly="readonly">
+							<input type="text" id="address" name="address" value="${pvo.partner_address}" placeholder="주소" readonly="readonly"><br>
+							<input type="text" id="detailAddress"  name="detailAddress"  value="${pvo.partner_detail_address}" placeholder="상세주소" >
+							<input type="text" id="extraAddress" name="extraAddress"  value="${pvo.partner_extra_address}" placeholder="참고항목" readonly="readonly">
 						</div>                  	
                         </td>
 						</tr>
