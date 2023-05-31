@@ -58,11 +58,7 @@ start with 1
 increment by 1
 minvalue 1
 nomaxvalue
-<<<<<<< HEAD
->>>>>>> refs/heads/Nayoon
 nocycle
 nocache;
-=======
 
->>>>>>> branch 'main' of https://github.com/JuneYub/FinalProject_GotGongBang.git
 
