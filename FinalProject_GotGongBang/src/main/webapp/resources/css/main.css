@@ -134,12 +134,12 @@ body #container #contents {
 
 body #container .container-top-animator-background {
     background-color: #400099;
-    height: 500px;
+    height: 800px;
     
 }
 
 body #container .container-top-animator-background .container-top-copy {
-    padding: 120px 0 0 190px;
+    padding: 300px 0 0 190px;
 }
 
 body #container .container-top-animator-background p:first-child {
@@ -156,7 +156,7 @@ body #container .container-top-animator-background p:last-child {
 
 body #container .container-bottom-animator-background {
     background-color: #ffffff;
-    height: 500px;
+    height: 800px;
 }
 
 body #container .container-bottom-animator-background .container-botton-copy {
@@ -169,11 +169,32 @@ body #container .container-bottom-animator-background p:first-child {
     font-weight: bold;
 }
 
-body #container .container-bottom-animator-background p:last-child {
+body #container .container-bottom-animator-background p:nth-child(2) {
     color: #400099;
     font-size: 64px;
     font-weight: lighter;
 }
+
+div#mainIllur {
+	margin-top: 200px;
+	width: 1200px;
+	opacity: 0;
+}
+
+#mainSearchIllur {
+	width: 300px;
+    height: 210px;
+    float: right;
+    
+}
+
+#mainListIllur {
+    width: 300px;
+    height: 210px;
+    float: right;
+}
+
+
 
 
 .circle-white {
@@ -202,6 +223,7 @@ div.contents-prolist-promotional {
 	position: relative;
 	top:30px;
     line-height: 36px;
+    margin-top: 150px;
 }
 
 div#contents p#contents-prolist-promotional-msg {
@@ -316,8 +338,8 @@ div#contents p#contents-prolistAll-link {
 }
 
 .banner-service-info {
-    margin-top: 100px;
-    margin-bottom: 100px;
+    margin-top: 250px;
+    margin-bottom: 250px;
     width: 100%;
     height: 300px;
     padding: 115px 30px;
@@ -598,6 +620,35 @@ div.contents-review-promotional {
 	box-shadow: 1px 1px 1px #6D6D6D;
 }
 
+.block-pagebar {
+	text-align: center;
+    border: solid 0px gray;
+    width: 70%;
+    margin: 20px auto;
+}
+
+.pageBar {
+	list-style: none;
+}
+
+.pageBar-edge {
+	display: inline-block;
+	width:70px;
+	font-size: 12pt;
+}
+
+.pageBar-start {
+	display: inline-block;
+	width:50px;
+	font-size: 12pt;
+}
+
+.pageBar-currentNo {
+	display: inline-block;
+	width:30px;
+	font-size: 12pt;
+}
+
 .img-estimate {
 	width: 100px;
 	height: 100px;
@@ -630,7 +681,7 @@ div.contents-review-promotional {
 .popup-container #requestEstimate {
 	border: 1px solid black;
 	box-shadow: 1px 1px 1px;
-	border-radius: 5px;
+	border-radius: 3px;
 }
 
 .popup-container #requestEstimate .tit-estimate {
@@ -657,7 +708,7 @@ div.contents-review-promotional {
 
 .cont-proposal {
 	display: flex;
-    justify-content: center;
+    justify-content: right;
     margin-top: 40px;
 }
 
@@ -668,6 +719,10 @@ div.contents-review-promotional {
 .cont-proposal .input-proposal {
 	margin-left: 20px;
 	text-align: right;
+	border: 1px solid #6d6d6d;
+    box-shadow: 1px 1px 1px;
+    border-radius: 3px;
+    padding: 10px 15px;
 }
 
 .cont-bid-final {
@@ -956,7 +1011,7 @@ body #admin_container #admin_contents .filebox .upload-name {
     padding: 0 10px;
     vertical-align: middle;
     border: 1px solid #dddddd;
-    width: 200px;
+    width: 250px;
     color: #999999;
 }
 body #admin_container #admin_contents  .filebox label {
@@ -993,7 +1048,7 @@ body #admin_container #admin_contents .application_right  .upload{
   }
   body #admin_container #admin_contents .application_right #self_introduce {
     width: 500px;
-    height: 180px;
+    height: 100px;
     font-size: 15px;
     border: 0;
     border-radius: 15px;
@@ -1013,7 +1068,7 @@ body #admin_container #admin_contents .application_right .frm_border_2{
     border: solid 1px rgb(214, 214, 214);
     border-radius: 15px;
     margin: 40px 10px;
-    height: 200px;
+    height: 100px;
 }
 
 body #admin_container #admin_contents .application_right .frm_border_3{
@@ -2011,7 +2066,6 @@ width: 210px
     box-sizing: border-box;
     padding: 13px 20px;
     border-color: #b9b9b9;
-    
 }
 
 .ojh_form-attached-file {
@@ -2733,3 +2787,585 @@ table#reviewTbl td, th {
 
 /* ================================= 김나윤 끝 ================================ */
 
+
+
+
+
+
+
+
+
+
+/* =========================================================== 홍용훈 시작 =========================================================== */
+
+/* login 시작 */
+.yh_html {
+    padding: 15px 0;
+    box-sizing: border-box;
+	}
+	.yh1_body, .yh_html {
+    width: 100%;
+    height: 100%;
+    font-size: 17px;
+    font-weight: 300;
+    color: #777;
+    -webkit-text-size-adjust: none;
+    word-break: keep-all;
+    margin: 0;
+	}
+	
+	
+	.yh_login_cont {
+	transform: translate(-50%,-50%);
+    /* border: 8px solid #f3f7f8; */
+    position: relative;
+    left: 50%;
+    width: 444px;
+    margin-top: 400px;
+	}
+	
+	.yh_login_in {
+		padding: 0px 20px;
+		margin-top: 50px;
+		text-align: center;
+		
+		padding-bottom: 38px;
+		width: 460px;
+        margin: 0 auto;
+        box-shadow: 10px 15px 15px 10px rgba(68,68,68,.04);
+	}
+	
+	.yh_input {
+		width: 100%;
+	    padding: 0px 20px;
+	    border: 1px solid rgb(189, 189, 189);
+	    border-radius: 5px;
+	    height: 48px;
+	    box-sizing: border-box;
+	    font-family: inherit;
+    	font-size: 100%;
+    	line-height: 1.15;
+    	margin: 0 auto;
+    	margin-top: 12px;
+    	display: block;
+	}
+	
+
+	
+	.yh_bgColor {
+    	color: rgb(255, 255, 255);
+    	background-color: #400099;
+    	width: 100%;
+    	height: 44px;
+    	cursor: pointer;
+    	border-radius: 5px;
+    	margin-top: 24px;
+	}
+	
+	.yh_border {
+	    height: 14px;
+	    background: rgb(224, 224, 224);
+	    margin: 0px 15px;
+	    margin-top: 16px;
+	    width: 1px;
+	    
+	}
+	
+	.yh_p {
+	    font-size: 14px;
+    	font-weight: 400;
+    	
+	
+	}
+/* login 끝 */
+
+/* register_member 시작 */
+.yh_sign-up {
+		margin: 0 auto;
+    	width: 792px;
+    	scroll-behavior: smooth;
+	}
+	
+	.yh_sign-up__header {
+		align-items: center;
+	    border-bottom: 3px solid #000;
+	    display: flex;
+	    justify-content: space-between;
+	    overflow: hidden;
+	    padding: 50px 0 60px;
+	}
+	
+	.sign-up__title {
+	    color: #000;
+	    font-size: 45px;
+	    font-weight: 700;
+	    line-height: 1.33;
+	}
+	
+	.sign-up__order {
+	    display: flex;
+	    margin-right: -30px;
+	    position: relative;
+	    margin: 0;
+	}
+	
+	.sign-up__order-item {
+	    align-items: center;
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    position: relative;
+	    width: 110px;
+	}
+	
+	.sign-up__order-index {
+	    align-items: center;
+	    background: #f6f5fa;
+	    border: 1px solid #400099;
+	    border-radius: 50%;
+	    box-sizing: border-box;
+	    color: #f6f5fa;
+	    display: flex;
+	    font-size: 14px;
+	    height: 40px;
+	    justify-content: center;
+	    position: relative;
+	    width: 40px;
+	}
+	
+	.sign-up__order-item--current .sign-up__order-index {
+	    background: #400099;
+	    border-color: #400099;
+	    color: #400099;
+	}
+	
+	.sign-up__order-item--current .sign-up__order-index:before {
+	    box-shadow: inset 3px -3px 0 #fff;
+	}
+	
+	.sign-up__order-index:before {
+	    box-shadow: inset 3px -3px 0 #400099;
+	    content: "";
+	    height: 12px;
+	    left: calc(50% - 8px);
+	    position: absolute;
+	    top: calc(50% - 8px);
+	    transform: rotate(-45deg);
+	    width: 16px;
+	}
+	
+	.sign-up__order-item--current .sign-up__order-menu {
+	    font-weight: 700;
+	}
+	
+	.sign-up__order-menu {
+	    color: #400099;
+	    font-size: 13px;
+	    line-height: 1;
+	    padding-top: 12px;
+	}
+	
+	.sign-up__form {
+		margin: 0;
+    	padding: 0;
+	}
+	
+	.sign-up__step-header {
+	    border-bottom: 1px solid #000;
+	    padding: 55px 28px 40px;
+	}
+	
+	.sign-up__step-title {
+	    color: #400099;
+	    font-size: 24px;
+	    font-weight: 700;
+	    letter-spacing: -.6px;
+	    line-height: 1.5;
+	}
+	
+	.sign-up__step-description {
+	    color: #000;
+	    font-size: 15px;
+	    line-height: 1.6;
+	    padding-top: 10px;
+	}
+	
+	.sign-up__step {
+	    /* display: none; */
+	    padding-bottom: 200px;
+	    position: relative;
+	    border:0 solid black;
+	    scroll-behavior: smooth;
+	}
+	
+	.sign-up__step1 {
+		border:0 solid black;
+	}
+	
+	.sign-up__legend {
+	    clip: rect(0,0,0,0);
+	    border: 0;
+	    -webkit-clip-path: inset(0 0 99.9% 99.9%);
+	    clip-path: inset(0 0 99.9% 99.9%);
+	    height: 1px;
+	    overflow: hidden;
+	    padding: 0;
+	    position: absolute;
+	    white-space: nowrap;
+	    width: 1px;
+	}
+	
+	
+	.sign-up__terms-header {
+	    align-items: center;
+	    display: flex;
+	    justify-content: space-between;
+	    padding: 5px 0 5px 25px;
+	}
+	
+	.sign-up__terms-required {
+	    color: #e6344a;
+	    font-weight: 400;
+	}
+	
+	.form-check {
+	    display: inline-block;
+	    position: relative;
+	    padding-left: 0;
+	}
+	
+	.form-check__input {
+	    -webkit-appearance: none;
+	    -moz-appearance: none;
+	    appearance: none;
+	    height: 16px;
+	    left: 2px;
+	    position: absolute;
+	    top: calc(50% - 8px);
+	    width: 16px;
+	    transition: .2s;
+	}
+	
+	.form-check__name {
+	    display: block;
+	    line-height: 52px;
+	    padding-left: 40px;
+	    position: relative;
+	    z-index: 10;
+	}
+	
+	.form-check__name-info {
+	    color: #e6344a;
+	    display: block;
+	    font-size: 12px;
+	    line-height: 18px;
+	    padding: 4px 0 0 10px;
+	}
+	
+	
+	.sign-up__terms-item+.sign-up__terms-item {
+	    border-top: 1px solid hsla(0,0%,92%,.8);
+	}
+	
+	.form-check__input {
+	    -webkit-appearance: none;
+	    -moz-appearance: none;
+	    appearance: none;
+	    height: 16px;
+	    left: 2px;
+	    position: absolute;
+	    top: calc(50% - 8px);
+	    width: 16px;
+	}
+	
+	.form-check__name:before {
+	    background: #fff;
+	    border: 1px solid #b9b9b9;
+	    border-radius: 2px;
+	    box-sizing: border-box;
+	    height: 20px;
+	    left: 0;
+	    top: calc(50% - 10px);
+	    width: 20px;
+	}
+	
+	.form-check__name:after {
+	    box-shadow: inset 2px -2px 0 #fff;
+	    height: 6px;
+	    left: 5px;
+	    top: calc(50% - 5px);
+	    transform: rotate(-45deg);
+	    transform-origin: center;
+	    width: 11px;
+	    opacity: 1;
+		
+	}
+	
+	.form-check_click {
+		background: #400099;
+    	border-color: #400099;
+	}
+	
+	.form-check__name:after, .form-check__name:before {
+	    content: "";
+	    position: absolute;
+	    transition: .2s;
+	    background-color:transparent;
+	}
+	
+	/* 더보기 버튼 */
+	.btn {
+	    background: transparent;
+	    border: 0;
+	    color: #000;
+	    cursor: pointer;
+	    display: block;
+	}
+	/* 더보기 버튼 */
+	
+	/* 약관버튼  */
+	.sign-up__terms-trigger {
+	    height: 52px;
+	    width: 66px;
+	}
+	
+	.sign-up__terms-trigger-name {
+	    clip: rect(0,0,0,0);
+	    border: 0;
+	    -webkit-clip-path: inset(0 0 99.9% 99.9%);
+	    clip-path: inset(0 0 99.9% 99.9%);
+	    height: 1px;
+	    overflow: hidden;
+	    padding: 0;
+	    position: absolute;
+	    white-space: nowrap;
+	    width: 1px;
+	}
+	
+	.accordion__trigger:after {
+	    box-shadow: inset 2px -2px 0 #000;
+	    content: "";
+	    height: 12px;
+	    left: calc(50% - 6px);
+	    position: absolute;
+	    top: calc(50% - 6px);
+	    transform: rotate(-45deg);
+	    transform-origin: center;
+	    transition: .3s;
+	    width: 12px;
+	}
+	
+	.accordion__trigger--expand:after {
+	    transform: rotate(135deg);
+	}
+	
+	.accordion__trigger {
+	    position: relative;
+	}
+	/* 약관버튼  */
+	
+	/* 약관 dd */
+	.accordion__collapse--expand {
+	    background: #f8f8f8;
+	    border-top: 1px solid hsla(0,0%,92%,.8);
+	    height: 180px;
+	    overflow-y: scroll;
+	}
+	
+	.accordion__collapse {
+	    background: #fff;
+	    height: 0;
+	    max-height: none;
+	}
+	/* 약관 dd */
+	
+	
+	/* 약관 div  */
+	.accordion__collapse--expand .accordion__body {
+	    opacity: 1;
+	    transform: translateY(0);
+	    height: auto;
+	    overflow: hidden;
+	}
+	.sign-up__terms-body {
+	    padding: 20px 65px;
+	}
+	
+	.accordion__body {
+		overflow: hidden;
+		height: 0;
+	    opacity: 0;
+	    transform: translateY(30px);
+	    transition: opacity .35s ease .15s,transform .35s ease .15s;
+	}
+	/* 약관 div  */
+	
+	/* 하단버튼 div */
+	.sign-up__step-buttons {
+	    align-items: center;
+	    border-top: 1px solid #000;
+	    display: flex;
+	    justify-content: center;
+	    padding-top: 40px;
+	}
+	/* 하단버튼 div */
+	
+	.button {
+	    -webkit-appearance: none;
+	    -moz-appearance: none;
+	    appearance: none;
+	    background: #400099;
+	    border: 1px solid #400099;
+	    border-radius: 28px;
+	    box-sizing: border-box;
+	    color: #fff;
+	    display: inline-block;
+	    font-size: 18px;
+	    height: 56px;
+	    letter-spacing: -.45px;
+	    line-height: 26px;
+	    padding: 14px 15px;
+	    text-align: center;
+	    width: 180px;
+	    cursor: pointer;
+	}
+	
+	.div1_h, .div2_h, .div3_h, .div4_h, .div5_h {
+		height: 0;
+	}
+	
+	/* 하단바 */
+	.site-top {
+	    height: 110px;
+	    left: 0;
+	    overflow: hidden;
+	    padding-top: 10px;
+	    pointer-events: none;
+	    position: fixed;
+	    top: calc(100% - 110px);
+	    width: 100%;
+	    z-index: 200;
+	}
+	
+	.site-top a {
+	    background: #fff 17px/14px auto;
+	    border-radius: 50%;
+	    box-shadow: 0 15px 30px rgba(49,51,65,.3);
+	    box-sizing: border-box;
+	    color: #400099;
+	    display: inline-block;
+	    font-size: 13px;
+	    font-weight: 800;
+	    height: 60px;
+	    padding-top: 20px;
+	    pointer-events: auto;
+	    position: absolute;
+	    right: 48px;
+	    text-align: center;
+	    top: 0;
+	    width: 60px;
+	}
+	
+	/* 2~5번째 SET */
+	
+	.sign-up__step-description-point {
+	    color: #400099;
+	    font-weight: 400;
+	}
+	
+	.sign-up__step-body {
+	    padding: 20px 28px;
+	}
+	
+	.form-field__title {
+	    color: #000;
+	    display: block;
+	    font-size: 16px;
+	    line-height: 36px;
+	}
+	
+	.form-field__group {
+	    display: flex;
+	    justify-content: space-between;
+	}
+	
+	.form-field__group--input-button .form-input {
+	    width: calc(100% - 170px);
+	}
+	
+	.form-input {
+	    -webkit-appearance: none;
+	    -moz-appearance: none;
+	    appearance: none;
+	    background-color: #f5f5f5;
+	    border: 1px solid #f5f5f5;
+	    border-radius: 4px;
+	    box-sizing: border-box;
+	    color: #212529;
+	    display: block;
+	    font-family: NanumSquare,Arial,sans-serif;
+	    font-size: 16px;
+	    font-weight: 700;
+	    line-height: 24px;
+	    padding: 13px 20px;
+	    transition: border-color .15s ease;
+	    width: 100%;
+	}
+	
+	.form-field__group--input-button .button {
+	    border-radius: 4px;
+	    font-size: 16px;
+	    height: 52px;
+	    padding: 12px 15px;
+	    width: 160px;
+	    appearance: none;
+	    background: #400099;
+	    border: 1px solid #400099;
+	    box-sizing: border-box;
+	    color: #fff;
+	    display: inline-block;
+	    letter-spacing: -.45px;
+	    line-height: 26px;
+	    text-align: center;
+	}
+	
+	.form-field__feedback {
+	    color: #e6344a;
+	    display: block;
+	    font-size: 14px;
+	    line-height: 1.4285714286;
+	    margin-left: -20px;
+	    padding: 10px 0 0 28px;
+	}
+	
+	.form-field+.form-field {
+	    margin-top: 20px;
+	}
+	/* 이전버튼 */
+	.button--outline {
+	    background: #fff;
+	    border-color: #b9b9b9;
+	    color: #1a1325;
+	}
+	/* 이전버튼 */
+	
+	
+	.form-field__info--point {
+	    color: #400099;
+	}
+	
+	.sign-up__step:first-of-type .form-field__feedback {
+	    position: absolute;
+	    right: 0;
+	    top: 117px;
+	}
+	
+	/* 유효성 검사 오류시 css */
+	.form-input--invalid {
+	    background-color: #ffeaea!important;
+	    border-color: #e6344a!important;
+	    transition: .35s;
+	}
+/* register_member 끝 */
+
+/* =========================================================== 홍용훈 끝 =========================================================== */

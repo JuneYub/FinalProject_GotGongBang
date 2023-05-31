@@ -1,5 +1,7 @@
 package com.spring.gotgongbang.board.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class InquiryVO {
 	
 	private String inquiry_num_pk; 		// 문의번호
@@ -11,6 +13,8 @@ public class InquiryVO {
 	private String inquiry_group; 		// 그룹번호
 	private String inquiry_original; 	// 원글문의번호
 	private String inquiry_depth ; 		// 깊이번호
+	
+	private MultipartFile attach;
 	
 	public InquiryVO() {}
 	
@@ -100,5 +104,15 @@ public class InquiryVO {
 	public void setInquiry_depth(String inquiry_depth) {
 		this.inquiry_depth = inquiry_depth;
 	}
+
+	public MultipartFile getAttach() {
+		return attach;
+	}
+
+	public void setAttach(MultipartFile attach) {
+		this.attach = attach;
+	}
+	
+	
 	
 }
