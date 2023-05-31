@@ -2,6 +2,8 @@ package com.spring.gotgongbang.craft.model;
 
 import java.util.List;
 
+import com.spring.gotgongbang.order.model.OrderVO;
+
 public interface InterCraftDAO {
 
 	// =============== 김진솔 시작 =================//
@@ -22,6 +24,8 @@ public interface InterCraftDAO {
 	int updatePartnerInfo(PartnerVO pvo);
 
 	int updatePartnerPwd(PartnerVO pvo);
+
+	List<OrderVO> getAllOrders();
 	
 	// =============== 박준엽 끝 =================//
 }
