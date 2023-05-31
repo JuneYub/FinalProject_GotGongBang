@@ -1,6 +1,8 @@
 package com.spring.gotgongbang.craft.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -42,11 +44,11 @@ public class CraftController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/crafts_list.got")
-	public ModelAndView craftList(ModelAndView mav) {
-		mav.setViewName("/craft/craft_list.tiles1");
-		return mav;
-	}
+//	@RequestMapping(value="/crafts_list.got")
+//	public ModelAndView craftList(ModelAndView mav) {
+//		mav.setViewName("/craft/craft_list.tiles1");
+//		return mav;
+//	}
 	
 	@RequestMapping(value="/crafts_list_10bag.got")
 	public ModelAndView craftList_10bag(ModelAndView mav) {
@@ -70,6 +72,18 @@ public class CraftController {
 	public ModelAndView craftList_40cloth(ModelAndView mav) {
 		mav.setViewName("/craft/craft_list_40cloth.tiles1");
 		return mav;
+	}
+	
+	@RequestMapping(value="/crafts_list.got")
+	public ModelAndView crafts_list_select(ModelAndView mav) {
+		List<CraftVO> craftsList = null;
+		
+		craftsList = service.crafts_list_select();
+		mav.addObject("craftsList", craftsList);
+		mav.setViewName("/craft/craft_list.tiles1");
+		
+		return mav;
+		
 	}
 	
 	
