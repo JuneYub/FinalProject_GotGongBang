@@ -159,7 +159,7 @@ public class CraftController {
 	// == 이미 존재하는 '공방이름'인지 알아오기 위한 것 == //
 	@ResponseBody
 	@RequestMapping(value = "/craft_check_name.got", method = {RequestMethod.POST})
-	public String craft_check_name(HttpServletRequest request, HttpServletResponse response) {
+	public String craft_check_name(HttpServletRequest request) {
 		String craft_name = request.getParameter("nickname");
 		int n = 0;
 		try {
@@ -175,7 +175,98 @@ public class CraftController {
 		
 	}
 	
+	/*
+	@RequestMapping(value = "/craft_application_end.got")
+	public String craft_application_end(HttpServletRequest request, HttpServletResponse response) {
+		MultipartRequest mtrequest = null;
 
+        // 1.첨부되어진 파일을 디스크의 어느 경로에 업로드 할 것인지 경로를 설정해야한다
+        ServletContext svlCtx =  session.getServletContext();
+        String uploadFileDir = svlCtx.getRealPath("/image");
+
+      // 파일을 업로드 해준다. 
+        try {
+        	 mtrequest = new  MultipartRequest(request, uploadFileDir, 10*1024*1024, "UTF-8", new DefaultFileRenamePolicy() );
+			
+		} catch (IOException e) {
+			request.setAttribute("message","업로드 되어질 경로가 잘못되었거나 또는 최대용량 10MB를 초과했으므로 파일업로드 실패함!!");
+			request.setAttribute("loc",request.getContextPath()+"/productRegister.ban");
+			
+			super.setRedirect(false);
+			super.setViewPage("/WEB-INF/msg.jsp");
+			return; // 종료
+		}
+       
+        
+        // === 첨부이미지파일,제품설명서 파일을 올렸으니 그 다음으로 제품정보(제품명,정가,수량)DB의 tbl_peoduct테이블에 insert 해주어야 한다. === //
+        
+        // 새로운 제품 등록시 form태그에서 입력한 값 가져오기
+        
+        int fk_cnum = Integer.parseInt(mtrequest.getParameter("fk_cnum"));
+        String prodName = mtrequest.getParameter("prodName");
+      
+      
+        
+        // 업로드되어진 시스템의 첨부파일 이름(파일서버에 업로드 되어진 실제파일명)을 얻어 올때는 
+        // cos.jar 라이브러리에서 제공하는 MultipartRequest 객체의 getFilesystemName("form에서의 첨부파일 name명") 메소드를 사용 한다. 
+        // 이때 업로드 된 파일이 없는 경우에는 null을 반환한다.
+        
+        String pimage1 = mtrequest.getFilesystemName("pimage1"); 
+       
+        String price = mtrequest.getParameter("price");
+        String pqty = mtrequest.getParameter("pqty");
+        //그로스 사이트 스크립트 공격 막기(시큐어 코드)
+        
+        String pcontent = mtrequest.getParameter("pcontent");
+        pcontent =  pcontent.replaceAll("<","&lt");
+        pcontent =  pcontent.replaceAll(">","&gt");
+        pcontent = pcontent.replaceAll("\r\n", "<br>");
+        String sale_count = mtrequest.getParameter("saleCount");
+       
+        
+        InterProductDAO pdao = new ProductDAO();
+        
+        // 제품번호 채번해오기 
+        
+        long pnum = pdao.getPnumOfProduct();
+        ProductVO pvo = new ProductVO();
+        pvo.setProduct_num(pnum);
+        pvo.setCategory_num(fk_cnum);
+        pvo.setProduct_title(prodName);
+        pvo.setMain_image(pimage1);
+        pvo.setProduct_price(Integer.parseInt(price));
+        pvo.setProduct_inventory(Integer.parseInt(pqty));
+        pvo.setProduct_detail(pcontent);
+        pvo.setSale_count(Integer.parseInt(sale_count));
+       
+
+        String message = "";
+        String loc = "";
+        try {
+
+           // tbl_product 테이블에 insert 하기
+           pdao.productInsert(pvo);
+   
+
+           message = "제품등록 성공!";
+           loc = request.getContextPath()+"/productRegister.ban";
+     }catch(SQLException e) {
+    	 e.printStackTrace();
+         
+         message = "제품등록 실패!!";
+         loc = request.getContextPath()+"/home.ban";
+    	 
+     }
+        String addImage  =  mtrequest.getFilesystemName("pimage2");  
+    	pdao.product_imageFile_Insert(pnum,addImage);
+    	
+        request.setAttribute("message", message);
+        request.setAttribute("loc", loc);
+        
+        super.setRedirect(false);
+        super.setViewPage("/WEB-INF/msg.jsp");
+	}
+*/
 	
 	
 	

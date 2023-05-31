@@ -385,22 +385,12 @@
 			
 		}
 			
-		
-		
-		// 이미지파일(공방 사진, 공방대표자 사진, 자격증 사진) 업로드하기
-		<%--
-		$("form[name='craft_application_frm']").ajaxForm({
-			url:"<%=%>/_withAttach"
-		});
-		--%>
-		
-		
-		/*const frm = document.craft_application_frm;
-		frm.action = "adminComplete.got";
-		frm.method = "post";
-		frm.submit();
-		*/
-	}
+
+		  const frm = document.craft_application_frm;
+		  frm.submit();
+		  
+		  
+	} //end of function goComplete() ----------------------------------
 	
 	
 	////// 희망급여 콤마포함 숫자만 입력 /////
@@ -457,7 +447,7 @@
                 </div>
             </div>
 
-            <form name="craft_application_frm" method="POST" enctype="multipart/form-data">
+            <form name="craft_application_frm" method="POST" action="<%= request.getContextPath()%>/craft_application_end.got" enctype="multipart/form-data">
 
                 <div class="application_right">
 	                    <p style="display: inline; magin:0; float: right; width: 210px; height: 10px; font-size: 12pt;"> * 표시는 필수 입력사항입니다.</p>
@@ -466,7 +456,7 @@
                     </div>
                      <div class="frm_border">
                         <span> <p> * 공방 이름</p>
-                            <input type="text" class="upload" id="nickname" maxlength="10" value=""/>
+                            <input type="text" name="craft_name" class="upload" id="nickname" maxlength="10" value=""/>
                             <input type="button" class="check_button" id="check_button" value="중복 확인">
                             <span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 이름은 필수 입력 사항입니다.</span>
                             <span class="error_2" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 이름은 한글로만 입력 가능합니다.</span>
