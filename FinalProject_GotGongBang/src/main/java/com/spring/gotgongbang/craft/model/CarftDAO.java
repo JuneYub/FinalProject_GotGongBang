@@ -1,11 +1,14 @@
 package com.spring.gotgongbang.craft.model;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
+import com.spring.gotgongbang.order.model.OrderVO;
 
 
 @Repository
@@ -51,6 +54,19 @@ public class CarftDAO implements InterCraftDAO {
 		int n = sqlsession.update("craft.updatePartnerPwd", pvo);
 		return n;
 	}
+	
+	@Override
+	public List<OrderVO> getAllOrders(Map<String, String> paraMap) {
+		List<OrderVO> ovoList = sqlsession.selectList("craft.getAllOrders", paraMap);
+		return ovoList;
+	}
+	
+	@Override
+	public int getTotalCountForEstimate() {
+		int totalCountForEstimate = sqlsession.selectOne("craft.getTotalCountForEstimate");
+		return totalCountForEstimate;
+	}
+	
 	
 	
 	// =============== 박준엽 끝 =================//
