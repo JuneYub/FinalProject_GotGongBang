@@ -9,7 +9,8 @@
 
 
 <style>
-	
+
+}
 </style>
 
 <!-- Font Awesome 6 Icons -->
@@ -38,6 +39,11 @@
 	// === 사용자가 작성한 이메일 === //
 	let user_email = "";
 	
+	// === 약관동의 체크 === //
+	let flag_check1 = false; 
+	let flag_check2 = false;
+	let flag_check3 = false;
+	
 	// 버튼 클릭시 자동적으로 상단스크롤
 	function topScrollFunction() {
 		  
@@ -46,6 +52,7 @@
 	
 	
 	$(document).ready(function(){
+		
 		// 약관 더보기1
 		$(".more1").click(function(){
 			
@@ -188,13 +195,19 @@
 		/* 첫번째 화면 버튼 */
 		$(".btn_next1").click(function() {
 			
-			$(".step1").hide();
-			$(".step2").show();
-			
-			$(".sign1").removeClass("sign-up__order-item--current");
-			$(".sign2").addClass("sign-up__order-item--current");
+			if( !(flag_check1 || flag_check2 || flag_check3) ) {
+				$(".agree_f").show(); // 경고 표시
+			}
+			else {
+				$(".step1").hide();
+				$(".step2").show();
+				
+				$(".sign1").removeClass("sign-up__order-item--current");
+				$(".sign2").addClass("sign-up__order-item--current");
 
-			topScrollFunction();
+				topScrollFunction();
+			}
+			
 			
 		});
 		
@@ -316,9 +329,94 @@
 		});
 		/* 세번째 화면 버튼 */
 		
-		/* ====== 약관동의 체크유무 시작 ====== */
+		/* ================== 약관동의 체크유무 시작 ================== */
+		// 약관 동의의 모든 체크박스가 체크가 되었다가 그 중 하나만 이라도 체크를 해제하면 전체선택 체크박스에도 체크를 해제하도록 한다.
 		
-		/* ====== 약관동의 체크유무 끝 ====== */
+		 // 전체 선택 / 해제
+		  $(".checkall").click(function(){
+		    if($(".checkall").is(":checked")){
+		      $("input[name=agree_yn]").prop("checked", true);
+		      $(".checkone").addClass("form-check_click");
+		      $(".checkall").addClass("form-check_click");
+		      flag_check1 = true;
+		      flag_check2 = true;
+		      flag_check3 = true;
+		      
+		    }else {
+		      $("input[name=agree_yn]").prop("checked", false);
+		      $(".checkone").removeClass("form-check_click");
+		      $(".checkall").removeClass("form-check_click");
+		      flag_check1 = false;
+		      flag_check2 = false;
+		      flag_check3 = false;
+		    }
+		  });
+		  
+		  $(".checkone").click(function(){
+		    var totalArr = $(".checkone").length;
+		    var checked = $("input[name=agree_yn]:checked").length;
+		    
+		    if(totalArr != checked){
+		      $(".checkall").prop("checked", false);
+		      $(".checkall").removeClass("form-check_click");
+		    }else{
+		      $(".checkall").prop("checked", true);
+		      $(".checkall").addClass("form-check_click");
+		    }
+		  });
+		  
+		  
+		$(".check1").click(function(){
+			if($(".check1").is(":checked")) {
+				$(".check1").addClass("form-check_click");
+				flag_check1 = true;
+			}
+			else {
+				$(".check1").removeClass("form-check_click");
+				flag_check1 = false;
+			}
+		});
+		
+		$(".check2").click(function(){
+			if($(".check2").is(":checked")) {
+				$(".check2").addClass("form-check_click");
+				flag_check2 = true;
+			}
+			else {
+				$(".check2").removeClass("form-check_click");
+				flag_check2 = false;
+			}
+		});
+		
+		$(".check3").click(function(){
+			if($(".check3").is(":checked")) {
+				$(".check3").addClass("form-check_click");
+				flag_check3 = true;
+			}
+			else {
+				$(".check3").removeClass("form-check_click");
+				flag_check3 = false;
+			}
+		});
+		
+		$(".check4").click(function(){
+			if($(".check4").is(":checked")) {
+				$(".check4").addClass("form-check_click");
+			}
+			else {
+				$(".check4").removeClass("form-check_click");
+			}
+		});
+		
+		$(".check5").click(function(){
+			if($(".check5").is(":checked")) {
+				$(".check5").addClass("form-check_click");
+			}
+			else {
+				$(".check5").removeClass("form-check_click");
+			}
+		});
+		/* ================== 약관동의 체크유무 끝 ================== */
 		
 		
 		
@@ -356,8 +454,8 @@
 			let inputCode = $("input#email_check_number").val();
 			
 			// == 이메일 공백 입력시 == //
-			if( $("input#user_email").val().trim() == "" ) {
-				$("input#user_email").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
+			if( $("input#email").val().trim() == "" ) {
+				$("input#email").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
 				$(".user_email_f1").show(); // 경고 표시
 				
 				return;
@@ -386,7 +484,7 @@
 				
 				$("#email_check_number").attr('disabled',true);
 				////////////////////// 인증번호 오류 복구 ///////////////////////////////////
-				*/
+				
 				alert("인증에 성공하였습니다.");
 				
 				$(".step2").hide();
@@ -683,13 +781,13 @@
 					<legend class="sign-up__legend">GOTGONGBANG 회원 이용약관</legend>
 					<div class="sign-up__step-header">
 						<h3 class="sign-up__step-title">GOTGONGBANG 회원 이용약관</h3>
-						<p class="sign-up__step-description">GOTGONGBANG 서비스이용을 위해 <br>아래 이용약관 및 정보이용에 동의해 주세요.</p>
+						<p class="sign-up__step-description ">GOTGONGBANG 서비스이용을 위해 <br>아래 이용약관 및 정보이용에 동의해 주세요.</p>
 					</div>
 					<dl class="sign-up__terms-list accordion">
 					<div class="sign-up__terms-item">
 						<dt class="sign-up__terms-header">
 							<label class="form-check">
-								<input class="form-check__input" type="checkbox"><span class="form-check__name">전체동의</span>
+								<input class="form-check__input checkall" type="checkbox" onclick="selectAll()" ><span class="form-check__name">전체동의</span>
 							</label>
 						</dt>
 					</div>
@@ -697,7 +795,7 @@
 					<div class="sign-up__terms-item accordion__item">
 							<dt class="sign-up__terms-header accordion__header">
 								<label class="form-check">
-									<input class="form-check__input" type="checkbox" name="service_agree_yn"><span class="form-check__name">갗공방 이용약관
+									<input class="form-check__input checkone check1" type="checkbox" name="agree_yn"><span class="form-check__name">갗공방 이용약관
 		
 								<strong class="sign-up__terms-required"> (필수)</strong>
 							</span>
@@ -716,7 +814,7 @@
 						<div class="sign-up__terms-item accordion__item">
 							<dt class="sign-up__terms-header accordion__header">
 								<label class="form-check">
-									<input class="form-check__input" type="checkbox" name="privacy_agree_yn"><span class="form-check__name">개인정보 수집 및 이용동의
+									<input class="form-check__input checkone check2" type="checkbox" name="agree_yn"><span class="form-check__name">개인정보 수집 및 이용동의
 														
 								<strong class="sign-up__terms-required"> (필수)</strong>
 							</span>
@@ -734,7 +832,7 @@
 						<div class="sign-up__terms-item accordion__item">
 							<dt class="sign-up__terms-header accordion__header">
 								<label class="form-check">
-									<input class="form-check__input" type="checkbox" name="financial_agree_yn"><span class="form-check__name">전자금융거래 이용약관
+									<input class="form-check__input checkone check3" type="checkbox" name="agree_yn"><span class="form-check__name">전자금융거래 이용약관
 													
 								<strong class="sign-up__terms-required"> (필수)</strong>						
 							</span>
@@ -756,7 +854,7 @@
 					<div class="sign-up__terms-item accordion__item">
 						<dt class="sign-up__terms-header accordion__header">
 							<label class="form-check">
-								<input class="form-check__input" type="checkbox" name="marketing_agree_yn"><span class="form-check__name">마케팅 정보 수신동의 (선택)</span>
+								<input class="form-check__input checkone check4" type="checkbox" name="agree_yn"><span class="form-check__name">마케팅 정보 수신동의 (선택)</span>
 							</label>
 							<button class="sign-up__terms-trigger accordion__trigger more4 btn" type="button"><span class="sign-up__terms-trigger-name">더보기</span></button>
 						</dt>
@@ -770,7 +868,7 @@
 					<div class="sign-up__terms-item accordion__item">
 						<dt class="sign-up__terms-header accordion__header">
 							<label class="form-check form-check--add-info">
-								<input class="form-check__input" type="checkbox" name="marketing_use_agree_yn"><span class="form-check__name">마케팅 활용에 의한 개인정보 3자 제공 동의(선택)<span class="form-check__name-info">*미동의하셔도 서비스 이용에는 지장이 없으나, 프로모션 등 경품이벤트 참여가 제한됩니다.</span></span>
+								<input class="form-check__input checkone check5" type="checkbox" name="agree_yn"><span class="form-check__name">마케팅 활용에 의한 개인정보 3자 제공 동의(선택)<span class="form-check__name-info">*미동의하셔도 서비스 이용에는 지장이 없으나, 프로모션 등 경품이벤트 참여가 제한됩니다.</span></span>
 							</label>
 							<button class="sign-up__terms-trigger accordion__trigger more5 btn" type="button" data-accordion-index="5"><span class="sign-up__terms-trigger-name">더보기</span></button>
 						</dt>
@@ -781,7 +879,7 @@
 						</dd>
 					</div>
 					</dl>
-					<div class="form-field__feedback" data-field-feedback="agree_yn"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;필수 이용약관에 동의해 주세요.</div>
+					<div class="form-field__feedback agree_f" data-field-feedback="agree_yn"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;필수 이용약관에 동의해 주세요.</div>
 					<div class="sign-up__step-buttons">
 						<button id="yh_button" class="button sign-up__step-button btn btn_next1" type="button">다음</button>
 					</div>
