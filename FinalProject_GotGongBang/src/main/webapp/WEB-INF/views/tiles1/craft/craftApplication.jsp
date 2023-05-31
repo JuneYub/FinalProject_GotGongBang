@@ -43,6 +43,7 @@
 			}
 			else{
 				//공백이 아닌 글자를 입력했을 경우
+
 				const regExp = /^[가-힣]*$/;
 				const bool = regExp.test($(e.target).val());
 				
@@ -51,6 +52,7 @@
 				if(bool){	//정규표현식에 만족한 경우
 					// 이미 존재하는 '공방 이름'인지 알아오기 (Ajax)
 					$("input#check_button").click(function(){
+						$("span.error_4").hide();
 						b_flag_nickname_click = true;
 						const nickname = $("input#nickname").val();
 						console.log("확인용 nickname : " +nickname);
@@ -169,26 +171,6 @@
 			
 		});
 		
-		/*
-		// 우편번호 주소 필수입력
-		$("input#postcode").blur( (e) => {
-			if($(e.target).val() == ""){	
-				//공백입력 경우
-				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
-				$("button#btnPostcode").prop("disabled", false);
-				
-				
-				$(e.target).parent().find("span.error").show();
-		
-			}
-			else{
-				alert("호호호");
-				$(e.target).parent().find("span.error").hide();
-				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
-			}
-
-		});	
-		*/
 		
 		//////////////////////////////////////////////////////////////////////
 		//우편번호 찾기 클릭했을 때
@@ -335,6 +317,30 @@
 		});
 		
 		
+	      
+	    //파일이름을 변경해야만 이벤트가 일어나도록 해야하므로 change이벤트를 사용해야함
+	  	$(document).on("change", "input#file", function(e){
+
+  			const input_file = $(e.target).get(0);
+			
+	        console.log(input_file.files);
+	        
+	        console.log(input_file.files[0]);
+	       
+	        console.log(input_file.files[0].name);
+				        
+	         const fileReader = new FileReader();
+	         
+	         fileReader.readAsDataURL(input_file.files[0]); // FileReader.readAsDataURL() --> 파일을 읽고, result속성에 파일을 나타내는 URL을 저장 시켜준다.
+	      
+	          fileReader.onload = function() { // FileReader.onload --> 파일 읽기 완료 성공시에만 작동하도록 하는 것임. 
+	             console.log(fileReader.result);
+	             document.getElementById("previewImg").src = fileReader.result;
+	         };
+	             
+	     }); //end of  fileReader.onload = function()  -------------------------
+	         
+		
 		
 		
 	}); // end of $(document).ready(function() ----------------------------
@@ -349,7 +355,16 @@
 		let b_Flag_attach = false;
 
 		
-
+		
+		// 공방이름 중복확인
+		if(!b_flag_nickname_click){
+			//클릭 안 했을 때
+			$("span.error_4").show();
+			$("#nickname").focus();
+			return;
+		}
+		
+		
 		// "우편번호찾기"를 클릭했는지 여부 알아오기
 		if(!b_flag_zipcodeSearch_click){
 			//클릭 안 했을 때
@@ -378,7 +393,6 @@
 			url:"<%=%>/_withAttach"
 		});
 		--%>
-		
 		
 		
 		/*const frm = document.craft_application_frm;
@@ -443,7 +457,7 @@
                 </div>
             </div>
 
-            <form name="craft_application_frm" >
+            <form name="craft_application_frm" method="POST" enctype="multipart/form-data">
 
                 <div class="application_right">
 	                    <p style="display: inline; magin:0; float: right; width: 210px; height: 10px; font-size: 12pt;"> * 표시는 필수 입력사항입니다.</p>
@@ -461,23 +475,35 @@
                             <span class="available" style="display: inline-block; color:#400099; margin-left:20px;">사용가능한 공방 이름입니다.</span>
                         </span>
                     </div>
-                    <div class="image">
+                    <div class="image" style="height: 500px;">
                         <span> <p> * 공방 사진</p>
                             <div class="filebox" >
-                                <input class="upload-name" id="upload-image" value="" placeholder="첨부파일" style="margin-bottom: 10px;" readonly="readonly" required="required"/>
+                                <input class="upload-name" value="" style="margin-bottom: 10px;" readonly="readonly" required="required"/>
                                 <label for="file">파일찾기</label> 
-                                <input type="file" id="file" name="attach" />
+                                <input type="file" id="file" name="attach" accept='image/*' />
                                 <span class="error" style="display: inline-block; margin:0 0 30px 20px; color:#400099;">※ 공방 사진은 필수 입력 사항입니다.</span>
                             </div>
                         </span>
-                    </div>
-                    <div class="image">
+                        <span> <p>&nbsp;&nbsp;&nbsp;추가 사진(선택)</p>
+                            <div class="filebox" >
+                                <input class="upload-name" value="" style="margin-bottom: 10px;" readonly="readonly" required="required"/>
+                                <label for="file">파일찾기</label> 
+                                <input type="file" id="add_file" name="attach" accept='image/*' />
+                            </div>
+                        </span>
                         <span> <p> * 공방 대표자 사진</p>
                             <div class="filebox" >
-                                <input class="upload-name" id="upload-image" value="" placeholder="첨부파일" style="margin-bottom: 10px;" readonly="readonly" required="required"/>
+                                <input class="upload-name" value="" style="margin-bottom: 10px;" readonly="readonly" required="required"/>
                                 <label for="file">파일찾기</label> 
-                                <input type="file" id="file" name="attach" />
+                                <input type="file" id="file" name="attach" accept='image/*' />
                                 <span class="error" style="display: inline-block; margin:0 0 30px 20px; color:#400099;">※ 공방 대표자 사진은 필수 입력 사항입니다.</span>
+                            </div>
+                        </span>
+                         <span> <p>&nbsp;&nbsp;&nbsp;미리보기</p>
+                            <div class="filebox" >
+                                <span class="prodInputName" style="padding-bottom: 10px;">
+                                    <img id="previewImg" width="230" />
+                                </span>
                             </div>
                         </span>
                     </div>
@@ -521,9 +547,9 @@
                    
                    </div>
                    
-                    <div class="frm_border_2">
-                        <span> <p> * 자기소개</p>
-                            <textarea id="self_introduce"></textarea>
+                    <div class="frm_border_2"  style="height: 100px;">
+                        <span> <p> * 한 줄 공방소개 </p>
+                            <textarea id="self_introduce" style="height: 80px;"></textarea>
                             <span class="error" style="display: inline-block; margin-top:50px;  color:#400099;">※ 자기소개는 필수입력 사항입니다.</span>
                         </span>
                     </div>
@@ -576,9 +602,9 @@
                     <div class="Certificate">
                         <span> <p> * 자격증</p>
                             <div class="filebox">
-                                <input class="upload-name" value="첨부파일" placeholder="첨부파일" style="margin-bottom: 10px;" readonly="readonly"/>
+                                <input class="upload-name" value="" style="margin-bottom: 10px;" readonly="readonly"/>
                                 <label for="Certificate_file">파일찾기</label> 
-                                <input type="file" id="Certificate_file" name="attach" />
+                                <input type="file" id="Certificate_file" name="attach" accept='image/*' />
                             </div>
                             <span class="error" style="display: inline-block; color:#400099;  margin-left:20px;">※ 자격증은 필수입력 사항입니다.</span>
                         </span>
