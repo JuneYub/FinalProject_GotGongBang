@@ -1,6 +1,8 @@
 package com.spring.gotgongbang.craft.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,6 +22,7 @@ import com.spring.gotgongbang.common.FileManager;
 import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.craft.service.InterCraftService;
+import com.spring.gotgongbang.order.model.OrderVO;
 
 @Controller
 public class CraftController {
@@ -42,11 +45,11 @@ public class CraftController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/crafts_list.got")
-	public ModelAndView craftList(ModelAndView mav) {
-		mav.setViewName("/craft/craft_list.tiles1");
-		return mav;
-	}
+//	@RequestMapping(value="/crafts_list.got")
+//	public ModelAndView craftList(ModelAndView mav) {
+//		mav.setViewName("/craft/craft_list.tiles1");
+//		return mav;
+//	}
 	
 	@RequestMapping(value="/crafts_list_10bag.got")
 	public ModelAndView craftList_10bag(ModelAndView mav) {
@@ -70,6 +73,18 @@ public class CraftController {
 	public ModelAndView craftList_40cloth(ModelAndView mav) {
 		mav.setViewName("/craft/craft_list_40cloth.tiles1");
 		return mav;
+	}
+	
+	@RequestMapping(value="/crafts_list.got")
+	public ModelAndView crafts_list_select(ModelAndView mav) {
+		List<CraftVO> craftsList = null;
+		
+		craftsList = service.crafts_list_select();
+		mav.addObject("craftsList", craftsList);
+		mav.setViewName("/craft/craft_list.tiles1");
+		
+		return mav;
+		
 	}
 	
 	
@@ -181,6 +196,12 @@ public class CraftController {
 	
 	@RequestMapping(value="/estimate_inquiry_list.got")
 	public ModelAndView getEstimateInquiryList(ModelAndView mav) {
+		
+		String userid = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+		
+		OrderVO ovo = new OrderVO();
+		List<OrderVO> ovoList = service.getAllOrders();
+		System.out.println(ovoList.get(0).getOrder_num_pk());
 		mav.setViewName("/craft/estimateInquiryList.tiles1");
 		return mav;
 	}

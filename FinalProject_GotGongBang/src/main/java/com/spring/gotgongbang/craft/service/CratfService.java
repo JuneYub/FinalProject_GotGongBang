@@ -6,10 +6,12 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.board.model.InterBoardDAO;
 import com.spring.gotgongbang.craft.model.InterCraftDAO;
 import com.spring.gotgongbang.craft.model.PartnerVO;
+import com.spring.gotgongbang.order.model.OrderVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +46,12 @@ public class CratfService implements InterCraftService {
 		int n = cdao.updatePartnerPwd(pvo);
 		return n;
 	}
+	
+	@Override
+	public List<OrderVO> getAllOrders() {
+		List<OrderVO> ovoList = cdao.getAllOrders();
+		return ovoList;
+	}
 
 	// =============== 박준엽 끝 ==================== // 
 	
@@ -66,10 +74,20 @@ public class CratfService implements InterCraftService {
 	
 	// 공방 목록을 보여주기 위해 공방정보 조회해오기
 	@Override
-	public List<CraftVO> crafts_list_select(String craft_specialty) {
-		List<CraftVO> craftvo = cdao.crafts_list_select(craft_specialty);
+	public List<CraftVO> crafts_list_select() {
+		List<CraftVO> craftvo = cdao.crafts_list_select();
 		return craftvo;
 	}
 	
+//	@Override
+//	public ModelAndView crafts_list_select(ModelAndView mav) {
+//		List<CraftVO> craftvo = cdao.crafts_list_select();
+//		
+//		mav.addObject("craftvo", craftvo);
+//		mav.setViewName("/craft/craft_list.tiles1");
+//		
+//		return mav;
+//	}
+//	
 	// ================ 김나윤 끝 ================== //
 }

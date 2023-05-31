@@ -17,10 +17,9 @@
 
 
 <!--==================== 김나윤 시작 ====================== -->
-<select id="crafts_list_select" parameterType="String" resultType="com.spring.gotgongbang.craft.model.CraftVO">
+<select id="crafts_list_select" resultType="com.spring.gotgongbang.craft.model.CraftVO">
 	SELECT *
 	FROM CRAFT
-	where craft_specialty=#{craft_specialty}
 </select>
 <!--==================== 김나윤 끝 ====================== -->
 
@@ -44,6 +43,10 @@
 	UPDATE PARTNER SET partner_pwd = #{partner_pwd}
 	WHERE partner_id_pk = #{partner_id_pk}
 </update>
+
+<select id="getAllOrders" resultType="com.spring.gotgongbang.order.model.OrderVO">
+	select * from ORDERS
+</select>
 
 
 <!--==================== 박준엽 끝 ====================== -->

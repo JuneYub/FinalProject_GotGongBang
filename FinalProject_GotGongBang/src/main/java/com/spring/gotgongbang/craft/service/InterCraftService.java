@@ -1,11 +1,11 @@
 package com.spring.gotgongbang.craft.service;
 
 import java.util.List;
-
 import com.spring.gotgongbang.craft.model.CraftVO;
 import java.util.Map;
 
 import com.spring.gotgongbang.craft.model.PartnerVO;
+import com.spring.gotgongbang.order.model.OrderVO;
 
 public interface InterCraftService {
 	
@@ -15,16 +15,28 @@ public interface InterCraftService {
 
 	// ==== ==================================== 박준엽 시작 ======================================================= // 
 
-	// 공방 목록을 보여주기 위해 공방정보 조회해오기
-	List<CraftVO> crafts_list_select(String craft_specialty);
+
 
 	PartnerVO getPartnerInfoByUserId(String userid);
 	
 	int updatePartnerInfo(PartnerVO pvo);
 
 	int updatePartnerPwd(PartnerVO pvo);
+
+	List<OrderVO> getAllOrders();
+
 	
 	// ==== ==================================== 박준엽 끝 ======================================================= //
 
+
+	
+	
+	// ==== ==================================== 김나윤 시작 ======================================================= // 
+
+	// 공방 목록을 보여주기 위해 공방정보 조회해오기
+	List<CraftVO> crafts_list_select();
+	
+//	ModelAndView crafts_list_select(ModelAndView mav);
+	// ==== ==================================== 김나윤 끝 ======================================================= // 
 
 }
