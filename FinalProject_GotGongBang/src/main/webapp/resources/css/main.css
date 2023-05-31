@@ -718,10 +718,28 @@ div.contents-review-promotional {
 	font-size: 15px;
 }
 
+.tbl-edit-myInfo tbody tr input:not(#zipcodeSearch) {
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	border-bottom: 2px solid #777;
+	padding: 5px;
+}
+
+.tbl-edit-myInfo tbody tr input#zipcodeSearch {
+	border: none;
+    padding: 5px;
+    border-radius: 7px;
+    background-color: #400099;
+    color: white;
+    box-shadow: 1px 1px 2px black;
+}
+
 .tbl-edit-myInfo tbody tr th, td {
 	border-bottom: 1px solid #6D6D6D;
 	text-align: left;
     vertical-align: middle;
+    font-size: 15px;
 }
 
 .tbl-edit-myInfo tbody tr th {
@@ -761,6 +779,7 @@ div.contents-review-promotional {
 	height: 40px;
 	padding-top: 5px;
 	box-shadow: 1px 1px 2px black;
+	border-radius: 11px;
 }
 
 
