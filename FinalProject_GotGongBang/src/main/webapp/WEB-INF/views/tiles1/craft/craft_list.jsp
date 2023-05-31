@@ -141,223 +141,35 @@
 	        <li><a class="menuLink" href="#">의류수선</a></li>
 	    </ul>
     </nav>
-    <!--
-    <div class="cardList">
-			<div style="display:flex;">
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg" src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg"  src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg"  src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-			</div>
-			<div style="display:flex;">
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg"  src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg"  src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg"  src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-			</div>
-		</div> 
-		<hr style="width:90%; color:#efefef;">
-		
-		<div class="cardList" style="clear: left;">
-			<div style="display:flex;">
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg" src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg"  src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg"  src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-			</div>
-			<div style="display:flex;">
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg"  src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg"  src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg"  src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-			</div>
-		</div> -->
-		<!-- end of <div class="cardList"> -->
-		<!-- 
-		<hr style="width:90%; color:#efefef;">
-		<div class="cardList" style="clear: left;">
-			<div style="display:flex;">
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg" src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg"  src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg"  src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-			</div>
-			<div style="display:flex;">
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg"  src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg"  src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-				<div data-aos="fade-up" data-aos-delay="0" class="item_cardBox">
-					<img class="cardImg"  src="https://fapis-backend-cms.s3.ap-northeast-2.amazonaws.com/media/images/tueldaum4.original.jpg">
-					<div class="item_card">
-						<p>공방명</p>
-						<p>공방설명 간단하게 넣기</p>
-						<p><i class="fa-solid fa-location-dot" style="color: #400099;"></i>공방위치: 서울 서초구</p>
-					</div>
-				</div>
-			</div>
-		</div> -->
-		<!-- end of <div class="cardList"> -->
+
+
+
+	
+
 		<section class="recommend-card">
 			<div class="grid--large">
 				<div class="catalog-wrapper">
 					<h2 class="catalog-title">가방/핸드백 </h2>
-						<ul class="grid">
-							<li class="grid-column__item">
-								<figure class="card responsive-card">
-									<a class="card__link" href="/products/insight-hirenze">
-										<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75 2x" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75" style="color: transparent;">
-										<figcaption class="card__caption">
-											<ul class="card__labels" data-badge-label="" data-badge-color="RED" data-badge-display="비즈니스">
-												<li class="caption">${craftvo.craft_name}</li>
-											</ul>
-											<strong class="card__title">${craftvo.craft_introduce}</strong>
-											<i class="card__note">${craftvo.craft_representative}</i>
-										</figcaption>
-									</a>
-								</figure>
-							</li>
-							<li class="grid-column__item">
-								<figure class="card responsive-card">
-									<a class="card__link" href="/products/insight-leejongbeom">
-										<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/050129-765/insight-leejongbeom-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/050129-765/insight-leejongbeom-coursecard.png?w=750&amp;q=75 2x" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/050129-765/insight-leejongbeom-coursecard.png?w=750&amp;q=75" style="color: transparent;">
-										<figcaption class="card__caption">
-											<ul class="card__labels" data-badge-label="BEST" data-badge-color="RED" data-badge-display="만화/웹툰">
-												<li class="caption">수강가능</li>
-											</ul>
-											<strong class="card__title">몰입도를 높이는 매력적인 캐릭터의 비밀</strong>
-											<i class="card__note">공방명</i>
-										</figcaption>
-									</a>
-								</figure>
-							</li>
-							<li class="grid-column__item">
-								<figure class="card responsive-card">
-									<a class="card__link" href="/products/insight-junwoosung">
-										<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074359-765/insight-junwoosung-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074359-765/insight-junwoosung-coursecard.png?w=750&amp;q=75 2x" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074359-765/insight-junwoosung-coursecard.png?w=750&amp;q=75" style="color: transparent;">
-										<figcaption class="card__caption">
-											<ul class="card__labels" data-badge-label="" data-badge-color="RED" data-badge-display="콘텐츠/마케팅">
-												<li class="caption">수강가능</li>
-											</ul>
-											<strong class="card__title">다시 세우는 기준, 고객을 움직이는 브랜딩 전략</strong>
-											<i class="card__note">공방명</i>
-										</figcaption>
-									</a>
-								</figure>
-							</li>
-						</ul>
+						<c:if test="${not empty requestScope.craftsList}">
+							<c:forEach var="craftvo" items="${requestScope.craftsList}">
+								 <ul class="grid">
+									<li class="grid-column__item">
+										<figure class="card responsive-card">
+											<a class="card__link" href="/products/insight-hirenze">
+												<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75 2x" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75" style="color: transparent;">
+												<figcaption class="card__caption">
+													<ul class="card__labels" data-badge-label="" data-badge-color="RED" data-badge-display="비즈니스">
+														<li class="caption">${craftvo.craft_name}</li>
+													</ul>
+													<strong class="card__title">${craftvo.craft_introduce}</strong>
+													<i class="card__note">${craftvo.craft_representative}</i>
+												</figcaption>
+											</a>
+										</figure>
+									</li>
+								</ul>
+						</c:forEach>
+					</c:if>
 					<span class="catalog-more">
 				<a class="catalog-more__link" href="#">자세히 보기
 				<svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="catalog-more__icon">

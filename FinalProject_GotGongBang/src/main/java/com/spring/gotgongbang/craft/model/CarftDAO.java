@@ -60,8 +60,8 @@ public class CarftDAO implements InterCraftDAO {
 	
 	// 공방 목록을 보여주기 위해 공방정보 조회해오기
 	@Override
-	public List<CraftVO> crafts_list_select(String craft_specialty) {
-		List<CraftVO> craftvo = sqlsession.selectOne("craft.crafts_list_select", craft_specialty);
+	public List<CraftVO> crafts_list_select() {
+		List<CraftVO> craftvo = sqlsession.selectList("craft.crafts_list_select");
 		return craftvo;
 	}
 	
