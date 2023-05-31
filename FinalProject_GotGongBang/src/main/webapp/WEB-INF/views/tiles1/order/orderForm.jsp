@@ -40,8 +40,12 @@ div.orderSelect{
 </style>
 	
 <script type="text/javascript">
+
+	// == 모달 값 넘기기 == //
+	var selectNum="";
+
+
 	$(document).ready(function(){
-		
 		
 		// i 이미지를 popover했을 때 이미지를 보여준다.
 		$('a[rel=popover]').popover({
@@ -51,12 +55,15 @@ div.orderSelect{
 		  content: function(){return '<img src="'+$(this).data('img') + '" />';}
 		});
 		
+/* 		$(".orderSelect").click(function(){
+			console.log( $("select[name='type_code_pk']").val());
+		}); */
 		
 	
 	   // == 제품 이미지 또는 추가이미지 파일을 선택하면 화면에 이미지를 미리 보여주기 시작 == //
 	   
 	   //같은걸 계속 잡으면 이벤트가 안 일어나도록 click 말고 change 사용. $() 이런건 jquery인데 javascript로 변경해야 사진이 뜬다
-	   $(document).on("change","input.img_file",function(e){
+	   $(document).on("change","input.img_file1",function(e){
 		   
 		  const input_file = $(e.target).get(0);
 		  // jQuery선택자.get(0) 은 jQuery 선택자인 jQuery Object 를 DOM(Document Object Model) element 로 바꿔주는 것이다. 
@@ -101,23 +108,82 @@ div.orderSelect{
 	             data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAg 
 	             이러한 형태로 출력되며, img.src 의 값으로 넣어서 사용한다.
 	         */
-	            document.getElementById("previewImg").src = fileReader.result;
+	            document.getElementById("previewImg1").src = fileReader.result;
 	        };
 	        
 	   });//$(document).on("change","input.img_file",function(e)
+			   
+			   
+			   
+	 //같은걸 계속 잡으면 이벤트가 안 일어나도록 click 말고 change 사용. $() 이런건 jquery인데 javascript로 변경해야 사진이 뜬다
+	   $(document).on("change","input.img_file2",function(e){
+		   
+		  const input_file = $(e.target).get(0);
+		  // jQuery선택자.get(0) 은 jQuery 선택자인 jQuery Object 를 DOM(Document Object Model) element 로 바꿔주는 것이다. 
+	      // DOM element 로 바꿔주어야 순수한 javascript 문법과 명령어를 사용할 수 있게 된다. 
+	   
+	      // 파일이름을 선택한 후, file input 엘리먼트의 files 프로퍼티를 출력해보면, 위와 같이 FileList 라는 객체가 출력되는 것을 볼 수 있다. 
+	      // FileList 객체 프로퍼티(키)는 0,1 … 형태의 숫자로, 그리고 값에는 File 객체가 들어있다. 
+	      // file input 엘리먼트의 files 프로퍼티의 값이 FileList 로 되어있으므로 File 객체에 접근하려면 input_file.files[i] 이런 식으로 사용하여 i 번째의 File 객체에 접근을 한다.
+	   
+	      
+	   	  //console.log(input_file.files[0]);
+	   	  /*
+		      File {name: 'berkelekle심플라운드01.jpg', lastModified: 1605506138000, lastModifiedDate: Mon Nov 16 2020 14:55:38 GMT+0900 (한국 표준시), webkitRelativePath: '', size: 71317, …}
+		   
+		       >>설명<<
+		       name : 단순 파일의 이름 string타입으로 반환 (경로는 포함하지 않는다.)
+		       lastModified : 마지막 수정 날짜 number타입으로 반환 (없을 경우, 현재 시간)
+		       lastModifiedDate: 마지막 수정 날짜 Date객체타입으로 반환
+		       size : 64비트 정수의 바이트 단위 파일의 크기 number타입으로 반환
+		       type : 문자열인 파일의 MIME 타입 string타입으로 반환 
+		              MIME 타입의 형태는 type/subtype 의 구조를 가지며, 다음과 같은 형태로 쓰인다. 
+		             text/plain
+		             text/html
+		             image/jpeg
+		             image/png
+		             audio/mpeg
+		             video/mp4
+		             ...
+	     	*/   
+	     	
+	   		console.log(input_file.files[0].name);
+	     	//berkelekle심플라운드01.jpg
+	     
+	   		// File 객체의 실제 데이터(내용물)에 접근하기 위해 FileReader 객체를 생성하여 사용한다.
+	        const fileReader = new FileReader();
+	        
+	        fileReader.readAsDataURL(input_file.files[0]); // FileReader.readAsDataURL() --> 파일을 읽고, result속성에 파일을 나타내는 URL을 저장 시켜준다.
+	     
+	         fileReader.onload = function() { // FileReader.onload --> 파일 읽기 완료 성공시에만 작동하도록 하는 것임. 
+	           // console.log(fileReader.result);
+	         /*
+	             data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAg 
+	             이러한 형태로 출력되며, img.src 의 값으로 넣어서 사용한다.
+	         */
+	            document.getElementById("previewImg2").src = fileReader.result;
+	        };
+	        
+	   });//$(document).on("change","input.img_file",function(e)	   
 		   
 		   
 		   
 	   // == 제품 이미지 또는 추가이미지 파일을 선택하면 화면에 이미지를 미리 보여주기 끝 == //
-		   
-		   
 	   
 	   
+	   
+	   // == 모달 창 띄워지면
+	   // 1. select에서 넘어온 값을 ajax로 db로 가서 해당 카테고리번호로 select해서 list 가져오기
+	    $('div#selectReq').on('show.bs.modal', function(event) {          
+        	selectNum = $(event.relatedTarget).data('selectNum');
+
+        	$("div#test1").val("333"+selectNum);
+        });
+
+	   
+	  
+	});// ready
 		
- 
-	});
-		
-			
 </script>
 
 
@@ -137,6 +203,7 @@ div.orderSelect{
      			<select class="orderSelect" name="type_code_pk">
      			<c:forEach var="types" items="${requestScope.typesList}" > 
      				<option value="${types.type_code_pk}">${types.type_name}</option>
+     				
      			</c:forEach>
  					
 				</select>
@@ -161,7 +228,7 @@ div.orderSelect{
    			
    			<td class="orderTd" style="display:flex;     justify-content: space-between;">
    				<div class="orderDivPic"  style="width:140px; height:140px;">
-   					<input type="file" id="chooseFile" class="img_file" name="chooseFile" accept="image/*" onchange="loadFile(this)"/>
+   					<input type="file" id="chooseFile" class="img_file1" name="chooseFile" accept="image/*" onchange="loadFile(this)"/>
    					<label for="chooseFile" style="cursor: pointer;" class="orderDivPic">
 		       			<i class="fa-regular fa-image fa-4x" style="color:lightgray;"></i>
 		       			<div style="text-align: center;">0/3</div>
@@ -171,19 +238,19 @@ div.orderSelect{
       	 	
       	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
    					<label for="chooseFile" style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg" style="width:140px; height:140px; position:static;" />
+   						<img id="previewImg1" style="width:140px; height:140px; position:static;" />
 	       			</label>
       	 		</div>
       	 		
       	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
    					<label for="chooseFile" style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg" style="width:140px; height:140px; position:static; border:solid 0px white;" />
+   						<img id="previewImg11" style="width:140px; height:140px; position:static; border:solid 0px white;" />
 	       			</label>
       	 		</div>
       	 		
       	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
    					<label for="chooseFile" style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg" style="width:140px; height:140px; position:static;" />
+   						<img id="previewImg11" style="width:140px; height:140px; position:static;" />
 	       			</label>
       	 		</div>
       	 		
@@ -201,7 +268,6 @@ div.orderSelect{
    			
    			<td class="orderTd" style="display:flex; justify-content: space-between;">
    				<div class="orderDivPic"  style="width:140px; height:140px;">
-   					<input type="file" id="chooseFile" name="chooseFile" class="img_file" accept="image/*" onchange="loadFile(this)"/>
    					<label for="chooseFile" style="cursor: pointer;" class="orderDivPic">
 		       			<i class="fa-regular fa-image fa-4x" style="color:lightgray;"></i>
 		       			<div style="text-align: center;">0/3</div>
@@ -210,19 +276,19 @@ div.orderSelect{
       	 		
       	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
    					<label for="chooseFile" style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg" style="width:140px; height:140px; position:static;" />
+   						<img id="previewImg2" style="width:140px; height:140px; position:static;" />
 	       			</label>
       	 		</div>
       	 		
       	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
    					<label for="chooseFile" style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg" style="width:140px; height:140px; position:static;" />
+   						<img id="previewImg22" style="width:140px; height:140px; position:static;" />
 	       			</label>
       	 		</div>
       	 		
       	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
    					<label for="chooseFile" style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg" style="width:140px; height:140px; position:static;" />
+   						<img id="previewImg22" style="width:140px; height:140px; position:static;" />
 	       			</label>
       	 		</div>
       	 		
@@ -235,7 +301,8 @@ div.orderSelect{
    			
    			<td class="orderTd">
    				<div class="orderSelect">
-					<a style="cursor: pointer;  color:gray; width:600px; " data-toggle="modal" data-target="#selectReq" data-dismiss="modal" data-backdrop="static">수선 요청사항을 선택해 주세요.</a>
+					<a style="cursor: pointer;  color:gray; width:600px; " data-selectNum="efef" data-toggle="modal" data-target="#selectReq" data-dismiss="modal" data-backdrop="static">수선 요청사항을 선택해 주세요.</a>
+				<%-- $('select#orderSelect').val() --%>
 				</div>
 			</td>
    		</tr>
@@ -289,8 +356,30 @@ div.orderSelect{
         <!-- Modal body -->
         <div class="modal-body">
           <div id="idFind">
-             <iframe id="iframe_idFind" style="border: none; width: 100%; height: 600px;" src="<%= request.getContextPath()%>/selectReq.got?type_code_pk=type_code_pk">
-             </iframe>
+          
+          
+          	<form name="selectReq">
+				<p>수선 유형</p>
+				<ul style="list-style-type: none">
+			         <li style="">
+			         	<input type="radio" name="userid" id="userid" value=""/>
+			            <label for="userid" style="display: inline-block; width: 250px">전체 가죽 교체</label>
+			         </li>
+			         
+			         <li style="">
+			         	<input type="radio" name="userid2" id="userid2" value=""/>
+			            <label for="userid2" style="display: inline-block; width: 250px">부분 가죽 교체</label>
+			         </li>
+			   </ul>
+			   <div id="test1"></div>
+			   
+			</form>
+			
+			
+            <%--  <iframe id="iframe_idFind" style="border: none; width: 100%; height: 600px;" src="<%= request.getContextPath()%>/selectReq.got?selectNum=selectNum">
+             </iframe> --%>
+             
+             
           </div>
         </div>
         

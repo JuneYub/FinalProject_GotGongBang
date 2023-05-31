@@ -92,11 +92,21 @@ public class OrderController {
 	@RequestMapping(value = "/selectReq.got")
 	public ModelAndView selectReq(ModelAndView mav, HttpServletRequest request) {
 		
-		/*
-		 * String type_code_pk = request.getAttribute("type_code_pk");
-		 */
+		
+		//System.out.println("type_code_pk"+type_code_pk);
+		//System.out.println("brand_name"+brand_name);
 		
 		mav.setViewName("/none_tiles/order/selectReq");
+		return mav;
+	}
+	
+	
+	
+	
+	@RequestMapping(value = "/modal_prac.got")
+	public ModelAndView modal_prac(ModelAndView mav) {
+		
+		mav.setViewName("/order/modal_prac.tiles1");
 		return mav;
 	}
 	// 이지현 끝 ===========================================================================
