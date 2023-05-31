@@ -71,8 +71,7 @@
 
     <!-- 본문시작 -->
 	<div id="container">
-		<div class="circle-purple"></div>
-		<div class="circle-white"></div>
+
 		<section>
 			<div class="container-top-animator-background">
 				<div class="container-top-copy fade-in">
