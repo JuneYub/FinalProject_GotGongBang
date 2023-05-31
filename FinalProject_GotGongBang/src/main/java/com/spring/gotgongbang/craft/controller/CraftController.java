@@ -210,7 +210,6 @@ public class CraftController {
 		int endRno = 0;
 		
 		totalCountForEstimate = service.getTotalCountForEstimate();
-		
 		totalPageForEstimate = (int)Math.ceil((double)totalCountForEstimate/sizePerPageForEstimate);
 		if(str_currentShowPageNo == null) {
 			currentShowPageNoForEstimate = 1;
@@ -236,7 +235,7 @@ public class CraftController {
 		OrderVO ovo = new OrderVO();
 		List<OrderVO> ovoList = service.getAllOrders(paraMap);
 		
-		String pageBar = makePageBar(currentShowPageNoForEstimate, 10, totalCountForEstimate);
+		String pageBar = makePageBar(currentShowPageNoForEstimate, 10, totalPageForEstimate);
 		
 		mav.addObject("pageBar", pageBar);
 		mav.addObject("ovoList", ovoList);
