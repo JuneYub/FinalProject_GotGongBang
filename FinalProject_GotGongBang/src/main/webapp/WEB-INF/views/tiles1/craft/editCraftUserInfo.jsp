@@ -11,7 +11,7 @@
 <script>
 
 	$(document).ready(function() {
-		console.log('${pvo.partner_pwd}');
+		
 		$( function() {
 			$( "#editBirthDay" ).datepicker({
 				 changeMonth: true,
@@ -77,7 +77,7 @@
 		var editPw = $("input#editPw").val();
 		var editPwCheck = $("input#editPwCheck").val();
 		if(editPw.trim() != "" || editPwCheck.trim() != "") {
-			if(editPw == $(pvo.partner_pwd) {
+			if(editPw == '$(pvo.partner_pwd)') {
 				alert("기존 비밀번호와 같지 않게 변경해주세요");
 				$("input#editPw").focus();
 				return;

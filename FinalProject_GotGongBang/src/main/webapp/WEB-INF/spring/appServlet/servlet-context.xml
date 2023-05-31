@@ -20,9 +20,25 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+		
+	 <!-- 메일링 -->
+	<beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<beans:property name="host" value="smtp.gmail.com"/>
+		<beans:property name="port" value="587"/>
+		<beans:property name="defaultEncoding" value="utf-8"/>
+		<beans:property name="username" value="ssangyongwnsduq"/>
+		<beans:property name="password" value="iylwdptvyoiwmxkh"/>
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
+				<beans:prop key="mail.smtp.auth">true</beans:prop> <!-- 2단계본인인증을 했으니 보안적으로 true라고 준다 -->
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+				<beans:prop key="mail.debug">true</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
 	
-	<!-- <context:component-scan base-package="com.spring.gotgongbang" /> -->
-	<context:component-scan base-package="com.spring.*" name-generator="com.spring.gotgongbang.common.FullBeanNameGenerator"/>
+	
 	
 	
    <!-- ======= #20. 실행시 모든 페이지에 기본틀이 되어지는 틀을 배치하기 위한 템플릿 프레임워크인 TilesViewResolver 를 사용하기 위해 빈으로 등록한다. ======= -->
@@ -55,6 +71,9 @@
          <beans:value>abcd0070#gclass$</beans:value>    <!-- abcd0070#gclass$ 은 각자 com.spring.board.common.SecretMyKey 에 사용되던 암호화/복호화 키 이다. -->    
       </beans:constructor-arg>
    </beans:bean>
+ 
+ 	<!-- <context:component-scan base-package="com.spring.gotgongbang" /> -->
+	<context:component-scan base-package="com.spring.*" name-generator="com.spring.gotgongbang.common.FullBeanNameGenerator"/>
  
 	 <!--  AOP 관련 어노테이션 동작이 가능하게 설정 -->   
 	<!--    <aop:aspectj-autoproxy />      
