@@ -23,8 +23,12 @@
 	        	$("div.circle-purple").addClass('fade-in-1s');
 				
 	        }
-	        if( $(window).scrollTop() >= 100 ) {
+	        if( $(window).scrollTop() >= 600 ) {
 				$("div.container-botton-copy").addClass('fade-in');
+	        }
+	        
+	        if( $(window).scrollTop() >= 800 ) {
+				$("div#mainIllur").addClass('fade-in');
 	        }
 		});
     	
@@ -56,11 +60,7 @@
 		      slidesPerView: 2,
 		      spaceBetween: 30,
 
-			  // If we need pagination
-			  pagination: {
-			    el: '.swiper-pagination',
-			    clickable:true,
-			  },
+
 
 			});
 		
@@ -71,8 +71,7 @@
 
     <!-- 본문시작 -->
 	<div id="container">
-		<div class="circle-purple"></div>
-		<div class="circle-white"></div>
+
 		<section>
 			<div class="container-top-animator-background">
 				<div class="container-top-copy fade-in">
@@ -85,7 +84,12 @@
 				<div class="container-botton-copy">
 					<p>내게 맞는</p>
 					<p>명품 수선사를 찾다</p>
+					<div id="mainIllur"> 
+						<img id="mainSearchIllur" src="<%=ctxPath%>/resources/img/main_search_illur.svg">
+						<img id="mainListIllur" src="<%=ctxPath%>/resources/img/main_list_illur.svg">
+					</div>
 				</div>
+				
 			</div>
 		</section>
 
@@ -253,14 +257,12 @@
 								<div class="reviewSwiper-">
 									<div class="review-img">
 										<div class="review-before-img">
-											<span class="review-img-span"> <img
-												src="<%=ctxPath%>/resources/img/main_test.jpg">
+											<span class="review-img-span"> <img src="<%=ctxPath%>/resources/img/main_test.jpg">
 											</span>
 										</div>
 
 										<div class="review-after-img">
-											<span class="review-img-span"> <img
-												src="<%=ctxPath%>/resources/img/main_test.jpg">
+											<span class="review-img-span"> <img src="<%=ctxPath%>/resources/img/main_test.jpg">
 											</span>
 										</div>
 									</div>
@@ -284,14 +286,12 @@
 								<div class="reviewSwiper-">
 									<div class="review-img">
 										<div class="review-before-img">
-											<span class="review-img-span"> <img
-												src="<%=ctxPath%>/resources/img/main_test.jpg">
+											<span class="review-img-span"> <img src="<%=ctxPath%>/resources/img/main_test.jpg">
 											</span>
 										</div>
 
 										<div class="review-after-img">
-											<span class="review-img-span"> <img
-												src="<%=ctxPath%>/resources/img/main_test.jpg">
+											<span class="review-img-span"> <img src="<%=ctxPath%>/resources/img/main_test.jpg">
 											</span>
 										</div>
 									</div>
@@ -315,14 +315,12 @@
 								<div class="reviewSwiper-">
 									<div class="review-img">
 										<div class="review-before-img">
-											<span class="review-img-span"> <img
-												src="<%=ctxPath%>/resources/img/main_test.jpg">
+											<span class="review-img-span"> <img src="<%=ctxPath%>/resources/img/main_test.jpg">
 											</span>
 										</div>
 
 										<div class="review-after-img">
-											<span class="review-img-span"> <img
-												src="<%=ctxPath%>/resources/img/main_test.jpg">
+											<span class="review-img-span"> <img src="<%=ctxPath%>/resources/img/main_test.jpg">
 											</span>
 										</div>
 									</div>

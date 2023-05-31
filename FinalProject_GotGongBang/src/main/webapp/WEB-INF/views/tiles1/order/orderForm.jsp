@@ -27,6 +27,16 @@ div#orderContent {
    /*  visibility: hidden; */
    display:none;
 }
+
+div.orderSelect{
+	width:600px; 
+	height:50px; 
+	border:solid 1px gray; 
+	border-radius:5px;
+	display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+}
 </style>
 	
 <script type="text/javascript">
@@ -98,53 +108,13 @@ div#orderContent {
 		   
 		   
 		   
-		   // == 제품 이미지 또는 추가이미지 파일을 선택하면 화면에 이미지를 미리 보여주기 끝 == //
+	   // == 제품 이미지 또는 추가이미지 파일을 선택하면 화면에 이미지를 미리 보여주기 끝 == //
 		   
 		   
-		   
-		//아이디 찾기에서 x 표와 close 버튼 눌렀을 시 reset		
-		$("button.idFindClose").click(function(){
-			
-			const iframe_idFind = document.getElementById("iframe_idFind");
-			//대상 아이프레임을 선택한다.
-			
-			const iframe_window= iframe_idFind.contentWindow;
-			// iframe 요소에 접근하는 contentWindow 와 contentDocument 의 차이점은 아래와 같다.
-           // contentWindow 와 contentDocument 둘 모두 iframe 하위 요소에 접근 할 수 있는 방법이다.
-          // contentWindow 는 iframe의 window(전체)을 의미하는 것이다.
-          // 참고로, contentWindow.document 은 contentDocument 와 같은 것이다.
-           // contentWindow 가 contentDocument 의 상위 요소이다.
-			
-			iframe_window.func_form_reset_empty();	//func_form_reset_empty 함수는 idFInd.jsp 파일에 정의해 둠.
-		});
-		
 	   
 	   
 		
-		//비밀번호 찾기에서 x 표와 close 버튼 눌렀을 시 새로고침		
-		$("button.passwdFindClose").click(function(){
-			
-			/* === 새로고침(다시읽기) 방법 3가지 차이점 ===
-           >>> 1. 일반적인 다시읽기 <<<
-           window.location.reload();
-           ==> 이렇게 하면 컴퓨터의 캐시에서 우선 파일을 찾아본다.
-                    없으면 서버에서 받아온다. 
-           
-           >>> 2. 강력하고 강제적인 다시읽기 <<<
-           window.location.reload(true);
-           ==> true 라는 파라미터를 입력하면, 무조건 서버에서 직접 파일을 가져오게 된다.
-                    캐시는 완전히 무시된다.
-           
-           >>> 3. 부드럽고 소극적인 다시읽기 <<<
-           history.go(0);
-           ==> 이렇게 하면 캐시에서 현재 페이지의 파일들을 항상 우선적으로 찾는다.
-        */   
-        
-      		//현재 위의 중에 아무거나 가능.
-			history.go(0);
-           //현재 페이지를 새로고침을 함으로써 모달창에 입력한 userid 와 email의 값이 텍스트 박스에 남겨있지 않고 삭제하는 효과를 누린다
-           //javascript:history.go(0);이것도 괜찮다.
-		});   
+ 
 	});
 		
 			
@@ -164,7 +134,7 @@ div#orderContent {
       	<tr>
      		<td class="orderTd orderTdTitle">품목</td>
      		<td class="orderTd">
-     			<select class="orderSelect" name="types_code">
+     			<select class="orderSelect" name="type_code_pk">
      			<c:forEach var="types" items="${requestScope.typesList}" > 
      				<option value="${types.type_code_pk}">${types.type_name}</option>
      			</c:forEach>
@@ -265,8 +235,7 @@ div#orderContent {
    			
    			<td class="orderTd">
    				<div class="orderSelect">
-					<p style="color:gray; cursor: pointer;"></p>
-					<a style="cursor: pointer;" data-toggle="modal" data-target="#selectReq" data-dismiss="modal" data-backdrop="static">수선 요청사항을 선택해 주세요.</a>
+					<a style="cursor: pointer;  color:gray; width:600px; " data-toggle="modal" data-target="#selectReq" data-dismiss="modal" data-backdrop="static">수선 요청사항을 선택해 주세요.</a>
 				</div>
 			</td>
    		</tr>
@@ -306,10 +275,9 @@ div#orderContent {
  <!--본문 끝 -->
 
 
-  <!-- 비밀번호 찾기 실패 후 x 표나 닫기 누르면 새로고침하게 -->
-  <%-- ****** 비밀번호 찾기 Modal ****** --%>
+  <%-- ****** 수선사항 요청 Modal ****** --%>
   <div class="modal fade" id="selectReq"> <%-- 만약에 모달이 안보이거나 뒤로 가버릴 경우에는 모달의 class 에서 fade 를 뺀 class="modal" 로 하고서 해당 모달의 css 에서 zindex 값을 1050; 으로 주면 된다. --%> 
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
       
         <!-- Modal header -->
@@ -321,14 +289,14 @@ div#orderContent {
         <!-- Modal body -->
         <div class="modal-body">
           <div id="idFind">
-             <iframe id="iframe_idFind" style="border: none; width: 100%; height: 600px;" src="<%= request.getContextPath()%>/selectReq.got">
+             <iframe id="iframe_idFind" style="border: none; width: 100%; height: 600px;" src="<%= request.getContextPath()%>/selectReq.got?type_code_pk=type_code_pk">
              </iframe>
           </div>
         </div>
         
         <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger selectReqClose" data-dismiss="modal">Close</button>
+        <div class="modal-footer" style="display: flex; justify-content: center;">
+          <button style="width:450px; height:50px; background-color:#400099;" type="button" class="btn btn-secondary selectReqClose" data-dismiss="modal">선택하기</button>
         </div>
       </div>
       

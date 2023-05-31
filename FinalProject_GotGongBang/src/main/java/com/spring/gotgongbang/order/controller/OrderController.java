@@ -90,12 +90,17 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/selectReq.got")
-	public ModelAndView selectReq(ModelAndView mav) {
-		mav.setViewName("order/selectReq.tiles1");
+	public ModelAndView selectReq(ModelAndView mav, HttpServletRequest request) {
+		
+		/*
+		 * String type_code_pk = request.getAttribute("type_code_pk");
+		 */
+		
+		mav.setViewName("/none_tiles/order/selectReq");
 		return mav;
 	}
 	// 이지현 끝 ===========================================================================
-	
+
 	// 홍용훈 시작 ===========================================================================
 	// 홍용훈 끝 ===========================================================================
 }

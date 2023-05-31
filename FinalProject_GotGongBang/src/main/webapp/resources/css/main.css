@@ -134,12 +134,12 @@ body #container #contents {
 
 body #container .container-top-animator-background {
     background-color: #400099;
-    height: 500px;
+    height: 800px;
     
 }
 
 body #container .container-top-animator-background .container-top-copy {
-    padding: 120px 0 0 190px;
+    padding: 300px 0 0 190px;
 }
 
 body #container .container-top-animator-background p:first-child {
@@ -156,7 +156,7 @@ body #container .container-top-animator-background p:last-child {
 
 body #container .container-bottom-animator-background {
     background-color: #ffffff;
-    height: 500px;
+    height: 800px;
 }
 
 body #container .container-bottom-animator-background .container-botton-copy {
@@ -169,11 +169,32 @@ body #container .container-bottom-animator-background p:first-child {
     font-weight: bold;
 }
 
-body #container .container-bottom-animator-background p:last-child {
+body #container .container-bottom-animator-background p:nth-child(2) {
     color: #400099;
     font-size: 64px;
     font-weight: lighter;
 }
+
+div#mainIllur {
+	margin-top: 200px;
+	width: 1200px;
+	opacity: 0;
+}
+
+#mainSearchIllur {
+	width: 300px;
+    height: 210px;
+    float: right;
+    
+}
+
+#mainListIllur {
+    width: 300px;
+    height: 210px;
+    float: right;
+}
+
+
 
 
 .circle-white {
@@ -202,6 +223,7 @@ div.contents-prolist-promotional {
 	position: relative;
 	top:30px;
     line-height: 36px;
+    margin-top: 150px;
 }
 
 div#contents p#contents-prolist-promotional-msg {
@@ -316,8 +338,8 @@ div#contents p#contents-prolistAll-link {
 }
 
 .banner-service-info {
-    margin-top: 100px;
-    margin-bottom: 100px;
+    margin-top: 250px;
+    margin-bottom: 250px;
     width: 100%;
     height: 300px;
     padding: 115px 30px;
@@ -598,6 +620,35 @@ div.contents-review-promotional {
 	box-shadow: 1px 1px 1px #6D6D6D;
 }
 
+.block-pagebar {
+	text-align: center;
+    border: solid 0px gray;
+    width: 70%;
+    margin: 20px auto;
+}
+
+.pageBar {
+	list-style: none;
+}
+
+.pageBar-edge {
+	display: inline-block;
+	width:70px;
+	font-size: 12pt;
+}
+
+.pageBar-start {
+	display: inline-block;
+	width:50px;
+	font-size: 12pt;
+}
+
+.pageBar-currentNo {
+	display: inline-block;
+	width:30px;
+	font-size: 12pt;
+}
+
 .img-estimate {
 	width: 100px;
 	height: 100px;
@@ -630,7 +681,7 @@ div.contents-review-promotional {
 .popup-container #requestEstimate {
 	border: 1px solid black;
 	box-shadow: 1px 1px 1px;
-	border-radius: 5px;
+	border-radius: 3px;
 }
 
 .popup-container #requestEstimate .tit-estimate {
@@ -657,7 +708,7 @@ div.contents-review-promotional {
 
 .cont-proposal {
 	display: flex;
-    justify-content: center;
+    justify-content: right;
     margin-top: 40px;
 }
 
@@ -668,6 +719,10 @@ div.contents-review-promotional {
 .cont-proposal .input-proposal {
 	margin-left: 20px;
 	text-align: right;
+	border: 1px solid #6d6d6d;
+    box-shadow: 1px 1px 1px;
+    border-radius: 3px;
+    padding: 10px 15px;
 }
 
 .cont-bid-final {
@@ -718,10 +773,28 @@ div.contents-review-promotional {
 	font-size: 15px;
 }
 
+.tbl-edit-myInfo tbody tr input:not(#zipcodeSearch) {
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	border-bottom: 2px solid #777;
+	padding: 5px;
+}
+
+.tbl-edit-myInfo tbody tr input#zipcodeSearch {
+	border: none;
+    padding: 5px;
+    border-radius: 7px;
+    background-color: #400099;
+    color: white;
+    box-shadow: 1px 1px 2px black;
+}
+
 .tbl-edit-myInfo tbody tr th, td {
 	border-bottom: 1px solid #6D6D6D;
 	text-align: left;
     vertical-align: middle;
+    font-size: 15px;
 }
 
 .tbl-edit-myInfo tbody tr th {
@@ -761,6 +834,7 @@ div.contents-review-promotional {
 	height: 40px;
 	padding-top: 5px;
 	box-shadow: 1px 1px 2px black;
+	border-radius: 11px;
 }
 
 
@@ -937,7 +1011,7 @@ body #admin_container #admin_contents .filebox .upload-name {
     padding: 0 10px;
     vertical-align: middle;
     border: 1px solid #dddddd;
-    width: 200px;
+    width: 250px;
     color: #999999;
 }
 body #admin_container #admin_contents  .filebox label {
@@ -974,7 +1048,7 @@ body #admin_container #admin_contents .application_right  .upload{
   }
   body #admin_container #admin_contents .application_right #self_introduce {
     width: 500px;
-    height: 180px;
+    height: 100px;
     font-size: 15px;
     border: 0;
     border-radius: 15px;
@@ -994,7 +1068,7 @@ body #admin_container #admin_contents .application_right .frm_border_2{
     border: solid 1px rgb(214, 214, 214);
     border-radius: 15px;
     margin: 40px 10px;
-    height: 200px;
+    height: 100px;
 }
 
 body #admin_container #admin_contents .application_right .frm_border_3{
