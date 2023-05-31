@@ -652,7 +652,7 @@ div.contents-review-promotional {
 .popup-container #requestEstimate {
 	border: 1px solid black;
 	box-shadow: 1px 1px 1px;
-	border-radius: 5px;
+	border-radius: 3px;
 }
 
 .popup-container #requestEstimate .tit-estimate {
@@ -679,7 +679,7 @@ div.contents-review-promotional {
 
 .cont-proposal {
 	display: flex;
-    justify-content: center;
+    justify-content: right;
     margin-top: 40px;
 }
 
@@ -690,6 +690,10 @@ div.contents-review-promotional {
 .cont-proposal .input-proposal {
 	margin-left: 20px;
 	text-align: right;
+	border: 1px solid #6d6d6d;
+    box-shadow: 1px 1px 1px;
+    border-radius: 3px;
+    padding: 10px 15px;
 }
 
 .cont-bid-final {

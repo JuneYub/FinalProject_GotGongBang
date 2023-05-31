@@ -1,11 +1,11 @@
 package com.spring.gotgongbang.craft.service;
 
 import java.util.List;
-
 import com.spring.gotgongbang.craft.model.CraftVO;
 import java.util.Map;
 
 import com.spring.gotgongbang.craft.model.PartnerVO;
+import com.spring.gotgongbang.order.model.OrderVO;
 
 public interface InterCraftService {
 	
@@ -22,6 +22,9 @@ public interface InterCraftService {
 	int updatePartnerInfo(PartnerVO pvo);
 
 	int updatePartnerPwd(PartnerVO pvo);
+
+	List<OrderVO> getAllOrders();
+
 	
 	// ==== ==================================== 박준엽 끝 ======================================================= //
 

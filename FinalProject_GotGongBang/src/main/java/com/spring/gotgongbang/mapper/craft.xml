@@ -44,6 +44,10 @@
 	WHERE partner_id_pk = #{partner_id_pk}
 </update>
 
+<select id="getAllOrders" resultType="com.spring.gotgongbang.order.model.OrderVO">
+	select * from ORDERS
+</select>
+
 
 <!--==================== 박준엽 끝 ====================== -->
 
