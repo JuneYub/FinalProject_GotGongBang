@@ -1,6 +1,7 @@
 package com.spring.gotgongbang.craft.model;
 
 import java.util.List;
+import java.util.Map;
 
 import com.spring.gotgongbang.order.model.OrderVO;
 
@@ -24,7 +25,9 @@ public interface InterCraftDAO {
 
 	int updatePartnerPwd(PartnerVO pvo);
 
-	List<OrderVO> getAllOrders();
+	List<OrderVO> getAllOrders(Map<String, String> paraMap);
+
+	int getTotalCountForEstimate();
 	
 	// =============== 박준엽 끝 =================//
 	

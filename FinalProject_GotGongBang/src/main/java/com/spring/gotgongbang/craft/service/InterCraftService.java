@@ -23,7 +23,9 @@ public interface InterCraftService {
 
 	int updatePartnerPwd(PartnerVO pvo);
 
-	List<OrderVO> getAllOrders();
+	List<OrderVO> getAllOrders(Map<String, String> paraMap);
+
+	int getTotalCountForEstimate();
 
 	
 	// ==== ==================================== 박준엽 끝 ======================================================= //

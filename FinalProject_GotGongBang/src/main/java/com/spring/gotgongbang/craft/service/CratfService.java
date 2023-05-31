@@ -48,10 +48,17 @@ public class CratfService implements InterCraftService {
 	}
 	
 	@Override
-	public List<OrderVO> getAllOrders() {
-		List<OrderVO> ovoList = cdao.getAllOrders();
+	public List<OrderVO> getAllOrders(Map<String, String> paraMap) {
+		List<OrderVO> ovoList = cdao.getAllOrders(paraMap);
 		return ovoList;
 	}
+	
+	@Override
+	public int getTotalCountForEstimate() {
+		int totalCountForEstimate = cdao.getTotalCountForEstimate(); 
+		return totalCountForEstimate;
+	}
+	
 
 	// =============== 박준엽 끝 ==================== // 
 	
