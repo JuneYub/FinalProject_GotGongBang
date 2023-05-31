@@ -1,6 +1,7 @@
 package com.spring.gotgongbang.craft.model;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -55,10 +56,17 @@ public class CarftDAO implements InterCraftDAO {
 	}
 	
 	@Override
-	public List<OrderVO> getAllOrders() {
-		List<OrderVO> ovoList = sqlsession.selectList("craft.getAllOrders");
+	public List<OrderVO> getAllOrders(Map<String, String> paraMap) {
+		List<OrderVO> ovoList = sqlsession.selectList("craft.getAllOrders", paraMap);
 		return ovoList;
 	}
+	
+	@Override
+	public int getTotalCountForEstimate() {
+		int totalCountForEstimate = sqlsession.selectOne("craft.getTotalCountForEstimate");
+		return totalCountForEstimate;
+	}
+	
 	
 	
 	// =============== 박준엽 끝 =================//
