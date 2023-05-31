@@ -371,10 +371,13 @@
 		}
 			
 		
+		
 		// 이미지파일(공방 사진, 공방대표자 사진, 자격증 사진) 업로드하기
+		<%--
 		$("form[name='craft_application_frm']").ajaxForm({
 			url:"<%=%>/_withAttach"
-		});	// end of $("form[name='craft_application_frm']").ajaxForm -----
+		});
+		--%>
 		
 		
 		
