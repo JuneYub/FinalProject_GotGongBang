@@ -16,8 +16,6 @@ nominvalue
 nocycle
 nocache;
 
-<<<<<<< HEAD
-
 -- 견적요청 전체 사진 시퀀스(WHOLE_IMG 테이블의 WHOLE_IMG_NUM_PK 컬럼)
 create sequence SEQ_WHOLE_IMG
 start with 1
@@ -51,14 +49,20 @@ start with 1
 increment by 1
 nomaxvalue
 nominvalue
-=======
+nocycle
+nocache;
+
 -- 공지사항 번호 시퀀스 
 create sequence seq_notice_num_pk
 start with 1
 increment by 1
 minvalue 1
 nomaxvalue
+<<<<<<< HEAD
 >>>>>>> refs/heads/Nayoon
 nocycle
 nocache;
+=======
+
+>>>>>>> branch 'main' of https://github.com/JuneYub/FinalProject_GotGongBang.git
 
