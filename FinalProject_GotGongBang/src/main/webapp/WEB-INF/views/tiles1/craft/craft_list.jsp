@@ -150,6 +150,7 @@
 			<div class="grid--large">
 				<div class="catalog-wrapper">
 					<h2 class="catalog-title">가방/핸드백 </h2>
+					
 						<c:if test="${not empty requestScope.craftsList}">
 							<c:forEach var="craftvo" items="${requestScope.craftsList}">
 								 <ul class="grid">
@@ -161,7 +162,7 @@
 													<ul class="card__labels" data-badge-label="" data-badge-color="RED" data-badge-display="비즈니스">
 														<li class="caption">${craftvo.craft_name}</li>
 													</ul>
-													<strong class="card__title">${craftvo.craft_introduce}</strong>
+													<strong class="card__title">${craftvo.craft_Introduce}</strong>
 													<i class="card__note">${craftvo.craft_representative}</i>
 												</figcaption>
 											</a>
@@ -170,6 +171,7 @@
 								</ul>
 						</c:forEach>
 					</c:if>
+					
 					<span class="catalog-more">
 				<a class="catalog-more__link" href="#">자세히 보기
 				<svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="catalog-more__icon">
