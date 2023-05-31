@@ -81,7 +81,7 @@
 						<ul class="grid" style="margin: 0 auto;">
 							<li class="grid-column__item">
 								<figure class="card responsive-card">
-									<a class="card__link" href="<% %>>/products/insight-hirenze" >
+									<a class="card__link" href="#" >
 										<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75 2x" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75" style="color: transparent;">
 										<figcaption class="card__caption">
 											<ul class="card__labels" data-badge-label="" data-badge-color="RED" data-badge-display="비즈니스">
