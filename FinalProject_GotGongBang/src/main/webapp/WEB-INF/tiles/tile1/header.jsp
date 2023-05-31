@@ -41,13 +41,13 @@
             <div class="header-member-box">
                 <ul class="header-member-contents">
                     <li>
-                        <a>
+                        <a onclick="location.href='<%= ctxPath%>/register_member.got'">
                           	  회원가입
                         </a>
                         <span class="txt_bar"></span>
                     </li>
                     <li>
-                        <a>
+                        <a onclick="location.href='<%= ctxPath%>/login.got'">
                            	 로그인
                         </a>
                     </li>
