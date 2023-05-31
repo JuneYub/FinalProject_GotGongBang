@@ -197,15 +197,15 @@ create table ORDER_DETAIL
 
 -- 문의 테이블
 create table INQUIRY
-(inquiry_num_pk     NUMBER(5)   not null -- 문의번호
-,user_id_fk         VARCHAR2(20)   not null -- 아이디
-,inquiry_title      VARCHAR(100)   not null -- 문의제목
-,inquiry_content    VARCHAR(4000)  not null -- 문의내용
-,inquiry_date       DATE           not null -- 작성날짜
-,inquiry_viewcount  NUMBER(5)   not null -- 조회수
-,inquiry_group      NUMBER(5)   not null -- 그룹번호
-,inquiry_original   NUMBER(5)   not null -- 원글문의번호
-,inquiry_depth      NUMBER(5)   not null -- 깊이번호
+(inquiry_num_pk     NUMBER(5)               not null -- 문의번호
+,user_id_fk         VARCHAR2(20)            not null -- 아이디
+,inquiry_title      VARCHAR(100)            not null -- 문의제목
+,inquiry_content    VARCHAR(4000)           not null -- 문의내용
+,inquiry_date       date default sysdate    not null -- 작성날짜
+,inquiry_viewcount  NUMBER(5)               not null -- 조회수
+,inquiry_group      NUMBER(5)               not null -- 그룹번호
+,inquiry_original   NUMBER(5)               not null -- 원글문의번호
+,inquiry_depth      NUMBER(5)               not null -- 깊이번호
 
 ,constraint PK_INQUIRY_inquiry_num_pk primary key(inquiry_num_pk)
 ,constraint FK_INQUIRY_user_id_fk foreign key(user_id_fk) references MEMBER(user_id_pk)
