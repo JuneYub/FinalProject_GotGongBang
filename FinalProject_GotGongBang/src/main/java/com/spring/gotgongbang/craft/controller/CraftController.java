@@ -76,11 +76,47 @@ public class CraftController {
 	
 	@RequestMapping(value="/crafts_list.got")
 	public ModelAndView crafts_list_select(ModelAndView mav) {
+		
 		List<CraftVO> craftsList = null;
 		
 		craftsList = service.crafts_list_select();
+		
+		/*
+		for(int i = 0; i< craftsList.size(); i++) {
+			System.out.println(craftsList.get(i).getCraft_name());
+			System.out.println(craftsList.get(i).getCraft_Introduce());
+			
+		}
+		*/
+		
 		mav.addObject("craftsList", craftsList);
 		mav.setViewName("/craft/craft_list.tiles1");
+		
+
+		
+		return mav;
+		
+	}
+	
+	@RequestMapping(value="/crafts_detail.got")
+	public ModelAndView crafts_detail_select(ModelAndView mav) {
+		
+		List<CraftVO> craftsList_2 = null;
+		
+		craftsList_2 = service.crafts_detail_select();
+		
+		/*
+		for(int i = 0; i< craftsList.size(); i++) {
+			System.out.println(craftsList.get(i).getCraft_name());
+			System.out.println(craftsList.get(i).getCraft_Introduce());
+			
+		}
+		*/
+		
+		mav.addObject("craftsList_2", craftsList_2);
+		mav.setViewName("/craft/crafts_detail.tiles1");
+		
+
 		
 		return mav;
 		
