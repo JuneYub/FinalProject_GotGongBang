@@ -4,10 +4,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.common.FileManager;
@@ -92,12 +96,67 @@ public class OrderController {
 	@RequestMapping(value = "/selectReq.got")
 	public ModelAndView selectReq(ModelAndView mav, HttpServletRequest request) {
 		
-		/*
-		 * String type_code_pk = request.getAttribute("type_code_pk");
-		 */
+		
+		//System.out.println("type_code_pk"+type_code_pk);
+		//System.out.println("brand_name"+brand_name);
 		
 		mav.setViewName("/none_tiles/order/selectReq");
 		return mav;
+	}
+	
+	
+	
+	
+	@RequestMapping(value = "/modal_prac.got")
+	public ModelAndView modal_prac(ModelAndView mav) {
+		
+		mav.setViewName("/order/modal_prac.tiles1");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/parent.got")
+	public ModelAndView parent(ModelAndView mav) {
+		
+		mav.setViewName("/order/parent.tiles1");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/children.got")
+	public ModelAndView children(ModelAndView mav) {
+		
+		mav.setViewName("/order/children.tiles1");
+		return mav;
+	}
+	
+	
+	
+	// 선택한 품목 종류에 따라 요청사항 리스트 가져오기
+	@ResponseBody
+	@RequestMapping(value="/bring_request_list.got", method= {RequestMethod.POST},produces="text/plain;charset=UTF-8")
+	public String bring_request_list(TypesVO typevo, HttpServletRequest request) {
+		
+		
+		String type_code_pk = request.getParameter("type_code_pk");
+		
+		List<TypesVO> requestList = service.bring_request_list(type_code_pk);
+		
+		JSONArray jsonArr = new JSONArray();	//[]
+		
+		// 넘어온 댓글이 있으면
+		if(requestList != null) {
+			for(TypesVO tvo : requestList) {
+				
+				JSONObject jsonObj = new JSONObject();
+				jsonObj.put("detail_type_pk", tvo.getDetail_type_pk());
+				jsonObj.put("type_code_pk", tvo.getType_code_pk());
+				jsonObj.put("detail_type_name", tvo.getDetail_type_name());
+				
+				jsonArr.put(jsonObj);
+			}// for
+		}//if
+		
+		
+		return jsonArr.toString();
 	}
 	// 이지현 끝 ===========================================================================
 
