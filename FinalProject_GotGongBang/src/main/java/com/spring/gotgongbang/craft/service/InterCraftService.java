@@ -38,6 +38,9 @@ public interface InterCraftService {
 	// 공방 목록을 보여주기 위해 공방정보 조회해오기
 	List<CraftVO> crafts_list_select();
 	
+	//공방상세페이지를 보여주기 위해 공방정보 조회해오기
+	List<CraftVO> crafts_detail_select();
+	
 //	ModelAndView crafts_list_select(ModelAndView mav);
 	// ==== ==================================== 김나윤 끝 ======================================================= // 
 

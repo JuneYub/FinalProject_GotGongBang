@@ -89,7 +89,7 @@ public class BoardController {
 		
 		int n = service.add(iqvo);
 		
-		mav.setViewName("/board/board_inquiry.tiles1");
+		mav.setViewName("/board/board_BoardQuestion.tiles1");
 		
 		return mav;
 	}
