@@ -214,15 +214,15 @@ public class CraftController {
 		
 	}
 	
-	
+	/*
 	@RequestMapping(value = "/craft_application_end.got", method= {RequestMethod.POST})
 	public ModelAndView craft_application_end(ModelAndView mav, CraftVO craftvo, MultipartHttpServletRequest mrequest) {
 	
 	
 	
 	return mav;
-	}
-	
+	}*/
+
 	
 	
 	
