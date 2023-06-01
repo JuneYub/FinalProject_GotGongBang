@@ -297,8 +297,8 @@ public class CraftController {
 	
 	public String makePageBar(int currentShowPageNo, int blockSize, int totalPage) {
 		int loop = 1;
-		int startPageNo = (currentShowPageNo-1)/blockSize*blockSize+1;
-		
+		int startPageNo = ((currentShowPageNo-1)/blockSize)*blockSize+1;
+
 		String pageBar = "<ul class='pageBar'>";
 		String url = "estimate_inquiry_list.got";
 		
@@ -308,11 +308,12 @@ public class CraftController {
 		}
 		
 		while( !(loop > blockSize || startPageNo > totalPage) ) {
+			
 			if(startPageNo == currentShowPageNo) {
 				pageBar += "<li class='pageBar-currentNo'>"+currentShowPageNo+"</li>";
 			}
 			else {
-				pageBar += "<li class='pageBar-currentNo'><a href='"+url+"?currentShowPageNo="+currentShowPageNo+"'>"+currentShowPageNo+"</a></li>";
+				pageBar += "<li class='pageBar-currentNo'><a href='"+url+"?currentShowPageNo="+startPageNo+"'>"+startPageNo+"</a></li>";
 			}
 			
 			loop++;
