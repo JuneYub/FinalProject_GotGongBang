@@ -240,6 +240,10 @@ craft_latitude             NUMBER          NOT NULL, -- 위도
 craft_longitude            NUMBER          NOT NULL, -- 경도
 craft_status               NUMBER(1)       default 1 NOT NULL,     -- 공방 상태(업데이트 방식)   1: 정식(가입중) / 0:임시(사용불가) 
 craft_rating               NUMBER(1)       NULL,      -- 공방평점
+,fileName                  VARCHAR2(500)              -- WAS(톰캣)에 저장될 이미지 파일명                                       
+,orgFilename               VARCHAR2(500)              -- 진짜 파일명
+,fileSize                  NUMBER                     -- 파일크기  
+
 constraint PK_CRAFT_craft_num_pk primary key(craft_num_pk),
 constraint FK_CRAFT_partner_id_fk foreign key(partner_id_fk) references PARTNER(partner_id_pk),
 constraint UQ_CRAFT_craft_name  unique(craft_name),
@@ -247,6 +251,14 @@ constraint CK_CRAFT_craft_status check( craft_status in(0,1) )
 );
 
 
+-- 공방 추가이미지 테이블 --
 
+CREATE TABLE CRAFT_IMG (
+craft_add_img_pk       NUMBER     NOT NULL, -- 공방 추가 사진 번호
+craft_num_fk           NUMBER     NOT NULL, -- 공방번호
+craft_add_file_name    VARCHAR2(1000) NULL,      -- 추가 이미지 파일명
+constraint PK_CRAFT_IMG_craft_add_img_pk primary key(craft_add_img_pk),
+constraint FK_CRAFT_craft_num_fk foreign key(craft_num_fk) references CRAFT(craft_num_pk)
+);
 
 
