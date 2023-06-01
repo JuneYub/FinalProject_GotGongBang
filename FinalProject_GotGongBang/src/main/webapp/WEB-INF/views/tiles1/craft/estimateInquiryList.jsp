@@ -119,7 +119,10 @@
 
 				</tbody>
 			</table>
-		
+			
+			<div class="block-pagebar">
+				${requestScope.pageBar}
+			</div>
 		</div>
 	</div>
 </div>

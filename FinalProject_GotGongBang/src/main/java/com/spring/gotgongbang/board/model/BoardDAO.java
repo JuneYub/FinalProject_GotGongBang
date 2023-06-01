@@ -11,5 +11,12 @@ public class BoardDAO implements InterBoardDAO {
 	@Resource
 	private SqlSessionTemplate sqlsession;
 	
+	// 온라인 문의 완료
+	@Override
+	public int add(InquiryVO iqvo) {
+		int n = sqlsession.insert("board.add", iqvo);
+		return n;
+	}
+	
 	
 }

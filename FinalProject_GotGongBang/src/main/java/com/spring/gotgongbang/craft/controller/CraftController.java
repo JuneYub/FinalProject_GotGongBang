@@ -1,7 +1,9 @@
 package com.spring.gotgongbang.craft.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +24,7 @@ import com.spring.gotgongbang.common.FileManager;
 import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.craft.service.InterCraftService;
+import com.spring.gotgongbang.order.model.OrderVO;
 
 @Controller
 public class CraftController {
@@ -230,7 +233,49 @@ public class CraftController {
 
 	
 	@RequestMapping(value="/estimate_inquiry_list.got")
-	public ModelAndView getEstimateInquiryList(ModelAndView mav) {
+	public ModelAndView getEstimateInquiryList(ModelAndView mav, HttpServletRequest request) {
+		
+		String userid = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+		String str_currentShowPageNo = request.getParameter("currentShowPageNo");
+		int totalCountForEstimate = 0;
+		int sizePerPageForEstimate = 5;
+		int currentShowPageNoForEstimate = 0;
+		int totalPageForEstimate = 0;
+		
+		int startRno = 0;
+		int endRno = 0;
+		
+		totalCountForEstimate = service.getTotalCountForEstimate();
+		
+		totalPageForEstimate = (int)Math.ceil((double)totalCountForEstimate/sizePerPageForEstimate);
+		if(str_currentShowPageNo == null) {
+			currentShowPageNoForEstimate = 1;
+		}
+		else {
+			try {
+				currentShowPageNoForEstimate = Integer.parseInt(str_currentShowPageNo);
+				if(currentShowPageNoForEstimate < 1 || currentShowPageNoForEstimate > totalPageForEstimate) {
+					currentShowPageNoForEstimate = 1;
+				}
+			}
+			catch(NumberFormatException e) {
+				currentShowPageNoForEstimate = 1;
+			}
+		}
+		startRno = ((currentShowPageNoForEstimate - 1) * sizePerPageForEstimate) + 1;
+		endRno = startRno + sizePerPageForEstimate - 1;
+		
+		Map<String, String> paraMap = new HashMap<String, String>();
+		paraMap.put("startRno", String.valueOf(startRno));
+		paraMap.put("endRno", String.valueOf(endRno));
+		
+		OrderVO ovo = new OrderVO();
+		List<OrderVO> ovoList = service.getAllOrders(paraMap);
+		
+		String pageBar = makePageBar(currentShowPageNoForEstimate, 10, totalCountForEstimate);
+		
+		mav.addObject("pageBar", pageBar);
+		mav.addObject("ovoList", ovoList);
 		mav.setViewName("/craft/estimateInquiryList.tiles1");
 		return mav;
 	}
@@ -285,6 +330,40 @@ public class CraftController {
 		request.setAttribute("loc", loc);
 		mav.setViewName("msg");
 		return mav;
+	}
+	
+	public String makePageBar(int currentShowPageNo, int blockSize, int totalPage) {
+		int loop = 1;
+		int startPageNo = (currentShowPageNo-1)/blockSize*blockSize+1;
+		
+		String pageBar = "<ul class='pageBar'>";
+		String url = "estimate_inquiry_list.got";
+		
+		if(startPageNo != 1) {
+			pageBar += "<li class='pageBar-edge'><a href='"+url+"?currentShowPageNo=1'>[맨처음]</a></li>";
+			pageBar += "<li class='pageBar-move'><a href='"+url+"?currentShowPageNo="+(startPageNo-1)+"'>[이전]</a></li>";
+		}
+		
+		while( !(loop > blockSize || startPageNo > totalPage) ) {
+			if(startPageNo == currentShowPageNo) {
+				pageBar += "<li class='pageBar-currentNo'>"+currentShowPageNo+"</li>";
+			}
+			else {
+				pageBar += "<li class='pageBar-currentNo'><a href='"+url+"?currentShowPageNo="+currentShowPageNo+"'>"+currentShowPageNo+"</a></li>";
+			}
+			
+			loop++;
+			startPageNo++;
+		}
+		
+		if( startPageNo <= totalPage) {
+			pageBar += "<li class='pageBar-move><a href='"+url+"?currentShowPageNo="+currentShowPageNo+"'>[다음]</a></li>";
+			pageBar += "<li class='pageBar-edge><a href='"+url+"?currentShowPageNo="+totalPage+"'>[마지막]</a></li>";
+		}
+		
+		pageBar += "</ul>";
+		
+		return pageBar;
 	}
 	
 	

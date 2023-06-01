@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.gotgongbang.board.model.InterBoardDAO;
 import com.spring.gotgongbang.craft.model.InterCraftDAO;
 import com.spring.gotgongbang.craft.model.PartnerVO;
+import com.spring.gotgongbang.order.model.OrderVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,19 @@ public class CratfService implements InterCraftService {
 		int n = cdao.updatePartnerPwd(pvo);
 		return n;
 	}
+	
+	@Override
+	public List<OrderVO> getAllOrders(Map<String, String> paraMap) {
+		List<OrderVO> ovoList = cdao.getAllOrders(paraMap);
+		return ovoList;
+	}
+	
+	@Override
+	public int getTotalCountForEstimate() {
+		int totalCountForEstimate = cdao.getTotalCountForEstimate(); 
+		return totalCountForEstimate;
+	}
+	
 
 	// =============== 박준엽 끝 ==================== // 
 	

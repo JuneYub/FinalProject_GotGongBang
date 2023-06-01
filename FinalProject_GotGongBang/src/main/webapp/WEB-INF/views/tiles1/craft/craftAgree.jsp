@@ -29,7 +29,7 @@ function goApplication() {
 		return;
 	}
 	else{ // true일때 
-		location.href = "<%= ctxPath%>/adminApplication.got";
+		location.href = "<%= ctxPath%>/craft_application.got";
 	}
 	
 };

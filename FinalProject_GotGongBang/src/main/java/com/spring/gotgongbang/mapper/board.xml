@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+<insert id="add" parameterType="com.spring.gotgongbang.board.model.InquiryVO">
+ 	    insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, inquiry_group, inquiry_original, inquiry_depth,inquiry_date, inquiry_viewcount)
+		values(seq_inquiry_num_pk.nextval, 'wlgus', #{inquiry_title}, #{inquiry_content}, 1, 1, 1, default, default)
+</insert>
+
+
+</mapper>

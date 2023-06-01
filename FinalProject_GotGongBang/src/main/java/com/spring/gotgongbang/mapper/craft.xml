@@ -44,6 +44,23 @@
 	WHERE partner_id_pk = #{partner_id_pk}
 </update>
 
+<select id="getAllOrders" parameterType="HashMap" resultType="com.spring.gotgongbang.order.model.OrderVO">
+	select order_num_pk, user_id_fk, order_date, brand_name
+	from
+	(
+	select row_number() over(order by order_num_pk desc) as rno,
+	order_num_pk, user_id_fk, to_char(order_date, 'yyyy-mm-dd') as order_date,
+	brand_name
+	from orders
+	) S
+	where rno between #{startRno} and #{endRno}
+</select>
+
+<select id="getTotalCountForEstimate" resultType="int">
+	select count(*)
+	from ORDERS
+</select>
+
 
 <!--==================== 박준엽 끝 ====================== -->
 

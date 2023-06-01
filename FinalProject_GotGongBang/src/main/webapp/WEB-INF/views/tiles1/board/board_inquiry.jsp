@@ -6,6 +6,41 @@
    String ctxPath = request.getContextPath();
 %>   
 
+<style type="text/css">
+
+</style>
+
+<script type="text/javascript">
+
+
+	$(document).ready(function(){
+		$("button#btnWrite").click(function(){
+			
+			// 문의제목 유효성 검사
+			const inquiry_title = $("input#inquiry_title").val().trim();
+			if(inquiry_title == "") {
+				alert("문의제목을 입력하세요!!");
+				return;
+			}
+			
+			// 문의내용 유효성 검사
+			const inquiry_content = $("textarea#inquiry_content").val().trim();
+			if(inquiry_content == "") {
+				alert("문의내용을 입력하세요!!");
+				return;
+			}
+			
+			const frm = document.addFrm;
+			frm.method = "post";
+			frm.action = "<%= ctxPath%>/BoardinquiryEnd.got";
+			frm.submit();
+			console.log("확인용 inquiry_title : "+ inquiry_title);
+			console.log("확인용 inquiry_content : "+ inquiry_content);
+		});
+
+	});
+</script>
+
  <div id="ojh_content">
         <section class="ojh_page_content_inquire">
             <header class="ojh_page-header ojh_page-header--customer" style="height: 200px;">
@@ -22,7 +57,7 @@
               </h2>
 
             </header>
-            <form>
+            <form name="addFrm">
             	<div id="ojh_category">
                     <div class="ojh_center"> 고객센터 </div>
                     <ul class="ojh_sub_category">
@@ -64,16 +99,15 @@
                             <tr class="ojh_form-field">
                                 <th scope="row">문의제목 <strong>*</strong></th>
                                 <td>
-                                    <input class="ojh_form-input" type="text" name="title" title="문의제목 입력" placeholder="문의하실 내용의 제목을 입력해주세요.">
+                                    <input class="ojh_form-input" type="text" id="inquiry_title" name="inquiry_title" title="문의제목 입력" placeholder="문의하실 내용의 제목을 입력해주세요.">
                                     <div class="form-field__feedback" data-field-feedback="title"></div>
                                 </td>
                             </tr>
                             <tr class="ojh_form-field">
                                 <th scope="row">문의내용 <strong>*</strong></th>
                                 <td>
-                                    <textarea class="ojh_form-input" rows="15" name="content" title="문의내용 입력" placeholder="하이픈에 궁금하신 점이 있으시다면 편하게 문의 내용 남겨주세요. 확인 후 영업일 기준 3일 내 연락드리겠습니다."></textarea>
-                                                                                                     
-                                    <div class="form-field__feedback" data-field-feedback="content"></div>
+                                    <textarea class="ojh_form-input" rows="15" name="inquiry_content" id="inquiry_content" title="문의내용 입력" placeholder="하이픈에 궁금하신 점이 있으시다면 편하게 문의 내용 남겨주세요. 확인 후 영업일 기준 3일 내 연락드리겠습니다." > </textarea>
+                                    <div class="form-field__feedback" data-field-feedback="inquiry_content"></div>
                                 </td>
                             </tr>
                             <tr class="ojh_form-field">
@@ -103,7 +137,7 @@
 					<li style="padding: 0 15px;"><a class="ojh_button button--outline-point" href="/" style="background: #fff;
                         color: #400099;">취소</a></li>
 					<li>
-						<button class="ojh_button" type="submit">문의하기</button>
+						<button type="button" class="ojh_button" id="btnWrite" name="btnWrite">문의하기</button>
 					</li>
 				 </ul>
                 </div>
