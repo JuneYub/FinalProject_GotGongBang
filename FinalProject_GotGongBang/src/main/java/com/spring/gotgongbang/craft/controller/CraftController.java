@@ -1,6 +1,7 @@
 package com.spring.gotgongbang.craft.controller;
 
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -103,7 +106,7 @@ public class CraftController {
 		return mav;
 		
 	}
-	
+	/*
 	@RequestMapping(value="/crafts_detail.got")
 	public ModelAndView crafts_detail_select(ModelAndView mav) {
 		
@@ -111,13 +114,13 @@ public class CraftController {
 		
 		craftsList_2 = service.crafts_detail_select();
 		
-		/*
+		
 		for(int i = 0; i< craftsList.size(); i++) {
 			System.out.println(craftsList.get(i).getCraft_name());
 			System.out.println(craftsList.get(i).getCraft_Introduce());
 			
 		}
-		*/
+		
 		
 		mav.addObject("craftsList_2", craftsList_2);
 		mav.setViewName("/craft/crafts_detail.tiles1");
@@ -127,7 +130,7 @@ public class CraftController {
 		return mav;
 		
 	}
-	
+	*/
 	
 /*	
 	@ResponseBody
@@ -214,14 +217,25 @@ public class CraftController {
 		
 	}
 	
-	/*
+	
 	@RequestMapping(value = "/craft_application_end.got", method= {RequestMethod.POST})
 	public ModelAndView craft_application_end(ModelAndView mav, CraftVO craftvo, MultipartHttpServletRequest mrequest) {
-	
-	
+		
+		MultipartFile attach = craftvo.getAttach();
+		
+		if( !attach.isEmpty() ) {
+			HttpSession session = mrequest.getSession();
+			String root = session.getServletContext().getRealPath("/"); 
+			
+			String path = root+"resources"+File.separator+"files";
+
+			// 파일첨부를 위한 변수의 설정 및 값을 초기화 한 후 파일 올리기
+			
+			
+		}
 	
 	return mav;
-	}*/
+	}
 
 	
 	
