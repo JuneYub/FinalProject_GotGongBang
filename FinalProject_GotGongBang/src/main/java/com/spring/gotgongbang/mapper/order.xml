@@ -13,7 +13,14 @@
 		select type_code_pk, type_name
 		from TYPES
 	</select>
-
+	
+	
+	<!-- 선택한 품목 종류에 따라 요청사항 리스트 가져오기 -->
+	<select id="bring_request_list" parameterType="String" resultType="com.spring.gotgongbang.order.model.TypesVO">
+		select detail_type_pk, type_code_fk as type_code_pk, detail_type_name
+		from detail_type
+		where type_code_fk = #{type_code_pk}
+	</select>
 
 	 <!--==================== 이지현 끝 ====================== -->
 

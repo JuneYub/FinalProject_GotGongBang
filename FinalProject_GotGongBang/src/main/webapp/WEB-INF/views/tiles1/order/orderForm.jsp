@@ -42,7 +42,7 @@ div.orderSelect{
 <script type="text/javascript">
 
 	// == 모달 값 넘기기 == //
-	var selectNum="";
+	var value="10";
 
 
 	$(document).ready(function(){
@@ -94,7 +94,7 @@ div.orderSelect{
 		             ...
 	     	*/   
 	     	
-	   		console.log(input_file.files[0].name);
+	   		//console.log(input_file.files[0].name);
 	     	//berkelekle심플라운드01.jpg
 	     
 	   		// File 객체의 실제 데이터(내용물)에 접근하기 위해 FileReader 객체를 생성하여 사용한다.
@@ -147,7 +147,7 @@ div.orderSelect{
 		             ...
 	     	*/   
 	     	
-	   		console.log(input_file.files[0].name);
+	   		//console.log(input_file.files[0].name);
 	     	//berkelekle심플라운드01.jpg
 	     
 	   		// File 객체의 실제 데이터(내용물)에 접근하기 위해 FileReader 객체를 생성하여 사용한다.
@@ -165,24 +165,103 @@ div.orderSelect{
 	        };
 	        
 	   });//$(document).on("change","input.img_file2",function(e)   
-		   
-		   
+		  	   
 		   
 	   // == 제품 이미지 또는 추가이미지 파일을 선택하면 화면에 이미지를 미리 보여주기 끝 == //
 	   
 	   
 	   
+	   
+	   
+	   
+	   
+	   
+	   //////// 모달 연습 중 /////////
+/* 	   
 	   // == 모달 창 띄워지면
 	   // 1. select에서 넘어온 값을 ajax로 db로 가서 해당 카테고리번호로 select해서 list 가져오기
 	    $('div#selectReq').on('show.bs.modal', function(event) {          
         	selectNum = $(event.relatedTarget).data('selectNum');
 
         	$("div#test1").val("333"+selectNum);
-        });
-
+        }); */
 	   
+	   
+	   
+        
+	   $(".btn-modal").click(function(){
+			
+			/* var value = $(this).data('id'); */
+			
+			//$("buttn.btn-modal").attr("data-id",value);
+			
+		    $("#contents.body-contents").val(value);
+		    $("#text-contents.body-contents").html(value);
+		    
+		    //console.log(value);
+		    
+		    
+		    $.ajax({
+		    	  url:"<%=request.getContextPath()%>/bring_request_list.got",
+		    	  
+		    	  data:{"type_code_pk":value},
+		    		
+		    	 /* 또는
+		          data:queryString,
+		         */
+		    	  type:"post",
+		    	  dataType:"json",
+		    	  success:function(json){
+		    		  //console.log("확인용 : "+JSON.stringify(json));
+		    		  
+		    		  let html = "<ul style='list-style-type: none'>";
+					  if(json.length > 0){
+						  $.each(json,function(index,item){
+							  html += "	<li>"+
+								"<input type='radio' name='"+item.detail_type_pk+"' id='"+item.detail_type_pk+"' value='"+item.detail_type_pk+"'/>"+
+								"<label for='"+item.detail_type_pk+"' style='display: inline-block; width: 250px'>"+item.detail_type_name+"</label>"+
+								"</li>";
+						  });
+					  }
+					html+="</ul>";
+				  		
+					$("form[name='selectReq']").html(html); 
+		    	  },
+		    	  error: function(request, status, error){
+		              alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		          }
+		      });
+		    
+		});
+        
 	  
 	});// ready
+	
+	
+	
+	
+	function changeFn(){
+		let type_code_pk  = document.getElementById("type_code_pk");
+		value = (type_code_pk.options[type_code_pk.selectedIndex].value);
+		
+		$("a.btn-modal").attr("data-selectNum",value);
+		
+		//alert("value = "+value);
+		
+		
+		/* 		
+		var selectedindex = city.selectedIndex;
+		alert("value = "+value+" , selectedindex = "+selectedindex); 
+		*/
+
+	};
+    
+	function getSelect(){
+		let modalSel  = document.getElementById("modalSel");
+		value = (modalSel.options[modalSel.selectedIndex].value);
+		
+		$("input#inputSelectList").val(value);
+	}
 		
 </script>
 
@@ -200,9 +279,9 @@ div.orderSelect{
       	<tr>
      		<td class="orderTd orderTdTitle">품목</td>
      		<td class="orderTd">
-     			<select class="orderSelect" name="type_code_pk">
+     			<select class="orderSelect" id="type_code_pk" name="type_code_pk" onchange="changeFn()">
      			<c:forEach var="types" items="${requestScope.typesList}" > 
-     				<option value="${types.type_code_pk}">${types.type_name}</option>
+     				<option name="type_code_pk" value="${types.type_code_pk}">${types.type_name}</option>
      				
      			</c:forEach>
  					
@@ -305,8 +384,8 @@ div.orderSelect{
    			
    			<td class="orderTd">
    				<div class="orderSelect">
-					<a style="cursor: pointer;  color:gray; width:600px; " data-selectNum="efef" data-toggle="modal" data-target="#selectReq" data-dismiss="modal" data-backdrop="static">수선 요청사항을 선택해 주세요.</a>
-				<%-- $('select#orderSelect').val() --%>
+					<a class="btn-modal" style="cursor: pointer;  color:gray; width:600px; " data-selectNum="" data-toggle="modal" data-target="#selectReq" data-dismiss="modal" data-backdrop="static">수선 요청사항을 선택해 주세요.</a>
+					<input type="text" id="inputSelectList"/>
 				</div>
 			</td>
    		</tr>
@@ -363,19 +442,7 @@ div.orderSelect{
           
           
           	<form name="selectReq">
-				<p>수선 유형</p>
-				<ul style="list-style-type: none">
-			         <li style="">
-			         	<input type="radio" name="userid" id="userid" value=""/>
-			            <label for="userid" style="display: inline-block; width: 250px">전체 가죽 교체</label>
-			         </li>
-			         
-			         <li style="">
-			         	<input type="radio" name="userid2" id="userid2" value=""/>
-			            <label for="userid2" style="display: inline-block; width: 250px">부분 가죽 교체</label>
-			         </li>
-			   </ul>
-			   <div id="test1"></div>
+
 			   
 			</form>
 			

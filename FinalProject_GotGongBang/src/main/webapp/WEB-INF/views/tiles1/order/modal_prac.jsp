@@ -102,8 +102,37 @@ div.orderSelect{
  <!--본문 끝 -->
 
 
-  <%-- ****** 수선사항 요청 Modal ****** --%>
- <div class="modal hide" id="myModal">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+           	<input type="text" class="body-contents" id="contents" />
+        <textarea class="body-contents" id="text-contents"></textarea>
+        
+        <select id="modalSel" name="modalSel" onchange="getSelect()" >
+     		<option name="modalSel" value="22">딸기</option>
+     		<option name="modalSel" value="33">수박</option>
+     		<option name="modalSel" value="44">포도</option>
+     	</select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%-- 
+
+  ****** 수선사항 요청 Modal ******
+ <div class="modal fade" id="myModal">
 	<div class="modal-header">
     	<button class="close" data-dismiss="modal">x</button>
         <h3>Modal header</h3>
@@ -118,4 +147,49 @@ div.orderSelect{
      		<option name="modalSel" value="44">포도</option>
      	</select>
     </div>
-</div>
+    
+     --%>
+    
+   <%--  
+      ****** 수선사항 요청 Modal ******
+  <div class="modal fade" id=id="myModal"> 만약에 모달이 안보이거나 뒤로 가버릴 경우에는 모달의 class 에서 fade 를 뺀 class="modal" 로 하고서 해당 모달의 css 에서 zindex 값을 1050; 으로 주면 된다. 
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+      
+        <!-- Modal header -->
+        <div class="modal-header">
+          <h4 class="modal-title">수선 요청사항 선택</h4>
+          <button type="button" class="close selectReqClose" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div id="idFind">
+          
+          
+          	<form name="selectReq">
+		    <div class="modal-body">
+		    	<input type="text" class="body-contents" id="contents" />
+		        <textarea class="body-contents" id="text-contents"></textarea>
+		        
+		        <select id="modalSel" name="modalSel" onchange="getSelect()" >
+		     		<option name="modalSel" value="22">딸기</option>
+		     		<option name="modalSel" value="33">수박</option>
+		     		<option name="modalSel" value="44">포도</option>
+		     	</select>
+		    </div>
+			   
+			</form>
+			
+ 
+          </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer" style="display: flex; justify-content: center;">
+          <button style="width:450px; height:50px; background-color:#400099;" type="button" class="btn btn-secondary selectReqClose" data-dismiss="modal">선택하기</button>
+        </div>
+      </div>
+          </div>
+</div> 
+</div>--%>
