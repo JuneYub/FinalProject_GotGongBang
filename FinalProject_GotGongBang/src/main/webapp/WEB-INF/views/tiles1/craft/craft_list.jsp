@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
     
 <%
    String ctxPath = request.getContextPath();
@@ -16,7 +18,7 @@
 <!-- Font Awesome 6 Icons --> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 <!--     직접 만든 CSS   -->
-<link rel="stylesheet" type="text/css" href="/resources/css/main.css">
+
 
 <!-- AOS 라이브러리 -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -145,14 +147,13 @@
 
 
 	
-
+<c:if test="${not empty requestScope.craftsList}">
 		<section class="recommend-card">
 			<div class="grid--large">
 				<div class="catalog-wrapper">
 					<h2 class="catalog-title">가방/핸드백 </h2>
-					
-						<c:if test="${not empty requestScope.craftsList}">
-							<c:forEach var="craftvo" items="${requestScope.craftsList}">
+						
+				         <c:forEach var="craftvo" items="${requestScope.craftsList}">
 								 <ul class="grid">
 									<li class="grid-column__item">
 										<figure class="card responsive-card">
@@ -170,7 +171,7 @@
 									</li>
 								</ul>
 						</c:forEach>
-					</c:if>
+					
 					
 					<span class="catalog-more">
 				<a class="catalog-more__link" href="#">자세히 보기
@@ -182,6 +183,8 @@
 				</div>
 			</div>
 		</section>
+	
+		
 		
 		<hr style="border: solid 1px #e8e8e8; with:90%;">
 		
@@ -365,6 +368,9 @@
 				</div>
 			</div>
 		</section>
+
+</c:if>	
+
 		
 		
 </div>
