@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -195,7 +198,7 @@ public class CraftController {
 	// == 이미 존재하는 '공방이름'인지 알아오기 위한 것 == //
 	@ResponseBody
 	@RequestMapping(value = "/craft_check_name.got", method = {RequestMethod.POST})
-	public String craft_check_name(HttpServletRequest request, HttpServletResponse response) {
+	public String craft_check_name(HttpServletRequest request) {
 		String craft_name = request.getParameter("nickname");
 		int n = 0;
 		try {
@@ -211,7 +214,14 @@ public class CraftController {
 		
 	}
 	
-
+	
+	@RequestMapping(value = "/craft_application_end.got", method= {RequestMethod.POST})
+	public ModelAndView craft_application_end(ModelAndView mav, CraftVO craftvo, MultipartHttpServletRequest mrequest) {
+	
+	
+	
+	return mav;
+	}
 	
 	
 	
