@@ -808,9 +808,7 @@ div.contents-review-promotional {
 	color: #444;
 }
 
-.tbl-edit-myInfo tbody tr td div.address_input input#address, input#detailAddress {
-	margin-top: 15px;
-}
+
 
 .tbl-edit-myInfo tbody tr td div.address_input input#detailAddress {
 	width: 300px;

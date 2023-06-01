@@ -6,25 +6,25 @@ public class CraftVO {
 
 	
 	/////////////////// ====== 김진솔 시작 ===== ///////////////////////
-	private String craft_num_pk;
-	private String user_id_fk;
-	private String craft_name;
-	private String craft_mobile;
-	private String craft_representative;
-	private String craft_representative_image;
-	private String craft_image;
-	private String craft_Introduce;
-	private String craft_career;
-	private String craft_certificate;
-	private String craft_specialty;
-	private String craft_post_code;
-	private String craft_address;
-	private String craft_detail_address;
-	private String craft_extra_address;
-	private String craft_latitude;
-	private String craft_longitude;
-	private String craft_status;
-	private String craft_rating;
+	private String craft_num_pk;				//공방번호
+	private String user_id_fk;					//유저 아이디
+	private String craft_name;					//공방이름
+	private String craft_mobile;				//공방연락처
+	private String craft_representative;		//공방 대표이름
+	private String craft_representative_image;	//공방 대표 사진
+	private String craft_image;					//공방 사진
+	private String craft_Introduce;				//공방 한줄소개
+	private String craft_career;				//경력사항
+	private String craft_certificate;			//자격증
+	private String craft_specialty;				//전문품목
+	private String craft_post_code;				//우편번호
+	private String craft_address;				//주소
+	private String craft_detail_address;		//상세주소
+	private String craft_extra_address;			//부가주소
+	private String craft_latitude;				//위도
+	private String craft_longitude;				//경도
+	private String craft_status;				//(임시/정식) 상태
+	private String craft_rating;				//별점
 	
 
 	////////////////////////////////////////////////////////

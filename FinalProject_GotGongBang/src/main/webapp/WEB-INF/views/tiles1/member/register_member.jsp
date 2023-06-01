@@ -199,6 +199,7 @@
 				$(".agree_f").show(); // 경고 표시
 			}
 			else {
+				$(".agree_f").hide(); // 경고 표시
 				$(".step1").hide();
 				$(".step2").show();
 				
