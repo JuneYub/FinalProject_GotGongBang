@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -56,12 +57,12 @@
 	<context:component-scan base-package="com.spring.*" name-generator="com.spring.gotgongbang.common.FullBeanNameGenerator"/>
  
 	 <!--  AOP 관련 어노테이션 동작이 가능하게 설정 -->   
-	<!--    <aop:aspectj-autoproxy />      
+   	<aop:aspectj-autoproxy />      
     
    <aop:config proxy-target-class="true">
      <aop:pointcut id="controllerOperation" expression="execution(public * com.spring..*Controller.*(..))" />
     </aop:config>
-	 -->
+	 
 	 
 	 
 </beans:beans>
