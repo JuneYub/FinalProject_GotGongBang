@@ -20,15 +20,6 @@ public class OrderVO {
 	private List<MultipartFile> whole_img_name;		//전체이미지
 	private List<MultipartFile> detail_img_name;	//상세이미지
 	
-	
-	// 요청사항
-	private List<Integer> detail_type_fk;	// 수선유형번호 리스트
-
-	
-	
-	
-	
-	
 
 	public int getOrder_num_pk() {
 		return order_num_pk;
@@ -99,15 +90,6 @@ public class OrderVO {
 		this.detail_img_name = detail_img_name;
 	}
 
-
-	public List<Integer> getDetail_type_fk() {
-		return detail_type_fk;
-	}
-
-
-	public void setDetail_type_fk(List<Integer> detail_type_fk) {
-		this.detail_type_fk = detail_type_fk;
-	}
 
 	/////////////////// ====== 이지현 끝 ===== ///////////////////////
 
