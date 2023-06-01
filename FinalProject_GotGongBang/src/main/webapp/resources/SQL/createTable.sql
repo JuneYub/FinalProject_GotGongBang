@@ -68,8 +68,8 @@ CREATE TABLE ORDERS (
    user_id_fk      VARCHAR2(20)                NOT NULL, -- 아이디
    order_date      DATE  default sysdate       NOT NULL, -- 요청날짜
    brand_name      NVARCHAR2(20)                 NOT NULL, -- 브랜드
-   request_explain NVARCHAR2(100)                NOT NULL  -- 수선요청사항설명
-    
+   request_explain NVARCHAR2(100)                NOT NULL,  -- 수선요청사항설명
+   request         NVARCHAR2(100)              NOT NULL     -- 수천요청사항들
     ,constraint PK_ORDERS_order_num_pk primary key(order_num_pk)
     ,constraint FK_ORDERS_user_id_fk foreign key(user_id_fk)
                                   references MEMBER(user_id_pk)
