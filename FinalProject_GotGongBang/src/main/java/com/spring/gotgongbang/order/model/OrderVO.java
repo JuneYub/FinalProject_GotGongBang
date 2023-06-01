@@ -14,7 +14,7 @@ public class OrderVO {
 	private String order_date;		// 요청날짜
 	private String brand_name;		//브랜드
 	private String request_explain;	//수선요청사항설명
-	
+	private String requests;		// 수선요청사항들
 	
 	// 이미지 테이블들
 	private List<MultipartFile> whole_img_name;		//전체이미지
@@ -91,8 +91,18 @@ public class OrderVO {
 	}
 
 
-	/////////////////// ====== 이지현 끝 ===== ///////////////////////
+	public String getRequests() {
+		return requests;
+	}
 
+
+	public void setRequests(String requests) {
+		this.requests = requests;
+	}
+
+	
+	/////////////////// ====== 이지현 끝 ===== ///////////////////////
+	
 	
 	
 	
