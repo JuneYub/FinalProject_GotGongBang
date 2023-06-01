@@ -23,7 +23,7 @@ div#orderContent {
 
 }
 
-#chooseFile {
+.chooseFile {
    /*  visibility: hidden; */
    display:none;
 }
@@ -63,9 +63,9 @@ div.orderSelect{
 	   // == 제품 이미지 또는 추가이미지 파일을 선택하면 화면에 이미지를 미리 보여주기 시작 == //
 	   
 	   //같은걸 계속 잡으면 이벤트가 안 일어나도록 click 말고 change 사용. $() 이런건 jquery인데 javascript로 변경해야 사진이 뜬다
-	   $(document).on("change","input.img_file1",function(e){
+	   $(document).on("change","#img_whole",function(e){
 		   
-		  const input_file = $(e.target).get(0);
+		  let input_file = $(e.target).get(0);
 		  // jQuery선택자.get(0) 은 jQuery 선택자인 jQuery Object 를 DOM(Document Object Model) element 로 바꿔주는 것이다. 
 	      // DOM element 로 바꿔주어야 순수한 javascript 문법과 명령어를 사용할 수 있게 된다. 
 	   
@@ -108,17 +108,17 @@ div.orderSelect{
 	             data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAg 
 	             이러한 형태로 출력되며, img.src 의 값으로 넣어서 사용한다.
 	         */
-	            document.getElementById("previewImg1").src = fileReader.result;
+	            document.getElementById("previewImg01").src = fileReader.result;
 	        };
 	        
-	   });//$(document).on("change","input.img_file",function(e)
+	   });//$(document).on("change","input.img_file1",function(e)
 			   
 			   
 			   
-	 //같은걸 계속 잡으면 이벤트가 안 일어나도록 click 말고 change 사용. $() 이런건 jquery인데 javascript로 변경해야 사진이 뜬다
-	   $(document).on("change","input.img_file2",function(e){
+	   //같은걸 계속 잡으면 이벤트가 안 일어나도록 click 말고 change 사용. $() 이런건 jquery인데 javascript로 변경해야 사진이 뜬다
+	   $(document).on("change","#img_detail",function(e){
 		   
-		  const input_file = $(e.target).get(0);
+		  let input_file = $(e.target).get(0);
 		  // jQuery선택자.get(0) 은 jQuery 선택자인 jQuery Object 를 DOM(Document Object Model) element 로 바꿔주는 것이다. 
 	      // DOM element 로 바꿔주어야 순수한 javascript 문법과 명령어를 사용할 수 있게 된다. 
 	   
@@ -161,10 +161,10 @@ div.orderSelect{
 	             data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAg 
 	             이러한 형태로 출력되며, img.src 의 값으로 넣어서 사용한다.
 	         */
-	            document.getElementById("previewImg2").src = fileReader.result;
+	            document.getElementById("previewImg11").src = fileReader.result;
 	        };
 	        
-	   });//$(document).on("change","input.img_file",function(e)	   
+	   });//$(document).on("change","input.img_file2",function(e)   
 		   
 		   
 		   
@@ -228,8 +228,8 @@ div.orderSelect{
    			
    			<td class="orderTd" style="display:flex;     justify-content: space-between;">
    				<div class="orderDivPic"  style="width:140px; height:140px;">
-   					<input type="file" id="chooseFile" class="img_file1" name="chooseFile" accept="image/*" onchange="loadFile(this)"/>
-   					<label for="chooseFile" style="cursor: pointer;" class="orderDivPic">
+   					<input type="file" id="img_whole" class="chooseFile" name="img_whole" accept="image/*" onchange="loadFile(this)"/>
+   					<label for="img_whole" style="cursor: pointer;" class="orderDivPic">
 		       			<i class="fa-regular fa-image fa-4x" style="color:lightgray;"></i>
 		       			<div style="text-align: center;">0/3</div>
 	       			</label>
@@ -237,20 +237,20 @@ div.orderSelect{
       	 		
       	 	
       	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
-   					<label for="chooseFile" style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg1" style="width:140px; height:140px; position:static;" />
+   					<label style="cursor: pointer;" class="orderDivPic">
+   						<img id="previewImg01" style="width:140px; height:140px; position:static;" />
 	       			</label>
       	 		</div>
       	 		
       	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
-   					<label for="chooseFile" style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg11" style="width:140px; height:140px; position:static; border:solid 0px white;" />
+   					<label  style="cursor: pointer;" class="orderDivPic">
+   						<img id="previewImg02" style="width:140px; height:140px; position:static; border:solid 0px white;" />
 	       			</label>
       	 		</div>
       	 		
       	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
-   					<label for="chooseFile" style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg11" style="width:140px; height:140px; position:static;" />
+   					<label  style="cursor: pointer;" class="orderDivPic">
+   						<img id="previewImg03" style="width:140px; height:140px; position:static;" />
 	       			</label>
       	 		</div>
       	 		
@@ -267,28 +267,32 @@ div.orderSelect{
    			</td>
    			
    			<td class="orderTd" style="display:flex; justify-content: space-between;">
-   				<div class="orderDivPic"  style="width:140px; height:140px;">
-   					<label for="chooseFile" style="cursor: pointer;" class="orderDivPic">
+   				<div class="orderDivPic"  style="width:140px;  height:140px;">
+   				<input type="file" id="img_detail" class="chooseFile" name="img_detail" accept="image/*" onchange="loadFile(this)"/>
+   					<label for="img_detail" style="cursor: pointer;" class="orderDivPic">
 		       			<i class="fa-regular fa-image fa-4x" style="color:lightgray;"></i>
 		       			<div style="text-align: center;">0/3</div>
 	       			</label>
       	 		</div>
       	 		
+      	 		
       	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
-   					<label for="chooseFile" style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg2" style="width:140px; height:140px; position:static;" />
+   					<label style="cursor: pointer;" class="orderDivPic">
+   						<img id="previewImg11" style="width:140px; height:140px; position:static;" />
+	       			</label>
+      	 		</div>
+      	 		
+      	 	
+      	 		
+      	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
+   					<label  style="cursor: pointer;" class="orderDivPic">
+   						<img id="previewImg12" style="width:140px; height:140px; position:static;" />
 	       			</label>
       	 		</div>
       	 		
       	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
-   					<label for="chooseFile" style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg22" style="width:140px; height:140px; position:static;" />
-	       			</label>
-      	 		</div>
-      	 		
-      	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
-   					<label for="chooseFile" style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg22" style="width:140px; height:140px; position:static;" />
+   					<label  style="cursor: pointer;" class="orderDivPic">
+   						<img id="previewImg13" style="width:140px; height:140px; position:static;" />
 	       			</label>
       	 		</div>
       	 		

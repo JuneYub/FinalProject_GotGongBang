@@ -73,6 +73,13 @@ div.orderSelect{
 		*/
 
 	};
+	
+	function getSelect(){
+		let modalSel  = document.getElementById("modalSel");
+		value = (modalSel.options[modalSel.selectedIndex].value);
+		
+		$("input#fruit").val(value);
+	}
 		
 </script>
 
@@ -86,6 +93,8 @@ div.orderSelect{
      		<option name="selectPrac" value="20">20</option>
      		<option name="selectPrac" value="30">30</option>
      	</select>
+     	
+     	<input type="text" id="fruit" />
      	<button id="modal" class="btn-modal" data-toggle="modal" data-target="#myModal" data-id="">Open Modal</button>
    	</div>
 
@@ -95,12 +104,18 @@ div.orderSelect{
 
   <%-- ****** 수선사항 요청 Modal ****** --%>
  <div class="modal hide" id="myModal">
-	<div class"modal-header">
+	<div class="modal-header">
     	<button class="close" data-dismiss="modal">x</button>
         <h3>Modal header</h3>
 	</div>
     <div class="modal-body">
     	<input type="text" class="body-contents" id="contents" />
         <textarea class="body-contents" id="text-contents"></textarea>
+        
+        <select id="modalSel" name="modalSel" onchange="getSelect()" >
+     		<option name="modalSel" value="22">딸기</option>
+     		<option name="modalSel" value="33">수박</option>
+     		<option name="modalSel" value="44">포도</option>
+     	</select>
     </div>
 </div>
