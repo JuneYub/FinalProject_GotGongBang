@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
 <%
    String ctxPath = request.getContextPath();
@@ -42,8 +42,8 @@ $(window).scroll(function() {
         				<div class="master_detail_1_sub1">
         					<div class="sub1_child">
         						<div class="sub1_1_1">
-			        				<p>공방명 | 갓공방</p>
-			        				<p>대표자 | 김장인</p>
+			        				<p>공방명 | ${craftvo_2.craft_name}</p>
+			        				<p>대표자 | ${craftvo_2.representative}</p>
 			        				<p>위치 | 서울특별시 종로구</p>
 			        				<p>연락처 | 02-123-1234</p>
 		        				</div>
