@@ -112,6 +112,14 @@ public class MemberController {
 			
 			return "redirect:/end_login.got";
 		}
+		
+		@RequestMapping(value="/find_id.got")
+		public ModelAndView find_id(ModelAndView mav) {
+			
+			mav.setViewName("member/find_id.tiles1");
+			return mav;
+	
+		}
 		// 홍용훈 끝
 		// ===========================================================================
 }
