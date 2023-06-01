@@ -45,12 +45,12 @@
 </update>
 
 <select id="getAllOrders" parameterType="HashMap" resultType="com.spring.gotgongbang.order.model.OrderVO">
-	select order_num_pk, user_id_fk, order_date, brand_name
+	select order_num_pk, user_id_fk, order_date, brand_name, requests
 	from
 	(
 	select row_number() over(order by order_num_pk desc) as rno,
 	order_num_pk, user_id_fk, to_char(order_date, 'yyyy-mm-dd') as order_date,
-	brand_name
+	brand_name, requests
 	from orders
 	) S
 	where rno between #{startRno} and #{endRno}
