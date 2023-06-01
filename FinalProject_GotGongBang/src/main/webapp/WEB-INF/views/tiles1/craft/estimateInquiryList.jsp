@@ -51,71 +51,40 @@
 				</thead>
 				
 				<tbody>
-					<tr>
-					<td>
-						<div class="img-estimate"></div>
-					</td>
-
-					<td>
-						<div class="txt-estimate-info">
-						<ul>
-							<li>의뢰 날짜 : <strong>2023/05/22</strong></li>
-							<li>품목명 : <strong>가방</strong></li>
-							<li>브랜드 : <strong>버버리</strong></li>
-							<li>수선 유형 : <strong>몰루</strong></li>
-						</ul>
-						</div>
-					</td>
-
-					<td>
-					<button class="btn-estimateDetail" onclick="openBidPage()">상세보기</button>
-					<div>견적제안 대기중</div>
-					</td>
-					</tr>
-					
-					<tr>
-					<td>
-						<div class="img-estimate"></div>
-					</td>
-
-					<td>
-						<div class="txt-estimate-info">
-						<ul>
-							<li>의뢰 날짜 : <strong>2023/05/22</strong></li>
-							<li>품목명 : <strong>가방</strong></li>
-							<li>브랜드 : <strong>버버리</strong></li>
-							<li>수선 유형 : <strong>몰루</strong></li>
-						</ul>
-						</div>
-					</td>
-
-					<td>
-					<button class="btn-estimateDetail" onclick="openBidPage()">상세보기</button>
-					<div>견적제안 대기중</div>
-					</td>
-					</tr>		
-			
-					<tr>
-					<td>
-						<div class="img-estimate"></div>
-					</td>
-
-					<td>
-						<div class="txt-estimate-info">
-						<ul>
-							<li>의뢰 날짜 : <strong>2023/05/22</strong></li>
-							<li>품목명 : <strong>가방</strong></li>
-							<li>브랜드 : <strong>버버리</strong></li>
-							<li>수선 유형 : <strong>몰루</strong></li>
-						</ul>
-						</div>
-					</td>
-
-					<td>
-					<button class="btn-estimateDetail" onclick="openBidPage()">상세보기</button>
-					<div>견적제안 대기중</div>
-					</td>
-					</tr>					
+					<c:if test="${not empty requestScope.ovoList}">
+						<c:forEach var="ovo" items="${requestScope.ovoList}">
+						<tr>
+						<td>
+							<div class="img-estimate"></div>
+						</td>
+	
+						<td>
+							<div class="txt-estimate-info">
+							<ul>
+								<li><div class="estimate-info-tit">의뢰 날짜 :</div> 	<strong>${ovo.order_date}</strong></li>
+								<li><div class="estimate-info-tit">품목명 :</div> 		<strong>${ovo.order_num_pk}</strong></li>
+								<li><div class="estimate-info-tit">브랜드 :</div> 		<strong>${ovo.brand_name}</strong></li>
+								<li><div class="estimate-info-tit">수선 유형 :</div>
+									<c:if test="${not empty ovo.requests and ovo.requests ne ' '}">
+									  <ul>
+									    <c:forTokens var="requests" items="${ovo.requests}" delims=",">
+									      <li class="requests-item">${requests}</li>
+									    </c:forTokens>
+									  </ul>
+									</c:if>
+								</li>
+							</ul>
+							</div>
+						</td>
+	
+						<td>
+						<button class="btn-estimateDetail" onclick="openBidPage()">상세보기</button>
+						<div>견적제안 대기중</div>
+						</td>
+						</tr>
+						</c:forEach>
+					</c:if>
+				
 
 				</tbody>
 			</table>

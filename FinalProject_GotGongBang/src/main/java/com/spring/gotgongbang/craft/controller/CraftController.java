@@ -41,11 +41,13 @@ public class CraftController {
 
 	// 김나윤 시작
 	// ===========================================================================
+    
 	@RequestMapping(value="/crafts_detail.got")
 	public ModelAndView craftDetail(ModelAndView mav) {
 		mav.setViewName("/craft/craft_detail.tiles1");
 		return mav;
 	}
+	
 	
 //	@RequestMapping(value="/crafts_list.got")
 //	public ModelAndView craftList(ModelAndView mav) {
@@ -101,30 +103,50 @@ public class CraftController {
 		
 	}
 	
+/*	
+	@RequestMapping(value="/crafts_detail.got")
+	public ModelAndView crafts_detail_select()
+*/	
+	
+/*	
+	@ResponseBody
+	@RequestMapping(value="/wordSearchShow.action", method= {RequestMethod.GET}, produces="text/plain;charset=UTF-8")
+	public String wordSearchShow(HttpServletRequest request) {
+		
+		String searchType = request.getParameter("searchType");
+		String searchWord = request.getParameter("searchWord");
+		
+		Map<String, String> paraMap = new HashMap<>();  //map에 담아서 넘겨준다.
+		paraMap.put("searchType", searchType);
+		paraMap.put("searchWord", searchWord);
+		
+		String json = service.wordSearchShow(paraMap);  //map을 보내어준다.
+		
+		return json;
+	}
+	
+*/
+	
+	
+/*	
 	@RequestMapping(value="/crafts_detail.got")
 	public ModelAndView crafts_detail_select(ModelAndView mav) {
 		
-		List<CraftVO> craftsList_2 = null;
+		CraftVO craftvo = null;
 		
-		craftsList_2 = service.crafts_detail_select();
+		craftvo = service.crafts_detail_select();
 		
-		/*
-		for(int i = 0; i< craftsList.size(); i++) {
-			System.out.println(craftsList.get(i).getCraft_name());
-			System.out.println(craftsList.get(i).getCraft_Introduce());
-			
-		}
-		*/
 		
-		mav.addObject("craftsList_2", craftsList_2);
-		mav.setViewName("/craft/crafts_detail.tiles1");
+		
+		mav.addObject("craftvo", craftvo);
+		mav.setViewName("/craft/craft_detail.tiles1");
 		
 
 		
 		return mav;
 		
 	}
-	
+*/	
 	
 /*	
 	@ResponseBody
