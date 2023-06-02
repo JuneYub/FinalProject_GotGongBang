@@ -976,12 +976,12 @@ body #admin_container #admin_contents .fpmgBt2{
 /* 공방 신청 form */
 body #admin_container #admin_contents #craft_application{
     /* border: solid 1px rgb(230, 230, 230); */
-    height: 2000px;
+    height: 2200px;
 }
 
 body #admin_container #admin_contents #craft_application #application_left{
     width: 270px;
-    height: 2000px;
+    height: 2500px;
     float: left;    
 }
 
@@ -1028,7 +1028,7 @@ body #admin_container #admin_contents .application_right .list span{
 body #admin_container #admin_contents .application_right span{
     display: flex;
     padding-top: 9px;
-    padding-left: 11px;
+    padding-left: 10px;
 }
 body #admin_container #admin_contents .application_right .image{
     border: solid 1px rgb(214, 214, 214);
@@ -1037,6 +1037,7 @@ body #admin_container #admin_contents .application_right .image{
     height: 60px;
 }
 
+/*
 body #admin_container #admin_contents .filebox .upload-name {
     display: inline-block;
     height: 40px;
@@ -1056,6 +1057,7 @@ body #admin_container #admin_contents  .filebox label {
     height: 44px;
     margin-left: 10px;
 }
+
 body #admin_container #admin_contents .filebox input[type="file"] {
     position: absolute;
     width: 0;
@@ -1064,8 +1066,12 @@ body #admin_container #admin_contents .filebox input[type="file"] {
     overflow: hidden;
     border: 0;
 }
+*/
 
-
+body #admin_container #admin_contents .filebox .img_file{
+	padding: 6px;
+	margin-left: 20px;
+}
 
 body #admin_container #admin_contents .application_right  .upload{
     width: 300px;
@@ -1077,6 +1083,7 @@ body #admin_container #admin_contents .application_right  .upload{
     padding-top: 5px;
     padding-left: 10px;
     background-color: rgb(233, 233, 233);
+    margin-left: 15px;
   }
   body #admin_container #admin_contents .application_right #self_introduce {
     width: 500px;
