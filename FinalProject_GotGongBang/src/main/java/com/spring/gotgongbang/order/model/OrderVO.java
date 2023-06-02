@@ -15,6 +15,8 @@ public class OrderVO {
 	private String brand_name;		//브랜드
 	private String request_explain;	//수선요청사항설명
 	private String requests;		// 수선요청사항들
+	private String orderer; 		// 견적 요청 하신 분 이름
+	private String order_product_type; // 견적 요청에 대한 품목명
 	
 	// 이미지 테이블들
 	private List<WholeImgVO> wholeImgList;		//전체이미지
@@ -98,6 +100,26 @@ public class OrderVO {
 
 	public void setDetailImgList(List<DetailImgVO> detailImgList) {
 		this.detailImgList = detailImgList;
+	}
+
+
+	public String getOrderer() {
+		return orderer;
+	}
+
+
+	public void setOrderer(String orderer) {
+		this.orderer = orderer;
+	}
+
+
+	public String getOrder_product_type() {
+		return order_product_type;
+	}
+
+
+	public void setOrder_product_type(String order_product_type) {
+		this.order_product_type = order_product_type;
 	}
 
 
