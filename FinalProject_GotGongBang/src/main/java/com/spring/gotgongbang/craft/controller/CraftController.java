@@ -2,6 +2,7 @@ package com.spring.gotgongbang.craft.controller;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -229,11 +231,42 @@ public class CraftController {
 			
 			String path = root+"resources"+File.separator+"files";
 
+			
 			// 파일첨부를 위한 변수의 설정 및 값을 초기화 한 후 파일 올리기
+			String newFileName = "";
+			byte[] bytes = null;
+			long fileSize = 0;
 			
+			try {
+				bytes = attach.getBytes();
+
+				String originalFilename = attach.getOriginalFilename();
+				
+				System.out.println("~~~~ 확인용 originalFilename => " + originalFilename);
+				
+				newFileName = fileManager.doFileUpload(bytes, originalFilename, path);
+
+				System.out.println(">>> 확인용  newFileName => " + newFileName); 
+				/*
+
+				craftvo.setFileName(newFileName);
+				// WAS(톰캣)에 저장된 파일명(20230522103642842968758293800.pdf)
+				
+				craftvo.setOrgFilename(originalFilename);
+				// 게시판 페이지에서 첨부된 파일(강아지.png)을 보여줄 때 사용.
+				// 또한 사용자가 파일을 다운로드 할때 사용되어지는 파일명으로 사용.
+				
+				fileSize = attach.getSize(); // 첨부파일의 크기(단위는 byte임)
+				craftvo.setFileSize(String.valueOf(fileSize));*/
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
-		}
+		}	//end of if -------------------------------------
 	
+	mav.setViewName("redirect:/craft_complete.got");
+
 	return mav;
 	}
 
