@@ -2,13 +2,10 @@ package com.spring.gotgongbang.admin.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.mybatis.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -20,7 +17,6 @@ import com.spring.gotgongbang.admin.model.AdminVO;
 import com.spring.gotgongbang.admin.service.AdminService;
 import com.spring.gotgongbang.admin.service.InterAdminService;
 import com.spring.gotgongbang.common.Sha256;
-import com.spring.gotgongbang.member.model.MemberVO;
 
 @Component
 @Controller

@@ -36,8 +36,13 @@ public interface InterCraftDAO {
 	// 공방 목록을 보여주기 위해 공방정보 조회해오기
 	List<CraftVO> crafts_list_select();
 
+
+
+
+	CraftVO crafts_detail_select();
+
 	//공방상세페이지를 보여주기 위해 공방정보 조회해오기
-	List<CraftVO> crafts_detail_select();
+//	List<CraftVO> crafts_detail_select();
 	
 	
 	

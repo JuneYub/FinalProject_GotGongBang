@@ -82,13 +82,21 @@ public class CarftDAO implements InterCraftDAO {
 	}
 
 
+	@Override
+	public CraftVO crafts_detail_select() {
+		CraftVO craftvo = sqlsession.selectOne("craft.crafts_detail_select");
+		return craftvo;
+	}
+
+
 	//공방상세페이지를 보여주기 위해 공방정보 조회해오기
+	/*
 	@Override
 	public List<CraftVO> crafts_detail_select() {
 		List<CraftVO> craftvo_2 = sqlsession.selectList("craft.crafts_detail_select");
 		return craftvo_2;
 	}
-	
+	*/
 	
 	// ================ 김나윤 끝 ==================//
 	
