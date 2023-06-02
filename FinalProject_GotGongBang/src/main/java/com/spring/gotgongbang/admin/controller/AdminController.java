@@ -67,17 +67,15 @@ public class AdminController {
         
         
         if(result) {  //로그인이 성공했을시 출력되는 구문
-            mav.setViewName("home");    //로그인이 성공했을시 이동하게되는 뷰의 이름
+            mav.setViewName("admin/admin_index.tiles1");    //로그인이 성공했을시 이동하게되는 뷰의 이름
             mav.addObject("admin_id_pk", session.getAttribute(admin_id_pk));
         }
         else if(session.getAttribute(admin_id_pk) == null) {    //로그인 실패 했을시 출력
                 
             //로그인이 실패했을 시에 다시 관리자 로그인 페이지로 이동함
-            
             mav.setViewName("admin/admin_login.tiles1");
             
             //뷰에 전달할 값
-            
             mav.addObject("message", "관리자의 아이디 혹은 비밀번호가 일치하지 않습니다.");
         
         }
