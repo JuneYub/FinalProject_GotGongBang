@@ -139,7 +139,9 @@ body #container .container-top-animator-background {
 }
 
 body #container .container-top-animator-background .container-top-copy {
-    padding: 300px 0 0 190px;
+	width: 1200px;
+    margin: 0px auto;
+    padding: 300px 0 0 0;
 }
 
 body #container .container-top-animator-background p:first-child {
@@ -160,7 +162,9 @@ body #container .container-bottom-animator-background {
 }
 
 body #container .container-bottom-animator-background .container-botton-copy {
-    padding: 60px 0 0 190px;
+	width: 1200px;
+    margin: 0px auto;
+    padding: 60px 0 0 0;
 }
 
 body #container .container-bottom-animator-background p:first-child {
@@ -613,7 +617,7 @@ div.contents-review-promotional {
 	text-align: center;
 	font-size: 17px;
 	padding: 10px 0px;
-
+	line-height: 30px;
 }
 
 .myPage-cont table.tbl-myPageList tbody tr {
@@ -661,12 +665,24 @@ div.contents-review-promotional {
 	font-size: 14px;
 }
 
+.txt-estimate-info .estimate-info-tit {
+	display: inline-block;
+	width: 80px;
+}
+
+.txt-estimate-info strong {
+	font-weight: 500;
+}
+
 .btn-estimateDetail {
-	border: 1px solid #6D6D6D;
-	background-color: white;
-	padding: 4px;
-	box-shadow: 1px 1px 1px black;
-	margin-bottom: 5px;
+    border: 1px solid #400099;
+    width: 100px;
+    border-radius: 13px;
+    background-color: white;
+    color: #400099;
+    padding: 4px;
+    box-shadow: 1px 1px 1px #000000;
+    margin-bottom: 5px;
 }
 
 .btn-estimateDetail:hover {
@@ -740,7 +756,7 @@ div.contents-review-promotional {
 	justify-content: center;
     display: flex;
     align-items: center;
-    border-radius: 15px;
+    border-radius: 6px;
     
 }
 
@@ -767,6 +783,21 @@ div.contents-review-promotional {
 	text-align: left;
 }
 
+ul:has(li.requests-item) {
+	display: inline-block;
+}
+
+.tbl-myPageList tbody tr .txt-estimate-info .requests-item {
+    display: inline-block;
+    background-color: white;
+    color: #400099;
+    border-radius: 13px;
+    padding: 1px 11px;
+    margin-left: 5px;
+    border: 1px solid #400099;
+    font-weight: 400;
+}
+
 .tbl-edit-myInfo {
 	border-top: 2px solid black;
 	width: 100%;
@@ -783,8 +814,10 @@ div.contents-review-promotional {
 
 .tbl-edit-myInfo tbody tr input#zipcodeSearch {
 	border: none;
-    padding: 5px;
-    border-radius: 7px;
+    padding: 7px;
+    font-size: 13px;
+    width: 110px;
+    border-radius: 30px;
     background-color: #400099;
     color: white;
     box-shadow: 1px 1px 2px black;
@@ -824,15 +857,16 @@ div.contents-review-promotional {
 }
 
 .btn-center .btn-edit-info {
-	display: inline-block;
-	background-color: #400099;
-	color: white;
-	margin-top: 30px;
-	width: 130px;
-	height: 40px;
-	padding-top: 5px;
-	box-shadow: 1px 1px 2px black;
-	border-radius: 11px;
+    display: inline-block;
+    background-color: #400099;
+    color: white;
+    margin-top: 30px;
+    width: 200px;
+    height: 45px;
+    padding-top: 9px;
+    box-shadow: 1px 1px 2px black;
+    border-radius: 40px;
+    font-weight: 400;
 }
 
 
@@ -2080,11 +2114,11 @@ width: 210px
 }
 
 .ojh_form-attached-file__trigger-name {
-    background: #400099 url(../img/board/icon_attached_file_trigger.png) no-repeat 22px 50%/24px auto;
+ /* background: #400099 url(../img/board/icon_attached_file_trigger.png) no-repeat 22px 50%/24px auto; */
     color: white;
     display: block;
     font-size: 14px;
-    height: 52px;
+    height: 25px;
     line-height: 52px;
     padding-left: 25px;
     text-align: center;
@@ -2094,16 +2128,19 @@ width: 210px
 
 .ojh_form-attached-file__trigger-file {
     border: solid 0px #5411d2;
-    clip: rect(0,0,0,0);
     border: 0;
+    overflow: hidden;
+    padding: 0;
+    white-space: nowrap;
+   
+   /* 
+    width: 1px;
+    clip: rect(0,0,0,0);
     -webkit-clip-path: inset(0 0 99.9% 99.9%);
     clip-path: inset(0 0 99.9% 99.9%);
     height: 1px;
-    overflow: hidden;
-    padding: 0;
     position: absolute;
-    white-space: nowrap;
-    width: 1px;
+   */ 
 }
 
 .ojh_form-attached-file__info {

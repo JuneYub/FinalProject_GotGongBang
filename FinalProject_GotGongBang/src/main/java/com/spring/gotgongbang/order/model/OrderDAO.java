@@ -28,6 +28,16 @@ public class OrderDAO implements InterOrderDAO {
 		List<TypesVO> typesList = sqlsession.selectList("order.select_types");
 		return typesList;
 	}
+
+
+
+	// 선택한 품목 종류에 따라 요청사항 리스트 가져오기
+	@Override
+	public List<TypesVO> bring_request_list(String type_code_pk) {
+		
+		List<TypesVO> requestList = sqlsession.selectList("order.bring_request_list",type_code_pk);
+		return requestList;
+	}
 	
 	
 	// ================ 이지현 끝 ==================//

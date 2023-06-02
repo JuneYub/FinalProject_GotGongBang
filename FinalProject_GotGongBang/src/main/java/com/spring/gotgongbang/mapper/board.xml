@@ -10,4 +10,9 @@
 </insert>
 
 
+<!-- 파일 첨부 기능이 있는 온라인 문의 -->
+	<insert id="add_withFile" parameterType="com.spring.gotgongbang.board.model.InquiryVO">
+		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, inquiry_group, inquiry_original, inquiry_depth, inquiry_date, inquiry_viewcount, inquiry_status, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize)
+		values(seq_inquiry_num_pk.nextval, 'wlgus', #{inquiry_title}, #{inquiry_content}, 1, 1, 1, default, default, default, #{inquiry_content}, #{inquiry_orgFilename}, #{inquiry_fileSize})
+	</insert>
 </mapper>

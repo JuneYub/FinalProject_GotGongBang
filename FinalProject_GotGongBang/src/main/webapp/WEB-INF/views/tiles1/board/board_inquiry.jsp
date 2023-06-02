@@ -34,10 +34,23 @@
 			frm.method = "post";
 			frm.action = "<%= ctxPath%>/BoardinquiryEnd.got";
 			frm.submit();
-			console.log("확인용 inquiry_title : "+ inquiry_title);
-			console.log("확인용 inquiry_content : "+ inquiry_content);
-		});
+			});
+		
+		$("input[name=attach]").off().on("change", function(){
 
+			if (this.files && this.files[0]) {
+
+				var maxSize = 1 * 1024 * 1024;
+				var fileSize = this.files[0].size;
+
+				if(fileSize > maxSize){
+					alert("첨부파일 사이즈는 1MB 이내로 등록 가능합니다.");
+					$(this).val('');
+					return false;
+				}
+			}
+		});
+		
 	});
 </script>
 
@@ -57,7 +70,7 @@
               </h2>
 
             </header>
-            <form name="addFrm">
+            <form name="addFrm" enctype="multipart/form-data">
             	<div id="ojh_category">
                     <div class="ojh_center"> 고객센터 </div>
                     <ul class="ojh_sub_category">
@@ -116,11 +129,11 @@
                                     <div class="ojh_form-attached-file">
                                         <div class="ojh_form-attached-file__wrap">
                                             <label class="ojh_form-attached-file__trigger">
-                                                <input class="ojh_form-attached-file__trigger-file" type="file" accept=".jpg, .jpeg, .png, .pdf, .xls,.xlsx" multiple=""><span class="ojh_form-attached-file__trigger-name">파일찾기</span>
+                                                <input class="ojh_form-attached-file__trigger-file" name="attach" type="file" accept=".jpg, .jpeg, .png, .pdf, .xls,.xlsx" ><span class="ojh_form-attached-file__trigger-name"></span>
                                             </label>
                                         </div>
                                         <div class="ojh_form-attached-file__wrap">
-                                            <p class="ojh_form-attached-file__info">jpg, jpeg, png, pdf, xls, xlsx 파일 최대 10MB 3개까지 업로드 가능</p>
+                                            <p class="ojh_form-attached-file__info" ></p>
                                             <ul class="ojh_form-attached-file__list">
                                                 
                                             </ul>
@@ -134,7 +147,7 @@
                     </table>
                   </fieldset>
                   <ul id="ojh_form_ul">
-					<li style="padding: 0 15px;"><a class="ojh_button button--outline-point" href="/" style="background: #fff;
+					<li style="padding: 0 15px;"><a class="ojh_button button--outline-point" onclick="javascript:history.back()" style="background: #fff;
                         color: #400099;">취소</a></li>
 					<li>
 						<button type="button" class="ojh_button" id="btnWrite" name="btnWrite">문의하기</button>
