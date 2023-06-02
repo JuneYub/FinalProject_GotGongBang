@@ -2075,11 +2075,11 @@ width: 210px
 }
 
 .ojh_form-attached-file__trigger-name {
-    background: #400099 url(../img/board/icon_attached_file_trigger.png) no-repeat 22px 50%/24px auto;
+ /* background: #400099 url(../img/board/icon_attached_file_trigger.png) no-repeat 22px 50%/24px auto; */
     color: white;
     display: block;
     font-size: 14px;
-    height: 52px;
+    height: 25px;
     line-height: 52px;
     padding-left: 25px;
     text-align: center;
@@ -2089,16 +2089,19 @@ width: 210px
 
 .ojh_form-attached-file__trigger-file {
     border: solid 0px #5411d2;
-    clip: rect(0,0,0,0);
     border: 0;
+    overflow: hidden;
+    padding: 0;
+    white-space: nowrap;
+   
+   /* 
+    width: 1px;
+    clip: rect(0,0,0,0);
     -webkit-clip-path: inset(0 0 99.9% 99.9%);
     clip-path: inset(0 0 99.9% 99.9%);
     height: 1px;
-    overflow: hidden;
-    padding: 0;
     position: absolute;
-    white-space: nowrap;
-    width: 1px;
+   */ 
 }
 
 .ojh_form-attached-file__info {
