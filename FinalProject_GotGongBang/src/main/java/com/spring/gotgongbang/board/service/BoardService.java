@@ -26,10 +26,18 @@ public class BoardService implements InterBoardService {
 		
 		// 오준혁 시작 ===========================================================================
 		
-		// 온라인 문의 완료
+		
+		// 파일 첨부 기능이 없는 온라인 문의 데이터 넣기
 		@Override
 		public int add(InquiryVO iqvo) {
 			int n = dao.add(iqvo);
+			return n;
+		}
+
+		// 파일 첨부 기능이 있는 온라인 문의
+		@Override
+		public int add_withFile(InquiryVO iqvo) {
+			int n = dao.add_withFile(iqvo); // 첨부파일이 있는 경우  
 			return n;
 		}
 		

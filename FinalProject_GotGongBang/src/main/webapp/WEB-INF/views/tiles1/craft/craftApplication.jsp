@@ -319,8 +319,7 @@
 		
 	      
 	    //파일이름을 변경해야만 이벤트가 일어나도록 해야하므로 change이벤트를 사용해야함
-	  	$(document).on("change", "input#file", function(e){
-
+		$(document).on("change", "input.img_file", function(e){
   			const input_file = $(e.target).get(0);
 			
 	        console.log(input_file.files);
@@ -328,19 +327,17 @@
 	        console.log(input_file.files[0]);
 	       
 	        console.log(input_file.files[0].name);
-				        
-	         const fileReader = new FileReader();
+		
+	        const fileReader = new FileReader();
 	         
-	         fileReader.readAsDataURL(input_file.files[0]); // FileReader.readAsDataURL() --> 파일을 읽고, result속성에 파일을 나타내는 URL을 저장 시켜준다.
+	        fileReader.readAsDataURL(input_file.files[0]); // FileReader.readAsDataURL() --> 파일을 읽고, result속성에 파일을 나타내는 URL을 저장 시켜준다.
 	      
-	          fileReader.onload = function() { // FileReader.onload --> 파일 읽기 완료 성공시에만 작동하도록 하는 것임. 
+	        fileReader.onload = function() { // FileReader.onload --> 파일 읽기 완료 성공시에만 작동하도록 하는 것임. 
 	             console.log(fileReader.result);
 	             document.getElementById("previewImg").src = fileReader.result;
 	         };
 	             
-	     }); //end of  fileReader.onload = function()  -------------------------
-	         
-		
+	     }); 
 		
 		
 	}); // end of $(document).ready(function() ----------------------------
@@ -348,6 +345,8 @@
 	
 			
 	////////////Function Declaration ////////////
+	
+	
 	
 	// === '신청' 버튼을 눌렀을 때  ===
 	function goComplete() {
@@ -465,47 +464,40 @@
                             <span class="available" style="display: inline-block; color:#400099; margin-left:20px;">사용가능한 공방 이름입니다.</span>
                         </span>
                     </div>
-                    <div class="image" style="height: 500px;">
+                    <div class="image" style="height: 175px;">
                         <span> <p> * 공방 사진</p>
                             <div class="filebox" >
-                                <input class="upload-name" style="margin-bottom: 10px;" readonly="readonly" placeholder="파일첨부"/>
-                                <label for="file">파일찾기</label> 
-                                <input type="file" id="file" name="attach" accept='image/*' />
+                                <!-- <input class="upload-name" id="craft_img" style="margin-bottom: 10px;" readonly="readonly" placeholder="파일첨부" value=""/> -->
+                                <label for="file"></label> 
+                                <input type="file" class="img_file" id="file" name="craft_image" accept='image/*'/>
                                 <span class="error" style="display: inline-block; margin:0 0 30px 20px; color:#400099;">※ 공방 사진은 필수 입력 사항입니다.</span>
                             </div>
                         </span>
                         <span> <p>&nbsp;&nbsp;&nbsp;추가 사진(선택)</p>
                             <div class="filebox" >
-                                <input class="upload-name" style="margin-bottom: 10px;" readonly="readonly" placeholder="파일첨부" />
-                                <label for="file">파일찾기</label> 
-                                <input type="file" id="add_file" name="attach" accept='image/*' />
+                                <!-- <input class="upload-name" id="craft_add_img" style="margin-bottom: 10px;" readonly="readonly" placeholder="파일첨부"  value=""/> -->
+                                <label for="file"></label> 
+                                <input type="file" class="img_file" id="file" name="craft_add_file_name" accept='image/*' />
                             </div>
                         </span>
                         <span> <p> * 공방 대표자 사진</p>
                             <div class="filebox" >
-                                <input class="upload-name" style="margin-bottom: 10px;" readonly="readonly" placeholder="파일첨부" />
-                                <label for="file">파일찾기</label> 
-                                <input type="file" id="file" name="attach" accept='image/*' />
+                                <!-- <input class="upload-name" id="craft_rep_img" style="margin-bottom: 10px;" readonly="readonly" placeholder="파일첨부"  value=""/> -->
+                                <label for="file"></label> 
+                                <input type="file" class="img_file" id="file" name="craft_representative_image" accept='image/*' />
                                 <span class="error" style="display: inline-block; margin:0 0 30px 20px; color:#400099;">※ 공방 대표자 사진은 필수 입력 사항입니다.</span>
                             </div>
                         </span>
-                         <span> <p>&nbsp;&nbsp;&nbsp;미리보기</p>
-                            <div class="filebox" >
-                                <span class="prodInputName" style="padding-bottom: 10px;">
-                                    <img id="previewImg" width="230" />
-                                </span>
-                            </div>
-                        </span>
                     </div>
-            
-                 
-                    <!-- <div class="frm_border">
-                        <span> <p> * 지역</p>
-                            <input type="text" class="upload"/> 
-                            <span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 지역은 필수입력 사항입니다.</span>
-                        </span>
-                    </div>
-                     -->
+					<div class="image" style="height: 300px;">    
+	                         <span> <p>&nbsp;&nbsp;&nbsp;사진 미리보기</p>
+	                            <div class="filebox" >
+	                                <span class="prodInputName" style="padding-bottom: 10px; margin-left: 30px;">
+	                                    <img id="previewImg" width="260" />
+	                                </span>
+	                            </div>
+	                        </span>
+	                </div>
                    <div class="frm_border">
                      <span> <p> * 공방 연락처</p>
 	                     <input type="text" id="hp1" class="upload" name="hp1" size="6" maxlength="3" style="text-align: center; width: 110px;"/>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
@@ -516,43 +508,39 @@
                    </div>
                     
                     <div class="frm_border" style="height: 200px;">
-                  
-                     <span> <p> * 공방 주소</p>
-	                     <input type="text" id="postcode" class="upload" name="postcode" value="" size="6" maxlength="5" style="width: 201px;"  placeholder="우편번호 찾기를 클릭하세요."  readonly="readonly"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-           				 <%-- 우편번호 찾기 --%>
-							<button type="button" id="btnPostcode" class="check_button" style="width: 120px; height: 40px;"> 우편번호 찾기</button>           				 
-							<span class="error" style="display: inline-block; color:#400099; margin-left:20px;"> * 우편번호는 필수 입력 사항입니다.</span>
-           		     </span>
-           		     
-           		     <span style="margin:10px 0 0 150px;">
-           				 <input type="text" id="address" class="upload" name="address" size="40" placeholder="주소"  style="width: 300px; "/>&nbsp;&nbsp;&nbsp;&nbsp;
-            		     <input type="text" id="detailAddress" class="upload" name="detailAddress" size="40" placeholder="상세주소" style="width: 300px;"/>
-            		</span>
-            		
-					<span style="margin:10px 0 0 150px;">
-					     <input type="text" class="upload" id="extraAddress" name="extraAddress"  placeholder="부가주소" class="extra_address" />
-            		 </span>
-            		 
-            		 <span class="error_2" style="display: inline-block; margin-left:150px; color:#400099;">※ 부가주소는 필수입력 사항입니다.</span> 
-                   
+	                     <span> <p> * 공방 주소</p>
+		                     <input type="text" id="postcode" class="upload" name="postcode" value="" size="6" maxlength="5" style="width: 201px;"  placeholder="우편번호 찾기를 클릭하세요."  readonly="readonly"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	           				 <%-- 우편번호 찾기 --%>
+								<button type="button" id="btnPostcode" class="check_button" style="width: 120px; height: 40px;"> 우편번호 찾기</button>           				 
+								<span class="error" style="display: inline-block; color:#400099; margin-left:20px;"> * 우편번호는 필수 입력 사항입니다.</span>
+	           		     </span>
+	           		     
+	           		     <span style="margin:10px 0 0 150px;">
+	           				 <input type="text" id="address" class="upload" name="address" size="40" placeholder="주소"  style="width: 300px; "/>&nbsp;&nbsp;&nbsp;&nbsp;
+	            		     <input type="text" id="detailAddress" class="upload" name="detailAddress" size="40" placeholder="상세주소" style="width: 300px;"/>
+	            		</span>
+	            		
+						<span style="margin:10px 0 0 150px;">
+						     <input type="text" class="upload" id="extraAddress" name="extraAddress"  placeholder="부가주소" class="extra_address" />
+	            		 </span>
+	            		 <span class="error_2" style="display: inline-block; margin-left:150px; color:#400099;">※ 부가주소는 필수입력 사항입니다.</span> 
                    </div>
-                   
                     <div class="frm_border_2"  style="height: 100px;">
                         <span> <p> * 한 줄 공방소개 </p>
-                            <textarea id="self_introduce" name="craft_Introduce" style="height: 80px;"></textarea>
+                            <textarea id="self_introduce" name="craft_Introduce" style="height: 80px; margin-left: 18px;"></textarea>
                             <span class="error" style="display: inline-block; margin-top:50px;  color:#400099;">※ 자기소개는 필수입력 사항입니다.</span>
                         </span>
                     </div>
                     <div class="frm_border">
                         <span><p> * 전문 품목</p>
-                            <div id="specialized_chkBox">
-                              	  가방/핸드백<input type="checkbox" name="craft_specialty" class="specialized_field" value="bag"/>
+                            <div id="specialized_chkBox" style="margin-left: 20px;">
+                              	  가방/핸드백<input type="checkbox" name="craft_specialty" id="specialized_chk1" class="specialized_field" value="bag"/>
                                 <label for="specialized_chk1"></label>
-                             	  신발<input type="checkbox" name="craft_specialty" class="specialized_field" value="shoes"/>
+                             	  신발<input type="checkbox" name="craft_specialty"  id="specialized_chk2" class="specialized_field" value="shoes"/>
                                 <label for="specialized_chk2"></label>
-                              	  지갑<input type="checkbox" name="craft_specialty" class="specialized_field" value="wallet"/>
+                              	  지갑<input type="checkbox" name="craft_specialty" id="specialized_chk3"  class="specialized_field" value="wallet"/>
                                 <label for="specialized_chk3"></label>
-                              	  벨트<input type="checkbox" name="craft_specialty" class="specialized_field" value="belt"/>
+                              	  벨트<input type="checkbox" name="craft_specialty"  id="specialized_chk4" class="specialized_field" value="belt"/>
                                 <label for="specialized_chk4"></label>
                              </div>                                
                              <span class="error" style="display: inline-block; color:#400099;">※ 전문 품목은 한 개 이상 선택하셔야 합니다.</span>
@@ -564,8 +552,8 @@
                     <div class="list"><span><image src="resources/img/admin/single (1).png" width="35"/>&nbsp;&nbsp;경력사항</span></div>
                     <div class="frm_border">
                         <span> <p> * 총 경력기간</p>
-                            <label for="career_term"></label>
-                            <select name = "craft_career" id="career">
+                            <label for="career"></label>
+                            <select name = "craft_career" id="career" style="margin-left: 20px;">
                                 <option value="">선택하세요</option>
                                 <option value="newcomer">신입</option>
                                 <option value="1">1년</option>
@@ -581,8 +569,8 @@
                         </span>
                     </div>
                     <div class="frm_border_3">
-                        <span> <p>기타 경력사항</p>
-                            <textarea id="other_career"></textarea>
+                        <span> <p>&nbsp;&nbsp;기타 경력사항</p>
+                            <textarea id="other_career" style="margin-left: 18px;"></textarea>
                         </span>
                     </div>
                 </div>
@@ -592,16 +580,14 @@
                     <div class="Certificate">
                         <span> <p> * 자격증</p>
                             <div class="filebox">
-                                <input class="upload-name" value="" style="margin-bottom: 10px;" readonly="readonly" placeholder="파일첨부" />
-                                <label for="Certificate_file">파일찾기</label> 
-                                <input type="file" id="Certificate_file" name="attach" accept='image/*' />
+                               <!--  <input class="upload-name" value="" id="certificate_img" style="margin-bottom: 10px;" readonly="readonly" placeholder="파일첨부" /> -->
+                                <label for="Certificate_file"></label> 
+                                <input type="file" id="Certificate_file" class="img_file" name="craft_certificate" accept='image/*' />
                             </div>
                             <span class="error" style="display: inline-block; color:#400099;  margin-left:20px;">※ 자격증은 필수입력 사항입니다.</span>
                         </span>
                     </div>
                 </div>
-
-
                 <div class="application_right">
                     <div class="list"><span><image src="resources/img/admin/single (1).png" width="32" />&nbsp;&nbsp;희망급여</span></div>
                     <div class="frm_border">
@@ -613,7 +599,6 @@
                         </span>
                     </div>
                 </div>
-
                 <div class="application_right">
                     <div class="submit_box">
                         <button class="submit_back" type="button" onclick="javaScript:history.back();">이전</button>
