@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
     
 <%
    String ctxPath = request.getContextPath();
@@ -16,7 +18,7 @@
 <!-- Font Awesome 6 Icons --> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 <!--     직접 만든 CSS   -->
-<link rel="stylesheet" type="text/css" href="/resources/css/main.css">
+
 
 <!-- AOS 라이브러리 -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -25,6 +27,30 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
 
 <script type="text/javascript">
+
+
+//Function Declaration
+function goView(seq) {
+	 
+		// === #124. 페이징 처리되어진 후 특정 글제목을 클릭하여 상세내용을 본 이후
+		//           사용자가 목록보기 버튼을 클릭했을 때 돌아갈 페이지를 알려주기 위해
+		//           현재 페이지 주소를 뷰단으로 넘겨준다. 
+		const getNum = "${requestScope.gobackURL}";
+		
+		//	alert(gobackURL);
+		/*
+			/list.action?searchType= searchWord= currentShowPageNo=2
+	        /list.action?searchType=subject searchWord=java
+		*/
+		
+		const searchType = $("select#searchType").val();  //searchType 값이 아래 ctxPath에서 해당 값으로 들어감.
+		const searchWord = $("input#searchWord").val();   //searchWord 값이 아래 ctxPath에서 해당 값으로 들어감.
+		
+		location.href="<%= ctxPath%>/view.action?seq="+seq+"&searchType="+searchType+"&searchWord="+searchWord+"&gobackURL="+gobackURL;
+		//location.href=",,/view.action?seq=" + seq + "&searchType=" + searchType + "&searchWord=" + searchWord +"&gobackURL=list.action?searchType=subject&searchWord=java";
+      //이기 때문에 &를 구분자로 인식하기 때문에 &gobackURL=list.action?searchType=subject나온다.   ==> 틀림 #123.으로 이동
+
+}//end of function goView(seq)----------------------------------------------
 
 
 </script>
@@ -145,14 +171,13 @@
 
 
 	
-
+<c:if test="${not empty requestScope.craftsList}">
 		<section class="recommend-card">
 			<div class="grid--large">
 				<div class="catalog-wrapper">
 					<h2 class="catalog-title">가방/핸드백 </h2>
-					
-						<c:if test="${not empty requestScope.craftsList}">
-							<c:forEach var="craftvo" items="${requestScope.craftsList}">
+						
+				         <c:forEach var="craftvo" items="${requestScope.craftsList}">
 								 <ul class="grid">
 									<li class="grid-column__item">
 										<figure class="card responsive-card">
@@ -170,7 +195,7 @@
 									</li>
 								</ul>
 						</c:forEach>
-					</c:if>
+					
 					
 					<span class="catalog-more">
 				<a class="catalog-more__link" href="#">자세히 보기
@@ -182,6 +207,8 @@
 				</div>
 			</div>
 		</section>
+	
+		
 		
 		<hr style="border: solid 1px #e8e8e8; with:90%;">
 		
@@ -365,6 +392,9 @@
 				</div>
 			</div>
 		</section>
+
+</c:if>	
+
 		
 		
 </div>

@@ -10,10 +10,7 @@
 <script>
 
 	$(document).ready(function() {
-		Fancybox.bind("[data-fancybox]", {
-			 
-		});
-
+		
 		
 	});
 	
@@ -56,25 +53,10 @@
 				
 				<tbody>
 					<c:if test="${not empty requestScope.ovoList}">
-						<c:forEach var="ovo" items="${requestScope.ovoList}" varStatus="status">
+						<c:forEach var="ovo" items="${requestScope.ovoList}">
 						<tr>
 						<td>
-							<div class="img-estimate">
-							<c:forEach var="wholeImg" items="${ovo.wholeImgList}" varStatus="wholeIdx">
-								<c:if test="${wholeIdx.index eq 1}">
-								<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_name}" data-fancybox="gallery${status.index}" >
-									<img src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_name}" />
-								</a>
-								</c:if>
-								
-								<c:if test="${wholeIdx.index ne 1}">
-								<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_name}" data-fancybox="gallery${status.index}" >
-									<img style="display: none" src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_name}" />
-								</a>
-								</c:if>
-							</c:forEach>
-								
-							</div>
+							<div class="img-estimate"></div>
 						</td>
 	
 						<td>

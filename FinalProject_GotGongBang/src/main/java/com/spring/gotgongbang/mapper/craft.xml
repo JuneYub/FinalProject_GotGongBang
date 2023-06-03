@@ -11,6 +11,11 @@
  	select count(*) from CRAFT where craft_name=#{craft_name}
 </select>
 
+<select id="craft_add_image" resultType="com.spring.gotgongbang.craft.model.CraftVO">
+
+</select>
+
+
  <!--==================== 김진솔 끝 ====================== -->
 
 

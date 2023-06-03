@@ -1,14 +1,19 @@
 package com.spring.gotgongbang.board.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.spring.gotgongbang.board.model.InquiryVO;
 import com.spring.gotgongbang.board.model.InterBoardDAO;
 
+@Service
 public class BoardService implements InterBoardService {
 	
 	// === #34. 의존객체 주입하기(DI : Dependency Injection) ===
 		@Autowired  // Type 에 따라 알아서 Bean 을 주입해준다.
 		private InterBoardDAO dao;
+
+		
 
 		// 김나윤 시작 ===========================================================================
 		// 김나윤 끝 ===========================================================================
@@ -20,6 +25,22 @@ public class BoardService implements InterBoardService {
 		// 박준엽 끝 ===========================================================================
 		
 		// 오준혁 시작 ===========================================================================
+		
+		
+		// 파일 첨부 기능이 없는 온라인 문의 데이터 넣기
+		@Override
+		public int add(InquiryVO iqvo) {
+			int n = dao.add(iqvo);
+			return n;
+		}
+
+		// 파일 첨부 기능이 있는 온라인 문의
+		@Override
+		public int add_withFile(InquiryVO iqvo) {
+			int n = dao.add_withFile(iqvo); // 첨부파일이 있는 경우  
+			return n;
+		}
+		
 		// 오준혁 끝 ===========================================================================
 		
 		// 이지현 시작 ===========================================================================
