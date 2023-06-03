@@ -660,12 +660,6 @@ div.contents-review-promotional {
 	margin: 0px auto;
 }
 
-.img-estimate img {
-	width: 100%;
-	height: 100%;
-	object-fit:cover;
-}
-
 .txt-estimate-info {
 	text-align: left;
 	font-size: 14px;
