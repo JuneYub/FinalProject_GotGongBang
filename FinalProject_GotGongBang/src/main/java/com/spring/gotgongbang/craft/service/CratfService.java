@@ -91,6 +91,14 @@ public class CratfService implements InterCraftService {
 		List<CraftVO> craftvo = cdao.crafts_list_select();
 		return craftvo;
 	}
+
+	
+	//공방상세페이지를 보여주기 위해 공방정보 조회해오기
+	@Override
+	public List<CraftVO> crafts_detail_select() {
+		List<CraftVO> craftvo_2 = cdao.crafts_detail_select();
+		return craftvo_2;
+	}
 	
 //	@Override
 //	public ModelAndView crafts_list_select(ModelAndView mav) {
