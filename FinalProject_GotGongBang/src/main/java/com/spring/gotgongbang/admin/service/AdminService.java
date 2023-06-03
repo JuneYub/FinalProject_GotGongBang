@@ -65,36 +65,22 @@ public class AdminService implements InterAdminService{
 				session.setAttribute("loginuser", loginuser);
 				// session(세션)에 로그인 되어진 사용자 정보인 loginuser 을 키이름을 "loginuser" 으로 저장시켜두는 것이다.
 				
-				if(loginuser.isRequirePwdChange() == true) {  //암호를 마지막으로 변경한 것이 3개월이 경과한 경우
-					String message = "비밀번호를 변경하신지 3개월이 지났습니다.\\n암호를 변경하시는 것을 추천합니다.";
-					String loc = request.getContextPath()+"/index.action";
-					//원래는 위와 같이 /index.action 이 아니라 사용자의 암호를 변경해주는 페이지로 잡아주어야 한다. 플젝에서 하세요~
 					
-					mav.addObject("message", message);
-					mav.addObject("loc", loc);
-					
-					mav.setViewName("msg");
-					//  /WEB-INF/views/msg.jsp 파일을 생성한다.
-				}
-				else {  //암호를 마지막으로 변경한 것이 3개월 이내인 경우
-					
-					// 로그인을 해야만 접근할 수 있는 페이지에 로그인을 하지 않은 상태에서 접근을 시도한 경우 
-	                // "먼저 로그인을 하세요!!" 라는 메시지를 받고서 사용자가 로그인을 성공했다라면
-	                // 화면에 보여주는 페이지는 시작페이지로 가는 것이 아니라
-	                // 조금전 사용자가 시도하였던 로그인을 해야만 접근할 수 있는 페이지로 가기 위한 것이다.
-					String goBackURL = (String)session.getAttribute("goBackURL");
-					
-					if(goBackURL != null) {
-						mav.setViewName("redirect:"+goBackURL);
-						session.removeAttribute("goBackURL");  //세션에서 반드시 제거해주어야 한다.
-					}
-					else {
-						mav.setViewName("redirect:/index.action");  //로그인 되지마자 시작페이지로 이동. 나중에 goback 쓸 거!
-					}
-				}
+				// 로그인을 해야만 접근할 수 있는 페이지에 로그인을 하지 않은 상태에서 접근을 시도한 경우 
+                // "먼저 로그인을 하세요!!" 라는 메시지를 받고서 사용자가 로그인을 성공했다라면
+                // 화면에 보여주는 페이지는 시작페이지로 가는 것이 아니라
+                // 조금전 사용자가 시도하였던 로그인을 해야만 접근할 수 있는 페이지로 가기 위한 것이다.
+				String goBackURL = (String)session.getAttribute("goBackURL");
 				
+				if(goBackURL != null) {
+					mav.setViewName("redirect:"+goBackURL);
+					session.removeAttribute("goBackURL");  //세션에서 반드시 제거해주어야 한다.
+				}
+				else {
+					mav.setViewName("redirect:/index.got");  //로그인 되지마자 시작페이지로 이동. 나중에 goback 쓸 거!
+				}
 			}
-		
+				
 		return mav;
 			
 		}

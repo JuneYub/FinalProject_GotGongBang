@@ -93,7 +93,7 @@ public class AdminController {
 	
 	
 	// === 1-1. 로그인 폼 페이지 요청 === //
-	@RequestMapping(value="/admin_login.got", method= {RequestMethod.GET})
+	@RequestMapping(value="/admin_login.got", method={RequestMethod.GET})
 	public ModelAndView login(ModelAndView mav) {
 		
 		mav.setViewName("admin/admin_login.tiles1");  //view단 페이지 나타내기. tiles를 사용하겠다!
