@@ -15,7 +15,7 @@
     <div id="header">
         <section class="header-section">
              <div class="h1-logo">
-                <h1><img src="resources/img/main_got.png" width="300" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/'"></h1>
+                <h1><img src="<%= ctxPath%>/resources/img/main_got.png" width="300" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/'"></h1>
             </div>
             <div class="header-nav">
                 <ul>
