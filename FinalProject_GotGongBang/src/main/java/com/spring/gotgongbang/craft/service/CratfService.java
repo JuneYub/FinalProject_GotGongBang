@@ -26,6 +26,7 @@ public class CratfService implements InterCraftService {
 	@Autowired
 	private InterCraftDAO cdao;
 	
+	
 	// =============== 박준엽 시작 ==================== //
 	
 	@Override
@@ -62,6 +63,12 @@ public class CratfService implements InterCraftService {
 
 	// =============== 박준엽 끝 ==================== // 
 	
+	
+	
+	
+	
+	
+	
 	// ================ 김진솔 시작 ================== //
 	
 	// 이미 존재하는 '공방이름'인지 알아오기 위한 것
@@ -70,10 +77,33 @@ public class CratfService implements InterCraftService {
 		int n = cdao.craft_check_name(craft_name);	//n은 0 또는 1
 		return n;
 	}
+	
+	//공방 신청시 추가이미지 파일이 존재할때 select해오는 용도
+	@Override
+	public List<CraftVO> craft_add_image() {
+		 List<CraftVO> AddimgList = cdao.craft_add_image();
+		 return AddimgList;
+	}
+	
+	
+	//공방 신청정보를 DB에 insert해주는 기능
+	@Override
+	public int add_withFile(CraftVO cvo) {
+		int n  = cdao.add_withFile(cvo);
+		return n;
+	}
 
 
 	
 	// ================ 김진솔 끝 ================== //
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
