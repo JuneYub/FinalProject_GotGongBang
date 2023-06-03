@@ -660,6 +660,12 @@ div.contents-review-promotional {
 	margin: 0px auto;
 }
 
+.img-estimate img {
+	width: 100%;
+	height: 100%;
+	object-fit:cover;
+}
+
 .txt-estimate-info {
 	text-align: left;
 	font-size: 14px;
@@ -690,34 +696,54 @@ div.contents-review-promotional {
 	transition: 0.1s ease;
 }
 
-.popup-container {
-	padding: 30px 15px;
+.estimate-tit {
+	text-align: center;
+	width: 1200px;
+	margin: 0px auto;
+	margin-top: 50px;
 }
 
-.popup-container #requestEstimate {
-	border: 1px solid black;
-	box-shadow: 1px 1px 1px;
-	border-radius: 3px;
+
+#requestEstimate {
+
 }
 
-.popup-container #requestEstimate .tit-estimate {
-	display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 90px;
-}
-
-.popup-container #requestEstimate .tbl-estimate {
+#requestEstimate .table-wrap {
 	width: 100%;
+	margin: 30px 0;
 }
 
-.popup-container #requestEstimate .tbl-estimate td {
-	border-top: 1px solid black;
-	width: 30px;
-	padding: 5px 6px;
+#requestEstimate .tbl-estimate {
+	width: 100%;
+	border-collapse: separate;
+  	border-spacing: 1px;
+  	text-align: left;
+  	line-height: 1.5;
+  	border-top: 1px solid #ccc;
 }
 
-.popup-container #requestEstimate .tbl-estimate tr td:first-child {
+#requestEstimate .tbl-estimate th, td {
+	padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#requestEstimate .tbl-estimate th {
+	width: 20%;
+	padding: 10px;
+ 	font-weight: 400;
+  	vertical-align: top;
+  	border-bottom: 1px solid #ccc;
+  	background: #efefef;
+}
+
+#requestEstimate .tbl-estimate td {
+ 	padding: 10px;
+  	vertical-align: top;
+  	border-bottom: 1px solid #ccc;
+}
+
+#requestEstimate .tbl-estimate tr td:first-child {
 	text-align: center;
 	border-right: 1px solid black;
 }
