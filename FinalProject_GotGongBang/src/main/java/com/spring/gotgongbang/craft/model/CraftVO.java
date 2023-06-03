@@ -25,7 +25,9 @@ public class CraftVO {
 	private String craft_longitude;				//경도
 	private String craft_status;				//(임시/정식) 상태
 	private String craft_rating;				//별점
-	
+
+	// * select용 *
+	private ImageVO imgvo;
 
 	////////////////////////////////////////////////////////
 		   
@@ -256,7 +258,22 @@ public class CraftVO {
 
 	public void setFileSize(String fileSize) {
 		this.fileSize = fileSize;
+	}
+
+
+	public ImageVO getImgvo() {
+		return imgvo;
+	}
+
+
+	public void setImgvo(ImageVO imgvo) {
+		this.imgvo = imgvo;
 	}	
+	
+	
+	
+	
+	
 	/////////////////// ====== 김진솔 끝 ===== ///////////////////////
 	
 }
