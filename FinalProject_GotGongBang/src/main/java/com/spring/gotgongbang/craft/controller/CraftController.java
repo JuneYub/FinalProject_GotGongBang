@@ -43,8 +43,11 @@ public class CraftController {
    // ===========================================================================
     
    @RequestMapping(value="/crafts_detail.got")
-   public ModelAndView craftDetail(ModelAndView mav) {
+   public ModelAndView craftDetail(ModelAndView mav, HttpServletRequest request) {
+	  //request.getParameter("")
       mav.setViewName("/craft/craft_detail.tiles1");
+//    mav.addObject("craftvo_2", craftvo_2);
+      
       return mav;
    }
    
