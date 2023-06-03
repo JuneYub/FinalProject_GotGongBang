@@ -46,6 +46,10 @@
 	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 	
+	<%-- FancyApps --%>
+	<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+	
 </head>
 <body>
 	<div class="popup-container">
@@ -54,13 +58,26 @@
 			<div class="cont-estimate">
 				<table class="tbl-estimate">
 					<tbody>
-						<tr><td>요청자 성함</td> <td>@@@</td></tr>
-						<tr><td>품목</td> <td>@@@</td></tr>
-						<tr><td>브랜드</td> <td>@@@</td></tr>
-						<tr><td>전체 사진</td> <td>@@@</td></tr>
+						<tr><td>요청자 성함</td> <td>${requestScope.ovo.orderer}</td></tr>
+						<tr><td>품목</td> <td>${requestScope.ovo.order_product_type}</td></tr>
+						<tr><td>브랜드</td> <td>${requestScope.ovo.brand_name}</td></tr>
+						<tr><td>전체 사진</td> 
+											<td>
+											<div class="img-bit-detail">
+											<c:forEach var="wholeImg" items="${ovo.wholeImgList}" varStatus="wholeIdx">
+												
+												<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_name}" data-fancybox="gallery${status.index}" target='_blank' >
+													<img src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_name}" />
+												</a>
+												
+											</c:forEach>	
+											</div>
+											</td>
+											
+											</tr>
 						<tr><td>상세 사진</td> <td>@@@</td></tr>
-						<tr><td>수선 유형</td> <td>@@@</td></tr>
-						<tr><td>수선 요청사항 설명</td><td>@@@</td></tr>
+						<tr><td>수선 유형</td> <td>${requestScope.ovo.requests}</td></tr>
+						<tr><td>수선 요청사항 설명</td><td>${requestScope.ovo.request_explain}</td></tr>
 					</tbody>
 				</table>
 			</div>
