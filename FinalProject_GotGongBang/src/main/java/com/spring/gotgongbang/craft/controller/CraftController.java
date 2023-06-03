@@ -400,7 +400,7 @@ public class CraftController {
       OrderVO ovo = new OrderVO();
       List<OrderVO> ovoList = service.getAllOrders(paraMap);
       
-      String pageBar = makePageBar(currentShowPageNoForEstimate, 10, totalCountForEstimate);
+      String pageBar = makePageBar(currentShowPageNoForEstimate, 10, totalPageForEstimate);
       
       mav.addObject("pageBar", pageBar);
       mav.addObject("ovoList", ovoList);
