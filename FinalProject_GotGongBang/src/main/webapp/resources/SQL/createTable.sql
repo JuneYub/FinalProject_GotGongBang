@@ -66,6 +66,8 @@ CREATE TABLE MEMBER
 CREATE TABLE ORDERS (
    order_num_pk    NUMBER                      NOT NULL, -- 견적요청번호
    user_id_fk      VARCHAR2(20)                NOT NULL, -- 아이디
+   orderer         VARCHAR2(20)                NOT NULL, -- 주문자 이름
+   order_product_type      VARCHAR2(20)                NOT NULL, -- 주문 상품 타입
    order_date      DATE  default sysdate       NOT NULL, -- 요청날짜
    brand_name      NVARCHAR2(20)                 NOT NULL, -- 브랜드
    request_explain NVARCHAR2(100)                NOT NULL,  -- 수선요청사항설명
