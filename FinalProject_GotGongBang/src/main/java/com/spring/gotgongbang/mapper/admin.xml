@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -12,21 +11,12 @@
 		where admin_id_pk=#{admin_id_pk, jdbcType=VARCHAR} and admin_pwd=#{admin_pwd, jdbcType=VARCHAR}
 	</select>  
     
-    
-=======
-<?xml version="1.0" encoding="UTF-8"?>
 
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="admin">
-
-
-	<!-- 로그인 관련 mapper-->
+	<!-- 로그인 관련 mapper
 	<select id = "login_check" parameterType="com.spring.gotgongbang.admin.model.AdminVO" resultType="String">
 	    select admin_id_pk from admin
 		where admin_id_pk=#{admin_id_pk, jdbcType=VARCHAR} and admin_pwd=#{admin_pwd, jdbcType=VARCHAR}
 	</select>  
+    -->
     
-    
->>>>>>> refs/heads/main
 </mapper>    
