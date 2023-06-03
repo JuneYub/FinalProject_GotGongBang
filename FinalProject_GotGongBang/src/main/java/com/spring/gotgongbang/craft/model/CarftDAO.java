@@ -67,6 +67,11 @@ public class CarftDAO implements InterCraftDAO {
 		return totalCountForEstimate;
 	}
 	
+	@Override
+	public OrderVO getOrderInfoByOrderNum(String orderNum) {
+		OrderVO ovo = sqlsession.selectOne("craft.getOrderInfoByOrderNum", Integer.parseInt(orderNum));
+		return ovo;
+	}
 	
 	
 	// =============== 박준엽 끝 =================//

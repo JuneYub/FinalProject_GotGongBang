@@ -29,6 +29,8 @@ public interface InterCraftDAO {
 
 	int getTotalCountForEstimate();
 	
+	OrderVO getOrderInfoByOrderNum(String orderNum);
+	
 	// =============== 박준엽 끝 =================//
 	
 	

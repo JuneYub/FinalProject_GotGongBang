@@ -244,7 +244,11 @@ public class CraftController {
 	}
 	
 	@RequestMapping(value="/estimate_inquiry_list/bid.got")
-	public ModelAndView bid(ModelAndView mav) {
+	public ModelAndView bid(ModelAndView mav, HttpServletRequest request) {
+		String orderNum = request.getParameter("order_num");
+		OrderVO ovo =  service.getOrderInfoByOrderNum(orderNum);
+		
+		mav.addObject("ovo", ovo);
 		mav.setViewName("/none_tiles/craft/bid");
 		return mav;
 	}
