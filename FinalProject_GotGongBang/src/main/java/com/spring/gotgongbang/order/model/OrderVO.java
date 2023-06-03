@@ -17,8 +17,8 @@ public class OrderVO {
 	private String requests;		// 수선요청사항들
 	
 	// 이미지 테이블들
-	private List<MultipartFile> whole_img_name;		//전체이미지
-	private List<MultipartFile> detail_img_name;	//상세이미지
+	private List<WholeImgVO> wholeImgList;		//전체이미지
+	private List<DetailImgVO> detailImgList;	//상세이미지
 	
 
 	public int getOrder_num_pk() {
@@ -71,26 +71,6 @@ public class OrderVO {
 	}
 
 
-	public List<MultipartFile> getWhole_img_name() {
-		return whole_img_name;
-	}
-
-
-	public void setWhole_img_name(List<MultipartFile> whole_img_name) {
-		this.whole_img_name = whole_img_name;
-	}
-
-
-	public List<MultipartFile> getDetail_img_name() {
-		return detail_img_name;
-	}
-
-
-	public void setDetail_img_name(List<MultipartFile> detail_img_name) {
-		this.detail_img_name = detail_img_name;
-	}
-
-
 	public String getRequests() {
 		return requests;
 	}
@@ -99,6 +79,30 @@ public class OrderVO {
 	public void setRequests(String requests) {
 		this.requests = requests;
 	}
+
+
+	public List<WholeImgVO> getWholeImgList() {
+		return wholeImgList;
+	}
+
+
+	public void setWholeImgList(List<WholeImgVO> wholeImgList) {
+		this.wholeImgList = wholeImgList;
+	}
+
+
+	public List<DetailImgVO> getDetailImgList() {
+		return detailImgList;
+	}
+
+
+	public void setDetailImgList(List<DetailImgVO> detailImgList) {
+		this.detailImgList = detailImgList;
+	}
+
+
+
+	
 
 	
 	/////////////////// ====== 이지현 끝 ===== ///////////////////////
