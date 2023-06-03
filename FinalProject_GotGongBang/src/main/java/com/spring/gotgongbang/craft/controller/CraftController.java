@@ -249,7 +249,7 @@ public class CraftController {
 		OrderVO ovo =  service.getOrderInfoByOrderNum(orderNum);
 		
 		mav.addObject("ovo", ovo);
-		mav.setViewName("/none_tiles/craft/bid");
+		mav.setViewName("/craft/bid.tiles1");
 		return mav;
 	}
 	
