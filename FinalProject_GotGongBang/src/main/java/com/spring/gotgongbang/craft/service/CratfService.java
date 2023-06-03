@@ -60,6 +60,12 @@ public class CratfService implements InterCraftService {
 		return totalCountForEstimate;
 	}
 	
+	@Override
+	public OrderVO getOrderInfoByOrderNum(String orderNum) {
+		OrderVO ovo = cdao.getOrderInfoByOrderNum(orderNum);
+		return ovo;
+	}
+	
 
 	// =============== 박준엽 끝 ==================== // 
 	
