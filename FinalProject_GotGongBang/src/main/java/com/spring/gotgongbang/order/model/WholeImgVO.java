@@ -1,6 +1,5 @@
 package com.spring.gotgongbang.order.model;
 
-
 public class WholeImgVO {
 	private int whole_img_num_pk;
 	private int order_num_fk;
