@@ -69,12 +69,18 @@ public class CratfService implements InterCraftService {
 	@Override
 	public String getCraftNumByPartnerId(String partnerId) {
 		String craftNum = cdao.getCraftNumByPartnerId(partnerId);
-		return null;
+		return craftNum;
 	}
 	
 	@Override
 	public int insertEstimate(HashMap<String, String> paraMap) {
 		int n = cdao.insertEstimate(paraMap);
+		return n;
+	}
+	
+	@Override
+	public int checkEstimateExists(HashMap<String, String> paraMap) {
+		int n = cdao.checkEstimateExists(paraMap);
 		return n;
 	}
 	

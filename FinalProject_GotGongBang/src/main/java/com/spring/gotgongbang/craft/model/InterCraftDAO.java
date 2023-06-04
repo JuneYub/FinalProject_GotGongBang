@@ -51,6 +51,8 @@ public interface InterCraftDAO {
 	
 	int insertEstimate(HashMap<String, String> paraMap);
 	
+	int checkEstimateExists(HashMap<String, String> paraMap);
+	
 	// =============== 박준엽 끝 =================//
 	
 	

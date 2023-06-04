@@ -108,6 +108,12 @@ public class CarftDAO implements InterCraftDAO {
 		return sqlsession.insert("craft.insertEstimate", paraMap);
 	}
 	
+	@Override
+	public int checkEstimateExists(HashMap<String, String> paraMap) {
+		int n = sqlsession.selectOne("craft.checkEstimateExists", paraMap);
+		return n;
+	}
+	
 	
 	// =============== 박준엽 끝 =================//
 	
