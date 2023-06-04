@@ -1,5 +1,6 @@
 package com.spring.gotgongbang.craft.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -99,7 +100,12 @@ public class CarftDAO implements InterCraftDAO {
 	@Override
 	public String getCraftNumByPartnerId(String partnerId) {
 		String craftNum = sqlsession.selectOne("craft.getCraftNumByPartnerId", partnerId);
-		return null;
+		return craftNum;
+	}
+	
+	@Override
+	public int insertEstimate(HashMap<String, String> paraMap) {
+		return sqlsession.insert("craft.insertEstimate", paraMap);
 	}
 	
 	

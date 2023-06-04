@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Insert;
 import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -436,6 +437,8 @@ public class CraftController {
 	  paraMap.put("craft_num_fk", craftNum);
 	  paraMap.put("estimate_price", proposalPrice);
 	  paraMap.put("estimate_estimate_period", proposalDuration);
+	  
+	  int n = service.insertEstimate(paraMap);
 	  
 	  
 	  return mav;

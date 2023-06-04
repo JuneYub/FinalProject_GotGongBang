@@ -74,8 +74,8 @@ public class CratfService implements InterCraftService {
 	
 	@Override
 	public int insertEstimate(HashMap<String, String> paraMap) {
-		
-		return 0;
+		int n = cdao.insertEstimate(paraMap);
+		return n;
 	}
 	
 

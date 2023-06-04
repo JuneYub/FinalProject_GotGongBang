@@ -114,6 +114,11 @@
 	where partner_id_fk = #{partnerId}
 </select>
 
+<insert id="insertEstimate" parameterType="HashMap">
+	insert into ESTIMATE values(seq_estimate_num_pk.nextval, #{order_num_fk}, 
+	#{craft_num_fk}, #{estimate_price}, #{estimate_period}, default, sysdate)
+</insert>
+
 
 
 <!--==================== 박준엽 끝 ====================== -->
