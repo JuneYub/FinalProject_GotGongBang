@@ -23,7 +23,6 @@
 		var proposalDuration = $("input#proposalDuration").val();
 		var proposalPrice = $("input#proposalPrice").val();
 		proposalPrice = proposalPrice.replaceAll(",", "");
-		
 		var regExp = /^[0-9]+$/;
 		
 		if(proposalDuration.trim() == '') {
@@ -51,12 +50,13 @@
 				return;
 			}
 		}
-		
-		const bidForm = document.bidForm;
-		bidForm.action = "/";
-		bidForm.method ="POST"
-		
-		
+		$("input#proposalPrice").val(proposalPrice);
+		if(confirm("제안을 하시면 수정할 수 없습니다. 정말로 제안하시겠습니까?")) {
+			const bidForm = document.bidForm;
+			bidForm.action = "<%= ctxPath%>/estimate_inquiry_list/bid_end.got";
+			bidForm.method ="POST"
+			bidForm.submit();
+		}
 	}
 
 	
@@ -105,16 +105,19 @@
 				</table>
 			</div>
 		</div>
-			
-		<form name="bidForm">	
+		<c:if test="${requestScope.estimateExists eq 1}">
+		</c:if>
+		
+		<c:if test="${requestScope.estimateExists eq 0}">
+		<form name="bidForm" autocomplete="off">	
 		<div class="cont-proposal">
-			<input type="hidden" id="orderNum" name="orderNum" value="${requestScope.orderNum}">
+			<input type="hidden" id="orderNum" name="orderNum" value="${requestScope.orderNum}" autocomplete="off">
 			<h3>예상기간 제안</h3>
 			<input class="input-proposal" id="proposalDuration" name="proposalDuration" placeholder="일 ">
 			</div>
 			<div class="cont-proposal">
 			<h3>가격 제안</h3>
-			<input class="input-proposal" id="proposalPrice" name="proposalPrice" type="text" placeholder="￦ ">
+			<input class="input-proposal" id="proposalPrice" name="proposalPrice" type="text" placeholder="￦ " autocomplete="off">
 			</div>
 		</form>
 		
@@ -123,5 +126,6 @@
 			<a class="btn-return" onclick="location.href='<%= ctxPath%>/estimate_inquiry_list.got?currentShowPageNo=${requestScope.currentShowPageNo}';">돌아가기</a>
 			<a class="btn-bid" onclick="submitProposal()" >제안하기</a>
 		</div>
+		</c:if>		
 	</div>
 </div>
