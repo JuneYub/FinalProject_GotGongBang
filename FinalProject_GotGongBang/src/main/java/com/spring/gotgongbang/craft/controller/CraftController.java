@@ -416,13 +416,14 @@ public class CraftController {
 	  String craftNum = service.getCraftNumByPartnerId(partnerId);
 	  String orderNum = request.getParameter("order_num");
 	  HashMap<String, String> paraMap = new HashMap<String, String>();
-	  paraMap.put("craftNum", craftNum);
-	  paraMap.put("orderNum", orderNum);
+	  paraMap.put("craft_num_fk", craftNum);
+	  paraMap.put("order_num_fk", orderNum);
 	  
-	  int n = service.checkEstimateExists(paraMap);
+	  int estimateExists = service.checkEstimateExists(paraMap);
 	  OrderVO ovo = service.getOrderInfoByOrderNum(orderNum);
 	  String currentShowPageNo = request.getParameter("currentShowPageNo");
 	  
+	  mav.addObject("estimateExists", estimateExists);
 	  mav.addObject("currentShowPageNo", currentShowPageNo);
 	  mav.addObject("orderNum", orderNum);
 	  mav.addObject("ovo", ovo);
