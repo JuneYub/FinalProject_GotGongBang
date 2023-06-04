@@ -66,6 +66,18 @@ public class CratfService implements InterCraftService {
 		return ovo;
 	}
 	
+	@Override
+	public String getCraftNumByPartnerId(String partnerId) {
+		String craftNum = cdao.getCraftNumByPartnerId(partnerId);
+		return null;
+	}
+	
+	@Override
+	public int insertEstimate(HashMap<String, String> paraMap) {
+		
+		return 0;
+	}
+	
 
 	// =============== 박준엽 끝 ==================== // 
 	

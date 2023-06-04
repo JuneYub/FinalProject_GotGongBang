@@ -46,6 +46,8 @@ public interface InterCraftDAO {
 	
 	OrderVO getOrderInfoByOrderNum(String orderNum);
 	
+	String getCraftNumByPartnerId(String partnerId);
+	
 	// =============== 박준엽 끝 =================//
 	
 	
