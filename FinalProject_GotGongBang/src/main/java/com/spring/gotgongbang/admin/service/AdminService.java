@@ -46,7 +46,7 @@ public class AdminService implements InterAdminService{
 		AdminVO loginuser = dao.getLoginMember(paraMap);  //map을 넘겨준다.
 		
 		if(loginuser == null) {  //로그인 실패시
-			String message = "아이디 또는 암호가 틀립니다.";
+			String message = "아이디 또는 비밀번호가 일치하지 않습니다. 확인 후 다시 입력해 주시기 바랍니다.";
 			String loc = "javascript:history.back()";
 			
 			mav.addObject("message", message);

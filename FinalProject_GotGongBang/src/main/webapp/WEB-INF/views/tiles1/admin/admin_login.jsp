@@ -59,7 +59,6 @@
 	     frm.method = "post";
 	     frm.submit();
 	     
-	     
 	}//end of function func_Login()------------------------------------------------------------
 
 	
@@ -95,7 +94,7 @@
 			<form name="adminLoginFrm" action ="admin_login.got" method = "post">
 				<input type="text" id="loginUserid" name="userid" class="yh_input" placeholder="아이디" hname="아이디">
 				<input type="password" id="loginPwd" name="pwd" class="yh_input" placeholder="비밀번호" hname="비밀번호">
-				<button type="button" id="yh_loginSubmit" value="로그인" class="yh_bgColor search_btn" name="submit">로그인</button>
+				<button type="submit" id="yh_loginSubmit" value="로그인" class="yh_bgColor search_btn" name="submit">로그인</button>
 				<div class = "row">
 				    <div class="col-xs-8">
 				        <div class="checkbox icheck">

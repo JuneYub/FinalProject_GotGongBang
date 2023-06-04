@@ -18,7 +18,7 @@ public class AdminDAO implements InterAdminDAO{
 /*
 	@Override
 	public boolean loginCheck(AdminVO avo) throws Exception {
-		String name = sqlsession.selectOne("admin.login_check", avo);
+		String name = sq                  lsession.selectOne("admin.login_check", avo);
         
         //조건식 ? true일때의 값 : false일때의 값
         return (name==null) ? false : true;
