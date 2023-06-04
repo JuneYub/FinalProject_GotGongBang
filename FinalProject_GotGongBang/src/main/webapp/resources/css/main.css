@@ -660,6 +660,12 @@ div.contents-review-promotional {
 	margin: 0px auto;
 }
 
+.img-estimate img {
+	width: 100%;
+	height: 100%;
+	object-fit:cover;
+}
+
 .txt-estimate-info {
 	text-align: left;
 	font-size: 14px;
@@ -690,34 +696,54 @@ div.contents-review-promotional {
 	transition: 0.1s ease;
 }
 
-.popup-container {
-	padding: 30px 15px;
+.estimate-tit {
+	text-align: center;
+	width: 1200px;
+	margin: 0px auto;
+	margin-top: 50px;
 }
 
-.popup-container #requestEstimate {
-	border: 1px solid black;
-	box-shadow: 1px 1px 1px;
-	border-radius: 3px;
+
+#requestEstimate {
+
 }
 
-.popup-container #requestEstimate .tit-estimate {
-	display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 90px;
-}
-
-.popup-container #requestEstimate .tbl-estimate {
+#requestEstimate .table-wrap {
 	width: 100%;
+	margin: 30px 0;
 }
 
-.popup-container #requestEstimate .tbl-estimate td {
-	border-top: 1px solid black;
-	width: 30px;
-	padding: 5px 6px;
+#requestEstimate .tbl-estimate {
+	width: 100%;
+	border-collapse: separate;
+  	border-spacing: 1px;
+  	text-align: left;
+  	line-height: 1.5;
+  	border-top: 1px solid #ccc;
 }
 
-.popup-container #requestEstimate .tbl-estimate tr td:first-child {
+#requestEstimate .tbl-estimate th, td {
+	padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#requestEstimate .tbl-estimate th {
+	width: 20%;
+	padding: 10px;
+ 	font-weight: 400;
+  	vertical-align: top;
+  	border-bottom: 1px solid #ccc;
+  	background: #efefef;
+}
+
+#requestEstimate .tbl-estimate td {
+ 	padding: 10px;
+  	vertical-align: top;
+  	border-bottom: 1px solid #ccc;
+}
+
+#requestEstimate .tbl-estimate tr td:first-child {
 	text-align: center;
 	border-right: 1px solid black;
 }
@@ -725,7 +751,7 @@ div.contents-review-promotional {
 .cont-proposal {
 	display: flex;
     justify-content: right;
-    margin-top: 40px;
+    margin-top: 55px;
 }
 
 .cont-proposal h3 {
@@ -742,26 +768,46 @@ div.contents-review-promotional {
 }
 
 .cont-bid-final {
+	margin-top: 90px;
+    height: 170px;
 	display: flex;
 	justify-content: center;
-	color: white;
-	font-size: 20px;
-	margin-top: 50px;
 }
 
-.cont-bid-final a {
+.btn-return {
 	width: 190px;
 	height: 60px;
-	background-color: #400099;
+	background-color: #fff;
+	color: #400099;
+	font-size: 20px;
 	justify-content: center;
     display: flex;
     align-items: center;
     border-radius: 6px;
-    
+    border: 1px solid #400099;
 }
 
-.cont-bid-final a:hover {
-	box-shadow: 1px 1px 1px black;
+.btn-return:hover {
+	font-weight: 500;
+	color: #400099;
+}
+
+.btn-bid {
+	width: 190px;
+	height: 60px;
+	background-color: #400099;
+	color: white;
+	font-size: 20px;
+	justify-content: center;
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+    margin-left: 120px;
+}
+
+.btn-bid:hover {
+	font-weight:500;
+	color: white;
 }
 
 .tbl-myPageList .btn-save-state {
@@ -2449,7 +2495,7 @@ flex-basis: 50px;
 	color: #000;
 	font-size: 52px;
 	font-weight: 700;
-	width: 35%;
+	width: 25%;
 }
 
 
@@ -2490,12 +2536,12 @@ button.searchBtn {
 	background: url(https://hyphen.im/assets/images/product/icon_search.png) no-repeat 50%/30px auto;
 	height: 30px;
 	width: 30px;
-	/* border: 0; */
+	border: 0;
 	cursor: pointer;
 }
 
 ul.keyWord {
-	margin: 0 auto;
+	margin: 20px 500px;
 	/* border: solid 1px red; */
 }
 ul.keyWord > li {
@@ -2511,8 +2557,10 @@ ul.keyWord > li > a{
 	padding-right: 10px;
 }
 ul.keyWord > li:hover {
-	color: #fff;
 	background-color: #ccc;
+}
+ul.keyWord > li:hover > a {
+	color: #fff;
 	text-decoration: none;
 }
 /* [영역1] "수선사 찾기" 박스 영역 끝 ==================================================================================== */
@@ -2583,7 +2631,7 @@ swiper-slide img {
         border: solid 1px #e6e6e6;
 }
 .topMenu .menuLink {                              
-	text-decoration:none;                      
+	text-decoration:none;  
 	color: #999;                             
 	display: block;    /* 링크를 글씨가 있는 부분 뿐만아니라 전체 영역을 클릭해도 링크가 걸리게 설정 */
 	width: 240px;      /* 메뉴링크의 넓이 설정 */
@@ -2591,9 +2639,9 @@ swiper-slide img {
 	font-weight: bold;                        
 }
 .topMenu .menuLink:hover {            
-	color: #999;                   
-	border: solid 1px #400099;
-	font-weight: 700;
+	color: #400099;                   
+	border: solid 2px #400099;
+	font-weight: bold;
 }
 /* [영역4] "상단메뉴바" 영역 끝 ==================================================================================== */
 

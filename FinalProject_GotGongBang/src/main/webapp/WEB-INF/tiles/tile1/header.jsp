@@ -15,7 +15,7 @@
     <div id="header">
         <section class="header-section">
              <div class="h1-logo">
-                <h1><img src="resources/img/main_got.png" width="300" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/'"></h1>
+                <h1><img src="<%= ctxPath%>/resources/img/main_got.png" width="300" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/'"></h1>
             </div>
             <div class="header-nav">
                 <ul>
@@ -23,7 +23,7 @@
                         <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/service_info.got'">서비스 소개</a>
                     </li>
                     <li>
-                        <a class="header-nav-button">수선사 찾기</a>
+                        <a class="header-nav-button" onclick="location.href='<%= ctxPath%>/crafts_list.got'">수선사 찾기</a>
                     </li>
                     <li>
                         <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/orderForm.got'">견적 의뢰</a>
