@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Insert;
 import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -411,10 +412,18 @@ public class CraftController {
    
    @RequestMapping(value="/estimate_inquiry_list/bid.got")
    public ModelAndView bid(ModelAndView mav, HttpServletRequest request) {
+	  String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+	  String craftNum = service.getCraftNumByPartnerId(partnerId);
 	  String orderNum = request.getParameter("order_num");
+	  HashMap<String, String> paraMap = new HashMap<String, String>();
+	  paraMap.put("craft_num_fk", craftNum);
+	  paraMap.put("order_num_fk", orderNum);
+	  
+	  int estimateExists = service.checkEstimateExists(paraMap);
 	  OrderVO ovo = service.getOrderInfoByOrderNum(orderNum);
 	  String currentShowPageNo = request.getParameter("currentShowPageNo");
 	  
+	  mav.addObject("estimateExists", estimateExists);
 	  mav.addObject("currentShowPageNo", currentShowPageNo);
 	  mav.addObject("orderNum", orderNum);
 	  mav.addObject("ovo", ovo);
@@ -422,22 +431,35 @@ public class CraftController {
       return mav;
    }
    
-   @RequestMapping(value="/estimate_inquiry_list/bid_end.got")
+   @RequestMapping(value="/estimate_inquiry_list/bid_end.got", method = RequestMethod.POST)
    public ModelAndView bidEnd(ModelAndView mav, HttpServletRequest request) {
 	  String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
 	  String craftNum = service.getCraftNumByPartnerId(partnerId);
-	  
 	  HashMap<String, String> paraMap = new HashMap<String, String>();
 	  String proposalDuration = request.getParameter("proposalDuration");
 	  String proposalPrice = request.getParameter("proposalPrice");
-	  String orderNum =  request.getParameter("order_num");
+	  String orderNum =  request.getParameter("orderNum");
 	  
 	  paraMap.put("order_num_fk", orderNum);
 	  paraMap.put("craft_num_fk", craftNum);
 	  paraMap.put("estimate_price", proposalPrice);
-	  paraMap.put("estimate_estimate_period", proposalDuration);
+	  paraMap.put("estimate_period", proposalDuration);
 	  
+	  int n = service.insertEstimate(paraMap);
+	  if(n == 1) {
+		  String message = "정상적으로 견적 제안이 완료되었습니다.";
+		  String loc = "/gotgongbang/estimate_inquiry_list.got";
+	      request.setAttribute("message", message);
+	      request.setAttribute("loc", loc);
+	  }
+	  else {
+		  String message = "오류가 발생하여 제안이 완료되지 못했습니다";
+		  String loc = "javascript:history.go(0);";
+	      request.setAttribute("message", message);
+	      request.setAttribute("loc", loc);
+	  }
 	  
+	  mav.setViewName("msg");
 	  return mav;
    }
    
