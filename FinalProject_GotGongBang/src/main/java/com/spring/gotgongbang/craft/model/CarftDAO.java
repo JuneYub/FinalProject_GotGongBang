@@ -96,6 +96,12 @@ public class CarftDAO implements InterCraftDAO {
 		return ovo;
 	}
 	
+	@Override
+	public String getCraftNumByPartnerId(String partnerId) {
+		String craftNum = sqlsession.selectOne("craft.getCraftNumByPartnerId", partnerId);
+		return null;
+	}
+	
 	
 	// =============== 박준엽 끝 =================//
 	
