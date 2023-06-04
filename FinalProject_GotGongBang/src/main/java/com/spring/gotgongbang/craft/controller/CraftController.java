@@ -323,7 +323,7 @@ public class CraftController {
       MultipartFile craft_add_file_name = imgvo.getCraft_add_file_name();
       
       if( !fileList.isEmpty() ) {
-
+/*
     	  if(!craft_add_file_name.isEmpty()) {
 	    	  imgvo.getCraft_add_file_name();
 	    	  cvo.setImgvo(imgvo);
@@ -333,9 +333,9 @@ public class CraftController {
     	  
     	  
     	  n = service.add_withFile(cvo);
-
+*/
       }else {
-         
+         n = service.add_withFile(cvo); 
       }
       
       
