@@ -9,7 +9,28 @@
     	margin: 0 auto;
     	padding-bottom: 200px;
     	width: 588px;
+	}	
+	.login-search__header {
+	    border-bottom: 3px solid #000;
+	    overflow: hidden;
+	    padding: 120px 0 40px;
+	    text-align: center;
 	}
+	.login-search__title {
+	    color: #000;
+	    font-size: 48px;
+	    font-weight: 700;
+	    line-height: 1;
+	}
+	.login-search__description {
+	    font-size: 20px;
+	    letter-spacing: -.4px;
+	    padding-top: 20px;
+	}
+	.login-search__filedset {
+	    padding: 40px 0;
+	}
+	
 </style>
 
 <div id="content">
@@ -22,7 +43,7 @@
 				<input type="hidden" name="_csrf" value="3b981f99-60cf-4efb-a9a4-aac4fbb8b58c">
 				<input type="hidden" name="auth_type" value="SI">
 				<fieldset class="login-search__filedset">
-					<legend class="login-search__legend">아이디 찾기</legend>
+
 					<div class="form-field">
 						<h3 class="form-field__title form-field__title--hidden">이름</h3>
 						<input class="form-input" type="text" name="user_name" title="이름 입력" placeholder="이름을 입력하세요.">
@@ -47,6 +68,7 @@
 				</div>
 			</form>
 		</section>
+		
 		<section class="login-related login-related--hide">
 			<header class="login-related__header">
 				<h2 class="login-related__title">아이디 확인</h2>

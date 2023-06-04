@@ -123,7 +123,14 @@ values(1, 'ptest','진솔공방','01090081351', '김진솔', 'imagejs.png',
 	where partner_id_fk = #{partnerId}
 </select>
 
+<insert id="insertEstimate" parameterType="HashMap">
+	insert into ESTIMATE(estimate_num_pk, order_num_fk, craft_num_fk, estimate_price, estimate_period, order_status, erimate_proposal_date)
+	values(seq_estimate_num_pk.nextval, TO_NUMBER(#{order_num_fk}), TO_NUMBER(#{craft_num_fk}), TO_NUMBER(#{estimate_price}), TO_NUMBER(#{estimate_period}), default, sysdate)
+</insert>
 
+<select id="checkEstimateExists" parameterType="HashMap" resultType="int">
+	select count(*) from estimate where order_num_fk = #{order_num_fk} and craft_num_fk = #{craft_num_fk}
+</select>
 
 <!--==================== 박준엽 끝 ====================== -->
 
