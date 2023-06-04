@@ -108,6 +108,12 @@
 	where order_num_pk = #{orderNum}
 </select>
 
+<select id="getCraftNumByPartnerId" parameterType="String" resultType="String">
+	select craft_num_pk
+	from CRAFT
+	where partner_id_fk = #{partnerId}
+</select>
+
 
 
 <!--==================== 박준엽 끝 ====================== -->

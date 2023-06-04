@@ -751,7 +751,7 @@ div.contents-review-promotional {
 .cont-proposal {
 	display: flex;
     justify-content: right;
-    margin-top: 40px;
+    margin-top: 55px;
 }
 
 .cont-proposal h3 {
@@ -768,26 +768,46 @@ div.contents-review-promotional {
 }
 
 .cont-bid-final {
+	margin-top: 90px;
+    height: 170px;
 	display: flex;
 	justify-content: center;
-	color: white;
-	font-size: 20px;
-	margin-top: 50px;
 }
 
-.cont-bid-final a {
+.btn-return {
 	width: 190px;
 	height: 60px;
-	background-color: #400099;
+	background-color: #fff;
+	color: #400099;
+	font-size: 20px;
 	justify-content: center;
     display: flex;
     align-items: center;
     border-radius: 6px;
-    
+    border: 1px solid #400099;
 }
 
-.cont-bid-final a:hover {
-	box-shadow: 1px 1px 1px black;
+.btn-return:hover {
+	font-weight: 500;
+	color: #400099;
+}
+
+.btn-bid {
+	width: 190px;
+	height: 60px;
+	background-color: #400099;
+	color: white;
+	font-size: 20px;
+	justify-content: center;
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+    margin-left: 120px;
+}
+
+.btn-bid:hover {
+	font-weight:500;
+	color: white;
 }
 
 .tbl-myPageList .btn-save-state {

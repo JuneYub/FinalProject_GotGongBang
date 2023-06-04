@@ -402,6 +402,7 @@ public class CraftController {
       
       String pageBar = makePageBar(currentShowPageNoForEstimate, 10, totalPageForEstimate);
       
+      mav.addObject("currentShowPageNo", currentShowPageNoForEstimate);
       mav.addObject("pageBar", pageBar);
       mav.addObject("ovoList", ovoList);
       mav.setViewName("/craft/estimateInquiryList.tiles1");
@@ -412,9 +413,32 @@ public class CraftController {
    public ModelAndView bid(ModelAndView mav, HttpServletRequest request) {
 	  String orderNum = request.getParameter("order_num");
 	  OrderVO ovo = service.getOrderInfoByOrderNum(orderNum);
+	  String currentShowPageNo = request.getParameter("currentShowPageNo");
+	  
+	  mav.addObject("currentShowPageNo", currentShowPageNo);
+	  mav.addObject("orderNum", orderNum);
 	  mav.addObject("ovo", ovo);
       mav.setViewName("/craft/bid.tiles1");
       return mav;
+   }
+   
+   @RequestMapping(value="/estimate_inquiry_list/bid_end.got")
+   public ModelAndView bidEnd(ModelAndView mav, HttpServletRequest request) {
+	  String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+	  String craftNum = service.getCraftNumByPartnerId(partnerId);
+	  
+	  HashMap<String, String> paraMap = new HashMap<String, String>();
+	  String proposalDuration = request.getParameter("proposalDuration");
+	  String proposalPrice = request.getParameter("proposalPrice");
+	  String orderNum =  request.getParameter("order_num");
+	  
+	  paraMap.put("order_num_fk", orderNum);
+	  paraMap.put("craft_num_fk", craftNum);
+	  paraMap.put("estimate_price", proposalPrice);
+	  paraMap.put("estimate_estimate_period", proposalDuration);
+	  
+	  
+	  return mav;
    }
    
    @RequestMapping(value="/repair_history_list.got")

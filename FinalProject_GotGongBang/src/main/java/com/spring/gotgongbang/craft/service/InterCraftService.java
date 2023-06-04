@@ -1,5 +1,6 @@
 package com.spring.gotgongbang.craft.service;
 
+import java.util.HashMap;
 import java.util.List;
 import com.spring.gotgongbang.craft.model.CraftVO;
 import java.util.Map;
@@ -44,6 +45,10 @@ public interface InterCraftService {
 	int getTotalCountForEstimate();
 
 	OrderVO getOrderInfoByOrderNum(String orderNum);
+	
+	String getCraftNumByPartnerId(String partnerId);
+	
+	int insertEstimate(HashMap<String, String> paraMap);
 	
 	// ==== ==================================== 박준엽 끝 ======================================================= //
 

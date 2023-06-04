@@ -96,7 +96,7 @@
 						</td>
 	
 						<td>
-						<button class="btn-estimateDetail" onclick="location.href='<%=ctxPath%>/estimate_inquiry_list/bid.got?order_num=${ovo.order_num_pk}';">상세보기</button>
+						<button class="btn-estimateDetail" onclick="location.href='<%=ctxPath%>/estimate_inquiry_list/bid.got?order_num=${ovo.order_num_pk}&currentShowPageNo=${requestScope.currentShowPageNo}';">상세보기</button>
 						<div>견적제안 대기중</div>
 						</td>
 						</tr>
