@@ -21,6 +21,9 @@ $(window).scroll(function() {
 	  });
 });
 
+
+
+
 </script>
 
 
@@ -42,7 +45,7 @@ $(window).scroll(function() {
         				<div class="master_detail_1_sub1">
         					<div class="sub1_child">
         						<div class="sub1_1_1">
-			        				<p>공방명 | ${craftvo_2.craft_name}</p>
+			        				<p>공방명 | ${requestScope.craftvo_2.get(0).get("craft_name").craft_name}</p>
 			        				<p>대표자 | ${craftvo_2.representative}</p>
 			        				<p>위치 | 서울특별시 종로구</p>
 			        				<p>연락처 | 02-123-1234</p>

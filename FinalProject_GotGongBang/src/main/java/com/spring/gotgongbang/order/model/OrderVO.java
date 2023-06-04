@@ -15,10 +15,12 @@ public class OrderVO {
 	private String brand_name;		//브랜드
 	private String request_explain;	//수선요청사항설명
 	private String requests;		// 수선요청사항들
+	private String orderer; 		// 견적 요청 하신 분 이름
+	private String order_product_type; // 견적 요청에 대한 품목명
 	
 	// 이미지 테이블들
-	private List<MultipartFile> whole_img_name;		//전체이미지
-	private List<MultipartFile> detail_img_name;	//상세이미지
+	private List<WholeImgVO> wholeImgList;		//전체이미지
+	private List<DetailImgVO> detailImgList;	//상세이미지
 	
 
 	public int getOrder_num_pk() {
@@ -71,26 +73,6 @@ public class OrderVO {
 	}
 
 
-	public List<MultipartFile> getWhole_img_name() {
-		return whole_img_name;
-	}
-
-
-	public void setWhole_img_name(List<MultipartFile> whole_img_name) {
-		this.whole_img_name = whole_img_name;
-	}
-
-
-	public List<MultipartFile> getDetail_img_name() {
-		return detail_img_name;
-	}
-
-
-	public void setDetail_img_name(List<MultipartFile> detail_img_name) {
-		this.detail_img_name = detail_img_name;
-	}
-
-
 	public String getRequests() {
 		return requests;
 	}
@@ -99,6 +81,50 @@ public class OrderVO {
 	public void setRequests(String requests) {
 		this.requests = requests;
 	}
+
+
+	public List<WholeImgVO> getWholeImgList() {
+		return wholeImgList;
+	}
+
+
+	public void setWholeImgList(List<WholeImgVO> wholeImgList) {
+		this.wholeImgList = wholeImgList;
+	}
+
+
+	public List<DetailImgVO> getDetailImgList() {
+		return detailImgList;
+	}
+
+
+	public void setDetailImgList(List<DetailImgVO> detailImgList) {
+		this.detailImgList = detailImgList;
+	}
+
+
+	public String getOrderer() {
+		return orderer;
+	}
+
+
+	public void setOrderer(String orderer) {
+		this.orderer = orderer;
+	}
+
+
+	public String getOrder_product_type() {
+		return order_product_type;
+	}
+
+
+	public void setOrder_product_type(String order_product_type) {
+		this.order_product_type = order_product_type;
+	}
+
+
+
+	
 
 	
 	/////////////////// ====== 이지현 끝 ===== ///////////////////////

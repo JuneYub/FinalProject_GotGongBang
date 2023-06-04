@@ -10,12 +10,15 @@
 <script>
 
 	$(document).ready(function() {
-		
+		Fancybox.bind("[data-fancybox]", {
+			 
+		});
 		
 	});
 	
-	function openBidPage() { // 파라미터로 공방 아이디랑 견적 아이디를 받을 예정
-		url = "<%= ctxPath%>/estimate_inquiry_list/bid.got";
+	function openBidPage(order_num) { // 파라미터로 공방 아이디랑 견적 아이디를 받을 예정
+		
+		url = "<%= ctxPath%>/estimate_inquiry_list/bid.got?order_num="+order_num;
 		const pop_width = 600;
 		const pop_height = 700;
 		const pop_left = Math.ceil( (window.screen.width - pop_width)/2);
@@ -55,7 +58,22 @@
 						<c:forEach var="ovo" items="${requestScope.ovoList}">
 						<tr>
 						<td>
-							<div class="img-estimate"></div>
+							<div class="img-estimate">
+							<c:forEach var="wholeImg" items="${ovo.wholeImgList}" varStatus="wholeIdx">
+								<c:if test="${wholeIdx.index eq 0}">
+								<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_name}" data-fancybox="gallery${status.index}" >
+									<img src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_name}" />
+								</a>
+								</c:if>
+
+								<c:if test="${wholeIdx.index ne 0}">
+								<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_name}" data-fancybox="gallery${status.index}" >
+									<img style="display: none" src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_name}" />
+								</a>
+								</c:if>
+							</c:forEach>
+
+							</div>
 						</td>
 	
 						<td>
@@ -78,7 +96,7 @@
 						</td>
 	
 						<td>
-						<button class="btn-estimateDetail" onclick="openBidPage()">상세보기</button>
+						<button class="btn-estimateDetail" onclick="location.href='<%=ctxPath%>/estimate_inquiry_list/bid.got?order_num=${ovo.order_num_pk}&currentShowPageNo=${requestScope.currentShowPageNo}';">상세보기</button>
 						<div>견적제안 대기중</div>
 						</td>
 						</tr>
