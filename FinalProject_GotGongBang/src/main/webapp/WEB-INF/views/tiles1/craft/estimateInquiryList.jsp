@@ -97,7 +97,12 @@
 	
 						<td>
 						<button class="btn-estimateDetail" onclick="location.href='<%=ctxPath%>/estimate_inquiry_list/bid.got?order_num=${ovo.order_num_pk}&currentShowPageNo=${requestScope.currentShowPageNo}';">상세보기</button>
-						<div>견적제안 대기중</div>
+						<c:if test="${ovo.proposal_stat >= 1}">
+						<div class="proposal-stat-impossible">견적제안 완료</div>
+						</c:if>
+						<c:if test="${ovo.proposal_stat == 0}">
+						<div class="proposal-stat-possible">견적제안 대기중</div>
+						</c:if>
 						</td>
 						</tr>
 						</c:forEach>
