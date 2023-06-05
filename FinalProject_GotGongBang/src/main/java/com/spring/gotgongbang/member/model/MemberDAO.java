@@ -1,5 +1,6 @@
 package com.spring.gotgongbang.member.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -33,6 +34,16 @@ public class MemberDAO implements InterMemberDAO {
 		int n = sqlsession.selectOne("member.isIdDuplicate", id);
 		return n;
 	}
+	
+	// ====== 박준엽 시작 =========================================== //
+
+	@Override
+	public List<HashMap<String, String>> getProposalListByUserId(HashMap<String, String> paraMap) {
+		List<HashMap<String, String>> proposalList = sqlsession.selectList("member.getProposalListByUserId", paraMap);
+		return proposalList;
+	}
+	
+	// ====== 박준엽 끝 =========================================== //
 
 	
 	
