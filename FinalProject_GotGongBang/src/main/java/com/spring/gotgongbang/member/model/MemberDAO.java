@@ -54,7 +54,7 @@ public class MemberDAO implements InterMemberDAO {
 	// 로그인 기록
 	@Override
 	public void recordLoginDate(String userid, Timestamp loginDate) {
-		Map<String, Object> paraMap = new HashMap<String, Object>();
+		Map<String, Object> paraMap = new HashMap<>();
 		paraMap.put("userid", userid);
 		paraMap.put("loginDate", loginDate);
         sqlsession.insert("member.recordLoginDate", paraMap);
