@@ -849,6 +849,14 @@ ul:has(li.requests-item) {
     font-weight: 400;
 }
 
+.proposal-stat-impossible, .proposal-stat-possible {
+	font-size: 15px;
+}
+
+.proposal-stat-impossible {
+	color: red;
+}
+
 .tbl-edit-myInfo {
 	border-top: 2px solid black;
 	width: 100%;
