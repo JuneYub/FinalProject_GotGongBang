@@ -42,6 +42,7 @@
 	        alert("아이디를 입력하세요!!");
 	       $("input#loginUserid").val(""); 
 	       $("input#loginUserid").focus();
+	       console.log(userid);
 	       return; // 종료 
 	     }
 	     
@@ -50,6 +51,7 @@
 	       alert("비밀번호를 입력하세요!!");
 	       $("input#loginPwd").val(""); 
 	       $("input#loginPwd").focus();
+	       console.log(pwd);
 	       return; // 종료 
 	     }
 	     
@@ -58,6 +60,7 @@
 	     frm.action = "<%= ctxPath%>/admin_login.got";
 	     frm.method = "post";
 	     frm.submit();
+	     
 	     
 	}//end of function func_Login()------------------------------------------------------------
 
