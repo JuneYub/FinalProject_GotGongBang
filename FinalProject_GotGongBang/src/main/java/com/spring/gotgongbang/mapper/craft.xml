@@ -120,7 +120,7 @@
 </select>
 
 <insert id="insertEstimate" parameterType="HashMap">
-	insert into ESTIMATE(estimate_num_pk, order_num_fk, craft_num_fk, estimate_price, estimate_period, order_status, erimate_proposal_date)
+	insert into ESTIMATE(estimate_num_pk, order_num_fk, craft_num_fk, estimate_price, estimate_period, order_status, estimate_proposal_date)
 	values(seq_estimate_num_pk.nextval, TO_NUMBER(#{order_num_fk}), TO_NUMBER(#{craft_num_fk}), TO_NUMBER(#{estimate_price}), TO_NUMBER(#{estimate_period}), default, sysdate)
 </insert>
 
