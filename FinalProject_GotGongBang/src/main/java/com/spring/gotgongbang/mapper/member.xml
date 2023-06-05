@@ -63,5 +63,11 @@
 		where user_id_pk = #{userid}
     </select>
     
+    <update id="updateMemberInfoByMVO" parameterType="com.spring.gotgongbang.member.model.MemberVO">
+    	UPDATE MEMBER SET name = #{name}, email = #{email}, mobile = #{mobile}, post_code = #{post_code}, address = #{address},
+		detail_address = #{detail_address}, extra_address = #{extra_address}, birthday = to_date(#{birthday}, 'YYYY-MM-DD')
+		WHERE user_id_pk = #{user_id_pk}
+    </update>
+    
     <!--==================== 박준엽 끝 ====================== -->
 </mapper>
