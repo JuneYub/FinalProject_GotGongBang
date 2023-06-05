@@ -80,7 +80,7 @@
 							<div class="txt-estimate-info">
 							<ul>
 								<li><div class="estimate-info-tit">의뢰 날짜 :</div> 	<strong>${ovo.order_date}</strong></li>
-								<li><div class="estimate-info-tit">품목명 :</div> 		<strong>${ovo.order_num_pk}</strong></li>
+								<li><div class="estimate-info-tit">품목명 :</div> 		<strong>${ovo.order_product_type}</strong></li>
 								<li><div class="estimate-info-tit">브랜드 :</div> 		<strong>${ovo.brand_name}</strong></li>
 								<li><div class="estimate-info-tit">수선 유형 :</div>
 									<c:if test="${not empty ovo.requests and ovo.requests ne ' '}">
