@@ -176,7 +176,9 @@ function goView(seq) {
 			<div class="grid--large">
 				<div class="catalog-wrapper">
 					<h2 class="catalog-title">가방/핸드백 </h2>
-						<c:forEach var="craftvo" items="${requestScope.craftsList}">
+						<c:forEach var="craftvo" items="${requestScope.craftsList}" varStatus="status">
+						
+						<c:if test="${status.count/10<=1}">
 							<c:choose>	
 								<c:when test="${craftvo.craft_specialty eq '가방/핸드백'}">
 									<ul class="grid">
@@ -197,6 +199,7 @@ function goView(seq) {
 									</ul>
 								</c:when>
 							</c:choose>
+							</c:if>
 						</c:forEach>
 							
 					
@@ -266,6 +269,7 @@ function goView(seq) {
 				<div class="catalog-wrapper">
 					<h2 class="catalog-title">지갑/벨트 </h2>
 						<c:forEach var="craftvo" items="${requestScope.craftsList}">
+						<c:if test="${status.count<=1}">
 							<c:choose>	
 								<c:when test="${craftvo.craft_specialty eq '지갑/벨트'}">
 									<ul class="grid">
@@ -286,6 +290,7 @@ function goView(seq) {
 									</ul>
 								</c:when>
 							</c:choose>
+							</c:if>
 						</c:forEach>
 							
 					
