@@ -2538,7 +2538,7 @@ flex-basis: 50px;
 	color: #000;
 	font-size: 52px;
 	font-weight: 700;
-	width: 35%;
+	width: 25%;
 }
 
 
@@ -2579,12 +2579,12 @@ button.searchBtn {
 	background: url(https://hyphen.im/assets/images/product/icon_search.png) no-repeat 50%/30px auto;
 	height: 30px;
 	width: 30px;
-	/* border: 0; */
+	border: 0;
 	cursor: pointer;
 }
 
 ul.keyWord {
-	margin: 0 auto;
+	margin: 20px 500px;
 	/* border: solid 1px red; */
 }
 ul.keyWord > li {
@@ -2600,8 +2600,10 @@ ul.keyWord > li > a{
 	padding-right: 10px;
 }
 ul.keyWord > li:hover {
-	color: #fff;
 	background-color: #ccc;
+}
+ul.keyWord > li:hover > a {
+	color: #fff;
 	text-decoration: none;
 }
 /* [영역1] "수선사 찾기" 박스 영역 끝 ==================================================================================== */
@@ -2672,7 +2674,7 @@ swiper-slide img {
         border: solid 1px #e6e6e6;
 }
 .topMenu .menuLink {                              
-	text-decoration:none;                      
+	text-decoration:none;  
 	color: #999;                             
 	display: block;    /* 링크를 글씨가 있는 부분 뿐만아니라 전체 영역을 클릭해도 링크가 걸리게 설정 */
 	width: 240px;      /* 메뉴링크의 넓이 설정 */
@@ -2680,9 +2682,9 @@ swiper-slide img {
 	font-weight: bold;                        
 }
 .topMenu .menuLink:hover {            
-	color: #999;                   
-	border: solid 1px #400099;
-	font-weight: 700;
+	color: #400099;                   
+	border: solid 2px #400099;
+	font-weight: bold;
 }
 /* [영역4] "상단메뉴바" 영역 끝 ==================================================================================== */
 

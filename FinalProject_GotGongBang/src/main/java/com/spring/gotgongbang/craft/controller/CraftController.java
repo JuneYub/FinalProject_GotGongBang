@@ -52,7 +52,7 @@ public class CraftController {
    public ModelAndView craftDetail(ModelAndView mav, HttpServletRequest request) {
 	  //request.getParameter("")
       mav.setViewName("/craft/craft_detail.tiles1");
-//    mav.addObject("craftvo_2", craftvo_2);
+ //     mav.addObject("craftvo_2", craftvo_2);
       
       return mav;
    }
