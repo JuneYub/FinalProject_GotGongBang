@@ -9,7 +9,7 @@ public interface InterAdminDAO {
 //	boolean loginCheck(AdminVO avo) throws Exception;   //로그인을 체크하는 메소드
 	
 	//로그인 처리하기
-	AdminVO getLoginMember(Map<String, String> paraMap);
+	String getLoginMember(Map<String, String> paraMap);
 	
 	// ==== ==================================== 김나윤 끝 ======================================================= // 
 }

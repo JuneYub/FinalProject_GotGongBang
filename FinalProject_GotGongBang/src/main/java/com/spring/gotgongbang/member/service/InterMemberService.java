@@ -1,5 +1,7 @@
 package com.spring.gotgongbang.member.service;
 
+import java.util.*;
+
 import com.spring.gotgongbang.member.model.MemberVO;
 
 public interface InterMemberService {
@@ -15,5 +17,13 @@ public interface InterMemberService {
 
 	// 아이디 중복 확인 AJAX 요청 처리
 	boolean isIdDuplicate(String id);
+	
+	
+	// ======== 박준엽 시작 ========================================== //
+	
+	List<HashMap<String, String>> getProposalListByUserId(HashMap<String, String> paraMap);
 
+	MemberVO getUserInfoByUserId(String userid);
+	
+	// ====== 박준엽 끝 =========================================== //
 }

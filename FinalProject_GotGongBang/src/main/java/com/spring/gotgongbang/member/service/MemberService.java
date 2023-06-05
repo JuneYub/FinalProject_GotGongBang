@@ -3,6 +3,8 @@ package com.spring.gotgongbang.member.service;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +68,20 @@ public class MemberService implements InterMemberService {
 	public boolean isIdDuplicate(String id) {
 		int n = dao.isIdDuplicate(id);
 		return n > 0;
+	}
+
+	// =========== 박준엽 시작 =========================================== //
+	
+	@Override
+	public List<HashMap<String, String>> getProposalListByUserId(HashMap<String, String> paraMap) {
+		List<HashMap<String, String>> proposalList = dao.getProposalListByUserId(paraMap);
+		return proposalList;
+	}
+
+	@Override
+	public MemberVO getUserInfoByUserId(String userid) {
+		MemberVO mvo = dao.getUserInfoByUserId(userid);
+		return mvo;
 	}
 
 	
