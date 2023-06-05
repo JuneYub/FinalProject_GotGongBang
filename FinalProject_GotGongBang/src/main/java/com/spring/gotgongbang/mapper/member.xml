@@ -4,18 +4,58 @@
 
 <mapper namespace="member">
 
+	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="com.spring.gotgongbang.member.model.MemberVO">
-		insert into MEMBER (user_id_pk, name, pwd, email, mobile, post_code, address,detail_address, extra_address, gender, birthday,mileage, registerday, last_pwd_change, idle, pwd_change_required, status)
+		insert into MEMBER (user_id_pk, name, pwd, email, mobile, post_code, address, detail_address, extra_address, gender, birthday, mileage, registerday, last_pwd_change, idle, pwd_change_required, status)
 		values(#{user_id_pk},#{name},#{pwd},#{email},#{mobile},#{post_code},#{address},#{detail_address},#{extra_address},#{gender},#{birthday},default,default,default,default,default,default)
 	</insert>
 	
 	
+	<!-- 이메일 중복 체크 -->
 	<select id="isEmailDuplicate" resultType="int">
         SELECT COUNT(*) FROM MEMBER WHERE email = #{email}
     </select>
 	
 	
+	<!-- 아이디 중복 체크 -->
 	<select id="isIdDuplicate" resultType="int">
         SELECT COUNT(*) FROM MEMBER WHERE user_id_pk = #{user_id_pk}
     </select>
+    
+    
+    <!-- 로그인 처리 -->
+    <select id="getLoginMember" parameterType="HashMap" resultType="com.spring.gotgongbang.member.model.MemberVO">
+    	select user_id_pk, name, email, mobile, post_code, address, detail_address, extra_address, gender,
+		    birthday, mileage, registerday, idle,
+		    pwdchangegap,
+		    NVL(lastlogingap, trunc( months_between(sysdate, registerday) ) ) AS lastlogingap
+		from 
+		( 
+		select user_id_pk, name, email, mobile, post_code, address, detail_address, extra_address, gender 
+		     , birthday
+		     , mileage, to_char(registerday, 'yy/mm/dd') AS registerday, idle
+		     , trunc( months_between(sysdate, last_pwd_change) ) AS pwdchangegap 
+		 from MEMBER 
+		 where status = 1 and user_id_pk = #{userid} and pwd = #{pwd} 
+		 ) M 
+		 CROSS JOIN 
+		 ( 
+		 select trunc( months_between(sysdate, max(login_date)) ) AS lastlogingap 
+		 from LOGIN_HISTORY 
+		 where user_id_pk_pk = #{userid} 
+		 ) H
+    </select>
+    
+   <!--  MEMBER 테이블의 idle 컬럼의 값을 1로 변경  -->
+    <update id="updateIdle" parameterType="String">
+		update MEMBER set idle = 1
+		where user_id_pk = #{userid}
+	</update>
+	
+	<!-- 로그인 기록 -->
+	<insert id="recordLoginDate" parameterType="HashMap">
+        insert into LOGIN_HISTORY (user_id_pk_pk, login_date)
+        values (#{userid}, #{loginDate})
+    </insert>
+     
 </mapper>
