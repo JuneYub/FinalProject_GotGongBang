@@ -29,7 +29,7 @@
                         <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/orderForm.got'">견적 의뢰</a>
                     </li>
                     <li>
-                        <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/Boardinquiry.got'">고객센터</a>
+                        <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/board_inquiry.got'">고객센터</a>
                     </li>
                 </ul>
                 

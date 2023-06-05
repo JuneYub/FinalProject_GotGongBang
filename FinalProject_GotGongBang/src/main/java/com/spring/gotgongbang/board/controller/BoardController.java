@@ -53,8 +53,8 @@ public class BoardController {
 	// 오준혁 시작
 	// ===========================================================================
 	
-	// 고객센터 페이지 불러오기
-	@RequestMapping(value="/Boardinquiry.got")
+	// 고객센터_온라인문의 페이지 불러오기
+	@RequestMapping(value="/board_inquiry.got")
 	public ModelAndView getBoardInquiry(ModelAndView mav) {
 		
 		mav.setViewName("/board/board_inquiry.tiles1");
@@ -64,16 +64,16 @@ public class BoardController {
 	}
 	
 	// 공지사항 페이지 불러오기
-	@RequestMapping(value="/BoardNotice.got")
+	@RequestMapping(value="/board_notice.got")
     public ModelAndView getBoardNotice(ModelAndView mav) {
 		
-		mav.setViewName("/board/board_Notice.tiles1");
+		mav.setViewName("/board/board_notice.tiles1");
 		
 		return mav;
 	}
 	
 	// 질문게시판 페이지 불러오기
-	@RequestMapping(value="/BoardQuestion.got")
+	@RequestMapping(value="/board_question.got")
     public ModelAndView getBoardQuestion(ModelAndView mav, HttpServletRequest request) {
 		
 		List<InquiryVO> iqList = null;
@@ -160,7 +160,7 @@ public class BoardController {
 		// *** !! 공식이다. !! *** //
 		
 		String pageBar = "<ul style='list-style: none;'>";
-		String url = "BoardQuestion.got";
+		String url = "board_question.got";
 		
 		// === [맨처음][이전] 만들기 === //
 		if(pageNo != 1) {
@@ -202,7 +202,7 @@ public class BoardController {
 	}
 	
 	// FAQ 페이지 불러오기
-	@RequestMapping(value="/BoardFaq.got")
+	@RequestMapping(value="/board-faq.got")
     public ModelAndView getBoardFaq(ModelAndView mav) {
 		
 		mav.setViewName("/board/board_BoardFaq.tiles1");
@@ -211,7 +211,7 @@ public class BoardController {
 	}
 	
 	// 온라인 문의 완료
-	@RequestMapping(value="/BoardinquiryEnd.got", method={RequestMethod.POST})
+	@RequestMapping(value="/board_inquiryEnd.got", method={RequestMethod.POST})
 	public ModelAndView pointPlus_iqEnd(Map<String, String> paraMap, ModelAndView mav, InquiryVO iqvo, MultipartHttpServletRequest request) {
 		
 		MultipartFile attach = iqvo.getAttach();
