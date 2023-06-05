@@ -68,7 +68,7 @@
 							<ul>
 								<li><div class="proposal-info-tit">품목명 :</div> 		<strong>${proposal.order_product_type}</strong></li>
 								<li><div class="proposal-info-tit">브랜드 :</div> 		<strong>${proposal.brand_name}</strong></li>
-								<li><div class="proposal-info-tit">수선 유형 :</div>
+								<li class="requests-cont"><div class="proposal-info-tit">수선 유형 :</div>
 									<c:if test="${not empty proposal.requests and proposal.requests ne ' '}">
 									  <ul>
 									    <c:forTokens var="requests" items="${proposal.requests}" delims=",">
