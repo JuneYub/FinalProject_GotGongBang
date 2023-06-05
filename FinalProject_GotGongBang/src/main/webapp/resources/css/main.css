@@ -754,6 +754,11 @@ div.contents-review-promotional {
     margin-top: 55px;
 }
 
+.cont-proposalEnd {
+	text-align: center;
+    margin: 120px 0 160px 0;
+}
+
 .cont-proposal h3 {
 	display: inline-block;
 }
@@ -842,6 +847,14 @@ ul:has(li.requests-item) {
     margin-left: 5px;
     border: 1px solid #400099;
     font-weight: 400;
+}
+
+.proposal-stat-impossible, .proposal-stat-possible {
+	font-size: 15px;
+}
+
+.proposal-stat-impossible {
+	color: red;
 }
 
 .tbl-edit-myInfo {

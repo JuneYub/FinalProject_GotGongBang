@@ -22,24 +22,6 @@
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 
-	let Flag1 = false, Flag2 = false, Flag3 = false, Flag4 = false, Flag5 = false;	// 버튼확장 체크
-	
-	// === 회원정보 입력 체크 === //
-	let flag_input_name = false;
-	let flag_input_phone = false;
-	let flag_input_email = false;
-	let flag_input_id = false;
-	let flag_input_passwd = false;
-	let flag_input_passwd_check = false;
-	let id_check = false;
-	let flag_input_birth = false;
-	// === 회원정보 입력 체크 === //
-	
-	// === 이메일 인증번호 입력 체크 === //
-	let code = "";
-	
-	// === 사용자가 작성한 이메일 === //
-	let user_email = "";
 	
 	// 버튼 클릭시 자동적으로 상단스크롤
 	function topScrollFunction() {
@@ -50,16 +32,8 @@
 	
 	$(document).ready(function(){
 	
-		/* 네번째 화면 버튼 */
-		// 보내기 버튼
-     	<%-- $("button#yh_button").click(function(){
-		// 폼(form)을 전송(submit)
-            const frm = document.addFrm;
-            frm.method = "post";
-            frm.action = "<%= ctxPath%>/addEnd.action";
-            frm.submit();
-		/* 네번째 화면 버튼 */
-     	} --%>
+		
+	}
 	
 </script>
 
@@ -87,48 +61,11 @@
 						회원가입이 완료되었습니다.<br>
 						<strong class="sign-up__step-title--point">메일로 발송된 보안키</strong>로 상품이용이 가능합니다.
 					</h3>
-				</div>
-				<div class="sign-up__step-body">
-					<div class="sign-up__complete-content">
-						<h4 class="sign-up__complete-title">회원정보</h4>
-						<dl class="sign-up__complete-list">
-							<dt class="sign-up__complete-term">아이디</dt>
-							<dd class="sign-up__complete-description" data-field-complete="user_id"></dd>
-							<dt class="sign-up__complete-term">사용자 이름</dt>
-							<dd class="sign-up__complete-description" data-field-complete="user_name"></dd>
-							<dt class="sign-up__complete-term">휴대전화번호</dt>
-							<dd class="sign-up__complete-description" data-field-complete="user_phone"></dd>
-							<dt class="sign-up__complete-term">이메일 주소</dt>
-							<dd class="sign-up__complete-description" data-field-complete="user_email"></dd>
-						</dl>
-					</div>
-				</div>
-				<div class="sign-up__step-body">
-					<div class="sign-up__complete-content">
-						<h4 class="sign-up__complete-title">회사정보</h4>
-						<dl class="sign-up__complete-list">
-							<dt class="sign-up__complete-term">회사명</dt>
-							<dd class="sign-up__complete-description" data-field-complete="company_name"></dd>
-							<dt class="sign-up__complete-term">대표자명</dt>
-							<dd class="sign-up__complete-description" data-field-complete="ceo_name"></dd>
-							<dt class="sign-up__complete-term">사업자등록번호</dt>
-							<dd class="sign-up__complete-description" data-field-complete="company_regNo"></dd>
-						</dl>
-					</div>
+					<br>
+					<h4 style="font-size: 11pt;">회원님은 GOTGONGBANG의 모든 기능을 사용하실 수 있습니다.</h4>
 				</div>
 				<div class="sign-up__step-buttons"><a class="sign-up__step-button button" href="<%= ctxPath%>/login.got">로그인하기</a></div>
 			</div>
-			<form class="sign-up__success" method="post" action="/user/sign-up-result">
-				<input type="hidden" name="user_id">
-				<input type="hidden" name="_csrf" value="3886e5ea-8f5a-4bb8-a876-37a0622cc718">
-			</form>
-			
-			<form class="js-form-self-certify" method="post" action="/self-certify">
-				<input type="hidden" name="user_email">
-				<input type="hidden" name="_csrf" value="3886e5ea-8f5a-4bb8-a876-37a0622cc718">
-				<input type="hidden" name="return_url" value="https://www.GOTGONGBANG.im/self-certify/return">
-				<input type="hidden" name="cancel_url" value="https://www.GOTGONGBANG.im/self-certify/cancel">
-			</form>
 		</section>
 </div>
 	
@@ -140,4 +77,3 @@
     <!--본문 끝 -->
 
 </body>
-</html>

@@ -9,8 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -86,6 +88,22 @@ public class MemberController {
 	
 		}
 		
+		
+		// 이메일 중복 확인 AJAX 요청 처리
+		@ResponseBody
+		@GetMapping("/check_email.got")	    
+	    public boolean checkEmail(@RequestParam("email") String email) {
+	        return service.isEmailDuplicate(email);
+	    }
+	    
+	    // 아이디 중복 확인 AJAX 요청 처리
+	    @ResponseBody
+	    @GetMapping("/check_id.got")
+	    public boolean checkId(@RequestParam("id") String id) {
+	        return service.isIdDuplicate(id);
+	    }
+		
+		
 		// 이메일 인증
 		@ResponseBody
 	    @RequestMapping(value="/member/email_check.got")
@@ -107,6 +125,9 @@ public class MemberController {
 		// 회원가입 post
 		@RequestMapping(value="/register.got", method=RequestMethod.POST)
 		public String register(MemberVO membervo) {
+			
+			System.out.println("들어옴");
+			service.encryptPassword(membervo);
 			
 			service.insertMember(membervo);
 			

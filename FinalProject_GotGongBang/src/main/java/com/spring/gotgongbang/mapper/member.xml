@@ -9,4 +9,13 @@
 		values(#{user_id_pk},#{name},#{pwd},#{email},#{mobile},#{post_code},#{address},#{detail_address},#{extra_address},#{gender},#{birthday},default,default,default,default,default,default)
 	</insert>
 	
+	
+	<select id="isEmailDuplicate" resultType="int">
+        SELECT COUNT(*) FROM MEMBER WHERE email = #{email}
+    </select>
+	
+	
+	<select id="isIdDuplicate" resultType="int">
+        SELECT COUNT(*) FROM MEMBER WHERE user_id_pk = #{user_id_pk}
+    </select>
 </mapper>

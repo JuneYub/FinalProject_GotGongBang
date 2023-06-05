@@ -79,3 +79,13 @@ nomaxvalue
 nominvalue
 nocycle
 nocache;
+
+-- 견적서 id 시퀀스
+create sequence seq_estimate_num_pk
+start with 1
+increment by 1
+nomaxvalue
+nominvalue
+nocycle
+nocache;
+

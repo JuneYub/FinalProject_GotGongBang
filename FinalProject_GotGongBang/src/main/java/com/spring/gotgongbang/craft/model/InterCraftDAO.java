@@ -1,5 +1,6 @@
 package com.spring.gotgongbang.craft.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +48,10 @@ public interface InterCraftDAO {
 	OrderVO getOrderInfoByOrderNum(String orderNum);
 	
 	String getCraftNumByPartnerId(String partnerId);
+	
+	int insertEstimate(HashMap<String, String> paraMap);
+	
+	int checkEstimateExists(HashMap<String, String> paraMap);
 	
 	// =============== 박준엽 끝 =================//
 	

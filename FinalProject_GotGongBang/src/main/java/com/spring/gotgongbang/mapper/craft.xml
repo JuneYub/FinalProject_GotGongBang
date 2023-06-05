@@ -34,9 +34,11 @@
 <resultMap type="com.spring.gotgongbang.order.model.OrderVO" id="getAllOrdersMap">
 	<result column="order_num_pk" property="order_num_pk"/>
 	<result column="user_id_fk" property="user_id_fk"/>
+	<result column="order_product_type" property="order_product_type"/>
 	<result column="order_date" property="order_date"/>
 	<result column="brand_name" property="brand_name"/>
 	<result column="requests" property="requests"/>
+	<result column="proposal_stat" property="proposal_stat" />
 	<collection column="order_num_pk" property="wholeImgList" javaType="java.util.List"
 	ofType="com.spring.gotgongbang.order.model.WholeImgVO" select="getWholeImagesByOrderNum"></collection>
 	
@@ -74,13 +76,16 @@
 </update>
 
 <select id="getAllOrders" parameterType="HashMap" resultMap="getAllOrdersMap">
-	select order_num_pk, user_id_fk, order_date, brand_name, requests
+	select order_num_pk, user_id_fk, order_date, brand_name, requests, order_product_type,
+	(select count(*) 
+	from estimate 
+	where order_num_fk = S.order_num_pk and craft_num_fk = 2) as proposal_stat
 	from
 	(
-	select row_number() over(order by order_num_pk desc) as rno,
-	order_num_pk, user_id_fk, to_char(order_date, 'yyyy-mm-dd') as order_date,
-	brand_name, requests
-	from orders
+		select row_number() over(order by order_num_pk desc) as rno, 
+		order_num_pk, user_id_fk, to_char(order_date, 'yyyy-mm-dd') as order_date,
+		brand_name, requests, order_product_type
+		from orders
 	) S
 	where rno between #{startRno} and #{endRno}
 </select>
@@ -114,7 +119,14 @@
 	where partner_id_fk = #{partnerId}
 </select>
 
+<insert id="insertEstimate" parameterType="HashMap">
+	insert into ESTIMATE(estimate_num_pk, order_num_fk, craft_num_fk, estimate_price, estimate_period, order_status, erimate_proposal_date)
+	values(seq_estimate_num_pk.nextval, TO_NUMBER(#{order_num_fk}), TO_NUMBER(#{craft_num_fk}), TO_NUMBER(#{estimate_price}), TO_NUMBER(#{estimate_period}), default, sysdate)
+</insert>
 
+<select id="checkEstimateExists" parameterType="HashMap" resultType="int">
+	select count(*) from estimate where order_num_fk = #{order_num_fk} and craft_num_fk = #{craft_num_fk}
+</select>
 
 <!--==================== 박준엽 끝 ====================== -->
 
