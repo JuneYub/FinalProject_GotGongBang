@@ -43,9 +43,13 @@ public class AdminService implements InterAdminService{
 	@Override
 	public ModelAndView loginEnd(ModelAndView mav, HttpServletRequest request, Map<String, String> paraMap) {
 		
-		AdminVO loginuser = dao.getLoginMember(paraMap);  //map을 넘겨준다.
+		String loginuser_id = dao.getLoginMember(paraMap);  //map을 넘겨준다.
 		
-		if(loginuser == null) {  //로그인 실패시
+		AdminVO loginuser = new AdminVO();  //AminVO 객체를 생성해서 loginuser_id 값을 넣어준다.
+		
+		loginuser.setAdmin_id_pk(loginuser_id);
+		
+		if(loginuser_id == null) {  //로그인 실패시
 			String message = "아이디 또는 비밀번호가 일치하지 않습니다. 확인 후 다시 입력해 주시기 바랍니다.";
 			String loc = "javascript:history.back()";
 			

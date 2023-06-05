@@ -112,6 +112,8 @@ public class AdminController {
 		Map<String, String> paraMap = new HashMap<String, String>();  //아이디, 비번을 Map에 담아 넘겨줌
 		paraMap.put("userid", userid);
 		paraMap.put("pwd", Sha256.encrypt(pwd));  //이때 비번 값은 암호화하여 전달함
+//		System.out.println(Sha256.encrypt(pwd));
+		//e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 		
 		mav = service.loginEnd(mav, request, paraMap);  //서비스단의 loginEnd메소드 
 		return mav;   //ModelAndView의 리턴값은 mav

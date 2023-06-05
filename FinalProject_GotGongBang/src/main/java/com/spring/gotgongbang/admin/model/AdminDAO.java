@@ -28,9 +28,9 @@ public class AdminDAO implements InterAdminDAO{
 	
 	// === #46. 로그인 처리하기 === //
 	@Override
-	public AdminVO getLoginMember(Map<String, String> paraMap) {
-		AdminVO loginuser = sqlsession.selectOne("admin.getLoginMember", paraMap);   //1명만 select해오기 때문에 selectOne()을 사용한다. paraMap속에 아이디와 비번이 포함되어있다.
-		return loginuser;
+	public String getLoginMember(Map<String, String> paraMap) {
+		String loginuser_id = sqlsession.selectOne("admin.getLoginMember", paraMap);   //1명만 select해오기 때문에 selectOne()을 사용한다. paraMap속에 아이디와 비번이 포함되어있다.
+		return loginuser_id;
 	}
 	
 	// ==== ==================================== 김나윤 끝 ======================================================= // 

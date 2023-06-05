@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
+    
 <%
     String ctxPath = request.getContextPath();
 %>
@@ -13,7 +16,8 @@
 		//아이디 입력 후, 엔터를 하면 비밀번호 입력칸으로 내려가기
 		$("input#loginUserid").keydown(function(e){
 			if(e.keyCode == 13) {  //엔터를 했을 경우
-				$("input#loginPwd").focus();   //비밀번호 칸으로 커서 이동
+				func_adminLogin();
+				
 			}
 		});
 		
@@ -42,25 +46,25 @@
 	        alert("아이디를 입력하세요!!");
 	       $("input#loginUserid").val(""); 
 	       $("input#loginUserid").focus();
-	       console.log(userid);
 	       return; // 종료 
 	     }
 	     
 	     
-	     if(pwd.trim()=="") {  //비번을 입력하지 않으면
+	     else if(pwd.trim()=="") {  //비번을 입력하지 않으면
 	       alert("비밀번호를 입력하세요!!");
 	       $("input#loginPwd").val(""); 
 	       $("input#loginPwd").focus();
-	       console.log(pwd);
 	       return; // 종료 
 	     }
 	     
 	     //올바르게 아이디와 비번을 입력했으면 보내준다.
-	     const frm = document.adminLoginFrm;
-	     frm.action = "<%= ctxPath%>/admin_login.got";
-	     frm.method = "post";
-	     frm.submit();
-	     
+	     else {
+    	    const frm = document.adminLoginFrm;
+    	    frm.action = "admin_login.got";
+    	    frm.method = "post";
+    	    frm.submit();
+		     
+	     }
 	     
 	}//end of function func_Login()------------------------------------------------------------
 
@@ -94,15 +98,15 @@
 		<h3 style="color: black; font-weight: 700; font-size: 12pt; margin: 15px 0;">명품 수선의 답을 찾다</h3>
 
 			<!-- 로그인창 -->
-			<form name="adminLoginFrm" action ="admin_login.got" method = "post">
+			<form id="adminLoginFrm" name="adminLoginFrm">
 				<input type="text" id="loginUserid" name="userid" class="yh_input" placeholder="아이디" hname="아이디">
 				<input type="password" id="loginPwd" name="pwd" class="yh_input" placeholder="비밀번호" hname="비밀번호">
-				<button type="submit" id="yh_loginSubmit" value="로그인" class="yh_bgColor search_btn" name="submit">로그인</button>
+				<button type="button" id="yh_loginSubmit" value="로그인" class="yh_bgColor search_btn" name="submit_btn">로그인</button>
 				<div class = "row">
 				    <div class="col-xs-8">
 				        <div class="checkbox icheck">
 				        <label>
-				            <input type = "checkbox" name = "useCookie"> 로그인유지
+				            <input type = "checkbox" name = "useCookie" style="margin-left: 10px; margin-top: 20px;"> 로그인유지
 				        </label>
 				        </div>
 				    </div>
