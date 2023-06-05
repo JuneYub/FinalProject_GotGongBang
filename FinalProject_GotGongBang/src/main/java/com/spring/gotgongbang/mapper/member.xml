@@ -56,5 +56,12 @@
 		) S
 		where rno between #{startRno} and #{endRno}
     </select>
+    
+    <select id="getUserInfoByUserId" parameterType="String" resultType="com.spring.gotgongbang.member.model.MemberVO">
+    	select  user_id_pk, pwd, name, email, mobile, post_code, address, detail_address, extra_address, to_char(birthday, 'YYYY-MM-DD') AS birthday
+		from MEMBER
+		where user_id_pk = #{userid}
+    </select>
+    
     <!--==================== 박준엽 끝 ====================== -->
 </mapper>
