@@ -11,6 +11,11 @@
  	select count(*) from CRAFT where craft_name=#{craft_name}
 </select>
 
+<select id="craft_add_image" resultType="com.spring.gotgongbang.craft.model.CraftVO">
+
+</select>
+
+
  <!--==================== 김진솔 끝 ====================== -->
 
 
@@ -26,6 +31,31 @@
 
 
 <!--==================== 박준엽 시작 ====================== -->
+<resultMap type="com.spring.gotgongbang.order.model.OrderVO" id="getAllOrdersMap">
+	<result column="order_num_pk" property="order_num_pk"/>
+	<result column="user_id_fk" property="user_id_fk"/>
+	<result column="order_date" property="order_date"/>
+	<result column="brand_name" property="brand_name"/>
+	<result column="requests" property="requests"/>
+	<result column="proposal_stat" property="proposal_stat" />
+	<collection column="order_num_pk" property="wholeImgList" javaType="java.util.List"
+	ofType="com.spring.gotgongbang.order.model.WholeImgVO" select="getWholeImagesByOrderNum"></collection>
+	
+</resultMap>
+
+<resultMap type="com.spring.gotgongbang.order.model.OrderVO" id="getOrderInfoByOrderNumMap">
+	<result column="order_num_pk" property="order_num_pk"/>
+	<result column="user_id_fk" property="user_id_fk"/>
+	<result column="orderer" property="orderer"/>
+	<result column="order_product_type" property="order_product_type"/>
+	<result column="order_date" property="order_date"/>
+	<result column="brand_name" property="brand_name"/>
+	<result column="requests" property="requests"/>
+	<collection column="order_num_pk" property="wholeImgList" javaType="java.util.List" ofType="com.spring.gotgongbang.order.model.WholeImgVO" select="getWholeImagesByOrderNum"></collection>
+	<collection column="order_num_pk" property="detailImgList" javaType="java.util.List" ofType="com.spring.gotgongbang.order.model.DetailImgVO" select="getDetailImagesByOrderNum"></collection>
+	
+</resultMap>
+
 
 <select id="getPartnerInfoByUserId" parameterType="String" resultType="com.spring.gotgongbang.craft.model.PartnerVO">
 	select  partner_id_pk, partner_pwd, partner_name, partner_email, partner_mobile, partner_post_code, partner_address, partner_detail_address, partner_extra_address, to_char(partner_birthday, 'YYYY-MM-DD') AS partner_birthday
@@ -44,16 +74,25 @@
 	WHERE partner_id_pk = #{partner_id_pk}
 </update>
 
-<select id="getAllOrders" parameterType="HashMap" resultType="com.spring.gotgongbang.order.model.OrderVO">
-	select order_num_pk, user_id_fk, order_date, brand_name, requests
+<select id="getAllOrders" parameterType="HashMap" resultMap="getAllOrdersMap">
+	select order_num_pk, user_id_fk, order_date, brand_name, requests,
+	(select count(*) 
+	from estimate 
+	where order_num_fk = S.order_num_pk and craft_num_fk = 2) as proposal_stat
 	from
 	(
-	select row_number() over(order by order_num_pk desc) as rno,
-	order_num_pk, user_id_fk, to_char(order_date, 'yyyy-mm-dd') as order_date,
-	brand_name, requests
-	from orders
+		select row_number() over(order by order_num_pk desc) as rno,
+		order_num_pk, user_id_fk, to_char(order_date, 'yyyy-mm-dd') as order_date,
+		brand_name, requests
+		from orders
 	) S
 	where rno between #{startRno} and #{endRno}
+</select>
+
+<select id="getWholeImagesByOrderNum" parameterType="int" resultType="com.spring.gotgongbang.order.model.WholeImgVO">
+	select whole_img_num_pk, order_num_fk, whole_img_name 
+	from whole_img
+	where order_num_fk = #{order_num_pk}
 </select>
 
 <select id="getTotalCountForEstimate" resultType="int">
@@ -61,6 +100,32 @@
 	from ORDERS
 </select>
 
+<select id="getDetailImagesByOrderNum" parameterType="int" resultType="com.spring.gotgongbang.order.model.DetailImgVO">
+	select detail_img_num_pk, order_num_fk, detail_img_name 
+	from DETAIL_IMG
+	where order_num_fk = #{order_num_pk}
+</select>
+
+<select id="getOrderInfoByOrderNum" parameterType="int" resultMap="getOrderInfoByOrderNumMap">
+	select order_num_pk, user_id_fk, orderer, order_product_type, to_char(order_date, 'yyyy-mm-dd') as order_date, brand_name, request_explain, requests
+	from ORDERS
+	where order_num_pk = #{orderNum}
+</select>
+
+<select id="getCraftNumByPartnerId" parameterType="String" resultType="String">
+	select craft_num_pk
+	from CRAFT
+	where partner_id_fk = #{partnerId}
+</select>
+
+<insert id="insertEstimate" parameterType="HashMap">
+	insert into ESTIMATE(estimate_num_pk, order_num_fk, craft_num_fk, estimate_price, estimate_period, order_status, erimate_proposal_date)
+	values(seq_estimate_num_pk.nextval, TO_NUMBER(#{order_num_fk}), TO_NUMBER(#{craft_num_fk}), TO_NUMBER(#{estimate_price}), TO_NUMBER(#{estimate_period}), default, sysdate)
+</insert>
+
+<select id="checkEstimateExists" parameterType="HashMap" resultType="int">
+	select count(*) from estimate where order_num_fk = #{order_num_fk} and craft_num_fk = #{craft_num_fk}
+</select>
 
 <!--==================== 박준엽 끝 ====================== -->
 

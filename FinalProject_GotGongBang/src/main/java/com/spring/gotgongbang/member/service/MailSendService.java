@@ -18,32 +18,74 @@ public class MailSendService {
 	
 	@Autowired
 	private JavaMailSenderImpl mailSender;
-	private int authNumber; 
+	private String authNumber; 
 	// 난수 발생
 	
-	public void makeRandomNumber() {
-		// 난수의 범위 111111 ~ 999999 (6자리 난수)
-		Random r = new Random();
-		int checkNum = r.nextInt(888888) + 111111;
-		System.out.println("인증번호 : " + checkNum);
-		authNumber = checkNum;
+	public void generateVerificationCode() {
+		
+		String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        int length = 6;
+
+        Random random = new Random();
+        StringBuilder code = new StringBuilder();
+
+        
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            code.append(characters.charAt(index));
+        }
+        System.out.println("인증번호 : " + code);
+        authNumber = code.toString();
 	}
 	
 	
 			//이메일 보낼 양식! 
 	public String joinEmail(String email) {
-		makeRandomNumber();
+		generateVerificationCode();
 		String setFrom = "skeosek3@gmail.com"; // email-config에 설정한 자신의 이메일 주소를 입력 
 		String toMail = email;
-		String title = "회원 가입 인증 이메일 입니다."; // 이메일 제목 
+		String title = "[GOTGONGBANG] 회원가입 인증번호 이메일 입니다."; // 이메일 제목 
 		String content = 
-				"홈페이지를 방문해주셔서 감사합니다." + 	//html 형식으로 작성 ! 
-                "<br><br>" + 
-			    "인증 번호는 " + authNumber + "입니다." + 
-			    "<br>" + 
-			    "해당 인증번호를 인증번호 확인란에 기입하여 주세요."; //이메일 내용 삽입
+				
+				"<table width='650' border='0' cellspacing='0' cellpadding='0' bgcolor='#f6f5fa' style='font-family:'NanumSquareR', 'NanumSquare', 'Noto Sans KR', 'Apple SD Gothic Neo', '나눔고딕', NanumGothic, '맑은 고딕', 'Malgun Gothic', '돋움', dotum, sans-serif;'>"+
+						"<tbody>"+
+							"<tr><td style='padding:24px 24px 0 24px;'>"+
+								"<table width='100%' border='0' cellspacing='0' cellpadding='0' bgcolor='#fff'>"+
+									"<tbody><tr><td valign='top' style='padding:40px 0 0 20px; font-size:0;'><img src='https://hyphen.im/assets/images/email/logo_hyphen.png' alt='HYPHEN' loading='lazy'></td></tr>"+
+									"</tbody>"+
+								"</table></td></tr>"+
+							"<tr><td style='padding: 0 24px;'>"+
+								"<table width='100%' border='0' cellspacing='0' cellpadding='0' bgcolor='#fff' style='padding:0px 20px 50px;'>"+
+									"<tbody><tr><td style='padding-top: 39px; font-size: 26px; font-family: NanumSquare, sans-serif; font-weight: 700; line-height: 26px;'>회원가입 인증번호</td></tr>"+
+									"<tr><td style='padding: 19px 0px 50px; font-family: NanumSquare, sans-serif; font-size: 17px; color: #999; '>회원가입 화면에서 아래 인증번호를 입력 해 주세요.</td></tr>"+
+									"<tr><td height='1' bgcolor='#000'></td></tr>"+
+									"<tr><td height='65'>"+
+										"<table width='100%' height='65' border='0' cellspacing='0' cellpadding='0' bgcolor='#fff'>"+
+											"<tbody><tr><td width='148' style='font-family: NanumSquare, sans-serif; font-size: 16px;text-align: center; line-height: 65px;'>인증번호</td>"+
+												"<td width='1' height='23' style='opacity: 0.2;'>"+
+													"<table width='100%' border='0' cellspacing='0' cellpadding='0' bgcolor='#fff'>"+
+														"<tbody><tr><td height='3' bgcolor='#fff'></td></tr>"+
+															"<tr><td height='17' bgcolor='#000'></td></tr>"+
+															"<tr><td height='3' bgcolor='#fff'></td></tr>"+
+														"</tbody>"+
+													"</table>"+
+												"</td>"+
+												"<td style='padding-left:57px; font-family: NanumSquare, sans-serif; font-size: 16px; line-height: 65px;'>" + authNumber + "</td>"+
+											"</tr></tbody>"+
+										"</table>"+
+									"</td></tr>"+
+									"<tr><td height='1' bgcolor='#000'></td></tr>"+
+								"</tbody></table>"+
+							"</td></tr>"+
+							"<tr><td style='padding: 24px 24px 48px 24px;'>"+
+								"<table width='100%' border='0' cellspacing='0' cellpadding='0'>"+
+								"</table>"+
+							"</td></tr>"+
+				"</tbody></table>";
+				
+				
 		mailSend(setFrom, toMail, title, content);
-		return Integer.toString(authNumber);
+		return authNumber;
 	}
 	
 	//이메일 전송 메소드

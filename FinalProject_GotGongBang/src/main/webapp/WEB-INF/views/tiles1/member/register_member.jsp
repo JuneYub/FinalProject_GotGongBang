@@ -7,10 +7,35 @@
    String ctxPath = request.getContextPath();
 %>   
 
-
 <style>
+	
+	.sign-up__form-radio-group {
+	    background-color: #fff;
+	    border: 1px solid #b9b9b9;
+	    border-radius: 26px;
+	    height: 50px;
+	    position: relative;
+	    width: 732px;
+	}
+	
+	.sign-up__form-radio-text {
+	    border-radius: 26px;
+	    color: #1a1325;
+	    float: left;
+	    height: 50px;
+	    line-height: 50px;
+	    position: relative;
+	    text-align: center;
+	    width: 244px;
+	    z-index: 10;
+	}
+	
+	.sign-up__form-radio-input {
+		float: left;
+	    height: 50px;
+	    margin-left: 80px;
+	}
 
-}
 </style>
 
 <!-- Font Awesome 6 Icons -->
@@ -31,12 +56,14 @@
 	let flag_input_passwd_check = false;
 	let id_check = false;
 	let flag_input_birth = false;
+	
 	// === 회원정보 입력 체크 === //
 	
 	// === 이메일 인증번호 입력 체크 === //
 	let code = "";
 	
 	// === 사용자가 작성한 이메일 === //
+	let check_duplicate_email = false;
 	let user_email = "";
 	
 	// === 약관동의 체크 === //
@@ -237,6 +264,14 @@
 		/* 세번째 화면 버튼 */
 		$(".btn_next3").click(function() {
 			
+			console.log(flag_input_name);
+			console.log(flag_input_phone);
+			console.log(flag_input_id);
+			console.log(flag_input_passwd);
+			console.log(flag_input_passwd_check);
+			console.log(flag_input_birth);
+			
+			
 			if(flag_input_name == false) {
 				$("input#name").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
 				$(".user_name_f").show(); // 경고 표시
@@ -255,14 +290,6 @@
     			return;
 			}
 			
-			if(flag_input_email == false) {
-				$("input#email").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
-				
-    			$("input#email").focus();
-    			topScrollFunction();
-    			
-    			return;
-			}
 			
 			if(flag_input_id == false) {
 				$("input#user_id_pk").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
@@ -299,9 +326,11 @@
     			return;
 			}
 			
-			if($("input#post_code").val() == "") {
+			if($("input#post_code").val().trim() == "") {
 				$("input#post_code").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시				
     			
+				$("input#post_code").focus();
+				
     			return;
 			}	 		
 			else {
@@ -314,7 +343,6 @@
 					
 			     });
 			}
-			
 		});
 		
 		$(".btn_prev3").click(function() {
@@ -420,32 +448,67 @@
 		/* ================== 약관동의 체크유무 끝 ================== */
 		
 		
-		
+		// input 이메일 하나 입력 시 동시에 입력되게 한다.
+	    $("#email1").keydown(function(){
+	        $('#email').val($(this).val());
+	    });
+	    // 마지막에 입력 시 입력되게 한다.
+	    $("#email1").change(function(){
+	        $('#email').val($(this).val());
+	    });
+	    
 		/* ====== 이메일 인증 체크 시작 ====== */
+		
 		$(".email-check-btn").click(function() {
 			let check_input = $("#email_check_number"); // 인증번호 입력하는곳 
 			
-			if($("#email").val() == "") {
+			if($("#email1").val() == "") {
 				alert('이메일을 입력하세요.');
-				$("#email").focus();
+				$("#email1").focus();
 				return;
 			}
 			
-			$.ajax({
-				url:"<%= request.getContextPath()%>/member/email_check.got",
-				data:{"email" : $("#email").val()},
-				type : "get",
-				success: function(data) {
-					code = data;
-					user_email = $("#email").val();
-					console.log("code : " + code);
-					check_input.attr('disabled',false);
-					alert('인증번호가 전송되었습니다.');
-				},
-				error: function(request, status, error){
-		            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-		        }
-			}); // end of ajax--------------
+			if(flag_input_email == false) {
+				$("#email1").focus();
+				return;
+			}
+			
+			else if(check_duplicate_email == false) {
+				$.ajax({
+					url: "<%= request.getContextPath()%>/check_email.got",
+				    type: "GET",
+				    data: { "email": $("#email1").val() },
+				    success: function (data) {
+				      if (data) {
+				        alert('이미 사용 중인 이메일입니다.');
+				        return;
+				        
+				      } else {
+				    	  alert('사용 가능한 이메일입니다. 인증번호를 전송하는 중입니다...');
+				    	  $.ajax({
+								url:"<%= request.getContextPath()%>/member/email_check.got",
+								data:{"email" : $("#email1").val()},
+								type : "GET",
+								success: function(data) {
+									code = data;
+									user_email = $("#email1").val();
+									console.log("code : " + code);
+									check_input.attr('disabled',false);
+									alert('인증번호가 전송되었습니다.');
+									
+								},
+								error: function(request, status, error){
+						            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+						        }
+							}); // end of ajax--------------
+				    	  check_duplicate_email = true;
+				      }
+				    },
+				    error: function(request, status, error){
+			            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			        }
+				});
+			}
 		}); // end of $(".email-check-btn").click(function()----------------------
 		
 		
@@ -549,7 +612,7 @@
 		});
 		
 		// 이메일주소 blur
-		$("input#email").blur( (e) => {
+		$("input#email1").blur( (e) => {
 			
 			const regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 	     	  
@@ -557,7 +620,7 @@
 			
 			// 공백일 때
 			if( $(e.target).val().trim() == "") {
-				$("input#email").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
+				$("input#email1").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
 				$(".user_email_f2").hide();
 				$(".user_email_f1").show(); // 공백 경고 표시
 				
@@ -566,7 +629,7 @@
 			}
 			// 형식에 맞지 않을 때
 			else if(!bool) {
-				$("input#email").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
+				$("input#email1").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
 				$(".user_email_f1").hide();
 				$(".user_email_f2").show(); // 공백 경고 표시
 				
@@ -574,7 +637,7 @@
 			}
 			
 			else {
-				$("input#email").removeClass("form-input--invalid");
+				$("input#email1").removeClass("form-input--invalid");
 				$(".user_email_f1").hide();
 				$(".user_email_f2").hide();
 				
@@ -609,13 +672,37 @@
 		
 		// 아이디 중복확인 버튼
 		$(".btn_userid").click(function(){
-
-			alert(id_check + "예" + $("input#user_id_pk").val() + "사용가능한 아이디입니다.");
-			id_check = true;
-			flag_input_id = true;
-			$("input#user_id_pk").removeClass("form-input--invalid");
-			$(".user_id_f").hide();
 			
+			if($("input#user_id_pk").val().trim() == "") {
+				$("input#user_id_pk").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
+				$(".user_id_f1").show(); // 경고 표시
+				
+				flag_input_id = false;
+			}
+			else
+			$.ajax({
+			    url: "<%= request.getContextPath()%>/check_id.got",
+			    type: "GET",
+			    data: { id: $("input#user_id_pk").val() },
+			    success: function (data) {
+			      if (data) {
+			        alert("이미 사용 중인 아이디입니다.");
+			        flag_input_id = false;
+			        return;
+			      } 
+			      else {
+			        alert($("input#user_id_pk").val() + "는 사용가능한 아이디입니다.");
+			        id_check = true;
+					flag_input_id = true;
+					$("input#user_id_pk").removeClass("form-input--invalid");
+					$(".user_id_f").hide();
+					$(".user_id_f1").hide();
+			      }
+			    },
+			    error: function () {
+			      console.log('아이디 중복 검사 요청 실패');
+			    }
+			  });						
 		});
 		
 		
@@ -788,7 +875,7 @@
 					<div class="sign-up__terms-item">
 						<dt class="sign-up__terms-header">
 							<label class="form-check">
-								<input class="form-check__input checkall" type="checkbox" onclick="selectAll()" ><span class="form-check__name">전체동의</span>
+								<input class="form-check__input checkall" type="checkbox"><span class="form-check__name">전체동의</span>
 							</label>
 						</dt>
 					</div>
@@ -897,7 +984,7 @@
 						<div class="form-field">
 							<h4 class="form-field__title">이메일</h4>
 							<div class="form-field__group form-field__group--input-button">
-								<input class="form-input" type="email" id="email" name=email placeholder="이메일주소를 입력하세요." title="이메일 입력">
+								<input class="form-input" type="email" id="email1" name=email1 placeholder="이메일주소를 입력하세요." title="이메일 입력">
 								<button class="button btn email-check-btn" type="button">인증번호 받기</button>
 							</div>
 							<div class="form-field__feedback user_email_f1" data-field-feedback="user_email"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;이메일을 입력해주세요.</div>
@@ -936,7 +1023,7 @@
 						</div>
 						<div class="form-field">
 							<h4 class="form-field__title">이메일 주소 <strong class="sign-up__terms-required"><span class="sign-up__terms-required-text"></span> *</strong></h4>
-							<input class="form-input" type="email" name="email" id="email" placeholder="이메일을 입력하세요." title="이메일">
+							<input class="form-input" type="email" name="email" id="email" title="이메일" readonly>
 							<div class="form-field__info form-field__info--point">*등록된 정보를 이용하여 아이디, 비밀번호를 찾을 수 있으며, GOTGONGBANG으로부터 알림을 받습니다.</div>
 							<div class="form-field__feedback user_email_f1" data-field-feedback="user_email"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;이메일을 입력해주세요.</div>
 							<div class="form-field__feedback user_email_f2" data-field-feedback="user_email"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;이메일 형식이 올바르지 않습니다.</div>
@@ -948,6 +1035,7 @@
 								<button class="button btn btn_userid" type="button">중복확인하기</button>
 							</div>
 							<div class="form-field__feedback user_id_f" data-field-feedback="user_id"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;아이디 중복확인이 필요합니다.</div>
+							<div class="form-field__feedback user_id_f1" data-field-feedback="user_id"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;아이디를 입력해주세요.</div>
 						</div>
 						<div class="form-field">
 							<h4 class="form-field__title">비밀번호 <strong class="sign-up__terms-required"><span class="sign-up__terms-required-text"></span> *</strong></h4>
@@ -963,7 +1051,7 @@
 						</div>
 						<div class="form-field">
 							<h4 class="form-field__title">생년월일</h4>
-							<input style="width: 40%" class="form-input" type="text" name="birthday" id="user_birth" maxlength="8" placeholder="예시)20230101 입력하세요." title="생년월일 입력">
+							<input style="width: 40%" class="form-input" type="text" name="birthday" id="birthday" maxlength="8" placeholder="예시)20230101 입력하세요." title="생년월일 입력">
 							<div class="form-field__feedback user_birth_f" data-field-feedback="user_birth"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;생년월일 형식이 올바르지 않습니다.</div>
 						</div>
 						<div class="form-field">

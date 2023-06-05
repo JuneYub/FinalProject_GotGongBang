@@ -11,11 +11,11 @@ public class CraftVO {
 	private String craft_name;					//공방이름
 	private String craft_mobile;				//공방연락처
 	private String craft_representative;		//공방 대표이름
-	private String craft_representative_image;	//공방 대표 사진
-	private String craft_image;					//공방 사진
+	private MultipartFile craft_representative_image;	//공방 대표 사진
+	private MultipartFile craft_image;					//공방 사진
 	private String craft_Introduce;				//공방 한줄소개
 	private String craft_career;				//경력사항
-	private String craft_certificate;			//자격증
+	private MultipartFile craft_certificate;			//자격증
 	private String craft_specialty;				//전문품목
 	private String craft_post_code;				//우편번호
 	private String craft_address;				//주소
@@ -25,7 +25,9 @@ public class CraftVO {
 	private String craft_longitude;				//경도
 	private String craft_status;				//(임시/정식) 상태
 	private String craft_rating;				//별점
-	
+
+	// * select용 *
+	private ImageVO imgvo;
 
 	////////////////////////////////////////////////////////
 		   
@@ -46,7 +48,7 @@ public class CraftVO {
 	
 	
 	public CraftVO(){}
-	
+	/*
 	public CraftVO(String craft_num_pk, String user_id_fk, String craft_name, String craft_mobile, 
 			String craft_representative, String craft_representative_image, String craft_image, 
 			String craft_Introduce, String craft_career, String craft_certificate, String craft_specialty, 
@@ -71,7 +73,7 @@ public class CraftVO {
 		this.craft_longitude = craft_longitude;
 		this.craft_status = craft_status;
 		this.craft_rating = craft_rating;
-	}
+	}*/
 	
 
 	public String getCraft_num_pk() {
@@ -114,19 +116,19 @@ public class CraftVO {
 		this.craft_representative = craft_representative;
 	}
 
-	public String getCraft_representative_image() {
+	public MultipartFile getCraft_representative_image() {
 		return craft_representative_image;
 	}
 
-	public void setCraft_representative_image(String craft_representative_image) {
+	public void setCraft_representative_image(MultipartFile craft_representative_image) {
 		this.craft_representative_image = craft_representative_image;
 	}
 
-	public String getCraft_image() {
+	public MultipartFile getCraft_image() {
 		return craft_image;
 	}
 
-	public void setCraft_image(String craft_image) {
+	public void setCraft_image(MultipartFile craft_image) {
 		this.craft_image = craft_image;
 	}
 
@@ -146,11 +148,11 @@ public class CraftVO {
 		this.craft_career = craft_career;
 	}
 
-	public String getCraft_certificate() {
+	public MultipartFile getCraft_certificate() {
 		return craft_certificate;
 	}
 
-	public void setCraft_certificate(String craft_certificate) {
+	public void setCraft_certificate(MultipartFile craft_certificate) {
 		this.craft_certificate = craft_certificate;
 	}
 
@@ -256,7 +258,22 @@ public class CraftVO {
 
 	public void setFileSize(String fileSize) {
 		this.fileSize = fileSize;
+	}
+
+
+	public ImageVO getImgvo() {
+		return imgvo;
+	}
+
+
+	public void setImgvo(ImageVO imgvo) {
+		this.imgvo = imgvo;
 	}	
+	
+	
+	
+	
+	
 	/////////////////// ====== 김진솔 끝 ===== ///////////////////////
 	
 }
