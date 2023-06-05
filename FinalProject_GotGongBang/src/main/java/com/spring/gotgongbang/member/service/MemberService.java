@@ -84,6 +84,12 @@ public class MemberService implements InterMemberService {
 		return mvo;
 	}
 
+	@Override
+	public int updateMemberInfoByMVO(MemberVO mvo) {
+		int n = dao.updateMemberInfoByMVO(mvo);
+		return n;
+	}
+
 	
 	
 	

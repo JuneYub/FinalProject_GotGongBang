@@ -947,6 +947,10 @@ ul:has(li.requests-item) {
 	float: right;
 }
 
+li.requests-cont {
+	margin-top: 13px;
+}
+
 
 
 /* ======================== 애니메이션 모음 =========================================== */

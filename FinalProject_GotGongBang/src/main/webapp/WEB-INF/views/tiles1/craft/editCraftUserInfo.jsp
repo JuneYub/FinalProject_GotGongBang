@@ -65,13 +65,11 @@
 		var regPwd = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g;
 		
 		var editName = $("input#editName").val();
-		if(editName.trim() != "") {
-			const boolEditName = regName.test(editName);
-			if(!boolEditName) {
-				alert("이름은 2~6자로 이루어진 한글로 구성되어 있어야 합니다");
-				$("input#editName").focus();
-				return;
-			}
+		const boolEditName = regName.test(editName);
+		if(editName.trim() == "" || !boolEditName) {
+			alert("이름은 2~6자로 이루어진 한글로 구성되어 있어야 합니다");
+			$("input#editName").focus();
+			return;
 		}
 		
 		var editPw = $("input#editPw").val();
@@ -99,34 +97,28 @@
 		}
 		
 		var editEmail = $("input#editEmail").val();
-		if(editEmail.trim() != "") {
-			const boolEditEmail = regEmail.test(editEmail);
-			if(!boolEditEmail) {
-				alert("이메일 형식이 맞지 않습니다");
-				$("input#editEmail").focus();
-				return;
-			}
+		const boolEditEmail = regEmail.test(editEmail);
+		if(editEmail.trim() == "" || !boolEditEmail) {
+			alert("이메일 형식이 맞지 않습니다");
+			$("input#editEmail").focus();
+			return;
 		}
 		
 		var editMobile = $("input#editMobile").val();
-		if(editMobile.trim() != "") {
-			const boolEditMobile = regMobile.test(editMobile);
-			if(!boolEditMobile) {
-				alert("휴대전화 번호 형식이 맞지 않습니다");
-				$("input#editMobile").focus();
-				return;
-			}
+		const boolEditMobile = regMobile.test(editMobile);
+		if(editMobile.trim() == "" || !boolEditMobile) {
+			alert("휴대전화 번호 형식이 맞지 않습니다");
+			$("input#editMobile").focus();
+			return;
 		}
 		
 		var editPost = $("input#postcode").val();
-		if(editPost.trim() != "") {
-			const boolEditPost = regPost.test(Number(editPost));
-			if(!boolEditPost) {
-				alert("우편번호 형식이 맞지 않습니다");
-				$("input#postcode").val("");
-				$("input#postcode").focus();
-				return;
-			}
+		const boolEditPost = regPost.test(Number(editPost));
+		if(editPost.trim() == "" || !boolEditPost) {
+			alert("우편번호 형식이 맞지 않습니다");
+			$("input#postcode").val("");
+			$("input#postcode").focus();
+			return;
 		}
 		$("#checkOriginPWD").modal("show");
 	}
@@ -286,7 +278,7 @@
 						<th>주소</th>
 					 	<td>
 						<div class="address_postcode">
-							<input type="text" id="postcode" name="partner_post_code" value="${pvo.partner_post_code}" placeholder="우편번호">
+							<input type="text" id="postcode" name="partner_post_code" value="${pvo.partner_post_code}" placeholder="우편번호" readonly="readonly">
 							<input type="button" id="zipcodeSearch" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
 						</div>
 						<div class="address_input">
