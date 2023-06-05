@@ -22,6 +22,9 @@ public class OrderVO {
 	private List<WholeImgVO> wholeImgList;		//전체이미지
 	private List<DetailImgVO> detailImgList;	//상세이미지
 	
+	// 필요시 추가한 필드(권장하지는 않음)
+	private String proposal_stat; 	// 견적 제안 상태를 받는 필드
+	
 
 	public int getOrder_num_pk() {
 		return order_num_pk;
