@@ -1,5 +1,7 @@
 package com.spring.gotgongbang.board.service;
 
+import java.util.List;
+
 import com.spring.gotgongbang.board.model.InquiryVO;
 
 public interface InterBoardService {
@@ -23,6 +25,11 @@ public interface InterBoardService {
 		
 		// 파일 첨부 기능이 있는 온라인 문의
 		int add_withFile(InquiryVO iqvo);
+		
+		// 질문게시판 데이터 넘기기
+		List<InquiryVO> BoardQuestionList();
+		
+		
 	
 		// 오준혁 끝 ===========================================================================
 		
