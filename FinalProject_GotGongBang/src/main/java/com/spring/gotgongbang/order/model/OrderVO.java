@@ -126,7 +126,17 @@ public class OrderVO {
 	}
 
 
+	public String getProposal_stat() {
+		return proposal_stat;
+	}
 
+
+	public void setProposal_stat(String proposal_stat) {
+		this.proposal_stat = proposal_stat;
+	}
+
+
+	
 	
 
 	
