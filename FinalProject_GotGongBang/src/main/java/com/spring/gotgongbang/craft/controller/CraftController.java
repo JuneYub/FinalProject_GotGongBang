@@ -287,24 +287,19 @@ public class CraftController {
                   // 첨부파일의 내용물을 읽어오는 것
                   
                   originalFilename = mf.getOriginalFilename();
-                  // attach.getOriginalFilename() 이 첨부파일명의 파일명(예: 강아지.png) 이다. 
                   
-                   System.out.println("~~~~ 확인용 originalFilename => " + originalFilename); 
-                  // ~~~~ 확인용 originalFilename => LG_싸이킹청소기_사용설명서.pdf
+                  System.out.println("~~~~ 확인용 originalFilename => " + originalFilename); 
                   
                   newFileName = fileManager.doFileUpload(bytes, originalFilename, path);
                   // 첨부되어진 파일을 업로드 하는 것이다.
                   
                   System.out.println(">>> 확인용  newFileName => " + newFileName); 
-                   // >>> 확인용  newFileName => 20230522103642842968758293800.pdf
-                  // >>> 확인용  newFileName => 20230522103904843110797635200.pdf
                   
                   cvo.setFileName(newFileName);
                   // WAS(톰캣)에 저장된 파일명(20230522103642842968758293800.pdf)
                   
                   cvo.setOrgFilename(originalFilename);
                   // 게시판 페이지에서 첨부된 파일(강아지.png)을 보여줄 때 사용.
-                  // 또한 사용자가 파일을 다운로드 할때 사용되어지는 파일명으로 사용.
                   
                   fileSize = mf.getSize(); // 첨부파일의 크기(단위는 byte임)
                   cvo.setFileSize(String.valueOf(fileSize));
@@ -316,15 +311,14 @@ public class CraftController {
              }
              
           }// end of for -------------------------------------
+         
           
-
           String hp1= request.getParameter("hp1");
     	  String hp2= request.getParameter("hp2");
     	  String hp3= request.getParameter("hp3");
     	  
     	  String craft_mobile = hp1 + hp2 + hp3;
     	  cvo.setCraft_mobile(craft_mobile);
-    	  
     	  
           MultipartFile craft_add_file_name = imgvo.getCraft_add_file_name();
 
