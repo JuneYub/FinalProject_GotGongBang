@@ -113,20 +113,7 @@ public class OrderController {
 		mav.setViewName("/order/modal_prac.tiles1");
 		return mav;
 	}
-	
-	@RequestMapping(value = "/parent.got")
-	public ModelAndView parent(ModelAndView mav) {
-		
-		mav.setViewName("/order/parent.tiles1");
-		return mav;
-	}
-	
-	@RequestMapping(value = "/children.got")
-	public ModelAndView children(ModelAndView mav) {
-		
-		mav.setViewName("/order/children.tiles1");
-		return mav;
-	}
+
 	
 	
 	
@@ -158,6 +145,9 @@ public class OrderController {
 		
 		return jsonArr.toString();
 	}
+	
+	
+
 	// 이지현 끝 ===========================================================================
 
 	// 홍용훈 시작 ===========================================================================
