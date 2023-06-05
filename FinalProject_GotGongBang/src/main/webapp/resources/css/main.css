@@ -754,6 +754,11 @@ div.contents-review-promotional {
     margin-top: 55px;
 }
 
+.cont-proposalEnd {
+	text-align: center;
+    margin: 120px 0 160px 0;
+}
+
 .cont-proposal h3 {
 	display: inline-block;
 }

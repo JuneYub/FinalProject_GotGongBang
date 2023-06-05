@@ -105,7 +105,8 @@
 				</table>
 			</div>
 		</div>
-		<c:if test="${requestScope.estimateExists eq 1}">
+		<c:if test="${requestScope.estimateExists >= 1}">
+			<div class="cont-proposalEnd"><h2>견적 제안이 완료되었습니다.</h2></div>
 		</c:if>
 		
 		<c:if test="${requestScope.estimateExists eq 0}">
