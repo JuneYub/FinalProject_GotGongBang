@@ -364,7 +364,8 @@ public class CraftController {
    @RequestMapping(value="/estimate_inquiry_list.got")
    public ModelAndView getEstimateInquiryList(ModelAndView mav, HttpServletRequest request) {
       
-      String userid = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+      String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+      String craftNum = service.getCraftNumByPartnerId(partnerId);
       String str_currentShowPageNo = request.getParameter("currentShowPageNo");
       int totalCountForEstimate = 0;
       int sizePerPageForEstimate = 5;
@@ -397,10 +398,10 @@ public class CraftController {
       Map<String, String> paraMap = new HashMap<String, String>();
       paraMap.put("startRno", String.valueOf(startRno));
       paraMap.put("endRno", String.valueOf(endRno));
+      paraMap.put("craftNum", craftNum);
       
       OrderVO ovo = new OrderVO();
       List<OrderVO> ovoList = service.getAllOrders(paraMap);
-      
       String pageBar = makePageBar(currentShowPageNoForEstimate, 10, totalPageForEstimate);
       
       mav.addObject("currentShowPageNo", currentShowPageNoForEstimate);
