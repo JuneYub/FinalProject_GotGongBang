@@ -264,3 +264,12 @@ constraint FK_CRAFT_craft_num_fk foreign key(craft_num_fk) references CRAFT(craf
 );
 
 
+
+
+
+
+
+
+
+
+
