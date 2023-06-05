@@ -42,6 +42,12 @@ public class MemberDAO implements InterMemberDAO {
 		List<HashMap<String, String>> proposalList = sqlsession.selectList("member.getProposalListByUserId", paraMap);
 		return proposalList;
 	}
+
+	@Override
+	public MemberVO getUserInfoByUserId(String userid) {
+		MemberVO mvo = sqlsession.selectOne("member.getUserInfoByUserId", userid);
+		return mvo;
+	}
 	
 	// ====== 박준엽 끝 =========================================== //
 

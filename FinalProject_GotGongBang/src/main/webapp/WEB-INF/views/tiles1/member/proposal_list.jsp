@@ -38,8 +38,8 @@
 		<div class="myPage-menu-list">
 			<ul>
 				<li class="menu-list-selected"><a class="menu-list-selected" href="<%= ctxPath%>/estimate_inquiry_list.got">견적 목록</a></li>
-				<li><a class="" href="<%= ctxPath%>/repair_history_list.got">수선 내역 관리</a></li>
-				<li><a class="" href="<%= ctxPath%>/edit_craft_user_info.got">개인 정보 변경</a></li>
+				<li><a class="" href="<%= ctxPath%>/repair_history_list.got">수선 내역</a></li>
+				<li><a class="" href="<%= ctxPath%>/edit_user_info.got">개인 정보 변경</a></li>
 			</ul>
 		</div>
 		
@@ -59,8 +59,7 @@
 						<c:forEach var="proposal" items="${requestScope.proposalList}">
 						<tr>
 						<td>
-							<div class="img-estimate"></div>
-							${proposal.craft_name}
+							<a href="">${proposal.craft_name}</a>
 						</td>
 	
 						<td>
