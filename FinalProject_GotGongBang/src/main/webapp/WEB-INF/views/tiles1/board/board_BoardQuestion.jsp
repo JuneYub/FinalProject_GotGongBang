@@ -8,7 +8,7 @@
 
  <div id="ojh_content">
         <section class="ojh_page_content_inquire">
-            <header class="ojh_page-header ojh_page-header--customer" style="height: 200px;">
+            <header class="ojh_page-header ojh_page-header--customer" style="padding: 30px 0px 100px 0px;">
               <span class="page-header__backdrop">
                 <span class="page-header__backdrop-item"></span>
                 <span class="page-header__backdrop-item"></span>
@@ -18,9 +18,23 @@
               </span>
               <h2 class="page-header__title aos-init aos-animate" data-aos="fade-up">
                 <span aria-hidden="true" data-breadcrumb-menu="고객센터">고객센터</span>
-                <span data-breadcrumb-current="질문 게시판">질문 게시판</span>
+                <span data-breadcrumb-current="FAQ">무엇을 도와드릴까요?</span>
               </h2>
-
+			  
+			  <form class="ojh_page_header_search">
+                <fieldset class="ojh_page_header_search_fieldset">
+                    <legend class="ojh_page_header_search_legend"></legend>
+                    <select name="searchType" id="searchType" style="width: 90px; height: 55px; border: none; font-weight: 500;">
+						<option value="subject" style="border: none;">글제목</option>
+						<option value="name" style="border: none;">글쓴이</option>
+					</select>
+                    <input class="ojh_page_header_search_input" type="text" placeholder="검색어를 입력하세요" name="search_keyword" value="" style=" width: 500px;">
+                    <button class="ojh_page_header_search_submit">
+                        <span>검색</span>
+                    </button>
+                </fieldset>
+              </form>	
+				
             </header>
             <form>
             	<div id="ojh_category">
@@ -57,127 +71,22 @@
                             <div class="ojh_table2_info t12">제목</div>
                             <div  class="ojh_table2_info t13">작성자</div>
                             <div  class="ojh_table2_info t13">작성일</div>
+                            <div  class="ojh_table2_info t13_1">조회수</div>
                       </div> 
 
                       <ul class="ojh_table2_notice">
                         <li>
+                          <c:forEach var="inquiryvo" items="${requestScope.iqList}">
                             <a href="/">
                                 <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">10</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
+                                    <div class="ojh_table2_notice2 t14">${inquiryvo.inquiry_num_pk}</div>
+                                    <div class="ojh_table2_notice3 t15">${inquiryvo.inquiry_title }</div>
+                                    <div class="ojh_table2_notice4 t16">${inquiryvo.user_id_fk}</div>
+                                    <div class="ojh_table2_notice5 t17">${inquiryvo.inquiry_date}</div>
+                                    <div class="ojh_table2_notice5 t18">${inquiryvo.inquiry_num_pk}</div>
                                 </div>  
                             </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">9</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">8</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">7</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">6</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">5</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">4</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">3</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">2</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">1</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
+						  </c:forEach>
                         </li>
 
                     </ul>

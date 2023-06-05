@@ -1,5 +1,7 @@
 package com.spring.gotgongbang.board.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +42,15 @@ public class BoardService implements InterBoardService {
 			int n = dao.add_withFile(iqvo); // 첨부파일이 있는 경우  
 			return n;
 		}
+		
+		// 질문게시판 데이터 넘기기
+		@Override
+		public List<InquiryVO> BoardQuestionList() {
+			List<InquiryVO> iqList = dao.BoardQuestionList();
+			return iqList;
+		}
+		
+		
 		
 		// 오준혁 끝 ===========================================================================
 		

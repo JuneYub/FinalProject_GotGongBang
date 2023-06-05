@@ -1917,8 +1917,8 @@ a {
 .ojh_page-header .page-header__backdrop-item:nth-child(3) {
     animation-name: page-header-backdrop-3;
     background-image: url(../img/board/bg_header_backgrop_1.png);
-    height: 210px;
-    margin-left: 245px;
+    height: 184px;
+    margin-left: 273px;
     width: 110px;
 }
 
@@ -1951,8 +1951,8 @@ a {
 .ojh_page-header .page-header__backdrop-item:nth-child(4) {
     animation-name: page-header-backdrop-3;
     background-image: url(../img/board/bg_header_backgrop_2.png);
-    height: 216px;
-    margin-left: 318px;
+    height: 185px;
+    margin-left: 349px;
     width: 135px;
 }
 
@@ -2222,6 +2222,14 @@ flex-basis: 50px;
     color: rgb(51, 51, 51);
 }
 
+.t13_1 {
+    flex-basis: 100px;
+    text-align: center;
+    line-height: 20px;
+    font-weight: 400;
+    color: rgb(51, 51, 51);
+}
+
 .ojh_table2_notice1 {
     display: flex;
     border-bottom: 1px solid rgb(244, 244, 244);
@@ -2229,13 +2237,13 @@ flex-basis: 50px;
 
 .t14 {
     text-align: center;
-    padding: 20px 0px;
+    padding: 30px 0px;
     color: rgb(76, 76, 76);
     flex-basis: 50px;
 }
 
 .t15 {
-    padding: 20px 0px 20px 20px;
+    padding: 30px 0px 20px 20px;
     color: rgb(76, 76, 76);
     flex: 1 1 0%;
     text-align: left;
@@ -2243,16 +2251,23 @@ flex-basis: 50px;
 
 .t16 {
     text-align: center;
-    padding: 20px 0px;
+    padding: 30px 0px;
     color: rgb(76, 76, 76);
-    flex-basis: 100px;
+    flex-basis: 115px;
 }
 
 .t17 {
     text-align: center;
-    padding: 20px 0px;
-    flex-basis: 100px;
+    padding: 20px 30px 0px 0px;
+    flex-basis: 115px;
     color: rgb(153, 153, 153);
+}
+
+.t18{
+	text-align: center;
+    padding: 30px 25px 0px 0px;
+    color: rgb(76, 76, 76);
+    flex-basis: 75px;
 }
 
 .ojh_pagination_nav {
@@ -2285,7 +2300,6 @@ flex-basis: 50px;
     border-radius: 30px;
     box-shadow: 0 6px 10px rgba(49,51,65,.15);
     display: flex;
-    flex-direction: row-reverse;
     height: 60px;
     justify-content: space-between;
     padding: 0 20px;
