@@ -2,21 +2,22 @@ package com.spring.gotgongbang.member.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.HomeController;
+import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.member.service.InterMemberService;
 import com.spring.gotgongbang.member.service.MailSendService;
@@ -37,7 +38,37 @@ public class MemberController {
 		// 박준엽 시작
 		// ===========================================================================
 
+		@RequestMapping(value="/proposal_list.got")
+		public ModelAndView proposalList(ModelAndView mav, HttpServletRequest request) {
+			String userId = "testMember"; // 테스트를 위해서 유저아이디를 지정해준 것 이후에는 세션을 통해서 지정할 예정
+		    int startRno = 1;
+		    int endRno = 5;
+		    
+		    HashMap<String, String> paraMap = new HashMap<String, String>();
+		    paraMap.put("userId", userId);
+		    paraMap.put("startRno", String.valueOf(startRno));
+		    paraMap.put("endRno", String.valueOf(endRno));
+		    
+			request.getParameter("startRno");
+			request.getParameter("endRno");
+			
+			List<HashMap<String, String>> proposalList = service.getProposalListByUserId(paraMap);
+			
+			mav.addObject("proposalList", proposalList);
+			mav.setViewName("member/proposal_list.tiles1");
+			return mav;
+		}
 		
+		@RequestMapping(value="/edit_user_info.got")
+		public ModelAndView editUserInfo(ModelAndView mav, HttpServletRequest request) {
+		      String userid = "testMember"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+		      
+		      MemberVO mvo = new MemberVO();
+		      mvo = service.getUserInfoByUserId(userid);
+		      mav.addObject("mvo", mvo);
+		      mav.setViewName("member/editUserInfo.tiles1");
+		      return mav;
+		}
 		
 		
 		// 박준엽 끝
@@ -88,22 +119,6 @@ public class MemberController {
 	
 		}
 		
-		
-		// 이메일 중복 확인 AJAX 요청 처리
-		@ResponseBody
-		@GetMapping("/check_email.got")	    
-	    public boolean checkEmail(@RequestParam("email") String email) {
-	        return service.isEmailDuplicate(email);
-	    }
-	    
-	    // 아이디 중복 확인 AJAX 요청 처리
-	    @ResponseBody
-	    @GetMapping("/check_id.got")
-	    public boolean checkId(@RequestParam("id") String id) {
-	        return service.isIdDuplicate(id);
-	    }
-		
-		
 		// 이메일 인증
 		@ResponseBody
 	    @RequestMapping(value="/member/email_check.got")
@@ -125,9 +140,6 @@ public class MemberController {
 		// 회원가입 post
 		@RequestMapping(value="/register.got", method=RequestMethod.POST)
 		public String register(MemberVO membervo) {
-			
-			System.out.println("들어옴");
-			service.encryptPassword(membervo);
 			
 			service.insertMember(membervo);
 			

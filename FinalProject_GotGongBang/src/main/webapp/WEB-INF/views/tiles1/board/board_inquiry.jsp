@@ -7,7 +7,9 @@
 %>   
 
 <style type="text/css">
-
+  table.ojh_table th, table.ojh_table td {
+  	  border-bottom: none !important;
+  }
 </style>
 
 <script type="text/javascript">
@@ -126,7 +128,7 @@
                             <tr class="ojh_form-field">
                                 <th scope="row">첨부파일</th>
                                 <td>
-                                    <div class="ojh_form-attached-file">
+                                    <div class="ojh_form-attached-file" style="padding: 17px 0px 0px 10px;">
                                         <div class="ojh_form-attached-file__wrap">
                                             <label class="ojh_form-attached-file__trigger">
                                                 <input class="ojh_form-attached-file__trigger-file" name="attach" type="file" accept=".jpg, .jpeg, .png, .pdf, .xls,.xlsx" ><span class="ojh_form-attached-file__trigger-name"></span>

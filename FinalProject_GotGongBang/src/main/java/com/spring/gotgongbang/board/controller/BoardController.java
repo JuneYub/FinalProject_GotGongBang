@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,8 +73,14 @@ public class BoardController {
 	
 	// 질문게시판 페이지 불러오기
 	@RequestMapping(value="/BoardQuestion.got")
-    public ModelAndView getBoardQuestion(ModelAndView mav) {
+    public ModelAndView getBoardQuestion(ModelAndView mav, HttpServletRequest request) {
 		
+		List<InquiryVO> iqList = null;
+		
+		// 질문게시판 데이터 넘기기
+		iqList = service.BoardQuestionList();
+		
+		mav.addObject("iqList", iqList);
 		mav.setViewName("/board/board_BoardQuestion.tiles1");
 		
 		return mav;
@@ -98,7 +105,7 @@ public class BoardController {
 			HttpSession session = request.getSession();
 			String root = session.getServletContext().getRealPath("/");
 			
-			System.out.println("~~~~ 확인용 webapp 의 절대경로 => " + root);
+		//	System.out.println("~~~~ 확인용 webapp 의 절대경로 => " + root);
 			// ~~~~ 확인용 webapp 의 절대경로 => C:\NCS\workspace(spring)\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\FinalProject_GotGongBang\
 			
 			String path = root+"resources"+File.separator+"files";
@@ -118,13 +125,13 @@ public class BoardController {
 					
 					String originalFilename = attach.getOriginalFilename();
 					
-			      System.out.println("~~~~ 확인용 originalFilename => " + originalFilename); 
+			//      System.out.println("~~~~ 확인용 originalFilename => " + originalFilename); 
 				    // ~~~~ 확인용 originalFilename => LG_싸이킹청소기_사용설명서.pdf
 					
 					newFileName = fileManager.doFileUpload(bytes, originalFilename, path);
 					// 첨부되어진 파일을 업로드 하는 것이다.
 					
-			 		System.out.println(" === 확인용  newFileName => " + newFileName); 
+			// 		System.out.println(" === 확인용  newFileName => " + newFileName); 
 				    // === 확인용  newFileName => 202306011525152650695539266000.pdf
 				
 					iqvo.setInquiry_fileName(newFileName);

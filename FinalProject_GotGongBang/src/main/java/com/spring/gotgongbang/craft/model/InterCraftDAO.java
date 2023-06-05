@@ -17,7 +17,7 @@ public interface InterCraftDAO {
 	int craft_check_name(String craft_name);
 
 	//공방 신청시 추가이미지 파일이 존재할때 select해오는 용도
-	List<CraftVO> craft_add_image();
+	//List<CraftVO> craft_add_image();
 	
 	//공방 신청정보를 DB에 insert해주는 기능
 	int add_withFile(CraftVO cvo);
