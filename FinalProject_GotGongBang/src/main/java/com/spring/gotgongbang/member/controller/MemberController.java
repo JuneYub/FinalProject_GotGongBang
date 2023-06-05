@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.HomeController;
+import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.member.service.InterMemberService;
 import com.spring.gotgongbang.member.service.MailSendService;
@@ -56,6 +57,17 @@ public class MemberController {
 			mav.addObject("proposalList", proposalList);
 			mav.setViewName("member/proposal_list.tiles1");
 			return mav;
+		}
+		
+		@RequestMapping(value="/edit_user_info.got")
+		public ModelAndView editUserInfo(ModelAndView mav, HttpServletRequest request) {
+		      String userid = "testMember"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+		      
+		      MemberVO mvo = new MemberVO();
+		      mvo = service.getUserInfoByUserId(userid);
+		      mav.addObject("mvo", mvo);
+		      mav.setViewName("member/editUserInfo.tiles1");
+		      return mav;
 		}
 		
 		
