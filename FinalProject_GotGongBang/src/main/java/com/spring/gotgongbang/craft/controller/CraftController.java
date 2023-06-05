@@ -1,6 +1,8 @@
 package com.spring.gotgongbang.craft.controller;
 
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -244,7 +246,7 @@ public class CraftController {
 
    //공방 신청정보를(첨부파일 포함)DB에 insert해주는 기능
    @RequestMapping(value = "/craft_application_end.got", method = {RequestMethod.POST})
-   public String craft_application_end(CraftVO cvo, ImageVO imgvo, MultipartHttpServletRequest mrequest) { 
+   public String craft_application_end(CraftVO cvo, ImageVO imgvo, MultipartHttpServletRequest mrequest, HttpServletRequest request) { 
 
 	  // 이미지 파일들 가져오기
       List<MultipartFile> fileList = new ArrayList<MultipartFile>();
@@ -252,7 +254,7 @@ public class CraftController {
       fileList.add(cvo.getCraft_representative_image());
       fileList.add(cvo.getCraft_certificate());
       
-      
+      int n = 0;
       /////////////////////////////////////////////////////
       // 이미지 파일 업로드
        System.out.println("확인용 fileList: " + fileList);
@@ -271,6 +273,8 @@ public class CraftController {
           String newFileName = "";
           // WAS(톰캣)의 디스크에 저장될 파일명
          
+          String originalFilename = "";
+          
           byte[] bytes = null;
           // 첨부파일의 내용물을 담는 것
          
@@ -282,7 +286,7 @@ public class CraftController {
                    bytes = mf.getBytes();
                   // 첨부파일의 내용물을 읽어오는 것
                   
-                  String originalFilename = mf.getOriginalFilename();
+                  originalFilename = mf.getOriginalFilename();
                   // attach.getOriginalFilename() 이 첨부파일명의 파일명(예: 강아지.png) 이다. 
                   
                    System.out.println("~~~~ 확인용 originalFilename => " + originalFilename); 
@@ -313,44 +317,27 @@ public class CraftController {
              
           }// end of for -------------------------------------
           
+
+          String hp1= request.getParameter("hp1");
+    	  String hp2= request.getParameter("hp2");
+    	  String hp3= request.getParameter("hp3");
+    	  
+    	  String craft_mobile = hp1 + hp2 + hp3;
+    	  cvo.setCraft_mobile(craft_mobile);
+    	  
+    	  
+          MultipartFile craft_add_file_name = imgvo.getCraft_add_file_name();
+
+          n = service.add_withFile(cvo);
+          if(n==1){
+        	  System.out.println("~~n :" +n);
+          }else {
+        	  System.out.println("~n : " + n);
+          }
           
        } //end of if(!fileList.isEmpty())---------------------------
              
-       
-       
-       
-      int n = 0;
-      
-      MultipartFile craft_add_file_name = imgvo.getCraft_add_file_name();
-      
-      if( !fileList.isEmpty() ) {
-/*
-    	  if(!craft_add_file_name.isEmpty()) {
-	    	  imgvo.getCraft_add_file_name();
-	    	  cvo.setImgvo(imgvo);
-	    	  // 추가이미지 파일이 있는 경우 Craft 테이블 조회해오기
-	    	  List<CraftVO> AddimgList = service.craft_add_image();
-    	  }
-    	  
-    	  
-    	  n = service.add_withFile(cvo);
-*/
-      }else {
-         n = service.add_withFile(cvo); 
-      }
-      
-      
-      
-      
-      
-      if(n==1) {
-          return "redirect:/craft_complete.got";
-      }
-      else { 
-            return "javascript:history.back();";
-      }
-      
-
+       return "";
        
    }
    

@@ -464,6 +464,12 @@
                             <span class="available" style="display: inline-block; color:#400099; margin-left:20px;">사용가능한 공방 이름입니다.</span>
                         </span>
                     </div>
+                     <div class="frm_border">
+                        <span> <p> * 공방 대표자 이름</p>
+                            <input type="text" name="craft_representative" class="upload" id="" maxlength="10" value=""/>
+                            <span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 대표자 이름은 필수 입력 사항입니다.</span>
+                        </span>
+                    </div>
                     <div class="image" style="height: 175px;">
                         <span> <p> * 공방 사진</p>
                             <div class="filebox" >
@@ -509,19 +515,19 @@
                     
                     <div class="frm_border" style="height: 200px;">
 	                     <span> <p> * 공방 주소</p>
-		                     <input type="text" id="postcode" class="upload" name="postcode" value="" size="6" maxlength="5" style="width: 201px;"  placeholder="우편번호 찾기를 클릭하세요."  readonly="readonly"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                     <input type="text" id="postcode" class="upload" name="craft_post_code" value="" size="6" maxlength="5" style="width: 201px;"  placeholder="우편번호 찾기를 클릭하세요."  readonly="readonly"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	           				 <%-- 우편번호 찾기 --%>
 								<button type="button" id="btnPostcode" class="check_button" style="width: 120px; height: 40px;"> 우편번호 찾기</button>           				 
 								<span class="error" style="display: inline-block; color:#400099; margin-left:20px;"> * 우편번호는 필수 입력 사항입니다.</span>
 	           		     </span>
 	           		     
 	           		     <span style="margin:10px 0 0 150px;">
-	           				 <input type="text" id="address" class="upload" name="address" size="40" placeholder="주소"  style="width: 300px; "/>&nbsp;&nbsp;&nbsp;&nbsp;
-	            		     <input type="text" id="detailAddress" class="upload" name="detailAddress" size="40" placeholder="상세주소" style="width: 300px;"/>
+	           				 <input type="text" id="address" class="upload" name="craft_address" size="40" placeholder="주소"  style="width: 300px; "/>&nbsp;&nbsp;&nbsp;&nbsp;
+	            		     <input type="text" id="detailAddress" class="upload" name="craft_detail_address" size="40" placeholder="상세주소" style="width: 300px;"/>
 	            		</span>
 	            		
 						<span style="margin:10px 0 0 150px;">
-						     <input type="text" class="upload" id="extraAddress" name="extraAddress"  placeholder="부가주소" class="extra_address" />
+						     <input type="text" class="upload" id="extraAddress" name="craft_extra_address"  placeholder="부가주소" class="extra_address" />
 	            		 </span>
 	            		 <span class="error_2" style="display: inline-block; margin-left:150px; color:#400099;">※ 부가주소는 필수입력 사항입니다.</span> 
                    </div>
