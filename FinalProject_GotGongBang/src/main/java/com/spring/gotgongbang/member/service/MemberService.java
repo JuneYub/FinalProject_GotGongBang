@@ -78,6 +78,12 @@ public class MemberService implements InterMemberService {
 		return proposalList;
 	}
 
+	@Override
+	public MemberVO getUserInfoByUserId(String userid) {
+		MemberVO mvo = dao.getUserInfoByUserId(userid);
+		return mvo;
+	}
+
 	
 	
 	

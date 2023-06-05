@@ -17,6 +17,8 @@ public interface InterMemberDAO {
 	// ====== 박준엽 시작 =========================================== //
 	
 	List<HashMap<String, String>> getProposalListByUserId(HashMap<String, String> paraMap);
+
+	MemberVO getUserInfoByUserId(String userid);
 	
 	// ====== 박준엽 끝 =========================================== //
 
