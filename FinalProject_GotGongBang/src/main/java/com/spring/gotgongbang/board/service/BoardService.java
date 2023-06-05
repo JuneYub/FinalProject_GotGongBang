@@ -1,9 +1,11 @@
 package com.spring.gotgongbang.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import com.spring.gotgongbang.board.model.InquiryVO;
 import com.spring.gotgongbang.board.model.InterBoardDAO;
@@ -47,6 +49,22 @@ public class BoardService implements InterBoardService {
 		@Override
 		public List<InquiryVO> BoardQuestionList() {
 			List<InquiryVO> iqList = dao.BoardQuestionList();
+			return iqList;
+		}
+		
+		// 총 게시물 건수 구하기
+		@Override
+		public int getTotalCount(Map<String, String> paraMap) {
+			int n =dao.getTotalCount(paraMap);
+			return n;
+		}
+		
+		// 페이징 처리한 글목록 가져오기
+		@Override
+		public List<InquiryVO> iqListSearchWithPaging(Map<String, String> paraMap) {
+			
+			List<InquiryVO> iqList = dao.iqListSearchWithPaging(paraMap);
+			
 			return iqList;
 		}
 		

@@ -1,6 +1,8 @@
 package com.spring.gotgongbang.board.service;
 
 import java.util.List;
+import java.util.Map;
+
 
 import com.spring.gotgongbang.board.model.InquiryVO;
 
@@ -28,6 +30,14 @@ public interface InterBoardService {
 		
 		// 질문게시판 데이터 넘기기
 		List<InquiryVO> BoardQuestionList();
+		
+		// 총 게시물 건수
+		int getTotalCount(Map<String, String> paraMap);
+		
+		// 페이징 처리한 글목록 가져오기
+		List<InquiryVO> iqListSearchWithPaging(Map<String, String> paraMap);
+
+		
 		
 		
 	
