@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.HomeController;
+import com.spring.gotgongbang.common.Sha256;
 import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.member.service.InterMemberService;
@@ -124,7 +125,8 @@ public class MemberController {
 		@Autowired
 		private InterMemberService service;
 	
-		@RequestMapping(value="/login.got")
+		// === 로그인 폼 페이지 요청 === //
+		@RequestMapping(value="/login.got", method= {RequestMethod.GET})
 		public ModelAndView login(ModelAndView mav) {
 			
 			mav.setViewName("member/login.tiles1");
@@ -132,18 +134,28 @@ public class MemberController {
 	
 		}
 		
+		
+		@RequestMapping(value="/end_login.got")
+		public ModelAndView end_login(ModelAndView mav, HttpServletRequest request) {
+			
+			String userid = request.getParameter("userid");
+		    String pwd = request.getParameter("pwd");
+
+		    Map<String, String> paraMap = new HashMap<>();
+		    paraMap.put("userid", userid);
+		    paraMap.put("pwd", Sha256.encrypt(pwd));
+
+		    // service의 loginEnd() 메서드 호출하여 로그인 처리
+		    mav = service.loginEnd(mav, request, paraMap);
+	    
+		    return mav;
+		}
+		
+		
 		@RequestMapping(value="/register_member.got")
 		public ModelAndView register_member(ModelAndView mav) {
 			
 			mav.setViewName("member/register_member.tiles1");
-			return mav;
-	
-		}
-		
-		@RequestMapping(value="/end_login.got")
-		public ModelAndView end_login(ModelAndView mav) {
-			
-			mav.setViewName("member/end_login.tiles1");
 			return mav;
 	
 		}
@@ -180,7 +192,13 @@ public class MemberController {
 			
 			mav.setViewName("member/find_id.tiles1");
 			return mav;
-	
+		}
+		
+		@RequestMapping(value="/find_pwd.got")
+		public ModelAndView find_pwd(ModelAndView mav) {
+			
+			mav.setViewName("member/find_pwd.tiles1");
+			return mav;
 		}
 		// 홍용훈 끝
 		// ===========================================================================
