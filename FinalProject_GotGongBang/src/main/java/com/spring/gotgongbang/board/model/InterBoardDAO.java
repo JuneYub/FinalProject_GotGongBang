@@ -20,6 +20,11 @@ public interface InterBoardDAO {
 	// 페이징 처리한 글목록 가져오기
 	List<InquiryVO> iqListSearchWithPaging(Map<String, String> paraMap);
 	
+	// 1개 조회하기 
+	InquiryVO getView(Map<String, String> paraMap);
+	// 글조회수 1증가하기
+	void setAddReadCount(String inquiry_num_pk);
+	
 	
 	
 
