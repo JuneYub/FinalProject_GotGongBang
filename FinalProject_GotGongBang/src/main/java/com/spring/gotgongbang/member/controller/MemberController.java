@@ -6,6 +6,7 @@ import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +99,29 @@ public class MemberController {
 			
 			
 			return mav;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/update_user_pwd.got")
+		public String updateUserPwd(HttpServletRequest request) {
+			String userId = "testMember"; // 테스트를 위해서 유저아이디를 지정해준 것 이후에는 세션을 통해서 지정할 예정
+			  String editPw = request.getParameter("editPw"); 
+			  
+		      MemberVO mvo = new MemberVO();
+		      mvo = service.getUserInfoByUserId(userId);
+		      int n = 0;
+
+		      if(editPw.equals(mvo.getPwd())) {
+		    	  n = 2;
+		      }
+		      else {
+		    	  mvo.setPwd(editPw);
+		          n = service.updateMemberPwd(mvo);
+		      }
+		      
+		      JSONObject jsonObj = new JSONObject();
+		      jsonObj.put("n", n);
+			  return jsonObj.toString();
 		}
 		
 		

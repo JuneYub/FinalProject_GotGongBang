@@ -50,7 +50,6 @@
 		var regMobile= /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
 		var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; 
 		var regPost = /^\d{5}$/;
-		var regPwd = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g;
 		
 		var editName = $("input#editName").val();
 		const boolEditName = regName.test(editName);
@@ -58,31 +57,6 @@
 			alert("이름은 2~6자로 이루어진 한글로 구성되어 있어야 합니다");
 			$("input#editName").focus();
 			return;
-		}
-		
-		var editPw = $("input#editPw").val();
-		var editPwCheck = $("input#editPwCheck").val();
-		if(editPw.trim() != "" || editPwCheck.trim() != "") {
-			
-			if(editPw == '${mvo.pwd}') {
-				alert("기존 비밀번호와 같지 않게 변경해주세요");
-				$("input#editPw").focus();
-				return;
-			}
-			
-			if(editPw != editPwCheck) {
-				alert("새 비밀번호와 새 비밀번호 확인 값이 같지 않습니다.");
-				 $("input#editPw").focus();
-				return;
-			}
-			else {
-				const boolEdit = regPwd.test(editPw);
-				if(!boolEdit) {
-					alert("비밀번호는 8~15 글자로 영어, 특수문자, 숫자로 구성되어 있어야 합니다.");
-					$("input#editPw").focus();
-					return;
-				}
-			}
 		}
 		
 		var editEmail = $("input#editEmail").val();
@@ -110,6 +84,71 @@
 			return;
 		}
 		$("#checkOriginPWD").modal("show");
+	}
+	
+	function updateUserPw() {
+		var editPw = $("input#editPw").val();
+		var editPwCheck = $("input#editPwCheck").val();
+		var regPwd = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g;
+		
+		if(editPw.trim() != "" && editPwCheck.trim() != "") {
+			
+			const boolEdit = regPwd.test(editPw);
+			if(!boolEdit) {
+				alert("비밀번호는 8~15 글자로 영어, 특수문자, 숫자로 구성되어 있어야 합니다.");
+				$("input#editPw").focus();
+				return;
+			}
+			
+			else if(editPw != editPwCheck) {
+				alert("새 비밀번호와 새 비밀번호 확인 값이 같지 않습니다.");
+				 $("input#editPw").focus();
+				return;
+			}
+			
+			else {
+				$.ajax({
+					url: '<%= ctxPath%>/update_user_pwd.got',
+					method: 'POST',
+					dataType: 'json',
+					data: {
+						editPw: editPw
+					},
+					success : function(json) {
+						if(json.n == 0) {
+							alert("비밀번호 변경에 문제가 발생했습니다.");
+						}
+						
+						if(json.n == 1) {
+							alert("정상적으로 비밀번호가 변경되었습니다.");
+							location.reload();
+						}
+						
+						if(json.n == 2) {
+							alert("기존 비밀번호와 같아 변경할 수 없습니다.");
+							$("input#editPw").val('');
+							$("input#editPwCheck").val('');
+							$("input#editPw").focus();
+						}
+					},
+					error: function(request, status, error){
+						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+				     }
+				})
+			}
+		}
+		
+		if(editPw.trim() == "") {
+			alert("새 비밀번호를 입력해주세요");
+			$("input#editPw").focus();
+			return;
+		}
+		
+		if(editPwCheck.trim() == "") {
+			alert("새 비밀번호 확인을 입력해주세요");
+			$("input#editPwCheck").focus();
+			return;
+		}
 	}
 	
 	function emailDomainChange() {
@@ -228,7 +267,9 @@
 						
 						<tr>
 						<th>새 비밀번호</th>
-						<td><input type="password" id="editPw" name="pwd" autocomplete="off" /></td>
+						<td><input type="password" id="editPw" name="pwd" autocomplete="off" />
+						<button type="button" class="btn-update-info" id="updatePw" onclick="updateUserPw()">비밀번호 변경</button>
+						</td>
 						</tr>
 						
 						<tr>

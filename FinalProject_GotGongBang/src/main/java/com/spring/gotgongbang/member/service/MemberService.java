@@ -177,6 +177,7 @@ public class MemberService implements InterMemberService {
 			}
 		}
 		return mav;
+	}
 
 	// =========== 박준엽 시작 =========================================== //
 	

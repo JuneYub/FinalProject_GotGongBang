@@ -39,7 +39,6 @@ public interface InterMemberService {
 	int updateMemberInfoByMVO(MemberVO mvo);
 
 
-
 	int updateMemberPwd(MemberVO mvo);
 	
 	// ====== 박준엽 끝 =========================================== //
