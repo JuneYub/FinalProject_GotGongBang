@@ -295,6 +295,16 @@ public class BoardController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/board_view.got")
+	public ModelAndView view(ModelAndView mav, HttpServletRequest request) {
+		
+		
+		
+		mav.setViewName("/board/board_view.tiles1");
+		
+		return mav;
+	}
+	
 		// 오준혁 끝
 		// ===========================================================================
 
