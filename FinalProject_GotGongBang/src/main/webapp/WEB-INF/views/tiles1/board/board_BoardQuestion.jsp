@@ -23,6 +23,21 @@ $(document).readty(function(){
 		  }
 	  });
 	
+	// 검색시 검색조건 및 검색어 유지시키기
+	if( ${not empty requestScope.paraMap} ) {
+	      $("select#searchType").val("${requestScope.paraMap.searchType}");
+		  $("input#searchWord").val("${requestScope.paraMap.searchWord}");
+	  }
+	
+	function goView(inquiry_num_pk) {
+		const gobackURL = "${requestScope.gobackURL}";
+		alert(gobackURL);
+		
+	    const searchType = $("select#searchType").val();
+	    const searchWord = $("input#searchWord").val();
+	      
+	    location.href="<%= ctxPath%>/board_view.got?inquiry_num_pk="+inquiry_num_pk+"&searchType="+searchType+"&searchWord="+searchWord+"&gobackURL="+gobackURL;
+	}
 	
 });
 
@@ -108,13 +123,12 @@ $(document).readty(function(){
                       <ul class="ojh_table2_notice">
                         <li>
                           <c:forEach var="inquiryvo" items="${requestScope.iqList}">
-                            <a href="/">
                                 <div class="ojh_table2_notice1">
                                     <div class="ojh_table2_notice2 t14">${inquiryvo.inquiry_num_pk}</div>
-                                    <div class="ojh_table2_notice3 t15">${inquiryvo.inquiry_title }</div>
+                                    <span class="ojh_table2_notice3 t15" onclick="goview('${inquiryvo.inquiry_num_pk}')">${inquiryvo.inquiry_title}</span>
                                     <div class="ojh_table2_notice4 t16">${inquiryvo.user_id_fk}</div>
                                     <div class="ojh_table2_notice5 t17">${inquiryvo.inquiry_date}</div>
-                                    <div class="ojh_table2_notice5 t18">${inquiryvo.inquiry_num_pk}</div>
+                                    <div class="ojh_table2_notice5 t18">${inquiryvo.inquiry_viewcount}</div>           
                                 </div>  
                             </a>
 						  </c:forEach>
