@@ -90,6 +90,12 @@ public class MemberService implements InterMemberService {
 		return n;
 	}
 
+	@Override
+	public int updateMemberPwd(MemberVO mvo) {
+		int n = dao.updateMemberPwd(mvo);
+		return n;
+	}
+
 	
 	
 	

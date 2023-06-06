@@ -26,6 +26,8 @@ public interface InterMemberService {
 	MemberVO getUserInfoByUserId(String userid);
 
 	int updateMemberInfoByMVO(MemberVO mvo);
+
+	int updateMemberPwd(MemberVO mvo);
 	
 	// ====== 박준엽 끝 =========================================== //
 }

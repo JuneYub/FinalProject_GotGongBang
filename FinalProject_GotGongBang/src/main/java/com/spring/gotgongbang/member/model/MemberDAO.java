@@ -54,6 +54,12 @@ public class MemberDAO implements InterMemberDAO {
 		int n = sqlsession.update("member.updateMemberInfoByMVO", mvo);
 		return n;
 	}
+
+	@Override
+	public int updateMemberPwd(MemberVO mvo) {
+		int n = sqlsession.update("member.updateMemberPwd", mvo);
+		return n;
+	}
 	
 	// ====== 박준엽 끝 =========================================== //
 
