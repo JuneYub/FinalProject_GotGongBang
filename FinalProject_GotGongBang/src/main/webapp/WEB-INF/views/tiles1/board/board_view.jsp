@@ -5,7 +5,17 @@
 <%
    String ctxPath = request.getContextPath();
 %>   
+<<style type="text/css">
 
+</style>
+
+<<script type="text/javascript">
+ $(document).readty(function(){
+	 
+ });	
+	
+	
+</script>
   <div id="ojh_content">
         <section class="ojh_page_content_inquire">
             <header class="ojh_page-header ojh_page-header--customer" style="height: 200px">
@@ -53,25 +63,42 @@
                         <div class="ojh_qulist">
                             <div class="ojh_css-1dhg94g e1pwb5hv0">
                                 <div class="ojh_css-1xrh39a e1pwb5hv2">제목</div>
-                                <div class="ojh_css-8vgw34 e1pwb5hv1">[이벤트] 광화문 미진 라이브 경품 당첨자 안내</div>
+                                <div class="ojh_css-8vgw34 e1pwb5hv1">${requestScope.iqList.inquiry_num_pk}</div>
                             </div>
 
                             <div class="ojh_css-1dhg94g e1pwb5hv0">
                                 <div class="ojh_css-1xrh39a e1pwb5hv2">작성자</div>
-                                <div class="ojh_css-8vgw34 e1pwb5hv1">[이벤트] 광화문 미진 라이브 경품 당첨자 안내</div>
+                                <div class="ojh_css-8vgw34 e1pwb5hv1">${requestScope.iqList.user_id_fk}</div>
                             </div>
 
                             <div class="ojh_css-1dhg94g e1pwb5hv0">
                                 <div class="ojh_css-1xrh39a e1pwb5hv2">작성일</div>
-                                <div class="ojh_css-8vgw34 e1pwb5hv1">[이벤트] 광화문 미진 라이브 경품 당첨자 안내</div>
+                                <div class="ojh_css-8vgw34 e1pwb5hv1">${requestScope.iqList.regdate}</div>
                             </div>
+                            
+                            <div class="ojh_css-1dhg94g e1pwb5hv0">
+                                <div class="ojh_css-1xrh39a e1pwb5hv2">첨부파일</div>
+                                <div class="ojh_css-8vgw34 e1pwb5hv1">${requestScope.iqList.inquiry_num_pk}</div>
+                            </div>
+                            
                         </div>
                         <div class="ojh_css-1xvp3jp ezf0ge90">
-                            <p>6월 13일 이후 구매 확정 고객님들께 컬리 고객센터를 통해 순차적으로 연락드릴 예정입니다.</p>
-                            <p>6월 13일 이후 구매 확정 고객님들께 컬리 고객센터를 통해 순차적으로 연락드릴 예정입니다.</p>
-                            <p>6월 13일 이후 구매 확정 고객님들께 컬리 고객센터를 통해 순차적으로 연락드릴 예정입니다.</p>
-                            <p>6월 13일 이후 구매 확정 고객님들께 컬리 고객센터를 통해 순차적으로 연락드릴 예정입니다.</p>
-                            <p>아아아아아아아ㅏ아</p>
+                            <p>${requestScope.iqList.inquiry_content}</p>
+                        </div>
+                        
+                        <div class="ojh_css-d7qwpj e1p3kiis0">
+
+                            <button class="ojh_css-214ym5 e4nu7ef3" type="button" width="150" height="42" radius="0">
+                                <span class="ojh_css-ymwvow e4nu7ef1">수정</span>
+                            </button>
+
+                            <button class="ojh_css-214ym5 e4nu7ef3" type="button" width="150" height="42" radius="0">
+                                <span class="ojh_css-ymwvow e4nu7ef1">삭제</span>
+                            </button>
+
+                            <button class="ojh_css-214ym4 e4nu7ef3" type="button" width="150" height="42" radius="0">
+                                <span class="ojh_css-ymwvow e4nu7ef1">목록</span>
+                            </button>
                         </div>
                         
                     </table>
