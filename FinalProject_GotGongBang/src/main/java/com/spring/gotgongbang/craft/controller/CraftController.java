@@ -325,15 +325,14 @@ public class CraftController {
 
           n = service.add_withFile(cvo);
           if(n==1){
-        	  System.out.println("~~n :" +n);
+              return "redirect:/craft_complete.got";
           }else {
-        	  System.out.println("~n : " + n);
+              return "javascript:history.go(0);";
           }
           
        } //end of if(!fileList.isEmpty())---------------------------
              
-       return "";
-       
+       return "javascript:history.go(0);";
    }
    
    
