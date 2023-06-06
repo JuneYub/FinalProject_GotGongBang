@@ -76,7 +76,7 @@ public class MemberController {
 		    n = service.updateMemberInfoByMVO(mvo);
 		      
 		    if(mvo.getPwd() != null && mvo.getPwd() != "") {
-		       //n = service.updatePartnerPwd(mvo);
+		       n = service.updateMemberPwd(mvo);
 		    }
 		    String message = "";
 		    String loc = "";
