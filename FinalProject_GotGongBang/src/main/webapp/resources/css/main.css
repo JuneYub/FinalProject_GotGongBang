@@ -2552,6 +2552,44 @@ flex-basis: 50px;
     border-bottom: 1px solid rgb(128, 128, 128);
 }
 
+.ojh_css-d7qwpj {
+    
+    width: 100%;
+    padding: 20px 0px;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+}
+
+.ojh_css-214ym4 {
+     display: block;
+     float: right; 
+     padding: 0px 10px; 
+     text-align: center; 
+     overflow: hidden; 
+     width: 100px; 
+     height: 42px; 
+     border-radius: 0px; 
+     color: rgb(255, 255, 255); 
+     background-color: rgb(95, 0, 128); 
+     border: 0px none; 
+}
+
+.ojh_css-214ym5 {
+     padding: 0px 10px; 
+     text-align: center; 
+     overflow: hidden; 
+     width: 100px; 
+     height: 42px; 
+     border-radius: 0px; 
+     color: rgb(255, 255, 255); 
+     background-color: rgb(95, 0, 128); 
+     border: 0px none; 
+}
+
+.ojh_css-ymwvow {
+    font-size: 13px;
+}
+
 /* ------------Board_view 끝 ----------- */
 
 /* ================================= 오준혁 끄 읕 =============================== */
