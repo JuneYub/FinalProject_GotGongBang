@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.JsonObject;
 import com.spring.gotgongbang.common.FileManager;
 import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.craft.model.ImageVO;
@@ -324,15 +325,14 @@ public class CraftController {
 
           n = service.add_withFile(cvo);
           if(n==1){
-        	  System.out.println("~~n :" +n);
+              return "redirect:/craft_complete.got";
           }else {
-        	  System.out.println("~n : " + n);
+              return "javascript:history.go(0);";
           }
           
        } //end of if(!fileList.isEmpty())---------------------------
              
-       return "";
-       
+       return "javascript:history.go(0);";
    }
    
    
@@ -465,13 +465,9 @@ public class CraftController {
    
    @RequestMapping(value="/edit_craft_user_info_end.got")
    public ModelAndView editCraftInfoEnd(ModelAndView mav, HttpServletRequest request, PartnerVO pvo) {
-      
       int n = 0;
       n = service.updatePartnerInfo(pvo);
       
-      if(pvo.getPartner_pwd() != null && pvo.getPartner_pwd() != "") {
-         n = service.updatePartnerPwd(pvo);
-      }
       String message = "";
       String loc = "";
       
@@ -489,6 +485,29 @@ public class CraftController {
       request.setAttribute("loc", loc);
       mav.setViewName("msg");
       return mav;
+   }
+   
+   @ResponseBody
+   @RequestMapping(value="/update_craft_user_pwd.got", method = {RequestMethod.POST})
+   public String updateCraftUserPwd(HttpServletRequest request) {
+	  String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것 
+	  String editPw = request.getParameter("editPw"); 
+	  
+	  PartnerVO pvo = new PartnerVO();
+      pvo = service.getPartnerInfoByUserId(partnerId);
+      int n = 0;
+
+      if(editPw.equals(pvo.getPartner_pwd())) {
+    	  n = 2;
+    	  
+      }
+      else {
+          n = service.updatePartnerPwd(pvo);
+      }
+      
+      JSONObject jsonObj = new JSONObject();
+      jsonObj.put("n", n);
+	  return jsonObj.toString();
    }
    
    public String makePageBar(int currentShowPageNo, int blockSize, int totalPage) {
