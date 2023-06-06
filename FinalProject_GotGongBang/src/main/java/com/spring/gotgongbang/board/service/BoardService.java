@@ -68,6 +68,36 @@ public class BoardService implements InterBoardService {
 			return iqList;
 		}
 		
+		// 조회수 증가 
+		@Override
+		public InquiryVO getView(Map<String, String> paraMap) {
+			
+			InquiryVO iqvo = dao.getView(paraMap); // 글1개 조회하기
+			
+			String login_userid = paraMap.get("login_userid");
+			// paraMap.get("login_userid") 은 로그인을 한 상태이라면 로그인한 사용자의 userid 이고,
+			// 로그인을 하지 않은 상태이라면 paraMap.get("login_userid") 은 null 이다. 
+			
+			if(login_userid != null && iqvo != null &&
+			   !login_userid.equals(iqvo.getUser_id_fk()) ) { 
+			   // 글조회수 증가는 로그인을 한 상태에서 다른 사람의 글을 읽을때만 증가하도록 한다. 
+				
+			   dao.setAddReadCount(iqvo.getInquiry_num_pk()); // 글조회수 1증가하기
+			   iqvo = dao.getView(paraMap);	
+			}
+			
+			return iqvo;
+		}
+		
+		// 조회수 증가 없이 게시글 조회
+		@Override
+		public InquiryVO getViewWithNoAddCount(Map<String, String> paraMap) {
+			
+			InquiryVO iqvo = dao.getView(paraMap);
+			
+			return iqvo;
+		}
+		
 		
 		
 		// 오준혁 끝 ===========================================================================
