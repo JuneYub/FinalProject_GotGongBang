@@ -55,6 +55,19 @@ public class BoardDAO implements InterBoardDAO {
 		return iqList;
 	}
 	
+	// 1개 조회하기 
+	@Override
+	public InquiryVO getView(Map<String, String> paraMap) {
+		InquiryVO iqvo = sqlsession.selectOne("board.getView",paraMap);
+		return iqvo;
+	}
+	
+	// 글조회수 1증가하기
+	@Override
+	public void setAddReadCount(String inquiry_num_pk) {
+		sqlsession.update("board.setAddReadCount", inquiry_num_pk);
+	}
+	
 	
 	
 	
