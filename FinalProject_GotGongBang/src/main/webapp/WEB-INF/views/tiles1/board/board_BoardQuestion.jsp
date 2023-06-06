@@ -6,9 +6,47 @@
    String ctxPath = request.getContextPath();
 %>   
 
+<style type="text/css">
+	table.ojh_table th, table.ojh_table td {
+  	  border-bottom: none !important;
+   }
+</style>
+
+<script type="text/javascript"> 
+
+$(document).readty(function(){
+	
+	$("input#searchWord").keyup(function(e){
+		  if(e.keyCode == 13) {
+			  // 엔터를 했을 경우
+			  goSearch();
+		  }
+	  });
+	
+	// 검색시 검색조건 및 검색어 유지시키기
+	if( ${not empty requestScope.paraMap} ) {
+	      $("select#searchType").val("${requestScope.paraMap.searchType}");
+		  $("input#searchWord").val("${requestScope.paraMap.searchWord}");
+	  }
+	
+	function goView(inquiry_num_pk) {
+		const gobackURL = "${requestScope.gobackURL}";
+		alert(gobackURL);
+		
+	    const searchType = $("select#searchType").val();
+	    const searchWord = $("input#searchWord").val();
+	      
+	    location.href="<%= ctxPath%>/board_view.got?inquiry_num_pk="+inquiry_num_pk+"&searchType="+searchType+"&searchWord="+searchWord+"&gobackURL="+gobackURL;
+	}
+	
+});
+
+
+</script>
+
  <div id="ojh_content">
         <section class="ojh_page_content_inquire">
-            <header class="ojh_page-header ojh_page-header--customer" style="height: 200px;">
+            <header class="ojh_page-header ojh_page-header--customer" style="padding: 30px 0px 100px 0px;">
               <span class="page-header__backdrop">
                 <span class="page-header__backdrop-item"></span>
                 <span class="page-header__backdrop-item"></span>
@@ -18,28 +56,43 @@
               </span>
               <h2 class="page-header__title aos-init aos-animate" data-aos="fade-up">
                 <span aria-hidden="true" data-breadcrumb-menu="고객센터">고객센터</span>
-                <span data-breadcrumb-current="질문 게시판">질문 게시판</span>
+                <span data-breadcrumb-current="FAQ">무엇을 도와드릴까요?</span>
               </h2>
-
+			  
+			  <form class="ojh_page_header_search">
+                <fieldset class="ojh_page_header_search_fieldset">
+                    <legend class="ojh_page_header_search_legend"></legend>
+                    <select name="searchType" id="searchType" style="width: 90px; height: 55px; border: none; font-weight: 500;">
+						<option value="inquiry_title" style="border: none;">글제목</option>
+						<option value="user_id_fk" style="border: none;">글쓴이</option>
+					</select>
+                    <input type="text" class="ojh_page_header_search_input"  placeholder="검색어를 입력하세요" name="searchWord" id="scearhWord" value="" style=" width: 500px;">
+                    <input type="text" style="display: none;"/>
+                    <button class="ojh_page_header_search_submit">
+                        <span>검색</span>
+                    </button>
+                </fieldset>
+              </form>	
+				
             </header>
             <form>
             	<div id="ojh_category">
                     <div class="ojh_center"> 고객센터 </div>
                     <ul class="ojh_sub_category">
                         <li>
-                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/BoardNotice.got'">공지사항</a>
+                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/board_notice.got'">공지사항</a>
                         </li>
 
                         <li>
-                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/Boardinquiry.got'">온라인 문의</a>
+                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/board_inquiry.got'">온라인 문의</a>
                         </li>
 
                         <li>
-                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/BoardQuestion.got'">질문 게시판</a>
+                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/board_question.got'">질문 게시판</a>
                         </li>
 
                         <li>
-                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/BoardFaq.got'">FAQ</a>
+                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/board-faq.got'">FAQ</a>
                         </li>
                     </ul>
                 </div>
@@ -50,216 +103,55 @@
                   <fieldset style="border: 0;">
                         <legend>질문게시판</legend>
                         <p>갗공방 고객님들의 질문들을 모두 모았습니다.</p>
-                        
+                    
+                    
                     <table class="ojh_table table--row">
+                       	
                       <div class="ojh_table2">
                             <div  class="ojh_table2_info t11">번호</div>
                             <div class="ojh_table2_info t12">제목</div>
                             <div  class="ojh_table2_info t13">작성자</div>
                             <div  class="ojh_table2_info t13">작성일</div>
+                            <div  class="ojh_table2_info t13_1">조회수</div>
                       </div> 
-
+					  
+					   <c:if test="${empty requestScope.iqList}">
+                      		<td style="padding: 32px 0px 0px 252px";>게시글 데이터가 없습니다</td>
+                      </c:if>    	
+                      
+                    <c:if test="${not empty requestScope.iqList}">  
                       <ul class="ojh_table2_notice">
                         <li>
-                            <a href="/">
+                          <c:forEach var="inquiryvo" items="${requestScope.iqList}">
                                 <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">10</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
+                                    <div class="ojh_table2_notice2 t14">${inquiryvo.inquiry_num_pk}</div>
+                                    <span class="ojh_table2_notice3 t15" onclick="goview('${inquiryvo.inquiry_num_pk}')">${inquiryvo.inquiry_title}</span>
+                                    <div class="ojh_table2_notice4 t16">${inquiryvo.user_id_fk}</div>
+                                    <div class="ojh_table2_notice5 t17">${inquiryvo.inquiry_date}</div>
+                                    <div class="ojh_table2_notice5 t18">${inquiryvo.inquiry_viewcount}</div>           
                                 </div>  
                             </a>
-
+						  </c:forEach>
                         </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">9</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">8</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">7</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">6</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">5</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">4</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">3</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">2</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">1</div>
-                                    <div class="ojh_table2_notice3 t15">환불해줘요</div>
-                                    <div class="ojh_table2_notice4 t16">아무개</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
                     </ul>
-
+				   </c:if>
                     </table>
 
                   </fieldset>
+                   
+	                  <div align="center" style="border: solid 0px gray; width: 70%; margin: 20px auto; ">
+					    	${requestScope.pageBar}
+					  </div> 
                   
-                  <nav class="ojh_pagination_nav">
+                  <%--  <nav class="ojh_pagination_nav">
                     <ul class="ojh_pagination">
-                        <li class="ojh_pagination_item_first">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">처음</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item_before">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">이전</span>
-                            </a>
-                        </li>
                         <li class="ojh_pagination_item_one">
                             <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">1</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">2</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">3</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">4</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">5</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">6</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">7</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">8</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">9</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">10</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item_next">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">다음</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item_last">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">마지막</span>
+                                <span class="ojh_pagination_name">${requestScope.pageBar}</span>
                             </a>
                         </li>
                     </ul>
-                  </nav>
+                  </nav>  --%>
 
                 </div>
             </form>

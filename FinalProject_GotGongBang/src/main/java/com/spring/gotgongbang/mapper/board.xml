@@ -15,4 +15,71 @@
 		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, inquiry_group, inquiry_original, inquiry_depth, inquiry_date, inquiry_viewcount, inquiry_status, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize)
 		values(seq_inquiry_num_pk.nextval, 'wlgus', #{inquiry_title}, #{inquiry_content}, 1, 1, 1, default, default, default, #{inquiry_content}, #{inquiry_orgFilename}, #{inquiry_fileSize})
 	</insert>
+	
+<!-- 질문게시판 데이터 넘기기 -->	
+
+	<select id="BoardQuestionList" resultType="com.spring.gotgongbang.board.model.InquiryVO">
+		select inquiry_num_pk, user_id_fk, inquiry_title, to_char(inquiry_date, 'yyyy-mm-dd hh24:mm:ss') as inquiry_date
+		from INQUIRY 
+		where inquiry_status = 1
+		order by inquiry_num_pk desc
+	</select> 
+	
+<!-- 총 게시물 건수 구하기 -->	
+	 
+	 <select id="getTotalCount" parameterType="HashMap" resultType="int"> 
+	   select count(*)
+	   from INQUIRY
+	   where inquiry_status = 1 
+	   <if test='searchType != ""'>
+	   and lower(${searchType}) like '%'|| lower(#{searchWord}) ||'%'
+	   </if>
+	 </select>
+	 
+<!-- 페이징 처리한 글목록 가져오기 -->
+	<select id="iqListSearchWithPaging" parameterType="HashMap" resultType="com.spring.gotgongbang.board.model.InquiryVO">
+		select inquiry_num_pk, user_id_fk, inquiry_title, inquiry_viewcount, inquiry_date
+		from 
+		(
+		  select row_number() over(order by inquiry_num_pk desc) AS rno,
+		         inquiry_num_pk, user_id_fk, inquiry_title, inquiry_viewcount,
+		         to_char(inquiry_date, 'yyyy-mm-dd hh24:mi:ss') AS inquiry_date 
+		         
+		  from INQUIRY
+		  where inquiry_status = 1
+		<if test='searchType != "" and searchWord != ""'>
+		  and lower(${searchType}) like '%'|| lower(#{searchWord}) || '%'
+		</if>
+		) V 
+		where rno between #{startRno} and #{endRno}
+	</select>	 
+	
+<!-- === 게시글 1개 조회하기 === -->
+	<select id="getView" parameterType="HashMap" resultType="com.spring.gotgongbang.board.model.InquiryVO">
+		select previousseq, previoussubject
+			 , inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, inquiry_viewcount, regdate
+			 , nextseq, nextsubject, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize  
+		from
+		)
+		select lag(inquiry_num_pk,1) over(order by inquiry_num_pk desc) AS previousseq
+		     , lag(inquiry_title,1) over(order by inquiry_num_pk desc) AS previoussubject
+		     , inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, inquiry_viewcount
+		     , to_char(inquiry_date, 'yyyy-mm-dd hh24:mi:ss') as regdate 
+		     , lead(inquiry_num_pk,1) over(order by inquiry_num_pk desc) AS nextseq
+		     , lead(inquiry_title,1) over(order by inquiry_num_pk desc) AS nextsubject 
+		     , inquiry_fileName, inquiry_orgFilename, inquiry_fileSize   
+		from INQUIRY
+		where inquiry_status = 1
+		<if test='searchType != "" and searchWord != ""'>
+		and lower(${searchType}) like '%'|| lower(#{searchWord}) ||'%'
+		</if>
+		) V 
+		where V.inquiry_num_pk = #{inquiry_num_pk}
+	</select>
+	
+	<!-- === 조회수 1증가 하기 === -->
+	<update id="setAddReadCount" parameterType="String">
+		update INQUIRY set inquiry_viewcount = inquiry_viewcount + 1
+		where inquiry_num_pk = #{inquiry_num_pk}
+	</update>
 </mapper>

@@ -819,6 +819,7 @@ div.contents-review-promotional {
 	display: block;
     margin: 15px auto;
     border: 1px solid #6D6D6D;
+    border-radius: 13px;
     background-color: white;
     padding: 8px;
     box-shadow: 1px 1px 1px black;
@@ -928,8 +929,38 @@ ul:has(li.requests-item) {
     font-weight: 400;
 }
 
+.txt-proposal-info {
+	text-align: left;
+	font-size: 14px;
+}
 
+.proposal-info-tit {
+	display: inline-block;
+    width: 110px;
+}
 
+.txt-info-center {
+	text-align: center;
+}
+
+.cont-proposal-right {
+	float: right;
+}
+
+li.requests-cont {
+	margin-top: 13px;
+}
+
+.btn-update-info {
+	border: none;
+    padding: 7px;
+    font-size: 13px;
+    width: 110px;
+    border-radius: 30px;
+    background-color: #400099;
+    color: white;
+    box-shadow: 1px 1px 2px black;
+}
 
 
 
@@ -1849,7 +1880,7 @@ img.imgCircle2 {
 /* ==== 이지현 끝========================================================================================= */
 
 
-/* ================================= 오 준 혁 시 작 =============================== */
+/* ================================= 오준혁 시 작 =============================== */
 
 a {
     text-decoration: none;
@@ -1983,8 +2014,8 @@ a {
 .ojh_page-header .page-header__backdrop-item:nth-child(3) {
     animation-name: page-header-backdrop-3;
     background-image: url(../img/board/bg_header_backgrop_1.png);
-    height: 210px;
-    margin-left: 245px;
+    height: 184px;
+    margin-left: 273px;
     width: 110px;
 }
 
@@ -2017,8 +2048,8 @@ a {
 .ojh_page-header .page-header__backdrop-item:nth-child(4) {
     animation-name: page-header-backdrop-3;
     background-image: url(../img/board/bg_header_backgrop_2.png);
-    height: 216px;
-    margin-left: 318px;
+    height: 185px;
+    margin-left: 349px;
     width: 135px;
 }
 
@@ -2288,6 +2319,14 @@ flex-basis: 50px;
     color: rgb(51, 51, 51);
 }
 
+.t13_1 {
+    flex-basis: 100px;
+    text-align: center;
+    line-height: 20px;
+    font-weight: 400;
+    color: rgb(51, 51, 51);
+}
+
 .ojh_table2_notice1 {
     display: flex;
     border-bottom: 1px solid rgb(244, 244, 244);
@@ -2295,13 +2334,13 @@ flex-basis: 50px;
 
 .t14 {
     text-align: center;
-    padding: 20px 0px;
+    padding: 30px 0px;
     color: rgb(76, 76, 76);
     flex-basis: 50px;
 }
 
 .t15 {
-    padding: 20px 0px 20px 20px;
+    padding: 30px 0px 20px 20px;
     color: rgb(76, 76, 76);
     flex: 1 1 0%;
     text-align: left;
@@ -2309,16 +2348,23 @@ flex-basis: 50px;
 
 .t16 {
     text-align: center;
-    padding: 20px 0px;
+    padding: 30px 0px;
     color: rgb(76, 76, 76);
-    flex-basis: 100px;
+    flex-basis: 115px;
 }
 
 .t17 {
     text-align: center;
-    padding: 20px 0px;
-    flex-basis: 100px;
+    padding: 20px 30px 0px 0px;
+    flex-basis: 115px;
     color: rgb(153, 153, 153);
+}
+
+.t18{
+	text-align: center;
+    padding: 30px 25px 0px 0px;
+    color: rgb(76, 76, 76);
+    flex-basis: 75px;
 }
 
 .ojh_pagination_nav {
@@ -2351,7 +2397,6 @@ flex-basis: 50px;
     border-radius: 30px;
     box-shadow: 0 6px 10px rgba(49,51,65,.15);
     display: flex;
-    flex-direction: row-reverse;
     height: 60px;
     justify-content: space-between;
     padding: 0 20px;
@@ -2485,8 +2530,82 @@ flex-basis: 50px;
 
 /* ------------ 본문 끝------------- */
 
+/* ------------Board_view 시작 ----------- */
 
-/* ================================= 오 준 혁 끄 읕 =============================== */
+.ojh_css-1dhg94g {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid rgb(244, 244, 244);
+}
+
+.ojh_qulist {
+    margin-top: 20px;
+    border-top: 2px solid rgb(51, 51, 51);
+    color: rgb(51, 51, 51);
+}
+
+.ojh_css-1xrh39a {
+    width: 130px;
+    padding: 13px 0px 13px 20px;
+    background-color: rgb(247, 245, 248);
+    border-top: 1px solid rgb(244, 244, 244);
+    text-align: left;
+    font-weight: 500;
+}
+
+.ojh_css-8vgw34 {
+    padding-left: 25px;
+    align-self: center;
+}
+
+.ojh_css-1xvp3jp {
+    padding: 30px 10px 100px;
+    border-bottom: 1px solid rgb(128, 128, 128);
+}
+
+.ojh_css-d7qwpj {
+    
+    width: 100%;
+    padding: 20px 0px;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+}
+
+.ojh_css-214ym4 {
+     display: block;
+     float: right; 
+     padding: 0px 10px; 
+     text-align: center; 
+     overflow: hidden; 
+     width: 100px; 
+     height: 42px; 
+     border-radius: 0px; 
+     color: rgb(255, 255, 255); 
+     background-color: rgb(95, 0, 128); 
+     border: 0px none; 
+}
+
+.ojh_css-214ym5 {
+     padding: 0px 10px; 
+     text-align: center; 
+     overflow: hidden; 
+     width: 100px; 
+     height: 42px; 
+     border-radius: 0px; 
+     color: rgb(255, 255, 255); 
+     background-color: rgb(95, 0, 128); 
+     border: 0px none; 
+}
+
+.ojh_css-ymwvow {
+    font-size: 13px;
+}
+
+/* ------------Board_view 끝 ----------- */
+
+/* ================================= 오준혁 끄 읕 =============================== */
+
+
 /* ================================= 김나윤 시작 ================================ */
 /* [영역1] "수선사 찾기" 박스 영역 시작 ==================================================================================== */
 .craftListBox {
@@ -2508,7 +2627,7 @@ flex-basis: 50px;
 	color: #000;
 	font-size: 52px;
 	font-weight: 700;
-	width: 35%;
+	width: 25%;
 }
 
 
@@ -2549,12 +2668,12 @@ button.searchBtn {
 	background: url(https://hyphen.im/assets/images/product/icon_search.png) no-repeat 50%/30px auto;
 	height: 30px;
 	width: 30px;
-	/* border: 0; */
+	border: 0;
 	cursor: pointer;
 }
 
 ul.keyWord {
-	margin: 0 auto;
+	margin: 20px 500px;
 	/* border: solid 1px red; */
 }
 ul.keyWord > li {
@@ -2570,8 +2689,10 @@ ul.keyWord > li > a{
 	padding-right: 10px;
 }
 ul.keyWord > li:hover {
-	color: #fff;
 	background-color: #ccc;
+}
+ul.keyWord > li:hover > a {
+	color: #fff;
 	text-decoration: none;
 }
 /* [영역1] "수선사 찾기" 박스 영역 끝 ==================================================================================== */
@@ -2642,7 +2763,7 @@ swiper-slide img {
         border: solid 1px #e6e6e6;
 }
 .topMenu .menuLink {                              
-	text-decoration:none;                      
+	text-decoration:none;  
 	color: #999;                             
 	display: block;    /* 링크를 글씨가 있는 부분 뿐만아니라 전체 영역을 클릭해도 링크가 걸리게 설정 */
 	width: 240px;      /* 메뉴링크의 넓이 설정 */
@@ -2650,9 +2771,9 @@ swiper-slide img {
 	font-weight: bold;                        
 }
 .topMenu .menuLink:hover {            
-	color: #999;                   
-	border: solid 1px #400099;
-	font-weight: 700;
+	color: #400099;                   
+	border: solid 2px #400099;
+	font-weight: bold;
 }
 /* [영역4] "상단메뉴바" 영역 끝 ==================================================================================== */
 
@@ -2967,7 +3088,7 @@ table#reviewTbl td, th {
 	    height: 14px;
 	    background: rgb(224, 224, 224);
 	    margin: 0px 15px;
-	    margin-top: 16px;
+	    margin-top: 5px;
 	    width: 1px;
 	    
 	}

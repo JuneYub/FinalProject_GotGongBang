@@ -1,5 +1,9 @@
 package com.spring.gotgongbang.board.service;
 
+import java.util.List;
+import java.util.Map;
+
+
 import com.spring.gotgongbang.board.model.InquiryVO;
 
 public interface InterBoardService {
@@ -23,6 +27,25 @@ public interface InterBoardService {
 		
 		// 파일 첨부 기능이 있는 온라인 문의
 		int add_withFile(InquiryVO iqvo);
+		
+		// 질문게시판 데이터 넘기기
+		List<InquiryVO> BoardQuestionList();
+		
+		// 총 게시물 건수
+		int getTotalCount(Map<String, String> paraMap);
+		
+		// 페이징 처리한 글목록 가져오기
+		List<InquiryVO> iqListSearchWithPaging(Map<String, String> paraMap);
+		
+		// 조회수 증가 
+		InquiryVO getView(Map<String, String> paraMap);
+		
+		// 조회수 증가 없이 게시글 조회
+		InquiryVO getViewWithNoAddCount(Map<String, String> paraMap);
+
+		
+		
+		
 	
 		// 오준혁 끝 ===========================================================================
 		
