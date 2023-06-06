@@ -5,12 +5,17 @@ import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.util.HashMap;
+import java.util.List;
+
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +81,7 @@ public class MemberService implements InterMemberService {
 		int n = dao.isIdDuplicate(id);
 		return n > 0;
 	}
+
 
 	@Override
 	public ModelAndView loginEnd(ModelAndView mav, HttpServletRequest request, Map<String, String> paraMap) {
@@ -171,6 +177,31 @@ public class MemberService implements InterMemberService {
 			}
 		}
 		return mav;
+
+	// =========== 박준엽 시작 =========================================== //
+	
+	@Override
+	public List<HashMap<String, String>> getProposalListByUserId(HashMap<String, String> paraMap) {
+		List<HashMap<String, String>> proposalList = dao.getProposalListByUserId(paraMap);
+		return proposalList;
+	}
+
+	@Override
+	public MemberVO getUserInfoByUserId(String userid) {
+		MemberVO mvo = dao.getUserInfoByUserId(userid);
+		return mvo;
+	}
+
+	@Override
+	public int updateMemberInfoByMVO(MemberVO mvo) {
+		int n = dao.updateMemberInfoByMVO(mvo);
+		return n;
+	}
+
+	@Override
+	public int updateMemberPwd(MemberVO mvo) {
+		int n = dao.updateMemberPwd(mvo);
+		return n;
 	}
 
 	

@@ -23,7 +23,7 @@ div#orderContent {
 
 }
 
-.chooseFile {
+.choose_file {
    /*  visibility: hidden; */
    display:none;
 }
@@ -43,7 +43,18 @@ div.orderSelect{
 
 	// == 모달 값 넘기기 == //
 	var value="10";
+	
+	// 사진 리스트
+	var img_whole_list = new Array();
+	var img_datail_list = new Array();
 
+	// 사진 리스트 카운트
+	let img_whole_cnt = 0;
+	let img_detail_cnt = 0;
+	
+	// 사진 html
+	let img_whole_html ="";
+	let img_detail_html ="";
 
 	$(document).ready(function(){
 		
@@ -59,113 +70,85 @@ div.orderSelect{
 			console.log( $("select[name='type_code_pk']").val());
 		}); */
 		
+		
+		
+		
 	
 	   // == 제품 이미지 또는 추가이미지 파일을 선택하면 화면에 이미지를 미리 보여주기 시작 == //
 	   
 	   //같은걸 계속 잡으면 이벤트가 안 일어나도록 click 말고 change 사용. $() 이런건 jquery인데 javascript로 변경해야 사진이 뜬다
-	   $(document).on("change","#img_whole",function(e){
+	   $(document).on("change",".choose_file",function(e){
 		   
-		  let input_file = $(e.target).get(0);
-		  // jQuery선택자.get(0) 은 jQuery 선택자인 jQuery Object 를 DOM(Document Object Model) element 로 바꿔주는 것이다. 
-	      // DOM element 로 바꿔주어야 순수한 javascript 문법과 명령어를 사용할 수 있게 된다. 
+		   
+		   let input_file = $(e.target).get(0);
+		   // jQuery선택자.get(0) 은 jQuery 선택자인 jQuery Object 를 DOM(Document Object Model) element 로 바꿔주는 것이다. 
+	       // DOM element 로 바꿔주어야 순수한 javascript 문법과 명령어를 사용할 수 있게 된다. 
 	   
-	      // 파일이름을 선택한 후, file input 엘리먼트의 files 프로퍼티를 출력해보면, 위와 같이 FileList 라는 객체가 출력되는 것을 볼 수 있다. 
-	      // FileList 객체 프로퍼티(키)는 0,1 … 형태의 숫자로, 그리고 값에는 File 객체가 들어있다. 
-	      // file input 엘리먼트의 files 프로퍼티의 값이 FileList 로 되어있으므로 File 객체에 접근하려면 input_file.files[i] 이런 식으로 사용하여 i 번째의 File 객체에 접근을 한다.
-	   
+	       // 파일이름을 선택한 후, file input 엘리먼트의 files 프로퍼티를 출력해보면, 위와 같이 FileList 라는 객체가 출력되는 것을 볼 수 있다. 
+	       // FileList 객체 프로퍼티(키)는 0,1 … 형태의 숫자로, 그리고 값에는 File 객체가 들어있다. 
+	       // file input 엘리먼트의 files 프로퍼티의 값이 FileList 로 되어있으므로 File 객체에 접근하려면 input_file.files[i] 이런 식으로 사용하여 i 번째의 File 객체에 접근을 한다.
+	   	   //console.log( input_file.id );
 	      
-	   	  //console.log(input_file.files[0]);
-	   	  /*
-		      File {name: 'berkelekle심플라운드01.jpg', lastModified: 1605506138000, lastModifiedDate: Mon Nov 16 2020 14:55:38 GMT+0900 (한국 표준시), webkitRelativePath: '', size: 71317, …}
-		   
-		       >>설명<<
-		       name : 단순 파일의 이름 string타입으로 반환 (경로는 포함하지 않는다.)
-		       lastModified : 마지막 수정 날짜 number타입으로 반환 (없을 경우, 현재 시간)
-		       lastModifiedDate: 마지막 수정 날짜 Date객체타입으로 반환
-		       size : 64비트 정수의 바이트 단위 파일의 크기 number타입으로 반환
-		       type : 문자열인 파일의 MIME 타입 string타입으로 반환 
-		              MIME 타입의 형태는 type/subtype 의 구조를 가지며, 다음과 같은 형태로 쓰인다. 
-		             text/plain
-		             text/html
-		             image/jpeg
-		             image/png
-		             audio/mpeg
-		             video/mp4
-		             ...
-	     	*/   
-	     	
-	   		//console.log(input_file.files[0].name);
-	     	//berkelekle심플라운드01.jpg
+		   // 전체사진인지, 부분사진인지
+		   let file_id = input_file.id;
+		  
 	     
-	   		// File 객체의 실제 데이터(내용물)에 접근하기 위해 FileReader 객체를 생성하여 사용한다.
-	        const fileReader = new FileReader();
+	   	   // File 객체의 실제 데이터(내용물)에 접근하기 위해 FileReader 객체를 생성하여 사용한다.
+	       const fileReader = new FileReader();
 	        
-	        fileReader.readAsDataURL(input_file.files[0]); // FileReader.readAsDataURL() --> 파일을 읽고, result속성에 파일을 나타내는 URL을 저장 시켜준다.
+	       fileReader.readAsDataURL(input_file.files[0]); // FileReader.readAsDataURL() --> 파일을 읽고, result속성에 파일을 나타내는 URL을 저장 시켜준다.
 	     
-	         fileReader.onload = function() { // FileReader.onload --> 파일 읽기 완료 성공시에만 작동하도록 하는 것임. 
-	           // console.log(fileReader.result);
-	         /*
-	             data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAg 
-	             이러한 형태로 출력되며, img.src 의 값으로 넣어서 사용한다.
-	         */
-	            document.getElementById("previewImg01").src = fileReader.result;
-	        };
-	        
-	   });//$(document).on("change","input.img_file1",function(e)
-			   
-			   
-			   
-	   //같은걸 계속 잡으면 이벤트가 안 일어나도록 click 말고 change 사용. $() 이런건 jquery인데 javascript로 변경해야 사진이 뜬다
-	   $(document).on("change","#img_detail",function(e){
-		   
-		  let input_file = $(e.target).get(0);
-		  // jQuery선택자.get(0) 은 jQuery 선택자인 jQuery Object 를 DOM(Document Object Model) element 로 바꿔주는 것이다. 
-	      // DOM element 로 바꿔주어야 순수한 javascript 문법과 명령어를 사용할 수 있게 된다. 
-	   
-	      // 파일이름을 선택한 후, file input 엘리먼트의 files 프로퍼티를 출력해보면, 위와 같이 FileList 라는 객체가 출력되는 것을 볼 수 있다. 
-	      // FileList 객체 프로퍼티(키)는 0,1 … 형태의 숫자로, 그리고 값에는 File 객체가 들어있다. 
-	      // file input 엘리먼트의 files 프로퍼티의 값이 FileList 로 되어있으므로 File 객체에 접근하려면 input_file.files[i] 이런 식으로 사용하여 i 번째의 File 객체에 접근을 한다.
-	   
+	       // 전체사진 추가했을 경우   
+	       if("img_whole" == file_id){
+	    	
+	    	   
+	    	   if(img_whole_cnt == 3){
+	    		   alert("최대 3개까지 추가 가능합니다.");
+	    		   return;
+	    	   }
+        	   fileReader.onload = function() { // FileReader.onload --> 파일 읽기 완료 성공시에만 작동하도록 하는 것임. 
+	 	       
+	 	           /*
+	 	               data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAg 
+	 	                            이러한 형태로 출력되며, img.src 의 값으로 넣어서 사용한다.
+	 	           */
+	 	           img_whole_cnt ++; 
+	 	           img_whole_html = "<label style='cursor: pointer;' class='orderDivPic'>" +
+						 	           "<img src='" + fileReader.result + "' id='previewImg0" + img_whole_cnt + "' style='width:140px; height:140px; position:static;' />" +
+						 	           "</label>";
+	   			 
+				   $("div[id='img_whole_num']").text(img_whole_cnt+"/3"); 
+	 	           //document.getElementById("previewImg01").src = fileReader.result;
+	   			   $("div[id='img_whole_div_"+img_whole_cnt+"']").html(img_whole_html); 
+   			 
+	 	        };
+	        }
 	      
-	   	  //console.log(input_file.files[0]);
-	   	  /*
-		      File {name: 'berkelekle심플라운드01.jpg', lastModified: 1605506138000, lastModifiedDate: Mon Nov 16 2020 14:55:38 GMT+0900 (한국 표준시), webkitRelativePath: '', size: 71317, …}
-		   
-		       >>설명<<
-		       name : 단순 파일의 이름 string타입으로 반환 (경로는 포함하지 않는다.)
-		       lastModified : 마지막 수정 날짜 number타입으로 반환 (없을 경우, 현재 시간)
-		       lastModifiedDate: 마지막 수정 날짜 Date객체타입으로 반환
-		       size : 64비트 정수의 바이트 단위 파일의 크기 number타입으로 반환
-		       type : 문자열인 파일의 MIME 타입 string타입으로 반환 
-		              MIME 타입의 형태는 type/subtype 의 구조를 가지며, 다음과 같은 형태로 쓰인다. 
-		             text/plain
-		             text/html
-		             image/jpeg
-		             image/png
-		             audio/mpeg
-		             video/mp4
-		             ...
-	     	*/   
-	     	
-	   		//console.log(input_file.files[0].name);
-	     	//berkelekle심플라운드01.jpg
-	     
-	   		// File 객체의 실제 데이터(내용물)에 접근하기 위해 FileReader 객체를 생성하여 사용한다.
-	        const fileReader = new FileReader();
+	     	// 디테일사진 추가했을 경우   
+	        else if("img_detail" == file_id){
+	        	
+	        	if(img_detail_cnt == 3){
+		    		   alert("최대 3개까지 추가 가능합니다.");
+		    		   return;
+		    	   }
+	        	
+	        	fileReader.onload = function() { // FileReader.onload --> 파일 읽기 완료 성공시에만 작동하도록 하는 것임. 
+	
+		 	        img_detail_cnt ++; 
+		   			img_detail_html = "<label style='cursor: pointer;' class='orderDivPic'>" +
+						 	           "<img src='" + fileReader.result + "' id='previewImg1" + img_detail_cnt + "' style='width:140px; height:140px; position:static;' />" +
+						 	           "</label>";
+		
+					$("div[id='img_detail_num']").text(img_detail_cnt+"/3"); 
+		 	        //document.getElementById("previewImg01").src = fileReader.result;
+		   			$("div[id='img_detail_div_"+img_detail_cnt+"']").html(img_detail_html); 
+		 	     };
+	        }
 	        
-	        fileReader.readAsDataURL(input_file.files[0]); // FileReader.readAsDataURL() --> 파일을 읽고, result속성에 파일을 나타내는 URL을 저장 시켜준다.
-	     
-	         fileReader.onload = function() { // FileReader.onload --> 파일 읽기 완료 성공시에만 작동하도록 하는 것임. 
-	           // console.log(fileReader.result);
-	         /*
-	             data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAg 
-	             이러한 형태로 출력되며, img.src 의 값으로 넣어서 사용한다.
-	         */
-	            document.getElementById("previewImg11").src = fileReader.result;
-	        };
-	        
-	   });//$(document).on("change","input.img_file2",function(e)   
-		  	   
+
+	   });//  $(document).on("change",".choose_file",function(e)
+			   
+			
 		   
 	   // == 제품 이미지 또는 추가이미지 파일을 선택하면 화면에 이미지를 미리 보여주기 끝 == //
 	   
@@ -188,7 +171,7 @@ div.orderSelect{
 	   
 	   
 	   
-        
+       // 수선 요청사항을 선택해주세요를 누르면 
 	   $(".btn-modal").click(function(){
 			
 			/* var value = $(this).data('id'); */
@@ -201,6 +184,7 @@ div.orderSelect{
 		    //console.log(value);
 		    
 		    
+		    // 선택한 품목에 해당하는 요청사항 리스트 가져오기
 		    $.ajax({
 		    	  url:"<%=request.getContextPath()%>/bring_request_list.got",
 		    	  
@@ -218,8 +202,8 @@ div.orderSelect{
 					  if(json.length > 0){
 						  $.each(json,function(index,item){
 							  html += "	<li>"+
-								"<input type='radio' name='"+item.detail_type_pk+"' id='"+item.detail_type_pk+"' value='"+item.detail_type_pk+"'/>"+
-								"<label for='"+item.detail_type_pk+"' style='display: inline-block; width: 250px'>"+item.detail_type_name+"</label>"+
+								"<input type='radio' class='req_class' name='"+item.detail_type_pk+"' id='"+item.detail_type_pk+"' value='"+item.detail_type_pk+"'/>"+
+								"<label for='"+item.detail_type_pk+"' style='display: inline-block; width: 400px; padding-left:10px;'>"+item.detail_type_name+"</label>"+
 								"</li>";
 						  });
 					  }
@@ -234,12 +218,78 @@ div.orderSelect{
 		    
 		});
         
+        
+        
+        
+        
+	   $("#modal_requestInput").click(function(){
+		   
+		   // == 라디오의 체크된 개수 (checked 속성이용) == //
+		   const radio_cnt = $("input:radio[class='req_class']:checked").length;
+		   //console.log("radio_cnt : "+radio_cnt);
+		   
+		   
+		   // 선택한 라디오들 가져오기
+		   const req_name_list = new Array();	// 얘는 요청사항 이름들 (가죽교체, 스트랩교체 )
+		   const req_num_list = new Array();	// 얘는 요청사항 번호 (10, 11 )
+		   
+		   
+		   if(radio_cnt < 1){	//체크한 제품이 없으면
+			   alert("요청사항을 하나 이상 선택하세요");
+		   	   return;
+		   }
+		   else if(radio_cnt > 3){	// 3개 이상 선택한 경우
+			   alert("3개 이하로만 선택하세요");
+		   	   return;
+		   }
+		   
+		   
+		   // 1개 이상 3개 이하로 선택한 경우
+		   else{
+			   
+			   const radio_list = $("input:radio[class='req_class']").length;
+			   
+			   for(let i =0;i<radio_list;i++){
+				   
+				   
+				   if( $("input:radio[class='req_class']").eq(i).prop("checked") ){//i번째 radio에 체크가 되어있냐
+				   		
+
+					   //alert("선택한 요청사항들 번호 :"+$("input:radio[class='req_class']").eq(i).val() );
+					   //alert("선택한 요청사항들 이름 :"+$("input:radio[class='req_class']").eq(i).next().text());
+
+					   
+			  		   req_num_list.push($("input:radio[class='req_class']").eq(i).val());			// 수선사항 번호 리스트
+			  		   req_name_list.push($("input:radio[class='req_class']").eq(i).next().text());	// 수선사항 이름 리스트
+					   
+					   
+		
+				   } // if
+				   
+			   } // for
+			   
+			   const req_name_list_join = req_name_list.join(' , ');
+			   const req_num_list_join = req_num_list.join('_');	// 리스트로 들어온 값을 string으로 받음
+			   
+			   
+			   //console.log("이름 req_name_list_join : "+req_name_list_join);
+			   //console.log("번호 req_num_list_join : "+req_num_list_join);
+			   
+			   $("input#inputSelectList").attr("type","text");
+			 
+			   $("a.btn-modal").hide();
+			   $("input#inputSelectList").attr("name",req_name_list_join);
+			   $("input#inputSelectList").val(req_name_list_join);
+		   }
+		   
+		    
+		});
 	  
-	});// ready
+	});// ready   
 	
 	
 	
-	
+	// 품목 선택이 바뀔때마다 모달창에 넘겨주는 품목번호 바꿔서 전달
 	function changeFn(){
 		let type_code_pk  = document.getElementById("type_code_pk");
 		value = (type_code_pk.options[type_code_pk.selectedIndex].value);
@@ -255,12 +305,30 @@ div.orderSelect{
 		*/
 
 	};
-    
+	
+/* 	
+    // 모달에서 선택한 라디오 부모창으로 값 넘겨주기
 	function getSelect(){
 		let modalSel  = document.getElementById("modalSel");
 		value = (modalSel.options[modalSel.selectedIndex].value);
 		
-		$("input#inputSelectList").val(value);
+		console.log(value);
+		
+		$("div#inputSelectList").val(value);
+		
+	} */
+	
+	
+	
+	
+	//썸네일 클릭시 삭제.
+	function fileRemove(index) {
+	    console.log("index: "+index);
+	    fileInfoArr.splice(index,1);
+	 
+	    var imgId="#img_id_"+index;
+	    $(imgId).remove();
+	    console.log(fileInfoArr);
 	}
 		
 </script>
@@ -273,7 +341,6 @@ div.orderSelect{
      	<p class="orderTitle">견적 의뢰</p>
      	
      	<hr class="orderHr">
-     	
     <form name="orderFrm" enctype="multipart/form-data">	
 	<table>
       	<tr>
@@ -307,30 +374,23 @@ div.orderSelect{
    			
    			<td class="orderTd" style="display:flex;     justify-content: space-between;">
    				<div class="orderDivPic"  style="width:140px; height:140px;">
-   					<input type="file" id="img_whole" class="chooseFile" name="img_whole" accept="image/*" onchange="loadFile(this)"/>
+   					<input type="file" id="img_whole" class="choose_file" name="img_whole" accept="image/*" />
    					<label for="img_whole" style="cursor: pointer;" class="orderDivPic">
 		       			<i class="fa-regular fa-image fa-4x" style="color:lightgray;"></i>
-		       			<div style="text-align: center;">0/3</div>
+		       			<div id="img_whole_num" style="text-align: center;">0/3</div>
 	       			</label>
       	 		</div>
-      	 		
       	 	
-      	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
-   					<label style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg01" style="width:140px; height:140px; position:static;" />
-	       			</label>
+      	 		<div id="img_whole_div_1" class="orderDivNoBorder" style="width:140px; height:140px;">
+   					
       	 		</div>
       	 		
-      	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
-   					<label  style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg02" style="width:140px; height:140px; position:static; border:solid 0px white;" />
-	       			</label>
+      	 		<div id="img_whole_div_2" class="orderDivNoBorder" style="width:140px; height:140px;">
+   					
       	 		</div>
       	 		
-      	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
-   					<label  style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg03" style="width:140px; height:140px; position:static;" />
-	       			</label>
+      	 		<div id="img_whole_div_3" class="orderDivNoBorder" style="width:140px; height:140px;">
+   					
       	 		</div>
       	 		
 			</td>
@@ -347,32 +407,26 @@ div.orderSelect{
    			
    			<td class="orderTd" style="display:flex; justify-content: space-between;">
    				<div class="orderDivPic"  style="width:140px;  height:140px;">
-   				<input type="file" id="img_detail" class="chooseFile" name="img_detail" accept="image/*" onchange="loadFile(this)"/>
+   				<input type="file" id="img_detail" class="choose_file" name="img_detail" accept="image/*" onchange="loadFile(this)"/>
    					<label for="img_detail" style="cursor: pointer;" class="orderDivPic">
 		       			<i class="fa-regular fa-image fa-4x" style="color:lightgray;"></i>
-		       			<div style="text-align: center;">0/3</div>
+		       			<div id="img_detail_num" style="text-align: center;">0/3</div>
 	       			</label>
       	 		</div>
       	 		
       	 		
-      	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
-   					<label style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg11" style="width:140px; height:140px; position:static;" />
-	       			</label>
+      	 		<div id="img_detail_div_1" class="orderDivNoBorder" style="width:140px; height:140px;">
+   				
       	 		</div>
       	 		
       	 	
       	 		
-      	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
-   					<label  style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg12" style="width:140px; height:140px; position:static;" />
-	       			</label>
+      	 		<div id="img_detail_div_2" class="orderDivNoBorder" style="width:140px; height:140px;">
+   			
       	 		</div>
       	 		
-      	 		<div class="orderDivNoBorder" style="width:140px; height:140px;">
-   					<label  style="cursor: pointer;" class="orderDivPic">
-   						<img id="previewImg13" style="width:140px; height:140px; position:static;" />
-	       			</label>
+      	 		<div id="img_detail_div_3" class="orderDivNoBorder" style="width:140px; height:140px;">
+   				
       	 		</div>
       	 		
 			</td>
@@ -385,7 +439,7 @@ div.orderSelect{
    			<td class="orderTd">
    				<div class="orderSelect">
 					<a class="btn-modal" style="cursor: pointer;  color:gray; width:600px; " data-selectNum="" data-toggle="modal" data-target="#selectReq" data-dismiss="modal" data-backdrop="static">수선 요청사항을 선택해 주세요.</a>
-					<input type="text" id="inputSelectList"/>
+					<input id="inputSelectList" name="" type="hidden" style="width:600px; height:50px; border-radius:5px; border:solid 1px black; font-size:12pt;" readonly></input>
 				</div>
 			</td>
    		</tr>
@@ -442,8 +496,8 @@ div.orderSelect{
           
           
           	<form name="selectReq">
+				<!-- ajax로 라디오 추가됨 -->
 
-			   
 			</form>
 			
 			
@@ -456,7 +510,7 @@ div.orderSelect{
         
         <!-- Modal footer -->
         <div class="modal-footer" style="display: flex; justify-content: center;">
-          <button style="width:450px; height:50px; background-color:#400099;" type="button" class="btn btn-secondary selectReqClose" data-dismiss="modal">선택하기</button>
+          <button id="modal_requestInput" style="width:450px; height:50px; background-color:#400099;" type="button" class="btn btn-secondary selectReqClose" data-dismiss="modal" data-reqList="">선택하기</button>
         </div>
       </div>
       

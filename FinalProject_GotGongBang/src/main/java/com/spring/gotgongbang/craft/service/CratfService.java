@@ -69,13 +69,19 @@ public class CratfService implements InterCraftService {
 	@Override
 	public String getCraftNumByPartnerId(String partnerId) {
 		String craftNum = cdao.getCraftNumByPartnerId(partnerId);
-		return null;
+		return craftNum;
 	}
 	
 	@Override
 	public int insertEstimate(HashMap<String, String> paraMap) {
-		
-		return 0;
+		int n = cdao.insertEstimate(paraMap);
+		return n;
+	}
+	
+	@Override
+	public int checkEstimateExists(HashMap<String, String> paraMap) {
+		int n = cdao.checkEstimateExists(paraMap);
+		return n;
 	}
 	
 
@@ -97,11 +103,11 @@ public class CratfService implements InterCraftService {
 	}
 	
 	//공방 신청시 추가이미지 파일이 존재할때 select해오는 용도
-	@Override
+	/*@Override
 	public List<CraftVO> craft_add_image() {
 		 List<CraftVO> AddimgList = cdao.craft_add_image();
 		 return AddimgList;
-	}
+	}*/
 	
 	
 	//공방 신청정보를 DB에 insert해주는 기능
