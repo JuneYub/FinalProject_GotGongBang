@@ -46,8 +46,8 @@ div.orderSelect{
 	
 	// 사진 리스트
 	var img_whole_list = new Array();
-	var img_datail_list = new Array();
-
+	var img_detail_list = new Array();
+	
 	// 사진 리스트 카운트
 	let img_whole_cnt = 0;
 	let img_detail_cnt = 0;
@@ -88,10 +88,10 @@ div.orderSelect{
 	       // FileList 객체 프로퍼티(키)는 0,1 … 형태의 숫자로, 그리고 값에는 File 객체가 들어있다. 
 	       // file input 엘리먼트의 files 프로퍼티의 값이 FileList 로 되어있으므로 File 객체에 접근하려면 input_file.files[i] 이런 식으로 사용하여 i 번째의 File 객체에 접근을 한다.
 	   	   //console.log( input_file.id );
-	      
-		   // 전체사진인지, 부분사진인지
-		   let file_id = input_file.id;
-		  
+		   
+		   
+		   let file_id = input_file.id; // 전체사진인지, 부분사진인지
+		   let file_name = input_file.files[0].name;	//파일 이름
 	     
 	   	   // File 객체의 실제 데이터(내용물)에 접근하기 위해 FileReader 객체를 생성하여 사용한다.
 	       const fileReader = new FileReader();
@@ -120,7 +120,10 @@ div.orderSelect{
 				   $("div[id='img_whole_num']").text(img_whole_cnt+"/3"); 
 	 	           //document.getElementById("previewImg01").src = fileReader.result;
 	   			   $("div[id='img_whole_div_"+img_whole_cnt+"']").html(img_whole_html); 
-   			 
+	   			   img_whole_list.push(file_name);
+	   			   
+	   						
+				   
 	 	        };
 	        }
 	      
@@ -142,6 +145,7 @@ div.orderSelect{
 					$("div[id='img_detail_num']").text(img_detail_cnt+"/3"); 
 		 	        //document.getElementById("previewImg01").src = fileReader.result;
 		   			$("div[id='img_detail_div_"+img_detail_cnt+"']").html(img_detail_html); 
+		   			img_detail_list.push(file_name);
 		 	     };
 	        }
 	        
@@ -269,7 +273,7 @@ div.orderSelect{
 			   } // for
 			   
 			   const req_name_list_join = req_name_list.join(' , ');
-			   const req_num_list_join = req_num_list.join('_');	// 리스트로 들어온 값을 string으로 받음
+			   const req_num_list_join = req_num_list.join(',');	// 리스트로 들어온 값을 string으로 받음
 			   
 			   
 			   //console.log("이름 req_name_list_join : "+req_name_list_join);
@@ -278,8 +282,9 @@ div.orderSelect{
 			   $("input#inputSelectList").attr("type","text");
 			 
 			   $("a.btn-modal").hide();
-			   $("input#inputSelectList").attr("name",req_name_list_join);
+			   //$("input#inputSelectList").attr("name",reqest_list);
 			   $("input#inputSelectList").val(req_name_list_join);
+			   $("input[name='reqest_list']").val(req_num_list_join);
 		   }
 		   
 		    
@@ -330,6 +335,49 @@ div.orderSelect{
 	    $(imgId).remove();
 	    console.log(fileInfoArr);
 	}
+	
+	
+	function goRegister(){
+		
+		const img_whole_list_join = img_whole_list.join(',');
+		const img_detail_list_join = img_detail_list.join(',');
+		
+		$("input[name='img_whole_name']").val(img_whole_list_join);
+		$("input[name='img_detail_name']").val(img_detail_list_join);
+		
+		// 브랜드 입력
+		if($("input[name='brand_name']").val().trim()==""){
+			alert("빈 칸 없이 모두 입력하세요.");
+			return;
+		}
+		
+		// 사진 최소 1장 입력
+		else if(img_whole_list_join=="" || img_detail_list_join==""){
+			alert("사진을 항목별로 최소 1장 넣어주세요.");
+			return;
+		}
+		
+		// 요구사항 최소 1개 입력
+		else if($("input#inputSelectList").val().trim()==""){
+			alert("요구사항을 최소 1개 이상 선택하세요.");
+			return;
+		}
+		
+		// 수선 요구사항 입력
+		else if($("textarea#orderTextarea").val().trim()==""){
+			alert("수선 요구사항을 적어주세요.");
+			return;
+		}
+		
+		else{
+			alert("수선 요청 신청 완료!");
+			const frm = document.order_form;
+			frm.action = "order_form.got";
+			frm.method = "post";
+			frm.submit();
+		}
+		
+	}
 		
 </script>
 
@@ -341,7 +389,7 @@ div.orderSelect{
      	<p class="orderTitle">견적 의뢰</p>
      	
      	<hr class="orderHr">
-    <form name="orderFrm" enctype="multipart/form-data">	
+    <form name="order_form" enctype="multipart/form-data">	
 	<table>
       	<tr>
      		<td class="orderTd orderTdTitle">품목</td>
@@ -358,7 +406,7 @@ div.orderSelect{
    		<tr>
    			<td class="orderTd orderTdTitle">브랜드</td>
    			<td class="orderTd">
-   				<input class="orderInput" name="brand_name" placeholder="브랜드를 직접 입력해주세요"/>
+   				<input class="orderInput" name="brand_name" autocomplete='off' placeholder="브랜드를 직접 입력해주세요"/>
 			</td>
    		</tr>
    		
@@ -374,6 +422,7 @@ div.orderSelect{
    			
    			<td class="orderTd" style="display:flex;     justify-content: space-between;">
    				<div class="orderDivPic"  style="width:140px; height:140px;">
+   					<input type="hidden" name="img_whole_name"/>
    					<input type="file" id="img_whole" class="choose_file" name="img_whole" accept="image/*" />
    					<label for="img_whole" style="cursor: pointer;" class="orderDivPic">
 		       			<i class="fa-regular fa-image fa-4x" style="color:lightgray;"></i>
@@ -407,7 +456,8 @@ div.orderSelect{
    			
    			<td class="orderTd" style="display:flex; justify-content: space-between;">
    				<div class="orderDivPic"  style="width:140px;  height:140px;">
-   				<input type="file" id="img_detail" class="choose_file" name="img_detail" accept="image/*" onchange="loadFile(this)"/>
+   				<input type="hidden" name="img_detail_name"/>
+   				<input type="file" id="img_detail" class="choose_file" name="img_detail" accept="image/*" />
    					<label for="img_detail" style="cursor: pointer;" class="orderDivPic">
 		       			<i class="fa-regular fa-image fa-4x" style="color:lightgray;"></i>
 		       			<div id="img_detail_num" style="text-align: center;">0/3</div>
@@ -418,8 +468,6 @@ div.orderSelect{
       	 		<div id="img_detail_div_1" class="orderDivNoBorder" style="width:140px; height:140px;">
    				
       	 		</div>
-      	 		
-      	 	
       	 		
       	 		<div id="img_detail_div_2" class="orderDivNoBorder" style="width:140px; height:140px;">
    			
@@ -439,7 +487,8 @@ div.orderSelect{
    			<td class="orderTd">
    				<div class="orderSelect">
 					<a class="btn-modal" style="cursor: pointer;  color:gray; width:600px; " data-selectNum="" data-toggle="modal" data-target="#selectReq" data-dismiss="modal" data-backdrop="static">수선 요청사항을 선택해 주세요.</a>
-					<input id="inputSelectList" name="" type="hidden" style="width:600px; height:50px; border-radius:5px; border:solid 1px black; font-size:12pt;" readonly></input>
+					<input id="inputSelectList"  type="hidden" style="width:600px; height:50px; border-radius:5px; border:solid 1px black; font-size:12pt;" readonly></input>
+					<input type="hidden" name="reqest_list"/>
 				</div>
 			</td>
    		</tr>
@@ -462,7 +511,7 @@ div.orderSelect{
 		  			</p>
   				</div>
 		  		<div class="orderDivArea" >
-		  			<textarea id="orderTextarea" placeholder="위의 안내에 따라 적어주셔야 자세하고 친절한 상담이 가능합니다." id="textarea"></textarea>
+		  			<textarea name="req_textarea" id="orderTextarea" placeholder="위의 안내에 따라 적어주셔야 자세하고 친절한 상담이 가능합니다." id="textarea"></textarea>
 		  		</div>
 			</td>
    		</tr>
@@ -471,7 +520,7 @@ div.orderSelect{
 
 
 	<p class="pCenter">
-  		<button type="button" class="orderButton">다 음</button>			
+  		<button type="button" class="orderButton" onclick="goRegister()">다 음</button>			
 	</p>
    	</div>
 
