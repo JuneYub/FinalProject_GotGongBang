@@ -184,7 +184,7 @@ public class MemberController {
 			String userid = request.getParameter("userid");
 		    String pwd = request.getParameter("pwd");
 
-		    Map<String, String> paraMap = new HashMap<>();
+		    Map<String, String> paraMap = new HashMap<String, String>();
 		    paraMap.put("userid", userid);
 		    paraMap.put("pwd", Sha256.encrypt(pwd));
 
