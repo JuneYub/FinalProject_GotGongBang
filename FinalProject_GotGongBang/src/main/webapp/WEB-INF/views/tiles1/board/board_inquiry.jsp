@@ -7,7 +7,9 @@
 %>   
 
 <style type="text/css">
-
+  table.ojh_table th, table.ojh_table td {
+  	  border-bottom: none !important;
+  }
 </style>
 
 <script type="text/javascript">
@@ -74,20 +76,20 @@
             	<div id="ojh_category">
                     <div class="ojh_center"> 고객센터 </div>
                     <ul class="ojh_sub_category">
-                        <li>
-                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/BoardNotice.got'">공지사항</a>
+                       <li>
+                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/board_notice.got'">공지사항</a>
                         </li>
 
                         <li>
-                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/Boardinquiry.got'">온라인 문의</a>
+                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/board_inquiry.got'">온라인 문의</a>
                         </li>
 
                         <li>
-                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/BoardQuestion.got'">질문 게시판</a>
-                        </li> 
+                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/board_question.got'">질문 게시판</a>
+                        </li>
 
                         <li>
-                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/BoardFaq.got'">FAQ</a>
+                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/board-faq.got'">FAQ</a>
                         </li>
                     </ul>
                 </div>
@@ -126,7 +128,7 @@
                             <tr class="ojh_form-field">
                                 <th scope="row">첨부파일</th>
                                 <td>
-                                    <div class="ojh_form-attached-file">
+                                    <div class="ojh_form-attached-file" style="padding: 17px 0px 0px 10px;">
                                         <div class="ojh_form-attached-file__wrap">
                                             <label class="ojh_form-attached-file__trigger">
                                                 <input class="ojh_form-attached-file__trigger-file" name="attach" type="file" accept=".jpg, .jpeg, .png, .pdf, .xls,.xlsx" ><span class="ojh_form-attached-file__trigger-name"></span>

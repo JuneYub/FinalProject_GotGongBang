@@ -23,13 +23,13 @@
                         <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/service_info.got'">서비스 소개</a>
                     </li>
                     <li>
-                        <a class="header-nav-button">수선사 찾기</a>
+                        <a class="header-nav-button" onclick="location.href='<%= ctxPath%>/crafts_list.got'">수선사 찾기</a>
                     </li>
                     <li>
                         <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/orderForm.got'">견적 의뢰</a>
                     </li>
                     <li>
-                        <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/Boardinquiry.got'">고객센터</a>
+                        <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/board_inquiry.got'">고객센터</a>
                     </li>
                 </ul>
                 

@@ -22,6 +22,7 @@
         SELECT COUNT(*) FROM MEMBER WHERE user_id_pk = #{user_id_pk}
     </select>
     
+
     
     <!-- 로그인 처리 -->
     <select id="getLoginMember" parameterType="HashMap" resultType="com.spring.gotgongbang.member.model.MemberVO">
@@ -59,6 +60,7 @@
     </insert>
     <!--==================== 홍용훈 끝 ====================== -->
     
+     
     <!--==================== 박준엽 시작 ====================== -->
     <resultMap type="HashMap" id="getProposalListByUserIdMap">
     	<result column="order_num_pk" property="order_num_pk"/>
@@ -110,5 +112,4 @@
     </update>
     
     <!--==================== 박준엽 끝 ====================== -->
-     
 </mapper>

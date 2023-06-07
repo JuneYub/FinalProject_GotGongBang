@@ -8,7 +8,7 @@
 
   <div id="ojh_content">
         <section class="ojh_page_content_inquire">
-            <header class="ojh_page-header ojh_page-header--customer" style="padding: 30px 0px 100px 0px;">
+            <header class="ojh_page-header ojh_page-header--customer" style="height: 200px">
               <span class="page-header__backdrop">
                 <span class="page-header__backdrop-item"></span>
                 <span class="page-header__backdrop-item"></span>
@@ -18,18 +18,8 @@
               </span>
               <h2 class="page-header__title aos-init aos-animate" data-aos="fade-up">
                 <span aria-hidden="true" data-breadcrumb-menu="고객센터">고객센터</span>
-                <span data-breadcrumb-current="FAQ">무엇을 도와드릴까요?</span>
+                <span data-breadcrumb-current="FAQ">FAQ</span>
               </h2>
-
-              <form class="ojh_page_header_search">
-                <fieldset class="ojh_page_header_search_fieldset">
-                    <legend class="ojh_page_header_search_legend"></legend>
-                    <input class="ojh_page_header_search_input" type="text" placeholder="검색어를 입력하세요" name="search_keyword" value="">
-                    <button class="ojh_page_header_search_submit">
-                        <span>검색</span>
-                    </button>
-                </fieldset>
-              </form>
 
             </header>
             
@@ -38,19 +28,19 @@
                     <div class="ojh_center"> 고객센터 </div>
                     <ul class="ojh_sub_category">
                          <li>
-                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/BoardNotice.got'">공지사항</a>
+                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/board_notice.got'">공지사항</a>
                         </li>
 
                         <li>
-                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/Boardinquiry.got'">온라인 문의</a>
+                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/board_inquiry.got'">온라인 문의</a>
                         </li>
 
                         <li>
-                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/BoardQuestion.got'">질문 게시판</a>
-                        </li> 
+                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/board_question.got'">질문 게시판</a>
+                        </li>
 
                         <li>
-                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/BoardFaq.got'">FAQ</a>
+                            <a class="ojh_sub_category_info" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/board-faq.got'">FAQ</a>
                         </li>
                     </ul>
                 </div>

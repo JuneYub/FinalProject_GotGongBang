@@ -5,7 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.servlet.ModelAndView;
-
+import java.util.*;
 import com.spring.gotgongbang.member.model.MemberVO;
 
 public interface InterMemberService {
@@ -21,8 +21,18 @@ public interface InterMemberService {
 
 	// 아이디 중복 확인 AJAX 요청 처리
 	boolean isIdDuplicate(String id);
+	
+	
+	// ======== 박준엽 시작 ========================================== //
+	
+	List<HashMap<String, String>> getProposalListByUserId(HashMap<String, String> paraMap);
 
 	// 로그인
 	ModelAndView loginEnd(ModelAndView mav, HttpServletRequest request, Map<String, String> paraMap);
 
+	MemberVO getUserInfoByUserId(String userid);
+
+	int updateMemberInfoByMVO(MemberVO mvo);
+	
+	// ====== 박준엽 끝 =========================================== //
 }

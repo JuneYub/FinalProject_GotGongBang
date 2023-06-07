@@ -31,7 +31,7 @@ CREATE TABLE ESTIMATE (
     estimate_price NUMBER not null,                                          -- 견적 가격
     estimate_period NUMBER not null,                                         -- 견적 기간
     order_status NUMBER(1) default 0 not null,                               -- 견적 주문 상태
-    erimate_proposal_date DATE DEFAULT SYSDATE not null,                     -- 견적 제안 날짜
+    estimate_proposal_date DATE DEFAULT SYSDATE not null,                     -- 견적 제안 날짜
     constraint PK_ESTIMATE_estimate_num_pk primary key(estimate_num_pk),    
     constraint FK_ESTIMATE_order_num_fk foreign key(order_num_fk) REFERENCES ORDERS (order_num_pk)
     );
@@ -262,5 +262,14 @@ craft_add_file_name    VARCHAR2(1000) NOT NULL,      -- 추가 이미지 파일�
 constraint PK_CRAFT_IMG_craft_add_img_pk primary key(craft_add_img_pk),
 constraint FK_CRAFT_craft_num_fk foreign key(craft_num_fk) references CRAFT(craft_num_pk)
 );
+
+
+
+
+
+
+
+
+
 
 

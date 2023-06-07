@@ -48,8 +48,8 @@ public class AdminController {
 
 	// 김나윤 시작
 	// ===========================================================================
-	@Autowired    //Type에 따라 알아서 Bean을 주입해준다.
-	private InterAdminService service;   //이름은 내 멋대로!
+	@Autowired   
+	private InterAdminService service; 
 	
 	//LoggerFactory 사용시 
 	private static final Logger logger= LoggerFactory.getLogger(MemberController.class);  //로깅을 위한 변수
@@ -106,18 +106,20 @@ public class AdminController {
 	@RequestMapping(value="/admin_login.got", method= {RequestMethod.POST})
 	public ModelAndView loginEnd(ModelAndView mav, HttpServletRequest request) {
 		
-		String userid = request.getParameter("userid");
-		String pwd = request.getParameter("pwd");
+		String userid = request.getParameter("userid");  //클라이언트가 입력한 아이디 값을 알아옴
+		String pwd = request.getParameter("pwd");        //클라이언트가 입력한 비번 값을 알아옴
 		
-		Map<String, String> paraMap = new HashMap<String, String>();
+		Map<String, String> paraMap = new HashMap<String, String>();  //아이디, 비번을 Map에 담아 넘겨줌
 		paraMap.put("userid", userid);
-		paraMap.put("pwd", Sha256.encrypt(pwd));
+		paraMap.put("pwd", Sha256.encrypt(pwd));  //이때 비번 값은 암호화하여 전달함
+//		System.out.println(Sha256.encrypt(pwd));
+		//e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 		
-		mav = service.loginEnd(mav, request, paraMap);
-		return mav;
+		mav = service.loginEnd(mav, request, paraMap);  //서비스단의 loginEnd메소드 
+		return mav;   //ModelAndView의 리턴값은 mav
 	}
 	
-/*	
+	
 	// === 2. 로그아웃 처리하기 === //
 	@RequestMapping(value="/logout.action")
 	public ModelAndView logout(ModelAndView mav, HttpServletRequest request) {
@@ -137,7 +139,7 @@ public class AdminController {
 		
 		return mav;
 	}
-*/	
+	
 	
 		
 	// 김나윤 끝

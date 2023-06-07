@@ -2,6 +2,9 @@ package com.spring.gotgongbang.member.model;
 
 import java.sql.Timestamp;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+
 
 public interface InterMemberDAO {
 
@@ -22,6 +25,15 @@ public interface InterMemberDAO {
 
 	// 로그인 기록
 	void recordLoginDate(String string, Timestamp loginDate);
+	// ====== 박준엽 시작 =========================================== //
+	
+	List<HashMap<String, String>> getProposalListByUserId(HashMap<String, String> paraMap);
+
+	MemberVO getUserInfoByUserId(String userid);
+
+	int updateMemberInfoByMVO(MemberVO mvo);
+	
+	// ====== 박준엽 끝 =========================================== //
 
 
 	

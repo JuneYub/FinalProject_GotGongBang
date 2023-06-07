@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.HomeController;
 import com.spring.gotgongbang.common.Sha256;
+import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.member.service.InterMemberService;
 import com.spring.gotgongbang.member.service.MailSendService;
@@ -40,7 +41,66 @@ public class MemberController {
 		// 박준엽 시작
 		// ===========================================================================
 
+		@RequestMapping(value="/proposal_list.got")
+		public ModelAndView proposalList(ModelAndView mav, HttpServletRequest request) {
+			String userId = "testMember"; // 테스트를 위해서 유저아이디를 지정해준 것 이후에는 세션을 통해서 지정할 예정
+		    int startRno = 1;
+		    int endRno = 5;
+		    
+		    HashMap<String, String> paraMap = new HashMap<String, String>();
+		    paraMap.put("userId", userId);
+		    paraMap.put("startRno", String.valueOf(startRno));
+		    paraMap.put("endRno", String.valueOf(endRno));
+		    
+			request.getParameter("startRno");
+			request.getParameter("endRno");
+			
+			List<HashMap<String, String>> proposalList = service.getProposalListByUserId(paraMap);
+			
+			mav.addObject("proposalList", proposalList);
+			mav.setViewName("member/proposal_list.tiles1");
+			return mav;
+		}
 		
+		@RequestMapping(value="/edit_user_info.got")
+		public ModelAndView editUserInfo(ModelAndView mav, HttpServletRequest request) {
+		      String userid = "testMember"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+		      
+		      MemberVO mvo = new MemberVO();
+		      mvo = service.getUserInfoByUserId(userid);
+		      mav.addObject("mvo", mvo);
+		      mav.setViewName("member/editUserInfo.tiles1");
+		      return mav;
+		}
+		
+		@RequestMapping(value="/edit_user_info_end.got")
+		public ModelAndView editUserInfoEnd(ModelAndView mav, HttpServletRequest request, MemberVO mvo) {
+			int n = 0;
+		    n = service.updateMemberInfoByMVO(mvo);
+		      
+		    if(mvo.getPwd() != null && mvo.getPwd() != "") {
+		       //n = service.updatePartnerPwd(mvo);
+		    }
+		    String message = "";
+		    String loc = "";
+		      
+		    if (n == 1) {
+		       message = "정상적으로 변경되었습니다.";
+		       loc = request.getContextPath()+"/index.got";
+		    }
+		      
+		    else {
+		       message = "오류가 발생했습니다";
+		       loc ="javascript:history.back();";
+		    }
+
+		    request.setAttribute("message", message);
+	     	request.setAttribute("loc", loc);
+		    mav.setViewName("msg");
+			
+			
+			return mav;
+		}
 		
 		
 		// 박준엽 끝
@@ -117,6 +177,15 @@ public class MemberController {
 	        return service.isIdDuplicate(id);
 	    }
 		
+
+		@RequestMapping(value="/end_login.got")
+		public ModelAndView end_login(ModelAndView mav) {
+			
+			mav.setViewName("member/end_login.tiles1");
+			return mav;
+	
+		}
+
 		
 		// 이메일 인증
 		@ResponseBody
@@ -139,9 +208,6 @@ public class MemberController {
 		// 회원가입 post
 		@RequestMapping(value="/register.got", method=RequestMethod.POST)
 		public String register(MemberVO membervo) {
-			
-			System.out.println("들어옴");
-			service.encryptPassword(membervo);
 			
 			service.insertMember(membervo);
 			

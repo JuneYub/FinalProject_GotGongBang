@@ -1,6 +1,8 @@
 package com.spring.gotgongbang.craft.controller;
 
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Insert;
 import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +52,7 @@ public class CraftController {
    public ModelAndView craftDetail(ModelAndView mav, HttpServletRequest request) {
 	  //request.getParameter("")
       mav.setViewName("/craft/craft_detail.tiles1");
-//    mav.addObject("craftvo_2", craftvo_2);
+ //     mav.addObject("craftvo_2", craftvo_2);
       
       return mav;
    }
@@ -243,7 +246,7 @@ public class CraftController {
 
    //공방 신청정보를(첨부파일 포함)DB에 insert해주는 기능
    @RequestMapping(value = "/craft_application_end.got", method = {RequestMethod.POST})
-   public String craft_application_end(CraftVO cvo, ImageVO imgvo, MultipartHttpServletRequest mrequest) { 
+   public String craft_application_end(CraftVO cvo, ImageVO imgvo, MultipartHttpServletRequest mrequest, HttpServletRequest request) { 
 
 	  // 이미지 파일들 가져오기
       List<MultipartFile> fileList = new ArrayList<MultipartFile>();
@@ -251,7 +254,7 @@ public class CraftController {
       fileList.add(cvo.getCraft_representative_image());
       fileList.add(cvo.getCraft_certificate());
       
-      
+      int n = 0;
       /////////////////////////////////////////////////////
       // 이미지 파일 업로드
        System.out.println("확인용 fileList: " + fileList);
@@ -270,6 +273,8 @@ public class CraftController {
           String newFileName = "";
           // WAS(톰캣)의 디스크에 저장될 파일명
          
+          String originalFilename = "";
+          
           byte[] bytes = null;
           // 첨부파일의 내용물을 담는 것
          
@@ -281,25 +286,20 @@ public class CraftController {
                    bytes = mf.getBytes();
                   // 첨부파일의 내용물을 읽어오는 것
                   
-                  String originalFilename = mf.getOriginalFilename();
-                  // attach.getOriginalFilename() 이 첨부파일명의 파일명(예: 강아지.png) 이다. 
+                  originalFilename = mf.getOriginalFilename();
                   
-                   System.out.println("~~~~ 확인용 originalFilename => " + originalFilename); 
-                  // ~~~~ 확인용 originalFilename => LG_싸이킹청소기_사용설명서.pdf
+                  System.out.println("~~~~ 확인용 originalFilename => " + originalFilename); 
                   
                   newFileName = fileManager.doFileUpload(bytes, originalFilename, path);
                   // 첨부되어진 파일을 업로드 하는 것이다.
                   
                   System.out.println(">>> 확인용  newFileName => " + newFileName); 
-                   // >>> 확인용  newFileName => 20230522103642842968758293800.pdf
-                  // >>> 확인용  newFileName => 20230522103904843110797635200.pdf
                   
                   cvo.setFileName(newFileName);
                   // WAS(톰캣)에 저장된 파일명(20230522103642842968758293800.pdf)
                   
                   cvo.setOrgFilename(originalFilename);
                   // 게시판 페이지에서 첨부된 파일(강아지.png)을 보여줄 때 사용.
-                  // 또한 사용자가 파일을 다운로드 할때 사용되어지는 파일명으로 사용.
                   
                   fileSize = mf.getSize(); // 첨부파일의 크기(단위는 byte임)
                   cvo.setFileSize(String.valueOf(fileSize));
@@ -311,45 +311,27 @@ public class CraftController {
              }
              
           }// end of for -------------------------------------
+         
           
+          String hp1= request.getParameter("hp1");
+    	  String hp2= request.getParameter("hp2");
+    	  String hp3= request.getParameter("hp3");
+    	  
+    	  String craft_mobile = hp1 + hp2 + hp3;
+    	  cvo.setCraft_mobile(craft_mobile);
+    	  
+          MultipartFile craft_add_file_name = imgvo.getCraft_add_file_name();
+
+          n = service.add_withFile(cvo);
+          if(n==1){
+        	  System.out.println("~~n :" +n);
+          }else {
+        	  System.out.println("~n : " + n);
+          }
           
        } //end of if(!fileList.isEmpty())---------------------------
              
-       
-       
-       
-      int n = 0;
-      
-      MultipartFile craft_add_file_name = imgvo.getCraft_add_file_name();
-      
-      if( !fileList.isEmpty() ) {
-
-    	  if(!craft_add_file_name.isEmpty()) {
-	    	  imgvo.getCraft_add_file_name();
-	    	  cvo.setImgvo(imgvo);
-	    	  // 추가이미지 파일이 있는 경우 Craft 테이블 조회해오기
-	    	  List<CraftVO> AddimgList = service.craft_add_image();
-    	  }
-    	  
-    	  
-    	  n = service.add_withFile(cvo);
-
-      }else {
-         
-      }
-      
-      
-      
-      
-      
-      if(n==1) {
-          return "redirect:/craft_complete.got";
-      }
-      else { 
-            return "javascript:history.back();";
-      }
-      
-
+       return "";
        
    }
    
@@ -363,7 +345,8 @@ public class CraftController {
    @RequestMapping(value="/estimate_inquiry_list.got")
    public ModelAndView getEstimateInquiryList(ModelAndView mav, HttpServletRequest request) {
       
-      String userid = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+      String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+      String craftNum = service.getCraftNumByPartnerId(partnerId);
       String str_currentShowPageNo = request.getParameter("currentShowPageNo");
       int totalCountForEstimate = 0;
       int sizePerPageForEstimate = 5;
@@ -396,10 +379,10 @@ public class CraftController {
       Map<String, String> paraMap = new HashMap<String, String>();
       paraMap.put("startRno", String.valueOf(startRno));
       paraMap.put("endRno", String.valueOf(endRno));
+      paraMap.put("craftNum", craftNum);
       
       OrderVO ovo = new OrderVO();
       List<OrderVO> ovoList = service.getAllOrders(paraMap);
-      
       String pageBar = makePageBar(currentShowPageNoForEstimate, 10, totalPageForEstimate);
       
       mav.addObject("currentShowPageNo", currentShowPageNoForEstimate);
@@ -411,10 +394,18 @@ public class CraftController {
    
    @RequestMapping(value="/estimate_inquiry_list/bid.got")
    public ModelAndView bid(ModelAndView mav, HttpServletRequest request) {
+	  String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+	  String craftNum = service.getCraftNumByPartnerId(partnerId);
 	  String orderNum = request.getParameter("order_num");
+	  HashMap<String, String> paraMap = new HashMap<String, String>();
+	  paraMap.put("craft_num_fk", craftNum);
+	  paraMap.put("order_num_fk", orderNum);
+	  
+	  int estimateExists = service.checkEstimateExists(paraMap);
 	  OrderVO ovo = service.getOrderInfoByOrderNum(orderNum);
 	  String currentShowPageNo = request.getParameter("currentShowPageNo");
 	  
+	  mav.addObject("estimateExists", estimateExists);
 	  mav.addObject("currentShowPageNo", currentShowPageNo);
 	  mav.addObject("orderNum", orderNum);
 	  mav.addObject("ovo", ovo);
@@ -422,22 +413,35 @@ public class CraftController {
       return mav;
    }
    
-   @RequestMapping(value="/estimate_inquiry_list/bid_end.got")
+   @RequestMapping(value="/estimate_inquiry_list/bid_end.got", method = RequestMethod.POST)
    public ModelAndView bidEnd(ModelAndView mav, HttpServletRequest request) {
 	  String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
 	  String craftNum = service.getCraftNumByPartnerId(partnerId);
-	  
 	  HashMap<String, String> paraMap = new HashMap<String, String>();
 	  String proposalDuration = request.getParameter("proposalDuration");
 	  String proposalPrice = request.getParameter("proposalPrice");
-	  String orderNum =  request.getParameter("order_num");
+	  String orderNum =  request.getParameter("orderNum");
 	  
 	  paraMap.put("order_num_fk", orderNum);
 	  paraMap.put("craft_num_fk", craftNum);
 	  paraMap.put("estimate_price", proposalPrice);
-	  paraMap.put("estimate_estimate_period", proposalDuration);
+	  paraMap.put("estimate_period", proposalDuration);
 	  
+	  int n = service.insertEstimate(paraMap);
+	  if(n == 1) {
+		  String message = "정상적으로 견적 제안이 완료되었습니다.";
+		  String loc = "/gotgongbang/estimate_inquiry_list.got";
+	      request.setAttribute("message", message);
+	      request.setAttribute("loc", loc);
+	  }
+	  else {
+		  String message = "오류가 발생하여 제안이 완료되지 못했습니다";
+		  String loc = "javascript:history.go(0);";
+	      request.setAttribute("message", message);
+	      request.setAttribute("loc", loc);
+	  }
 	  
+	  mav.setViewName("msg");
 	  return mav;
    }
    
