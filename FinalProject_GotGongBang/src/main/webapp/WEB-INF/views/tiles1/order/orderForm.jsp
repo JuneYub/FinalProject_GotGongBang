@@ -342,6 +342,12 @@ div.orderSelect{
 		const img_whole_list_join = img_whole_list.join(',');
 		const img_detail_list_join = img_detail_list.join(',');
 		
+		// 품목 이름
+		$("input[name='order_product_type']").val($("#type_code_pk option:checked").text());
+		
+		//console.log($("#type_code_pk option:checked").text());
+		
+		
 		$("input[name='img_whole_name']").val(img_whole_list_join);
 		$("input[name='img_detail_name']").val(img_detail_list_join);
 		
@@ -401,6 +407,7 @@ div.orderSelect{
      			</c:forEach>
  					
 				</select>
+				<input type="hidden" name="order_product_type"/>
 			</td>
      	</tr>
    		<tr>

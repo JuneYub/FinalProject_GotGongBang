@@ -62,6 +62,18 @@ public class OrderController {
 	@RequestMapping(value = "/orderForm.got")
 	public ModelAndView orderForm(ModelAndView mav,HttpServletRequest request) {
 		
+		
+		HttpSession session = request.getSession();
+		//세션에서 로그인된 아이디 가져오기
+		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+		
+		if(loginuser==null) {
+			
+		}
+		else {
+			
+		}
+		
 		List<TypesVO> typesList = service.select_types();
 		
 		request.setAttribute("typesList", typesList);
@@ -155,10 +167,11 @@ public class OrderController {
 	public ModelAndView order_form(ModelAndView mav, HttpServletRequest request) {
 		
 		
-		String type_code_pk = request.getParameter("type_code_pk"); 			// 품목 : type_code_pk
+		String type_code_pk = request.getParameter("type_code_pk"); 			// 품목번호 : type_code_pk
+		String order_product_type = request.getParameter("order_product_type"); // 품목이름 : order_product_type
 		String brand_name = request.getParameter("brand_name");					//브랜드 : brand_name
-		String img_whole_name = request.getParameter("img_whole_name");					//전체사진 : img_whole
-		String img_detail_name = request.getParameter("img_detail_name");					//상세사진 : img_detail
+		String img_whole_name = request.getParameter("img_whole_name");			//전체사진 : img_whole
+		String img_detail_name = request.getParameter("img_detail_name");		//상세사진 : img_detail
 		String reqest_list = request.getParameter("reqest_list");				//수선요청사항:reqest_list
 		String req_textarea = request.getParameter("req_textarea");				//수선요청사항설명:req_textarea
 		/*
@@ -186,6 +199,7 @@ public class OrderController {
 		
 		//private int order_num_pk;		// 견적요청번호 
 
+		// 견적 요청 넣기
 		int n1 = service.insert_order(mapOrder);
 		
 		if(n1 == 1) {

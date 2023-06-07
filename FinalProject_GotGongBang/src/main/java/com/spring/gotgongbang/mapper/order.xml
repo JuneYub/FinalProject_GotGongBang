@@ -21,7 +21,15 @@
 		from detail_type
 		where type_code_fk = #{type_code_pk}
 	</select>
+	
+	
+	
+	<!-- 견적 요청하기 -->
+	<insert id="insert_order" parameterType="HashMap">
+		insert into ORDERS(order_num_pk,user_id_fk,order_date,brand_name,request_explain,requests,orderer,order_product_type)
+		values( to_char(sysdate,'yymmdd')|| LPAD(SEQ_ORDERS.nextval, 4, '0'), '아이디', sysdate,'샤넬','깔끔하게 고쳐주세요','10,11,12','김어쩌고','10 아니면 가방')
 
+	</insert>
 	 <!--==================== 이지현 끝 ====================== -->
 
 
