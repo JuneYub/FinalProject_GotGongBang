@@ -453,7 +453,50 @@ public class CraftController {
    }
    
    @RequestMapping(value="/repair_history_list.got")
-   public ModelAndView repairHistoryList(ModelAndView mav) {
+   public ModelAndView repairHistoryList(ModelAndView mav, HttpServletRequest request) {
+	  String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+	  String craftNum = service.getCraftNumByPartnerId(partnerId);
+	  String str_currentShowPageNo = request.getParameter("currentShowPageNo");
+      int totalCountForRepariList = 0;
+      int sizePerPageRepariList = 5;
+      int currentShowPageNoForRepariList = 0;
+      int totalPageRepariList = 0;
+      
+      int startRno = 0;
+      int endRno = 0;
+      
+      totalCountForRepariList = service.getTotalCountForRepairList(craftNum);
+      System.out.println("totalCountForRepariList : "+ totalCountForRepariList );
+      totalPageRepariList = (int)Math.ceil((double)totalCountForRepariList/sizePerPageRepariList);
+      if(str_currentShowPageNo == null) {
+    	  currentShowPageNoForRepariList = 1;
+      }
+      else {
+         try {
+        	 currentShowPageNoForRepariList = Integer.parseInt(str_currentShowPageNo);
+            if(currentShowPageNoForRepariList < 1 || currentShowPageNoForRepariList > totalPageRepariList) {
+            	currentShowPageNoForRepariList = 1;
+            }
+         }
+         catch(NumberFormatException e) {
+        	 currentShowPageNoForRepariList = 1;
+         }
+      }
+      startRno = ((currentShowPageNoForRepariList - 1) * sizePerPageRepariList) + 1;
+      endRno = startRno + sizePerPageRepariList - 1;
+      
+      HashMap<String, String> paraMap = new HashMap<String, String>();
+      paraMap.put("startRno", String.valueOf(startRno));
+      paraMap.put("endRno", String.valueOf(endRno));
+      paraMap.put("craftNum", craftNum);
+	  
+	  List<HashMap<String, String>> paraMapList = service.getRepariListBycraftNum(paraMap);
+	  
+      String pageBar = makePageBar(currentShowPageNoForRepariList, 10, totalPageRepariList);
+      
+      mav.addObject("currentShowPageNo", currentShowPageNoForRepariList);
+      mav.addObject("pageBar", pageBar);
+	  mav.addObject("paraMapList", paraMapList); 
       mav.setViewName("/craft/repairHistoryList.tiles1");
       return mav;
    }

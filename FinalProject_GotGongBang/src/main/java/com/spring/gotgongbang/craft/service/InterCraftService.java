@@ -52,6 +52,11 @@ public interface InterCraftService {
 	
 	int checkEstimateExists(HashMap<String, String> paraMap);
 	
+	List<HashMap<String, String>> getRepariListBycraftNum(HashMap<String, String> paraMap);
+	
+	int getTotalCountForRepairList(String craftNum);
+
+	
 	// ==== ==================================== 박준엽 끝 ======================================================= //
 
 	

@@ -187,12 +187,13 @@ create table FIXED_PHOTO
 create table ORDER_DETAIL
 (order_detail_id_pk     VARCHAR2(20)    null     -- 주문상세번호
 ,estimate_num_fk        number          not null -- 견적서번호
-,order_date             DATE            not null -- 주문날짜
+,payment_date             DATE            not null -- 주문날짜
 ,order_post_code        VARCHAR2(5)     not null -- 우편번호
-,order_address          VARCHAR(20)     not null -- 주소
+,order_address          NVARCHAR2(40)     not null -- 주소
 ,order_detail_address   VARCHAR(200)    null     -- 상세주소
 ,order_extra_address    VARCHAR(200)    null     -- 부가주소
-,product_status         NVARCHAR2(10)   not null -- 상품진행상태
+,product_status         NVARCHAR2(10) default '수거중'  not null -- 상품진행상태
+,payment                NUMBER                      --결제 내역
 
 ,constraint PK_ORDER_DETAIL_order_detail_id_pk primary key(order_detail_id_pk)
 ,constraint PK_ORDER_DETAIL_estimate_num_fk foreign key(estimate_num_fk) references ESTIMATE(estimate_num_pk)
