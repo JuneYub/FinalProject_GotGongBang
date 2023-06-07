@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
-
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +26,7 @@ import com.spring.gotgongbang.member.model.MemberVO;
 @Service
 public class MemberService implements InterMemberService {
 
+	// =========== 홍용훈 시작 =========================================== //
 	@Autowired
 	private InterMemberDAO dao;
 
@@ -83,7 +83,7 @@ public class MemberService implements InterMemberService {
 	public ModelAndView loginEnd(ModelAndView mav, HttpServletRequest request, Map<String, String> paraMap) {
 		MemberVO loginuser = dao.getLoginMember(paraMap);
 		
-		// === #48. aes 의존객체를 사용하여 로그인 되어진 사용자(loginuser)의 이메일 값을 복호화 하도록 한다. === 
+		//  aes 의존객체를 사용하여 로그인 되어진 사용자(loginuser)의 이메일 값을 복호화 하도록 한다. === 
 	    //          또한 암호변경 메시지와 휴면처리 유무 메시지를 띄우도록 업무처리를 하도록 한다.
 		if(loginuser != null && loginuser.getPwdchangegap() >= 3) {
 			// 마지막으로 암호를 변경한 날짜가 현재시각으로부터 3개월이 지났으면
@@ -174,6 +174,8 @@ public class MemberService implements InterMemberService {
 		}
 		return mav;
 	}
+	// =========== 홍용훈 끝 =========================================== //
+	
 	// =========== 박준엽 시작 =========================================== //
 	
 	@Override
@@ -194,7 +196,9 @@ public class MemberService implements InterMemberService {
 		return n;
 	}
 
-	
-	
-	
+	@Override
+	public int updateMemberPwd(MemberVO mvo) {
+		int n = dao.updateMemberPwd(mvo);
+		return n;
+	}
 }

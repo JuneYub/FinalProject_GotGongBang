@@ -110,6 +110,12 @@
 		detail_address = #{detail_address}, extra_address = #{extra_address}, birthday = to_date(#{birthday}, 'YYYY-MM-DD')
 		WHERE user_id_pk = #{user_id_pk}
     </update>
+  
+    <update id="updateMemberPwd" parameterType="com.spring.gotgongbang.member.model.MemberVO">
+    	UPDATE MEMBER SET pwd = #{pwd}, last_pwd_change = sysdate
+		WHERE user_id_pk = #{user_id_pk}
+    </update>
     
     <!--==================== 박준엽 끝 ====================== -->
+
 </mapper>

@@ -55,9 +55,9 @@
                     <table class="ojh_table table--row">
                         <div class="ojh_list">
                             <p class="ojh_list_total">
-                                총
+                               	 총
                                 <strong class="ojh_list_totalnum">10</strong>
-                                건
+                                                                       건
                             </p>
                             <dl class="ojh_accordion customer-faq__list aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
                                 <div class="ojh_accordion__item accordion__item--show accordion__item--fade">
@@ -234,80 +234,7 @@
                         </div>
                     </table>
                   </fieldset>
-                  <nav class="ojh_pagination_nav">
-                    <ul class="ojh_pagination">
-                        <li class="ojh_pagination_item_first">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">처음</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item_before">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">이전</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item_one">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">1</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">2</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">3</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">4</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">5</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">6</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">7</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">8</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">9</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">10</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item_next">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">다음</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item_last">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">마지막</span>
-                            </a>
-                        </li>
-                    </ul>
-                  </nav>
+                 
 
                 </div>
             </form>

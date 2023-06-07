@@ -1,6 +1,8 @@
 package com.spring.gotgongbang.board.controller;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,9 +20,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 
+
 import com.spring.gotgongbang.board.model.InquiryVO;
 import com.spring.gotgongbang.board.service.InterBoardService;
 import com.spring.gotgongbang.common.FileManager;
+import com.spring.gotgongbang.member.model.MemberVO;
 
 
 @Component
@@ -293,6 +297,113 @@ public class BoardController {
 		*/
 		
 		return mav;
+	}
+	// 게시물 불러오기.
+	@RequestMapping(value="/board_view.got")
+	public ModelAndView view(ModelAndView mav, HttpServletRequest request) {
+		
+		String inquiry_num_pk = request.getParameter("inquiry_num_pk");
+		
+		String searchType = request.getParameter("searchType");
+		String searchWord = request.getParameter("searchWord");
+		
+		if(searchType == null) {
+			searchType = "";
+		}
+		
+		if(searchWord == null) {
+			searchWord = "";
+		}
+		
+		String gobackURL = request.getParameter("gobackURL");
+		System.out.println("~~~ 확인용 gobackURL : " + gobackURL);
+		
+		if( gobackURL != null && gobackURL.contains(" ") ) {
+			gobackURL = gobackURL.replaceAll(" ", "&");
+		}
+		
+		mav.addObject("gobackURL", gobackURL);
+		
+		try {
+			Integer.parseInt(inquiry_num_pk);
+			
+			Map<String, String> paraMap = new HashMap<>();
+			paraMap.put("seq", inquiry_num_pk);
+			
+			paraMap.put("searchType", searchType); // view.jsp 에서 이전글제목 및 다음글제목 클릭시 사용하기 위해서 임.
+			paraMap.put("searchWord", searchWord); // view.jsp 에서 이전글제목 및 다음글제목 클릭시 사용하기 위해서 임. 
+			
+			mav.addObject("paraMap", paraMap); // view.jsp 에서 이전글제목 및 다음글제목 클릭시 사용하기 위해서 임. 
+			
+			HttpSession session = request.getSession();
+			MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
+			
+			String login_userid = null;
+			if(loginuser != null) {
+				login_userid = loginuser.getUser_id_pk();
+				// login_userid 는 로그인 되어진 사용자의 userid 이다.
+			}
+			
+			paraMap.put("login_userid", login_userid);
+			
+			InquiryVO iqvo = null;
+			if( "yes".equals(session.getAttribute("readCountPermission")) ) { 
+				
+				
+				iqvo = service.getView(paraMap);
+				// 글조회수 증가와 함께 글1개를 조회를 해주는 것
+				
+				session.removeAttribute("readCountPermission");
+				// 중요!!  session 에 저장된 readCountPermission 을 삭제한다.
+			}
+			else {
+				// 웹브라우저에서 새로고침(F5)을 클릭한 경우이다.
+				
+				iqvo = service.getViewWithNoAddCount(paraMap);
+				// 글조회수 증가는 없고 단순히 글1개를 조회를 해주는 것
+			}
+			
+			mav.addObject("iqvo", iqvo);
+		} catch (NumberFormatException e) {
+			
+		}
+		
+		mav.setViewName("/board/board_view.tiles1");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="//board_view.got_2.action")
+	public ModelAndView view_2(ModelAndView mav, HttpServletRequest request) {
+		
+		String inquiry_num_pk = request.getParameter("inquiry_num_pk");
+		
+		String searchType = request.getParameter("searchType");
+		String searchWord = request.getParameter("searchWord");
+		String gobackURL = request.getParameter("gobackURL");
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("readCountPermission", "yes");
+		
+		try {
+			searchWord = URLEncoder.encode(searchWord, "UTF-8"); // 한글이 웹브라우저 주소창에서 사용되어질때 한글이 ? 처럼 안깨지게 하려고 하는 것임.
+			gobackURL = URLEncoder.encode(gobackURL, "UTF-8");   // 한글이 웹브라우저 주소창에서 사용되어질때 한글이 ? 처럼 안깨지게 하려고 하는 것임.
+			
+		/*	
+			System.out.println("~~~~ view_2의 URLEncoder.encode(searchWord, \"UTF-8\") : " + searchWord);
+			System.out.println("~~~~ view_2의 URLEncoder.encode(gobackURL, \"UTF-8\") : " + gobackURL);
+			
+			System.out.println(URLDecoder.decode(searchWord, "UTF-8")); // URL인코딩 되어진 한글을 원래 한글모양으로 되돌려 주는 것임. 
+			System.out.println(URLDecoder.decode(gobackURL, "UTF-8")); // URL인코딩 되어진 한글을 원래 한글모양으로 되돌려 주는 것임.
+		*/	
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} 
+		
+		mav.setViewName("redirect:/board_view.got?seq="+inquiry_num_pk+"&searchType="+searchType+"&searchWord="+searchWord+"&gobackURL="+gobackURL);
+		
+		return mav;
+		
 	}
 	
 		// 오준혁 끝
