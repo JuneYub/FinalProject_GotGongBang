@@ -1,14 +1,11 @@
 package com.spring.gotgongbang.member.service;
 
-
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.*;
-
 
 import com.spring.gotgongbang.member.model.MemberVO;
 
@@ -33,6 +30,7 @@ public interface InterMemberService {
 	// ======== 박준엽 시작 ========================================== //
 	
 	List<HashMap<String, String>> getProposalListByUserId(HashMap<String, String> paraMap);
+
 
 	MemberVO getUserInfoByUserId(String userid);
 

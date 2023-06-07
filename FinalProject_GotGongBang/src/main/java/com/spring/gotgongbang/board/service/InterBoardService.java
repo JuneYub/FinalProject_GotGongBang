@@ -36,6 +36,12 @@ public interface InterBoardService {
 		
 		// 페이징 처리한 글목록 가져오기
 		List<InquiryVO> iqListSearchWithPaging(Map<String, String> paraMap);
+		
+		// 조회수 증가 
+		InquiryVO getView(Map<String, String> paraMap);
+		
+		// 조회수 증가 없이 게시글 조회
+		InquiryVO getViewWithNoAddCount(Map<String, String> paraMap);
 
 		
 		

@@ -947,26 +947,6 @@ ul:has(li.requests-item) {
 	float: right;
 }
 
-li.requests-cont {
-	margin-top: 13px;
-}
-
-.btn-update-info {
-	border: none;
-    padding: 7px;
-    font-size: 13px;
-    width: 110px;
-    border-radius: 30px;
-    background-color: #400099;
-    color: white;
-    box-shadow: 1px 1px 2px black;
-}
-
-#checkOriginPWD {
-  	top: 40%;
-  	margin-top: -50px;
-}
-
 
 
 /* ======================== 애니메이션 모음 =========================================== */
@@ -1885,7 +1865,7 @@ img.imgCircle2 {
 /* ==== 이지현 끝========================================================================================= */
 
 
-/* ================================= 오준혁 시 작 =============================== */
+/* ================================= 오 준 혁 시 작 =============================== */
 
 a {
     text-decoration: none;
@@ -2535,44 +2515,8 @@ flex-basis: 50px;
 
 /* ------------ 본문 끝------------- */
 
-/* ------------Board_view 시작 ----------- */
 
-.ojh_css-1dhg94g {
-    display: flex;
-    flex-direction: row;
-    border-bottom: 1px solid rgb(244, 244, 244);
-}
-
-.ojh_qulist {
-    margin-top: 20px;
-    border-top: 2px solid rgb(51, 51, 51);
-    color: rgb(51, 51, 51);
-}
-
-.ojh_css-1xrh39a {
-    width: 130px;
-    padding: 13px 0px 13px 20px;
-    background-color: rgb(247, 245, 248);
-    border-top: 1px solid rgb(244, 244, 244);
-    text-align: left;
-    font-weight: 500;
-}
-
-.ojh_css-8vgw34 {
-    padding-left: 25px;
-    align-self: center;
-}
-
-.ojh_css-1xvp3jp {
-    padding: 30px 10px 100px;
-    border-bottom: 1px solid rgb(128, 128, 128);
-}
-
-/* ------------Board_view 끝 ----------- */
-
-/* ================================= 오준혁 끄 읕 =============================== */
-
-
+/* ================================= 오 준 혁 끄 읕 =============================== */
 /* ================================= 김나윤 시작 ================================ */
 /* [영역1] "수선사 찾기" 박스 영역 시작 ==================================================================================== */
 .craftListBox {
@@ -3055,7 +2999,7 @@ table#reviewTbl td, th {
 	    height: 14px;
 	    background: rgb(224, 224, 224);
 	    margin: 0px 15px;
-	    margin-top: 5px;
+	    margin-top: 16px;
 	    width: 1px;
 	    
 	}

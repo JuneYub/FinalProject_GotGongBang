@@ -54,4 +54,32 @@
 		where rno between #{startRno} and #{endRno}
 	</select>	 
 	
+<!-- === 게시글 1개 조회하기 === -->
+	<select id="getView" parameterType="HashMap" resultType="com.spring.gotgongbang.board.model.InquiryVO">
+		select previousseq, previoussubject
+			 , inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, inquiry_viewcount, regdate
+			 , nextseq, nextsubject, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize  
+		from
+		)
+		select lag(inquiry_num_pk,1) over(order by inquiry_num_pk desc) AS previousseq
+		     , lag(inquiry_title,1) over(order by inquiry_num_pk desc) AS previoussubject
+		     , inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, inquiry_viewcount
+		     , to_char(inquiry_date, 'yyyy-mm-dd hh24:mi:ss') as regdate 
+		     , lead(inquiry_num_pk,1) over(order by inquiry_num_pk desc) AS nextseq
+		     , lead(inquiry_title,1) over(order by inquiry_num_pk desc) AS nextsubject 
+		     , inquiry_fileName, inquiry_orgFilename, inquiry_fileSize   
+		from INQUIRY
+		where inquiry_status = 1
+		<if test='searchType != "" and searchWord != ""'>
+		and lower(${searchType}) like '%'|| lower(#{searchWord}) ||'%'
+		</if>
+		) V 
+		where V.inquiry_num_pk = #{inquiry_num_pk}
+	</select>
+	
+	<!-- === 조회수 1증가 하기 === -->
+	<update id="setAddReadCount" parameterType="String">
+		update INQUIRY set inquiry_viewcount = inquiry_viewcount + 1
+		where inquiry_num_pk = #{inquiry_num_pk}
+	</update>
 </mapper>

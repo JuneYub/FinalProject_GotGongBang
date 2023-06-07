@@ -1,8 +1,10 @@
 package com.spring.gotgongbang.order.controller;
 
-import java.util.List;
+import java.util.*;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.common.FileManager;
+import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.TypesVO;
 import com.spring.gotgongbang.order.service.InterOrderService;
 
@@ -58,6 +61,18 @@ public class OrderController {
 	
 	@RequestMapping(value = "/orderForm.got")
 	public ModelAndView orderForm(ModelAndView mav,HttpServletRequest request) {
+		
+		
+		HttpSession session = request.getSession();
+		//세션에서 로그인된 아이디 가져오기
+		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+		
+		if(loginuser==null) {
+			
+		}
+		else {
+			
+		}
 		
 		List<TypesVO> typesList = service.select_types();
 		
@@ -146,6 +161,55 @@ public class OrderController {
 		return jsonArr.toString();
 	}
 	
+	
+	// 폼 작성하기
+	@RequestMapping(value="/order_form.got", method= {RequestMethod.POST})
+	public ModelAndView order_form(ModelAndView mav, HttpServletRequest request) {
+		
+		
+		String type_code_pk = request.getParameter("type_code_pk"); 			// 품목번호 : type_code_pk
+		String order_product_type = request.getParameter("order_product_type"); // 품목이름 : order_product_type
+		String brand_name = request.getParameter("brand_name");					//브랜드 : brand_name
+		String img_whole_name = request.getParameter("img_whole_name");			//전체사진 : img_whole
+		String img_detail_name = request.getParameter("img_detail_name");		//상세사진 : img_detail
+		String reqest_list = request.getParameter("reqest_list");				//수선요청사항:reqest_list
+		String req_textarea = request.getParameter("req_textarea");				//수선요청사항설명:req_textarea
+		/*
+		    type_code_pk = 30
+			brand_name = ㄷㄹㄷㄹ
+			img_whole_name = 1_품목.PNG,2_브랜드.PNG
+			img_detail_name = 1_품목.PNG,4_상세.PNG
+			reqest_list = 30,31,32
+			req_textarea = ㄷㄹㄷㄹㄴㄴㄴㄴ
+		 */
+		
+		HttpSession session = request.getSession();
+		//세션에서 로그인된 아이디 가져오기
+		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+		
+		
+		
+		Map<String,String> mapOrder = new HashMap<String, String>();
+		mapOrder.put("user_id_fk", loginuser.getUser_id_pk());
+		mapOrder.put("brand_name", brand_name);
+		mapOrder.put("request_explain", req_textarea);
+		mapOrder.put("requests", reqest_list);
+		mapOrder.put("order_product_type", type_code_pk);
+		mapOrder.put("orderer", loginuser.getName());
+		
+		//private int order_num_pk;		// 견적요청번호 
+
+		// 견적 요청 넣기
+		int n1 = service.insert_order(mapOrder);
+		
+		if(n1 == 1) {
+			
+		}
+		
+		
+		mav.setViewName("index/home.tiles1");
+		return mav;
+	}
 	
 
 	// 이지현 끝 ===========================================================================
