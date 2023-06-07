@@ -1,6 +1,7 @@
 package com.spring.gotgongbang.order.model;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -38,7 +39,6 @@ public class OrderDAO implements InterOrderDAO {
 		List<TypesVO> requestList = sqlsession.selectList("order.bring_request_list",type_code_pk);
 		return requestList;
 	}
-
 
 
 	// 견적 요청 넣기
@@ -82,7 +82,6 @@ public class OrderDAO implements InterOrderDAO {
 		int request_list_num1 = sqlsession.insert("order.insert_detail_request_list", request_list_map);
 		return request_list_num1;
 	}
-
 	
 	
 	// ================ 이지현 끝 ==================//
