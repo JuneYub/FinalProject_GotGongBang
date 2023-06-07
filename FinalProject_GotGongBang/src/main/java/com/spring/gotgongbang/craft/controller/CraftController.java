@@ -30,6 +30,7 @@ import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.craft.model.ImageVO;
 import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.craft.service.InterCraftService;
+import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.OrderVO;
 
 @Controller
@@ -497,6 +498,48 @@ public class CraftController {
       return mav;
    }
    
+   @ResponseBody
+   @RequestMapping(value="/update_craft_user_pwd.got", method = {RequestMethod.POST})
+   public String updateCraftUserPwd(HttpServletRequest request) {
+	  String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것 
+	  String editPw = request.getParameter("editPw"); 
+	  
+	  PartnerVO pvo = new PartnerVO();
+      pvo = service.getPartnerInfoByUserId(partnerId);
+      int n = 0;
+
+      if(editPw.equals(pvo.getPartner_pwd())) {
+    	  n = 2;
+    	  
+      }
+      else {
+          n = service.updatePartnerPwd(pvo);
+      }
+      
+      JSONObject jsonObj = new JSONObject();
+      jsonObj.put("n", n);
+	  return jsonObj.toString();
+   }
+   
+   @ResponseBody
+   @RequestMapping(value="/check_insert_craftPwd.got", method = {RequestMethod.POST})
+   public String checkInsertCraftPw(HttpServletRequest request) {
+		String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것 
+		String insertPwd = request.getParameter("insertPwd");
+		
+		PartnerVO pvo = new PartnerVO();
+      	pvo = service.getPartnerInfoByUserId(partnerId);
+	    int n = 0;
+
+	    if(insertPwd.equals(pvo.getPartner_pwd())) {
+	    	n = 1;
+	    }
+	    
+	    JSONObject jsonObj = new JSONObject();
+	    jsonObj.put("n", n);
+	    return jsonObj.toString();
+   }
+ 
    public String makePageBar(int currentShowPageNo, int blockSize, int totalPage) {
       int loop = 1;
       int startPageNo = ((currentShowPageNo-1)/blockSize)*blockSize+1;
