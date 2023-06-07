@@ -202,14 +202,6 @@ public class MemberController {
 	    }
 		
 
-		@RequestMapping(value="/end_login.got")
-		public ModelAndView end_login(ModelAndView mav) {
-			
-			mav.setViewName("member/end_login.tiles1");
-			return mav;
-	
-		}
-
 		
 		// 이메일 인증
 		@ResponseBody
