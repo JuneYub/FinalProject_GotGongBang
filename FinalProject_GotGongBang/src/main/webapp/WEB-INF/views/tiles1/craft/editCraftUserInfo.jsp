@@ -29,20 +29,34 @@
 			$("#checkOriginPWD").modal("hide");
 		});
 	});
-		
-		
+	
 	function updateUserInfo(){
-		const originPWD = '${pvo.partner_pwd}';
-		var inserPWD = $("input#insertPWD").val();
 		
-		if(inserPWD != originPWD) {
-			alert("비밀번호가 올바르지 않습니다");
-		}
-		else {
-			const frm = document.editMyInfo;
-			frm.action = "<%= ctxPath%>/edit_craft_user_info_end.got"
-			frm.submit();
-		}
+		var insertPwd = $("input#insertPWD").val();
+		
+		$.ajax({
+			url: '<%= ctxPath%>/check_insert_craftPwd.got',
+			method: 'POST',
+			dataType: 'json',
+			data: {
+				insertPwd: insertPwd
+			},
+			success : function(json) {
+				if(json.n == 0) {
+					alert("비밀번호 올바르지 않습니다.");
+				}
+				
+				if(json.n == 1) {
+					const frm = document.editMyInfo;
+					frm.action = "<%= ctxPath%>/edit_craft_user_info_end.got"
+					frm.submit();
+				}
+				
+			},
+			error: function(request, status, error){
+				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		     }
+		});
 	}
 	
 	function checkEditMyInfo() {
