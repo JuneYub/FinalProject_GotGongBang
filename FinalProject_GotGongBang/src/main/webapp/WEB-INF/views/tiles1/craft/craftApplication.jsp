@@ -99,7 +99,21 @@
 			
 	});
 
-
+		// 공방 대표 이름 필수입력
+		$("input#craft_representative").blur( (e) => {
+			if($(e.target).val().trim() == ""){	
+				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
+				$(e.target).prop("disabled", false);
+				
+				
+				$(e.target).parent().find("span.error").show();
+				$(e.target).focus();	//다른곳을 클릭 못하게 함 e.target에 포커스 머무름
+			}else{
+				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+				$(e.target).parent().find("span.error").hide();
+			}
+		});
+						
  		
  		//공방 연락처 필수입력
 		$("input#hp1").blur( (e) => {
@@ -346,13 +360,20 @@
 			
 	////////////Function Declaration ////////////
 	
-	
-	
 	// === '신청' 버튼을 눌렀을 때  ===
 	function goComplete() {
-		// 이미지파일(공방 사진, 공방대표자 사진, 자격증 사진)이 모두 입력되었는지 확인
-		let b_Flag_attach = false;
-
+		// 전문 품목 체크박스 배열로 저장
+	       var obj = $("[name=craft_specialty]");
+	           var chkArray = new Array(); 
+	    
+	           $('input:checkbox[name=craft_specialty]:checked').each(function() { 
+	               chkArray.push(this.value);
+	           });
+	           $('#hiddenValue').val(chkArray);
+	           
+	           alert($('#hiddenValue').val()); 
+	      
+	      
 		
 		
 		// 공방이름 중복확인
@@ -466,7 +487,7 @@
                     </div>
                      <div class="frm_border">
                         <span> <p> * 공방 대표자 이름</p>
-                            <input type="text" name="craft_representative" class="upload" id="" maxlength="10" value=""/>
+                            <input type="text" name="craft_representative" class="upload" id="craft_representative" maxlength="10" value=""/>
                             <span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 대표자 이름은 필수 입력 사항입니다.</span>
                         </span>
                     </div>
@@ -539,15 +560,16 @@
                     </div>
                     <div class="frm_border">
                         <span><p> * 전문 품목</p>
-                            <div id="specialized_chkBox" style="margin-left: 20px;">
-                              	  가방/핸드백<input type="checkbox" name="craft_specialty" id="specialized_chk1" class="specialized_field" value="bag"/>
+                            <div id="specialized_chkBox" style="margin-left: 20px; width: 370px;">
+                              	  가방/핸드백<input type="checkbox" name="craft_specialty" id="specialized_chk1" class="specialized_field" value="가방/핸드백"/>
                                 <label for="specialized_chk1"></label>
-                             	  신발<input type="checkbox" name="craft_specialty"  id="specialized_chk2" class="specialized_field" value="shoes"/>
+                             	  신발<input type="checkbox" name="craft_specialty"  id="specialized_chk2" class="specialized_field" value="신발"/>
                                 <label for="specialized_chk2"></label>
-                              	  지갑<input type="checkbox" name="craft_specialty" id="specialized_chk3"  class="specialized_field" value="wallet"/>
+                              	  지갑/벨트<input type="checkbox" name="craft_specialty" id="specialized_chk3"  class="specialized_field" value="지갑/벨트"/>
                                 <label for="specialized_chk3"></label>
-                              	  벨트<input type="checkbox" name="craft_specialty"  id="specialized_chk4" class="specialized_field" value="belt"/>
+                              	  의류<input type="checkbox" name="craft_specialty"  id="specialized_chk4" class="specialized_field" value="의류"/>
                                 <label for="specialized_chk4"></label>
+                                <input type="hidden" name="specialized_val" id="hiddenValue" value=""/>
                              </div>                                
                              <span class="error" style="display: inline-block; color:#400099;">※ 전문 품목은 한 개 이상 선택하셔야 합니다.</span>
                         </span>
