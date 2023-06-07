@@ -1,6 +1,5 @@
 package com.spring.gotgongbang.member.model;
 
-
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;

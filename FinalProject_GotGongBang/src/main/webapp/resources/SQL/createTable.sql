@@ -40,7 +40,7 @@ CREATE TABLE ESTIMATE (
 CREATE TABLE MEMBER 
 (user_id_pk             VARCHAR2(20)                     NOT NULL  -- 아이디
 ,name                   VARCHAR2(20)                     NOT NULL  -- 이름
-,pwd                    VARCHAR2(20)                     NOT NULL  -- 비밀번호
+,pwd                    VARCHAR2(200)                     NOT NULL  -- 비밀번호
 ,email                  VARCHAR2(40)                     NOT NULL  -- 이메일
 ,mobile                 VARCHAR2(20)                     NOT NULL  -- 휴대전화
 ,post_code              VARCHAR2(5)                      NOT NULL  -- 우편번호
@@ -61,6 +61,8 @@ CREATE TABLE MEMBER
 ,constraint CK_MEMBER_status check( status in(0,1) )
 ,constraint CK_MEMBER_idle check( idle in(0,1) )
 );
+
+
 
 -- 견적요청 테이블
 CREATE TABLE ORDERS (
@@ -263,7 +265,13 @@ constraint PK_CRAFT_IMG_craft_add_img_pk primary key(craft_add_img_pk),
 constraint FK_CRAFT_craft_num_fk foreign key(craft_num_fk) references CRAFT(craft_num_pk)
 );
 
-
+--- 로그인이 성공되어지면 자동적으로 로그인 기록을 남기려고 insert 되어질 테이블 --
+CREATE TABLE LOGIN_HISTORY 
+(user_id_pk_pk      VARCHAR2(20)         NOT NULL -- 아이디
+,login_date      DATE default sysdate    NOT NULL -- 로그인한 시간
+,constraint FK_LOGIN_HISTORY foreign key(user_id_pk_pk) 
+                                references MEMBER(user_id_pk)
+);
 
 
 

@@ -23,16 +23,17 @@
 <script type="text/javascript">
 
 	
-	// 버튼 클릭시 자동적으로 상단스크롤
-	function topScrollFunction() {
-		  
-		  window.scrollTo({top:0, behavior:'smooth'});
-	}
+	
 	
 	
 	$(document).ready(function(){
 	
-		
+	}
+	
+	// 버튼 클릭시 자동적으로 상단스크롤
+	function topScrollFunction() {
+		  
+		  window.scrollTo({top:0, behavior:'smooth'});
 	}
 	
 </script>

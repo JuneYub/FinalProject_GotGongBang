@@ -40,11 +40,23 @@
 		}
 		else {
 			const frm = document.editMyInfo;
-			frm.action = "<%= ctxPath%>/edit_user_info_end.got"
+			frm.action = "<%= ctxPath%>/edit_craft_user_info_end.got"
 			frm.submit();
 		}
 	}
 		
+	
+	function openBidPage() { // 파라미터로 공방 아이디랑 견적 아이디를 받을 예정
+		url = "<%= ctxPath%>/estimate_inquiry_list/bid.got";
+		const pop_width = 600;
+		const pop_height = 700;
+		const pop_left = Math.ceil( (window.screen.width - pop_width)/2);
+		const pop_top = Math.ceil( (window.screen.height - pop_height)/2);
+		
+		window.open(url, "bidEstimate", "left= "+pop_left+", top="+pop_top+", width="+pop_width+", height="+pop_height);
+		
+	}
+	
 	function checkEditMyInfo() {
 		var regName = /^[가-힣]{2,6}$/;  
 		var regMobile= /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
@@ -53,18 +65,19 @@
 		var regPwd = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g;
 		
 		var editName = $("input#editName").val();
-		const boolEditName = regName.test(editName);
-		if(editName.trim() == "" || !boolEditName) {
-			alert("이름은 2~6자로 이루어진 한글로 구성되어 있어야 합니다");
-			$("input#editName").focus();
-			return;
+		if(editName.trim() != "") {
+			const boolEditName = regName.test(editName);
+			if(!boolEditName) {
+				alert("이름은 2~6자로 이루어진 한글로 구성되어 있어야 합니다");
+				$("input#editName").focus();
+				return;
+			}
 		}
 		
 		var editPw = $("input#editPw").val();
 		var editPwCheck = $("input#editPwCheck").val();
 		if(editPw.trim() != "" || editPwCheck.trim() != "") {
-			
-			if(editPw == '${mvo.pwd}') {
+			if(editPw == '$(mvo.pwd)') {
 				alert("기존 비밀번호와 같지 않게 변경해주세요");
 				$("input#editPw").focus();
 				return;
@@ -86,28 +99,34 @@
 		}
 		
 		var editEmail = $("input#editEmail").val();
-		const boolEditEmail = regEmail.test(editEmail);
-		if(editEmail.trim() == "" || !boolEditEmail) {
-			alert("이메일 형식이 맞지 않습니다");
-			$("input#editEmail").focus();
-			return;
+		if(editEmail.trim() != "") {
+			const boolEditEmail = regEmail.test(editEmail);
+			if(!boolEditEmail) {
+				alert("이메일 형식이 맞지 않습니다");
+				$("input#editEmail").focus();
+				return;
+			}
 		}
 		
 		var editMobile = $("input#editMobile").val();
-		const boolEditMobile = regMobile.test(editMobile);
-		if(editMobile.trim() == "" || !boolEditMobile) {
-			alert("휴대전화 번호 형식이 맞지 않습니다");
-			$("input#editMobile").focus();
-			return;
+		if(editMobile.trim() != "") {
+			const boolEditMobile = regMobile.test(editMobile);
+			if(!boolEditMobile) {
+				alert("휴대전화 번호 형식이 맞지 않습니다");
+				$("input#editMobile").focus();
+				return;
+			}
 		}
 		
 		var editPost = $("input#postcode").val();
-		const boolEditPost = regPost.test(Number(editPost));
-		if(editPost.trim() == "" || !boolEditPost) {
-			alert("우편번호 형식이 맞지 않습니다");
-			$("input#postcode").val("");
-			$("input#postcode").focus();
-			return;
+		if(editPost.trim() != "") {
+			const boolEditPost = regPost.test(Number(editPost));
+			if(!boolEditPost) {
+				alert("우편번호 형식이 맞지 않습니다");
+				$("input#postcode").val("");
+				$("input#postcode").focus();
+				return;
+			}
 		}
 		$("#checkOriginPWD").modal("show");
 	}
@@ -218,17 +237,17 @@
 					<tbody>
 						<tr>
 						<th>이름</th> 
-						<td><input type="text" name="name" value="${mvo.name}" id="editName" autocomplete="off" /> </td>
+						<td><input type="text" name="partner_name" value="${mvo.name}" id="editName" autocomplete="off" /> </td>
 						</tr>
 						
 						<tr>
 						<th>사용자ID</th>
-						<td><input type="text" name="user_id_pk" value="${mvo.user_id_pk}" readonly="readonly"/></td>
+						<td><input type="text" name="partner_id_pk" value="${mvo.user_id_pk}" readonly="readonly"/></td>
 						</tr>
 						
 						<tr>
 						<th>새 비밀번호</th>
-						<td><input type="password" id="editPw" name="pwd" autocomplete="off" /></td>
+						<td><input type="password" id="editPw" name="partner_pwd" autocomplete="off" /></td>
 						</tr>
 						
 						<tr>
@@ -238,14 +257,14 @@
 						
 						<tr><th>생년월일</th> 
 						<td>
-						<input type="text" id="editBirthDay" name="birthday" value="${mvo.birthday}" autocomplete="off" readonly="readonly">
+						<input type="text" id="editBirthDay" name="partner_birthday" value="${mvo.birthday}" autocomplete="off" readonly="readonly">
 						</td>
 						</tr>
 						
 						<tr>
 						<th>E-mail</th> 
 						<td>
-						<input id="editEmail" name="email" value="${mvo.email}"/>
+						<input id="editEmail" name="partner_email" value="${mvo.email}"/>
                         <select id="emailDomain" name="emailDomain_select" class="emailDomain_select">
 	                        <option value="직접입력">직접입력</option>
 	                        <option value="naver.com">naver.com</option>
@@ -260,20 +279,20 @@
 						
 						</tr>
 						<tr><th>휴대폰번호</th> 
-						<td><input type="text" id="editMobile" name="mobile" value="${mvo.mobile}" autocomplete="off" placeholder="'-' 없이 번호만 적어주세요"/></td>
+						<td><input type="text" id="editMobile" name="partner_mobile" value="${mvo.mobile}" autocomplete="off" placeholder="'-' 없이 번호만 적어주세요"/></td>
 						</tr>
 						
 						<tr>
 						<th>주소</th>
 					 	<td>
 						<div class="address_postcode">
-							<input type="text" id="postcode" name="post_code" value="${mvo.post_code}" placeholder="우편번호" readonly="readonly">
+							<input type="text" id="postcode" name="partner_post_code" value="${mvo.post_code}" placeholder="우편번호">
 							<input type="button" id="zipcodeSearch" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
 						</div>
 						<div class="address_input">
-							<input type="text" id="address" name="address" value="${mvo.address}" placeholder="주소" readonly="readonly"><br>
-							<input type="text" id="detailAddress"  name="detail_address"  value="${mvo.detail_address}" placeholder="상세주소" >
-							<input type="text" id="extraAddress" name="extra_address"  value="${mvo.extra_address}" placeholder="참고항목" readonly="readonly">
+							<input type="text" id="address" name="partner_address" value="${mvo.address}" placeholder="주소" readonly="readonly"><br>
+							<input type="text" id="detailAddress"  name="partner_detail_address"  value="${mvo.detail_address}" placeholder="상세주소" >
+							<input type="text" id="extraAddress" name="partner_extra_address"  value="${mvo.extra_address}" placeholder="참고항목" readonly="readonly">
 						</div>                  	
                         </td>
 						</tr>
