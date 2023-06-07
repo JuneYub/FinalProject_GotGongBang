@@ -76,10 +76,7 @@ public class MemberController {
 		public ModelAndView editUserInfoEnd(ModelAndView mav, HttpServletRequest request, MemberVO mvo) {
 			int n = 0;
 		    n = service.updateMemberInfoByMVO(mvo);
-		      
-		    if(mvo.getPwd() != null && mvo.getPwd() != "") {
-		       n = service.updateMemberPwd(mvo);
-		    }
+
 		    String message = "";
 		    String loc = "";
 		      
@@ -105,23 +102,42 @@ public class MemberController {
 		@RequestMapping(value="/update_user_pwd.got")
 		public String updateUserPwd(HttpServletRequest request) {
 			String userId = "testMember"; // 테스트를 위해서 유저아이디를 지정해준 것 이후에는 세션을 통해서 지정할 예정
-			  String editPw = request.getParameter("editPw"); 
+			String editPw = request.getParameter("editPw"); 
 			  
-		      MemberVO mvo = new MemberVO();
-		      mvo = service.getUserInfoByUserId(userId);
-		      int n = 0;
+		    MemberVO mvo = new MemberVO();
+		    mvo = service.getUserInfoByUserId(userId);
+		    int n = 0;
 
-		      if(editPw.equals(mvo.getPwd())) {
-		    	  n = 2;
-		      }
-		      else {
-		    	  mvo.setPwd(editPw);
-		          n = service.updateMemberPwd(mvo);
-		      }
-		      
-		      JSONObject jsonObj = new JSONObject();
-		      jsonObj.put("n", n);
-			  return jsonObj.toString();
+		    if(editPw.equals(mvo.getPwd())) {
+		    	n = 2;
+		    }
+			else {
+				mvo.setPwd(editPw);
+				n = service.updateMemberPwd(mvo);
+			}
+
+			JSONObject jsonObj = new JSONObject();
+			jsonObj.put("n", n);
+			return jsonObj.toString();
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/check_insert_pwd.got")
+		public String checkInsertPwd(HttpServletRequest request) {
+			String userId = "testMember"; // 테스트를 위해서 유저아이디를 지정해준 것 이후에는 세션을 통해서 지정할 예정
+			String insertPwd = request.getParameter("insertPwd");
+			
+		    MemberVO mvo = new MemberVO();
+		    mvo = service.getUserInfoByUserId(userId);
+		    int n = 0;
+
+		    if(insertPwd.equals(mvo.getPwd())) {
+		    	n = 1;
+		    }
+		    
+		    JSONObject jsonObj = new JSONObject();
+		    jsonObj.put("n", n);
+		    return jsonObj.toString();
 		}
 		
 		
