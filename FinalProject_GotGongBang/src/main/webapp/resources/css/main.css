@@ -2999,7 +2999,7 @@ table#reviewTbl td, th {
 	    height: 14px;
 	    background: rgb(224, 224, 224);
 	    margin: 0px 15px;
-	    margin-top: 16px;
+	    margin-top: 5px;
 	    width: 1px;
 	    
 	}
@@ -3499,6 +3499,72 @@ table#reviewTbl td, th {
 	    border-color: #e6344a!important;
 	    transition: .35s;
 	}
+	
+	.sign-up__form-radio-group {
+	    background-color: #fff;
+	    border: 1px solid #b9b9b9;
+	    border-radius: 26px;
+	    height: 50px;
+	    position: relative;
+	    width: 732px;
+	}
+	
+	.sign-up__form-radio-text {
+	    border-radius: 26px;
+	    color: #1a1325;
+	    float: left;
+	    height: 50px;
+	    line-height: 50px;
+	    position: relative;
+	    text-align: center;
+	    width: 244px;
+	    z-index: 10;
+	}
+	
+	.sign-up__form-radio-input {
+		float: left;
+	    height: 50px;
+	    margin-left: 80px;
+	}
 /* register_member 끝 */
+
+/* find_id 시작 */
+
+	.login-search {
+    	margin: 0 auto;
+    	padding-bottom: 200px;
+    	width: 588px;
+	}	
+	.login-search__header {
+	    border-bottom: 3px solid #000;
+	    overflow: hidden;
+	    padding: 120px 0 40px;
+	    text-align: center;
+	}
+	.login-search__title {
+	    color: #000;
+	    font-size: 48px;
+	    font-weight: 700;
+	    line-height: 1;
+	}
+	.login-search__description {
+	    font-size: 20px;
+	    letter-spacing: -.4px;
+	    padding-top: 20px;
+	}
+	.login-search__filedset {
+	    padding: 40px 0;
+	}
+	.login-search .form-field+.form-field {
+	    margin-top: 10px;
+	}
+	.form-field__feedback:empty {
+	    padding: 0;
+	}
+	.login-search__button {
+	    width: 290px;
+	}
+	
+/* find_id 끝 */
 
 /* =========================================================== 홍용훈 끝 =========================================================== */
