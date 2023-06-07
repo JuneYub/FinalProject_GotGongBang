@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -183,7 +184,7 @@ public class MemberController {
 			String userid = request.getParameter("userid");
 		    String pwd = request.getParameter("pwd");
 
-		    Map<String, String> paraMap = new HashMap<>();
+		    Map<String, String> paraMap = new HashMap<String, String>();
 		    paraMap.put("userid", userid);
 		    paraMap.put("pwd", Sha256.encrypt(pwd));
 
@@ -259,6 +260,26 @@ public class MemberController {
 			mav.setViewName("member/find_pwd.tiles1");
 			return mav;
 		}
+		
+		// 로그아웃 처리
+		@RequestMapping(value="/logout.got")
+		public ModelAndView logout(ModelAndView mav, HttpServletRequest request) {
+			
+			// 로그아웃시 메인
+			HttpSession session = request.getSession();
+			session.invalidate();
+			
+			String message = "로그아웃 되었습니다.";
+			String loc = request.getContextPath()+"/index.got";
+			
+			mav.addObject("message", message);
+			mav.addObject("loc", loc);
+			
+			mav.setViewName("msg");
+			
+			return mav;
+		}
+		
 		// 홍용훈 끝
 		// ===========================================================================
 }
