@@ -28,14 +28,17 @@
 	<!-- 견적 요청하기 -->
 	<insert id="insert_order" parameterType="HashMap">
 		insert into ORDERS(order_num_pk, user_id_fk, order_date, brand_name, request_explain, requests, orderer, order_product_type)
-		values( seq_order_num_pk.nextval, #{user_id_fk}, sysdate, #{brand_name} ,#{request_explain},#{requests},#{orderer},#{order_product_type})
+		values( seq_order_num_pk.nextval, #{user_id_fk}, default, #{brand_name}, #{request_explain}, #{requests}, #{orderer}, #{order_product_type} )
 	</insert>
 	
 	<!-- 견적요청번호 가져오기 -->
 	<select id="select_order_num_pk" parameterType="HashMap" resultType="int">
-		select_order_num_pk
-		from ORDERERS
-		where user_id_fk=#{user_id_fk} and order_date=sysdate and brand_name=#{brand_name} and request_explain=#{request_explain} and requests =#{requests} and orderer=#{orderer} and order_product_type= #{order_product_type}
+		select order_num_pk
+		from orders
+		where user_id_fk=#{user_id_fk} and brand_name=#{brand_name}
+        and requests =#{requests}
+        and orderer=#{orderer}
+        and order_product_type=#{order_product_type}
 	 </select>
 	 
 	 <!-- 전체 사진 반복문으로 추가하기 -->

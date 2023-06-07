@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
@@ -63,7 +64,7 @@ public class OrderController {
 	
 	
 	@RequestMapping(value = "/orderForm.got")
-	public ModelAndView orderForm(ModelAndView mav,HttpServletRequest request) {
+	public ModelAndView requiredLogin_orderForm(HttpServletRequest request, HttpServletResponse response,ModelAndView mav) {
 		
 		
 		HttpSession session = request.getSession();
@@ -176,7 +177,7 @@ public class OrderController {
 
 	@Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.READ_COMMITTED, rollbackFor= {Throwable.class})
 	@RequestMapping(value="/order_form.got", method= {RequestMethod.POST})
-	public ModelAndView order_form(ModelAndView mav, HttpServletRequest request) {
+	public ModelAndView requiredLogin_order_form(HttpServletRequest request, HttpServletResponse response,ModelAndView mav) {
 		
 		
 		String type_code_pk = request.getParameter("type_code_pk"); 			// 품목번호 : type_code_pk
@@ -186,6 +187,8 @@ public class OrderController {
 		String img_detail_name = request.getParameter("img_detail_name");		//상세사진 : img_detail
 		String reqest_list = request.getParameter("reqest_list");				//수선요청사항:reqest_list
 		String req_textarea = request.getParameter("req_textarea");				//수선요청사항설명:req_textarea
+		
+		
 		/*
 		    type_code_pk = 30
 			brand_name = ㄷㄹㄷㄹ
@@ -207,16 +210,28 @@ public class OrderController {
 		mapOrder.put("requests", reqest_list);
 		mapOrder.put("order_product_type", order_product_type);
 		mapOrder.put("orderer", loginuser.getName());
+		/*
+		 * user_id_fk wlgus
+			brand_name efefe
+			request_explain efefe
+			requests 2,11
+			order_product_type 가방/핸드백
+			orderer 이지현
+		 * */
+		
 		
 		//private int order_num_pk;		// 견적요청번호 
 
 		// 견적 요청 넣기
 		int n1 = service.insert_order(mapOrder);
+		System.out.println("n1 = "+n1);
 		
 		if(n1 == 1) {
 			
 			int order_num_pk = service.select_order_num_pk(mapOrder);
 			// 주문번호 갖고오기
+			
+			System.out.println("order_num_pk = "+order_num_pk);
 			
 			String[] arr_img_whole_name = img_whole_name.split("\\,");
 			String[] arr_img_detail_name = img_detail_name.split("\\,");
@@ -232,8 +247,8 @@ public class OrderController {
 			
 			if (order_num_pk != 0) {
 				
-				whole_map.put("whole_img_num_pk",order_num_pk);
-				detail_map.put("detail_img_num_pk",order_num_pk);
+				whole_map.put("order_num_pk",order_num_pk );
+				detail_map.put("order_num_pk",order_num_pk);
 				
 				// 전체 사진
 				for(int i =0; i<arr_img_whole_name.length;i++) {
@@ -243,7 +258,7 @@ public class OrderController {
 					
 					whole_num[i] = service.insert_whole_img(whole_map);
 					// 전체 사진 반복문으로 추가하기
-					
+					System.out.println("whole num "+i+"="+whole_num[i]);
 					whole_map.remove("whole_img_name");
 				}
 				
@@ -255,7 +270,7 @@ public class OrderController {
 					
 					detail_num[i] = service.insert_detail_img(detail_map);
 					// 상세 사진 반복문으로 추가하기
-					
+					System.out.println("detail_num  ="+i+"="+detail_num[i]);
 					detail_map.remove("detail_img_name");
 				}
 				
@@ -282,6 +297,8 @@ public class OrderController {
 						
 						request_list_num[i] = service.insert_detail_request_list(request_list_map);
 						// 요청사항 목록들 반복문으로 추가하기
+						
+						System.out.println("request_list_num"+i+" = "+request_list_num[i]);
 						
 						request_list_map.remove("detail_type_fk");
 					}
