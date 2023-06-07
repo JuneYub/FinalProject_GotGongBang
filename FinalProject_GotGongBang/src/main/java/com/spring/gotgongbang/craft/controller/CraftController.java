@@ -454,6 +454,10 @@ public class CraftController {
    
    @RequestMapping(value="/repair_history_list.got")
    public ModelAndView repairHistoryList(ModelAndView mav) {
+	  String userid = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+	  
+	  
+	   
       mav.setViewName("/craft/repairHistoryList.tiles1");
       return mav;
    }
