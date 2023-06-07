@@ -60,6 +60,7 @@
 				</thead>
 				
 				<tbody>
+				<c:forEach var="repair" items="${requestScope.paraMapList}">
 					<tr>
 					<td>
 						<div class="img-estimate"></div>
@@ -68,19 +69,20 @@
 					<td>
 						<div class="txt-order-info">
 						<ul>
-							<li>주문번호 : <strong>20230524A1</strong></li>
-							<li>주문 날짜 : <strong>2023/05/22</strong></li>
-							<li>품목명 : <strong>가방</strong></li>
-							<li>요청사항 : <strong>요청사항1입니다 요청사항2입니다 요청사항3입니다</strong></li>
-							<li>브랜드 : <strong>버버리</strong></li>
-							<li>가격 : <strong>50,000 원</strong></li>
+							<li>주문번호 : <strong>${repair.order_detail_id_pk}</strong></li>
+							<li>주문 날짜 : <strong>${repair.payment_date}</strong></li>
+							<li>품목명 : <strong>${repair.order_product_type}</strong></li>
+							<li>요청사항 : <strong>${repair.requests}</strong></li>
+							<li>브랜드 : <strong>${repair.brand_name}</strong></li>
+							<li>가격 : <strong>${repair.payment}</strong>원</li>
 							<br>
-							<li>고객명 : <strong>고객 이름</strong></li>
-							<li>연락처 : <strong>01025254845</strong></li>
-							<li>주소 : <strong>경기도</strong></li>							
-							<li>상세주소 : <strong>화성시</strong></li>
-							<li>부가주소 : <strong>화성아파트</strong></li>
-							<li>우편번호 : <strong>12345</strong></li>
+							<li>고객명 : <strong>${repair.orderer}</strong></li>
+							<li>연락처 : <strong>${repair.order_post_code}</strong></li>
+							<li>우편번호 : <strong>${repair.order_post_code}</strong></li>
+							<li>주소 : <strong>${repair.order_address}</strong></li>							
+							<li>상세주소 : <strong>${repair.order_detail_address}</strong></li>
+							<li>부가주소 : <strong>${repair.order_extra_address}</strong></li>
+							
 						</ul>
 						</div>
 						
@@ -95,10 +97,12 @@
 					</td>
 					</tr>
 					
-					
+				</c:forEach>	
 				</tbody>
 			</table>
-		
+			<div class="block-pagebar">
+				${requestScope.pageBar}
+			</div>
 		</div>
 	</div>
 </div>
