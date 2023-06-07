@@ -114,6 +114,13 @@ public class CarftDAO implements InterCraftDAO {
 		return n;
 	}
 	
+	@Override
+	public int getTotalCountForRepairList(String craftNum) {
+		int totalCount = sqlsession.selectOne("craft.getTotalCountForRepairList", craftNum);
+		return totalCount;
+	}
+
+	
 	
 	// =============== 박준엽 끝 =================//
 	
@@ -138,6 +145,12 @@ public class CarftDAO implements InterCraftDAO {
 	public CraftVO crafts_detail_select() {
 		CraftVO craftvo = sqlsession.selectOne("craft.crafts_detail_select");
 		return craftvo;
+	}
+
+	@Override
+	public List<HashMap<String, String>> getRepariListBycraftNum(HashMap<String, String> paraMap) {
+		List<HashMap<String, String>> paraMapList = sqlsession.selectList("craft.getRepariListBycraftNum", paraMap);
+		return paraMapList;
 	}
 
 

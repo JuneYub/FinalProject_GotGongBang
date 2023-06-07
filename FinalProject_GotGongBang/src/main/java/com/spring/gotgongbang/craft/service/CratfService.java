@@ -84,6 +84,18 @@ public class CratfService implements InterCraftService {
 		return n;
 	}
 	
+	@Override
+	public List<HashMap<String, String>> getRepariListBycraftNum(HashMap<String, String> paraMap) {
+		List<HashMap<String, String>> paraMapList = cdao.getRepariListBycraftNum(paraMap);
+		return paraMapList;
+	}
+	
+	@Override
+	public int getTotalCountForRepairList(String craftNum) {
+		int totalCount = cdao.getTotalCountForRepairList(craftNum);
+		return totalCount;
+	}
+	
 
 	// =============== 박준엽 끝 ==================== // 
 	
