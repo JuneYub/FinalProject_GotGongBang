@@ -1,7 +1,6 @@
 package com.spring.gotgongbang.order.model;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -38,15 +37,6 @@ public class OrderDAO implements InterOrderDAO {
 		
 		List<TypesVO> requestList = sqlsession.selectList("order.bring_request_list",type_code_pk);
 		return requestList;
-	}
-
-
-	// 견적 요청 넣기
-	@Override
-	public int insert_order(Map<String, String> mapOrder) {
-		
-		int n1 = sqlsession.insert("order.insert_order", mapOrder);
-		return n1;
 	}
 	
 	

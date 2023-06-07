@@ -1,7 +1,6 @@
 package com.spring.gotgongbang.order.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -40,18 +39,7 @@ public class OrderService implements InterOrderService {
 		
 		return requestList;
 	}
-	
-	// 견적 요청 넣기
-	@Override
-	public int insert_order(Map<String, String> mapOrder) {
-		
-		int n1 = odao.insert_order(mapOrder);
-		
-		return n1;
-	}
 	// ================ 이지현 끝 ================== //
-	
-	
 	
 	
 }

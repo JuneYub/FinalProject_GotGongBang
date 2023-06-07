@@ -25,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.JsonObject;
 import com.spring.gotgongbang.common.FileManager;
 import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.craft.model.ImageVO;
@@ -288,19 +287,24 @@ public class CraftController {
                   // 첨부파일의 내용물을 읽어오는 것
                   
                   originalFilename = mf.getOriginalFilename();
+                  // attach.getOriginalFilename() 이 첨부파일명의 파일명(예: 강아지.png) 이다. 
                   
-                  System.out.println("~~~~ 확인용 originalFilename => " + originalFilename); 
+                   System.out.println("~~~~ 확인용 originalFilename => " + originalFilename); 
+                  // ~~~~ 확인용 originalFilename => LG_싸이킹청소기_사용설명서.pdf
                   
                   newFileName = fileManager.doFileUpload(bytes, originalFilename, path);
                   // 첨부되어진 파일을 업로드 하는 것이다.
                   
                   System.out.println(">>> 확인용  newFileName => " + newFileName); 
+                   // >>> 확인용  newFileName => 20230522103642842968758293800.pdf
+                  // >>> 확인용  newFileName => 20230522103904843110797635200.pdf
                   
                   cvo.setFileName(newFileName);
                   // WAS(톰캣)에 저장된 파일명(20230522103642842968758293800.pdf)
                   
                   cvo.setOrgFilename(originalFilename);
                   // 게시판 페이지에서 첨부된 파일(강아지.png)을 보여줄 때 사용.
+                  // 또한 사용자가 파일을 다운로드 할때 사용되어지는 파일명으로 사용.
                   
                   fileSize = mf.getSize(); // 첨부파일의 크기(단위는 byte임)
                   cvo.setFileSize(String.valueOf(fileSize));
@@ -312,8 +316,8 @@ public class CraftController {
              }
              
           }// end of for -------------------------------------
-         
           
+
           String hp1= request.getParameter("hp1");
     	  String hp2= request.getParameter("hp2");
     	  String hp3= request.getParameter("hp3");
@@ -321,18 +325,20 @@ public class CraftController {
     	  String craft_mobile = hp1 + hp2 + hp3;
     	  cvo.setCraft_mobile(craft_mobile);
     	  
+    	  
           MultipartFile craft_add_file_name = imgvo.getCraft_add_file_name();
 
           n = service.add_withFile(cvo);
           if(n==1){
-              return "redirect:/craft_complete.got";
+        	  System.out.println("~~n :" +n);
           }else {
-              return "javascript:history.go(0);";
+        	  System.out.println("~n : " + n);
           }
           
        } //end of if(!fileList.isEmpty())---------------------------
              
-       return "javascript:history.go(0);";
+       return "";
+       
    }
    
    
@@ -465,9 +471,13 @@ public class CraftController {
    
    @RequestMapping(value="/edit_craft_user_info_end.got")
    public ModelAndView editCraftInfoEnd(ModelAndView mav, HttpServletRequest request, PartnerVO pvo) {
+      
       int n = 0;
       n = service.updatePartnerInfo(pvo);
       
+      if(pvo.getPartner_pwd() != null && pvo.getPartner_pwd() != "") {
+         n = service.updatePartnerPwd(pvo);
+      }
       String message = "";
       String loc = "";
       
@@ -485,29 +495,6 @@ public class CraftController {
       request.setAttribute("loc", loc);
       mav.setViewName("msg");
       return mav;
-   }
-   
-   @ResponseBody
-   @RequestMapping(value="/update_craft_user_pwd.got", method = {RequestMethod.POST})
-   public String updateCraftUserPwd(HttpServletRequest request) {
-	  String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것 
-	  String editPw = request.getParameter("editPw"); 
-	  
-	  PartnerVO pvo = new PartnerVO();
-      pvo = service.getPartnerInfoByUserId(partnerId);
-      int n = 0;
-
-      if(editPw.equals(pvo.getPartner_pwd())) {
-    	  n = 2;
-    	  
-      }
-      else {
-          n = service.updatePartnerPwd(pvo);
-      }
-      
-      JSONObject jsonObj = new JSONObject();
-      jsonObj.put("n", n);
-	  return jsonObj.toString();
    }
    
    public String makePageBar(int currentShowPageNo, int blockSize, int totalPage) {

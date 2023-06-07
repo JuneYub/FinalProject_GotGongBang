@@ -18,9 +18,9 @@ public class MemberVO {
 	private String mileage;				//마일리지
 	private String registerday;			//가입일자
 	private String last_pwd_change;		//마지막비밀번호변경날짜
-	private int idle;				//휴먼회원여부
+	private String idle;				//휴먼회원여부
 	private String pwd_change_required;	//비밀번호갱신필요여부
-	private int status;				//탈퇴여부
+	private String status;				//탈퇴여부
 	
 	public MemberVO() {}
 
@@ -39,14 +39,6 @@ public class MemberVO {
 		this.gender = gender;
 		this.birthday = birthday;
 	}
-	
-	private int pwdchangegap;          // select 용. 지금으로 부터 마지막으로 암호를 변경한지가 몇개월인지 알려주는 개월수(3개월 동안 암호를 변경 안 했을시 암호를 변경하라는 메시지를 보여주기 위함)  
-	private int lastlogingap;          // select 용. 지금으로 부터 마지막으로 로그인한지가 몇개월인지 알려주는 개월수(12개월 동안 로그인을 안 했을 경우 해당 로그인 계정을 비활성화 시키려고 함) 
-	
-	
-	private boolean requirePwdChange = false;
-	// 마지막으로 암호를 변경한 날짜가 현재시각으로 부터 3개월이 지났으면 true
-	// 마지막으로 암호를 변경한 날짜가 현재시각으로 부터 3개월이 지나지 않았으면 false
 
 	public String getUser_id_pk() {
 		return user_id_pk;
@@ -160,11 +152,11 @@ public class MemberVO {
 		this.last_pwd_change = last_pwd_change;
 	}
 
-	public int getIdle() {
+	public String getIdle() {
 		return idle;
 	}
 
-	public void setIdle(int idle) {
+	public void setIdle(String idle) {
 		this.idle = idle;
 	}
 
@@ -176,36 +168,12 @@ public class MemberVO {
 		this.pwd_change_required = pwd_change_required;
 	}
 
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public int getPwdchangegap() {
-		return pwdchangegap;
-	}
-
-	public void setPwdchangegap(int pwdchangegap) {
-		this.pwdchangegap = pwdchangegap;
-	}
-
-	public int getLastlogingap() {
-		return lastlogingap;
-	}
-
-	public void setLastlogingap(int lastlogingap) {
-		this.lastlogingap = lastlogingap;
-	}
-
-	public boolean isRequirePwdChange() {
-		return requirePwdChange;
-	}
-
-	public void setRequirePwdChange(boolean requirePwdChange) {
-		this.requirePwdChange = requirePwdChange;
 	}
 
 	
