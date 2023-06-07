@@ -40,17 +40,33 @@
 
             <div class="header-member-box">
                 <ul class="header-member-contents">
-                    <li>
-                        <a onclick="location.href='<%= ctxPath%>/register_member.got'">
-                          	  회원가입
-                        </a>
-                        <span class="txt_bar"></span>
-                    </li>
-                    <li>
-                        <a onclick="location.href='<%= ctxPath%>/login.got'">
-                           	 로그인
-                        </a>
-                    </li>
+	                <c:if test="${empty sessionScope.loginuser}">
+	                    <li>
+	                        <a onclick="location.href='<%= ctxPath%>/register_member.got'">
+	                          	  회원가입
+	                        </a>
+	                        <span class="txt_bar"></span>
+	                    </li>
+	                    <li>
+	                        <a onclick="location.href='<%= ctxPath%>/login.got'">
+	                           	 로그인
+	                        </a>
+	                    </li>
+	                </c:if>
+	                
+	                <c:if test="${not empty sessionScope.loginuser}">
+	                	<li>
+	                        <a onclick="location.href='<%= ctxPath%>/mypage.got'">
+	                          	  ${(sessionScope.loginuser).name}님 환영합니다.
+	                        </a>
+	                        <span class="txt_bar"></span>
+	                    </li>
+	                    <li>
+	                        <a onclick="location.href='<%= ctxPath%>/logout.got'">
+	                           	 로그아웃
+	                        </a>
+	                    </li>
+	                </c:if>
                 </ul>
             </div>
         </section>

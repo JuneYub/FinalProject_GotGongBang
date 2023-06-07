@@ -1,14 +1,14 @@
 package com.spring.gotgongbang.member.model;
 
 import java.sql.Timestamp;
-import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 public interface InterMemberDAO {
 
 	// ====== 홍용훈 시작 =========================================== //
+	
 	// 회원가입
 	void insertMember(MemberVO membervo);
 
@@ -17,7 +17,7 @@ public interface InterMemberDAO {
 
 	// 아이디 중복 확인 AJAX 요청 처리
 	int isIdDuplicate(String id);
-
+	
 	// 로그인 처리
 	MemberVO getLoginMember(Map<String, String> paraMap);
 	
@@ -28,7 +28,7 @@ public interface InterMemberDAO {
 	void recordLoginDate(String string, Timestamp loginDate);
 	
 	// ====== 홍용훈 끝 =========================================== //
-	
+
 	// ====== 박준엽 시작 =========================================== //
 	
 	List<HashMap<String, String>> getProposalListByUserId(HashMap<String, String> paraMap);
@@ -40,5 +40,7 @@ public interface InterMemberDAO {
 	int updateMemberPwd(MemberVO mvo);
 	
 	// ====== 박준엽 끝 =========================================== //
+
+
 	
 }

@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -78,10 +79,7 @@ public class MemberController {
 		public ModelAndView editUserInfoEnd(ModelAndView mav, HttpServletRequest request, MemberVO mvo) {
 			int n = 0;
 		    n = service.updateMemberInfoByMVO(mvo);
-		      
-		    if(mvo.getPwd() != null && mvo.getPwd() != "") {
-		       n = service.updateMemberPwd(mvo);
-		    }
+
 		    String message = "";
 		    String loc = "";
 		      
@@ -107,23 +105,42 @@ public class MemberController {
 		@RequestMapping(value="/update_user_pwd.got")
 		public String updateUserPwd(HttpServletRequest request) {
 			String userId = "testMember"; // 테스트를 위해서 유저아이디를 지정해준 것 이후에는 세션을 통해서 지정할 예정
-			  String editPw = request.getParameter("editPw"); 
+			String editPw = request.getParameter("editPw"); 
 			  
-		      MemberVO mvo = new MemberVO();
-		      mvo = service.getUserInfoByUserId(userId);
-		      int n = 0;
+		    MemberVO mvo = new MemberVO();
+		    mvo = service.getUserInfoByUserId(userId);
+		    int n = 0;
 
-		      if(editPw.equals(mvo.getPwd())) {
-		    	  n = 2;
-		      }
-		      else {
-		    	  mvo.setPwd(editPw);
-		          n = service.updateMemberPwd(mvo);
-		      }
-		      
-		      JSONObject jsonObj = new JSONObject();
-		      jsonObj.put("n", n);
-			  return jsonObj.toString();
+		    if(editPw.equals(mvo.getPwd())) {
+		    	n = 2;
+		    }
+			else {
+				mvo.setPwd(editPw);
+				n = service.updateMemberPwd(mvo);
+			}
+
+			JSONObject jsonObj = new JSONObject();
+			jsonObj.put("n", n);
+			return jsonObj.toString();
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/check_insert_pwd.got")
+		public String checkInsertPwd(HttpServletRequest request) {
+			String userId = "testMember"; // 테스트를 위해서 유저아이디를 지정해준 것 이후에는 세션을 통해서 지정할 예정
+			String insertPwd = request.getParameter("insertPwd");
+			
+		    MemberVO mvo = new MemberVO();
+		    mvo = service.getUserInfoByUserId(userId);
+		    int n = 0;
+
+		    if(insertPwd.equals(mvo.getPwd())) {
+		    	n = 1;
+		    }
+		    
+		    JSONObject jsonObj = new JSONObject();
+		    jsonObj.put("n", n);
+		    return jsonObj.toString();
 		}
 		
 		
@@ -167,7 +184,7 @@ public class MemberController {
 			String userid = request.getParameter("userid");
 		    String pwd = request.getParameter("pwd");
 
-		    Map<String, String> paraMap = new HashMap<>();
+		    Map<String, String> paraMap = new HashMap<String, String>();
 		    paraMap.put("userid", userid);
 		    paraMap.put("pwd", Sha256.encrypt(pwd));
 
@@ -243,6 +260,26 @@ public class MemberController {
 			mav.setViewName("member/find_pwd.tiles1");
 			return mav;
 		}
+		
+		// 로그아웃 처리
+		@RequestMapping(value="/logout.got")
+		public ModelAndView logout(ModelAndView mav, HttpServletRequest request) {
+			
+			// 로그아웃시 메인
+			HttpSession session = request.getSession();
+			session.invalidate();
+			
+			String message = "로그아웃 되었습니다.";
+			String loc = request.getContextPath()+"/index.got";
+			
+			mav.addObject("message", message);
+			mav.addObject("loc", loc);
+			
+			mav.setViewName("msg");
+			
+			return mav;
+		}
+		
 		// 홍용훈 끝
 		// ===========================================================================
 }

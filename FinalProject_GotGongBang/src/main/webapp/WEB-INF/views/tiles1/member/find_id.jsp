@@ -5,40 +5,8 @@
 
 %>
 <style>
-	.login-search {
-    	margin: 0 auto;
-    	padding-bottom: 200px;
-    	width: 588px;
-	}	
-	.login-search__header {
-	    border-bottom: 3px solid #000;
-	    overflow: hidden;
-	    padding: 120px 0 40px;
-	    text-align: center;
-	}
-	.login-search__title {
-	    color: #000;
-	    font-size: 48px;
-	    font-weight: 700;
-	    line-height: 1;
-	}
-	.login-search__description {
-	    font-size: 20px;
-	    letter-spacing: -.4px;
-	    padding-top: 20px;
-	}
-	.login-search__filedset {
-	    padding: 40px 0;
-	}
-	.login-search .form-field+.form-field {
-	    margin-top: 10px;
-	}
-	.form-field__feedback:empty {
-	    padding: 0;
-	}
-	.login-search__button {
-	    width: 290px;
-	}
+	
+	
 </style>
 
 <div id="content">
@@ -53,12 +21,12 @@
 				<fieldset class="login-search__filedset">
 
 					<div class="form-field">
-						
+
 						<input class="form-input" type="text" name="user_name" title="이름 입력" placeholder="이름을 입력하세요.">
 						<div class="form-field__feedback" data-field-feedback="user_name"></div>
 					</div>
 					<div class="form-field">
-						
+ 
 						<div class="form-field__group form-field__group--input-button">
 							<input class="form-input" type="email" name="user_email" title="이메일 입력" placeholder="이메일 주소를 입력하세요.">
 							<button class="button button--outline" type="button">인증번호 받기</button>
@@ -66,7 +34,7 @@
 						<div class="form-field__feedback" data-field-feedback="user_email"></div>
 					</div>
 					<div class="form-field">
-						
+
 						<input class="form-input" type="text" name="auth_code" placeholder="인증번호를 입력하세요.(5분 이내)">
 						<div class="form-field__feedback" data-field-feedback="auth_code"></div>
 					</div>

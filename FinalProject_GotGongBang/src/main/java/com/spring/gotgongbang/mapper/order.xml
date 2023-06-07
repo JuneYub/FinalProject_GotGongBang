@@ -21,6 +21,7 @@
 		from detail_type
 		where type_code_fk = #{type_code_pk}
 	</select>
+
 	
 	
 	

@@ -9,32 +9,7 @@
 
 <style>
 	
-	.sign-up__form-radio-group {
-	    background-color: #fff;
-	    border: 1px solid #b9b9b9;
-	    border-radius: 26px;
-	    height: 50px;
-	    position: relative;
-	    width: 732px;
-	}
 	
-	.sign-up__form-radio-text {
-	    border-radius: 26px;
-	    color: #1a1325;
-	    float: left;
-	    height: 50px;
-	    line-height: 50px;
-	    position: relative;
-	    text-align: center;
-	    width: 244px;
-	    z-index: 10;
-	}
-	
-	.sign-up__form-radio-input {
-		float: left;
-	    height: 50px;
-	    margin-left: 80px;
-	}
 
 </style>
 

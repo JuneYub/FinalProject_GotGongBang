@@ -29,20 +29,46 @@
 			$("#checkOriginPWD").modal("hide");
 		});
 	});
-		
-		
+	
 	function updateUserInfo(){
-		const originPWD = '${pvo.partner_pwd}';
-		var inserPWD = $("input#insertPWD").val();
 		
-		if(inserPWD != originPWD) {
-			alert("비밀번호가 올바르지 않습니다");
-		}
-		else {
-			const frm = document.editMyInfo;
-			frm.action = "<%= ctxPath%>/edit_craft_user_info_end.got"
-			frm.submit();
-		}
+		var insertPwd = $("input#insertPWD").val();
+		
+		$.ajax({
+			url: '<%= ctxPath%>/check_insert_craftPwd.got',
+			method: 'POST',
+			dataType: 'json',
+			data: {
+				insertPwd: insertPwd
+			},
+			success : function(json) {
+				if(json.n == 0) {
+					alert("비밀번호 올바르지 않습니다.");
+				}
+				
+				if(json.n == 1) {
+					const frm = document.editMyInfo;
+					frm.action = "<%= ctxPath%>/edit_craft_user_info_end.got"
+					frm.submit();
+				}
+				
+			},
+			error: function(request, status, error){
+				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		     }
+		});
+	}
+		
+	
+	function openBidPage() { // 파라미터로 공방 아이디랑 견적 아이디를 받을 예정
+		url = "<%= ctxPath%>/estimate_inquiry_list/bid.got";
+		const pop_width = 600;
+		const pop_height = 700;
+		const pop_left = Math.ceil( (window.screen.width - pop_width)/2);
+		const pop_top = Math.ceil( (window.screen.height - pop_height)/2);
+		
+		window.open(url, "bidEstimate", "left= "+pop_left+", top="+pop_top+", width="+pop_width+", height="+pop_height);
+		
 	}
 	
 	function checkEditMyInfo() {
@@ -50,105 +76,75 @@
 		var regMobile= /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
 		var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; 
 		var regPost = /^\d{5}$/;
-		
+		var regPwd = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g;
 		
 		var editName = $("input#editName").val();
-		const boolEditName = regName.test(editName);
-		if(editName.trim() == "" || !boolEditName) {
-			alert("이름은 2~6자로 이루어진 한글로 구성되어 있어야 합니다");
-			$("input#editName").focus();
-			return;
+		if(editName.trim() != "") {
+			const boolEditName = regName.test(editName);
+			if(!boolEditName) {
+				alert("이름은 2~6자로 이루어진 한글로 구성되어 있어야 합니다");
+				$("input#editName").focus();
+				return;
+			}
 		}
-		
-		var editEmail = $("input#editEmail").val();
-		const boolEditEmail = regEmail.test(editEmail);
-		if(editEmail.trim() == "" || !boolEditEmail) {
-			alert("이메일 형식이 맞지 않습니다");
-			$("input#editEmail").focus();
-			return;
-		}
-		
-		var editMobile = $("input#editMobile").val();
-		const boolEditMobile = regMobile.test(editMobile);
-		if(editMobile.trim() == "" || !boolEditMobile) {
-			alert("휴대전화 번호 형식이 맞지 않습니다");
-			$("input#editMobile").focus();
-			return;
-		}
-		
-		var editPost = $("input#postcode").val();
-		const boolEditPost = regPost.test(Number(editPost));
-		if(editPost.trim() == "" || !boolEditPost) {
-			alert("우편번호 형식이 맞지 않습니다");
-			$("input#postcode").val("");
-			$("input#postcode").focus();
-			return;
-		}
-		$("#checkOriginPWD").modal("show");
-	}
-	
-	function updateUserPw() {
-		
 		
 		var editPw = $("input#editPw").val();
 		var editPwCheck = $("input#editPwCheck").val();
-		var regPwd = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g;
-		
-		if(editPw.trim() != "" && editPwCheck.trim() != "") {
-			
-			const boolEdit = regPwd.test(editPw);
-			if(!boolEdit) {
-				alert("비밀번호는 8~15 글자로 영어, 특수문자, 숫자로 구성되어 있어야 합니다.");
+		if(editPw.trim() != "" || editPwCheck.trim() != "") {
+			if(editPw == '$(pvo.partner_pwd)') {
+				alert("기존 비밀번호와 같지 않게 변경해주세요");
 				$("input#editPw").focus();
 				return;
 			}
 			
-			else if(editPw != editPwCheck) {
+			if(editPw != editPwCheck) {
 				alert("새 비밀번호와 새 비밀번호 확인 값이 같지 않습니다.");
 				 $("input#editPw").focus();
 				return;
 			}
-			
 			else {
-				$.ajax({
-					url: '<%= ctxPath%>/update_craft_user_pwd.got',
-					method: 'POST',
-					dataType: 'json',
-					data: {
-						editPw: editPw
-					},
-					success : function(json) {
-						if(json.n == 0) {
-							alert("비밀번호 변경에 문제가 발생했습니다.");
-						}
-						
-						if(json.n == 1) {
-							alert("정상적으로 비밀번호가 변경되었습니다.");
-							location.reload();
-						}
-						
-						if(json.n == 2) {
-							alert("기존 비밀번호와 같아 변경할 수 없습니다.");
-							$("input#editPw").val('');
-							$("input#editPwCheck").val('');
-							$("input#editPw").focus();
-						}
-					},
-					error: function(request, status, error){
-						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-				     }
-				})
+				const boolEdit = regPwd.test(editPw);
+				if(!boolEdit) {
+					alert("비밀번호는 8~15 글자로 영어, 특수문자, 숫자로 구성되어 있어야 합니다.");
+					$("input#editPw").focus();
+					return;
+				}
 			}
 		}
 		
-		if(editPw.trim() == "" || editPwCheck.trim() == "") {
-			alert("변경할 비밀번호를 입력해주세요");
-			$("input#editPw").focus();
-			return;
+		var editEmail = $("input#editEmail").val();
+		if(editEmail.trim() != "") {
+			const boolEditEmail = regEmail.test(editEmail);
+			if(!boolEditEmail) {
+				alert("이메일 형식이 맞지 않습니다");
+				$("input#editEmail").focus();
+				return;
+			}
 		}
-	}
 		
-
+		var editMobile = $("input#editMobile").val();
+		if(editMobile.trim() != "") {
+			const boolEditMobile = regMobile.test(editMobile);
+			if(!boolEditMobile) {
+				alert("휴대전화 번호 형식이 맞지 않습니다");
+				$("input#editMobile").focus();
+				return;
+			}
+		}
+		
+		var editPost = $("input#postcode").val();
+		if(editPost.trim() != "") {
+			const boolEditPost = regPost.test(Number(editPost));
+			if(!boolEditPost) {
+				alert("우편번호 형식이 맞지 않습니다");
+				$("input#postcode").val("");
+				$("input#postcode").focus();
+				return;
+			}
+		}
+		$("#checkOriginPWD").modal("show");
+	}
+	
 	function emailDomainChange() {
 		var editEmail = $("input#editEmail").val();
 		var emailDomain = $("select#emailDomain").val();
@@ -265,9 +261,7 @@
 						
 						<tr>
 						<th>새 비밀번호</th>
-						<td><input type="password" id="editPw" name="partner_pwd" autocomplete="off" />
-						<button type="button" class="btn-update-info" id="updatePw" onclick="updateUserPw()">비밀번호 변경</button>
-						</td>
+						<td><input type="password" id="editPw" name="partner_pwd" autocomplete="off" /></td>
 						</tr>
 						
 						<tr>
@@ -306,7 +300,7 @@
 						<th>주소</th>
 					 	<td>
 						<div class="address_postcode">
-							<input type="text" id="postcode" name="partner_post_code" value="${pvo.partner_post_code}" placeholder="우편번호" readonly="readonly">
+							<input type="text" id="postcode" name="partner_post_code" value="${pvo.partner_post_code}" placeholder="우편번호">
 							<input type="button" id="zipcodeSearch" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
 						</div>
 						<div class="address_input">
