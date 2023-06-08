@@ -96,6 +96,12 @@ public class CratfService implements InterCraftService {
 		return totalCount;
 	}
 	
+	@Override
+	public int updateStateByOrderNum(HashMap<String, String> paraMap) {
+		int n = cdao.updateStateByOrderNum(paraMap);
+		return n;
+	}
+	
 
 	// =============== 박준엽 끝 ==================== // 
 	
