@@ -7,11 +7,6 @@
    String ctxPath = request.getContextPath();
 %>   
 
-<style>
-	
-	
-
-</style>
 
 <!-- Font Awesome 6 Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -309,14 +304,11 @@
     			return;
 			}	 		
 			else {
-				$("button#yh_button").click(function(){
-					// 폼(form)을 전송(submit)
-			            const frm = document.signup_form;
-			            frm.method = "post";
-			            frm.action = "<%= ctxPath%>/register.got";
-			            frm.submit();
-					
-			     });
+				// 폼(form)을 전송(submit)
+	            const frm = document.signup_form;
+	            frm.method = "post";
+	            frm.action = "<%= ctxPath%>/register.got";
+	            frm.submit();
 			}
 		});
 		
@@ -825,7 +817,7 @@
 					<li class="sign-up__order-item sign1 sign-up__order-item--current"><span class="sign-up__order-index">01</span><span class="sign-up__order-menu">이용약관</span></li>
 					<li class="sign-up__order-item sign2"><span class="sign-up__order-index">02</span><span class="sign-up__order-menu">이메일 인증</span></li>
 					<li class="sign-up__order-item sign3"><span class="sign-up__order-index">03</span><span class="sign-up__order-menu">회원정보 입력</span></li>
-					<li class="sign-up__order-item sign4"><span class="sign-up__order-index">05</span><span class="sign-up__order-menu">가입완료</span></li>
+					<li class="sign-up__order-item sign4"><span class="sign-up__order-index">04</span><span class="sign-up__order-menu">가입완료</span></li>
 				</ol>
 			</header>
 			
@@ -1035,9 +1027,7 @@
 								<input class="sign-up__form-radio-input" id="gender" type="radio" name="gender" value="1" checked>
 								<label class="sign-up__form-radio-text" for="male">남 자&nbsp;&nbsp;&nbsp;</label>
 								<input class="sign-up__form-radio-input" id="gender" type="radio" name="gender" value="2">
-								<label class="sign-up__form-radio-text" for="female">여 자</label>
-								<!-- <input class="sign-up__form-radio-input" id="company-type-3" type="radio" name="company_type" value="2">
-								<label class="sign-up__form-radio-text" for="company-type-3">법인사업자</label><span class="sign-up__form-radio-bar"></span><span class="sign-up__form-radio-current"></span> -->
+								<label class="sign-up__form-radio-text" for="female">여 자</label>								
 							</div>
 						</div>
 						<div class="form-field">
