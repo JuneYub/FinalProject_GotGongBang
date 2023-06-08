@@ -7,9 +7,28 @@
 <%
    String ctxPath = request.getContextPath();
 %>   
+
+<style type="text/css">
+
+    .subjectStyle {font-weight: bold;
+    			   color: #400099;
+    			   cursor: pointer;}
+</style>
+
 <script>
 
 
+$(document).ready(function(){
+	  
+	  $("span.craft_name").bind("mouseover", function(e){
+		  $(e.target).addClass("subjectStyle");
+	  });
+	  
+	  $("span.craft_name").bind("mouseout", function(e){
+		  $(e.target).removeClass("subjectStyle"); 
+	  });
+	  
+});
 
 
 

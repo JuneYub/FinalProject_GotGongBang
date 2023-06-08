@@ -14,7 +14,7 @@ public class CraftVO {
 	private MultipartFile craft_representative_image;	//공방 대표 사진
 	private MultipartFile craft_image;					//공방 사진
 	private String craft_Introduce;				//공방 한줄소개
-	private String craft_career;				//경력사항
+	private String craft_career;				//경력기간
 	private MultipartFile craft_certificate;			//자격증
 	private String craft_specialty;				//전문품목
 	private String craft_post_code;				//우편번호
@@ -24,15 +24,15 @@ public class CraftVO {
 	private String craft_latitude;				//위도
 	private String craft_longitude;				//경도
 	private String craft_status;				//(임시/정식) 상태
+	private String craft_salary;				//희망급여
 	private String craft_rating;				//별점
-
+	
 	// * select용 *
 	private ImageVO imgvo;
 
 	////////////////////////////////////////////////////////
 		   
 	// 먼저, 댓글쓰기에 파일첨부까지 한 것을 위해서 오라클에서 tbl_comment 테이블에 fileName, orgFilename, fileSize 컬럼을 추가해주어야 한다. 
-	private MultipartFile attach;
 	/* form 태그에서 type="file" 인 파일을 받아서 저장되는 필드이다. 
 	진짜파일 ==> WAS(톰캣) 디스크에 저장됨.
 	조심할것은 MultipartFile attach 는 오라클 데이터베이스 tbl_comment 테이블의 컬럼이 아니다.   
@@ -230,13 +230,15 @@ public class CraftVO {
 		this.craft_rating = craft_rating;
 	}
 
-	public MultipartFile getAttach() {
-		return attach;
+	public String getCraft_salary() {
+		return craft_salary;
 	}
 
-	public void setAttach(MultipartFile attach) {
-		this.attach = attach;
+
+	public void setCraft_salary(String craft_salary) {
+		this.craft_salary = craft_salary;
 	}
+
 
 	public String getFileName() {
 		return fileName;

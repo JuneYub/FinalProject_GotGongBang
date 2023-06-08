@@ -12,6 +12,15 @@
 
 	$(document).ready(function() {
 		
+		//공방상태(정식/임시)체크!
+		if($("input.craft_status").val() == '1'){
+			$("input#formal").prop("checked", true);
+		}else{
+			$("input#temporarily").prop("checked", true);
+		}
+		
+		
+		
 		
 		
 	});
@@ -46,21 +55,26 @@
                         <div class="frm_border" style="height:80px;">
                             <span> <p>공방 상태<br>(임시/정식)</p>
                                 <div id="specialized_chkBox" style="margin-top: 17px;">
-                                     	임시<input type="checkbox" id="temporarily" value="temporarily"/>
+                                     	임시<input type="checkbox" class="craft_status" name="craft_status" id="temporarily" value="${craftvo.craft_status}"/>
                                     <label for=""></label>
-                                    	정식<input type="checkbox" id="formal" value="formal"/>
+                                    	정식<input type="checkbox" class="craft_status" name="craft_status" id="formal" value="${craftvo.craft_status}"/>
                                     <label for="specialized_chk2"></label>          
                                 </div>                      
                             </span>
                         </div>
                         <div class="frm_border">
                             <span> <p>공방이름</p>
-                                <input type="text" class="view" readonly/>
+                                <input type="text" class="view" value="${craftvo.craft_name}" readonly/>
                             </span>
                         </div>
                         <div class="frm_border">
                             <span> <p>공방 신청자 ID</p>
-                                <input type="text" class="view" />
+                                <input type="text" class="view" value="${craftvo.partner_id_fk}" readonly/>
+                            </span>
+                        </div>
+                        <div class="frm_border">
+                            <span> <p>공방 대표자 이름</p>
+                                <input type="text" class="view" value="${craftvo.craft_representative}"/>
                             </span>
                         </div>
                         <div class="image">
@@ -75,54 +89,55 @@
                         </div>
                         <div class="frm_border">
                             <span> <p>공방 연락처</p>
-                                <input type="text" class="view" />
+                                <input type="text" class="view" value="${craftvo.craft_mobile}"/>
                             </span>
                         </div>
                         <div class="frm_border" style="height: 185px;" id="view_address">
-                            <span style="display: block;">  <p style="width: 100px; display: inline-block;">공방 주소</p>
+                            <span style="display: block;">  <p style="width:100px; display: inline-block;">공방 주소</p>
+                   
                                 <span>
-                                    <input type="text" class="view" value="우편번호"/>
+                                    <input type="text" class="view" value="${craftvo.craft_post_code}"/>
                                 </span>
 
                                 <span>
-                                        <input type="text" id="address" class="upload" value="주소" name="address"  readonly  style="width: 300px; "/>&nbsp;&nbsp;&nbsp;
-                                        <input type="text" id="detailAddress" class="upload"  value="상세주소" name="detailAddress"   style="width: 300px;"/>&nbsp;
+                                    <input type="text" id="address" class="upload" value="${craftvo.craft_address}" name="address" style="width: 300px; padding: 0 10px; margin: 0;"/>
+                                    <input type="text" id="detailAddress" class="upload"  value="${craftvo.craft_detail_address}" name="detailAddress"   style="width: 300px; padding:0 10px; margin: 0 10px;"/>
                                 </span>
                                 
                                 <span>
-                                    <input type="text" class="upload" id="extraAddress" value="부가주소" name="extraAddress"
-                                                                />
+                                    <input type="text" class="upload" id="extraAddress" value="${craftvo.craft_extra_address}" name="extraAddress" style="padding:0 10px; margin: 0;"/>
                                 </span>
                             </span>
                         </div>
                         <div class="frm_border_2">
-                            <span> <p>자기소개</p>
-                                <textarea id="self_introduce" ></textarea>
+                            <span> <p>공방 한 줄 소개</p>
+                                <input id="self_introduce" value="${craftvo.craft_Introduce}" style="height: 70px;"/>
                             </span>
                         </div>
                         <div class="frm_border">
                             <span> <p>전문품목</p>
-                                <input type="text" class="view" style="width: 500px;" />
+                                <input type="text" class="view" value="${craftvo.craft_specialty}" style="width: 500px;" />
                             </span>
                         </div>
                         <div class="frm_border">
                             <span> <p>총 경력기간</p>
-                                <input type="text" class="view" />
+                                <input type="text" class="view" value="${craftvo.craft_career}"/>
                             </span>
                         </div>
                         <div class="frm_border_3">
                             <span> <p>기타 경력사항</p>
-                                <textarea id="other_career"></textarea>
+                            <%
+								String other_career = (String)session.getAttribute("other_career");
+							%>
+                                <textarea id="other_career"><%= other_career%></textarea>
                             </span>
+                            <%
+                            	session.removeAttribute(other_career);
+                            %>
                         </div>
                         <div class="image">
                             <span> <p>자격증</p>
                                 
-                            </span>
-                        </div>
-                        <div class="frm_border">
-                            <span> <p> * 희망급여</p> 
-                               <input type="text" class="view" style="text-align:right; padding-right: 15px;" /><span>천원</span>
                             </span>
                         </div>
                         <div class="frm_border">

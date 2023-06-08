@@ -50,7 +50,12 @@ public class AdminController {
 		CraftVO craftvo = null;
 		
 		craftvo = service.craftOneView(craft_num_pk);
-				
+		/*
+		String other_career = request.getParameter("other_career_val");
+		System.out.println("other_career : " + other_career);
+		*/
+		//mav.addObject("other_career", other_career);	//기타경력사항
+		
 		mav.addObject("craftvo",craftvo);
 		mav.setViewName("admin/craftView.tiles1");
 		return mav;
