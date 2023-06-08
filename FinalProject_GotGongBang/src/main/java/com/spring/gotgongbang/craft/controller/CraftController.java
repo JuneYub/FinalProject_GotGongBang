@@ -294,7 +294,7 @@ public class CraftController {
                   // 첨부되어진 파일을 업로드 하는 것이다.
                   
                   System.out.println(">>> 확인용  newFileName => " + newFileName); 
-                  
+                  /*
                   cvo.setFileName(newFileName);
                   // WAS(톰캣)에 저장된 파일명(20230522103642842968758293800.pdf)
                   
@@ -306,13 +306,23 @@ public class CraftController {
                   cvo.setFileSize(String.valueOf(fileSize));
                   
                      // mf.transferTo(new File(newFileName));
-
+                   */
              } catch (Exception e) {
                    e.printStackTrace();
              }
              
           }// end of for -------------------------------------
-
+/*
+          
+          for(int i = 0; i < fileList.size() ; i++){
+				 //원래 파일명
+				 String orgFilename = fileList.get(i).getOriginalFilename();
+				 //저장되는 파일이름
+				 fileList.get(i).get
+          }
+  */        
+          
+          
           
     	  String other_career = "";
     	  other_career = request.getParameter("other_career");
