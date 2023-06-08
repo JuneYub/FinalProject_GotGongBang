@@ -1,7 +1,7 @@
 package com.spring.gotgongbang.order.controller;
 
+import java.io.File;
 import java.util.*;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,11 +18,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.common.FileManager;
 import com.spring.gotgongbang.member.model.MemberVO;
+import com.spring.gotgongbang.order.model.DetailImgVO;
 import com.spring.gotgongbang.order.model.TypesVO;
+import com.spring.gotgongbang.order.model.WholeImgVO;
 import com.spring.gotgongbang.order.service.InterOrderService;
 
 @Component
@@ -185,10 +189,15 @@ public class OrderController {
 		String brand_name = request.getParameter("brand_name");					//브랜드 : brand_name
 		String img_whole_name = request.getParameter("img_whole_name");			//전체사진 : img_whole
 		String img_detail_name = request.getParameter("img_detail_name");		//상세사진 : img_detail
-		String reqest_list = request.getParameter("reqest_list");				//수선요청사항:reqest_list
+		String reqest_list_num = request.getParameter("reqest_list_num");		//수선요청사항 번호(자르기용):reqest_list_num
+		String reqest_list_name = request.getParameter("reqest_list_name");		//수선요청사항 이름(insert용):reqest_list_name
+		
 		String req_textarea = request.getParameter("req_textarea");				//수선요청사항설명:req_textarea
 		
 		
+		
+		//System.out.println("reqest_list_num "+reqest_list_num);
+		//System.out.println("reqest_list_name "+reqest_list_name);
 		/*
 		    type_code_pk = 30
 			brand_name = ㄷㄹㄷㄹ
@@ -207,7 +216,7 @@ public class OrderController {
 		mapOrder.put("user_id_fk", loginuser.getUser_id_pk());
 		mapOrder.put("brand_name", brand_name);
 		mapOrder.put("request_explain", req_textarea);
-		mapOrder.put("requests", reqest_list);
+		mapOrder.put("requests", reqest_list_name);
 		mapOrder.put("order_product_type", order_product_type);
 		mapOrder.put("orderer", loginuser.getName());
 		/*
@@ -231,7 +240,7 @@ public class OrderController {
 			int order_num_pk = service.select_order_num_pk(mapOrder);
 			// 주문번호 갖고오기
 			
-			System.out.println("order_num_pk = "+order_num_pk);
+			//System.out.println("order_num_pk = "+order_num_pk);
 			
 			String[] arr_img_whole_name = img_whole_name.split("\\,");
 			String[] arr_img_detail_name = img_detail_name.split("\\,");
@@ -258,7 +267,7 @@ public class OrderController {
 					
 					whole_num[i] = service.insert_whole_img(whole_map);
 					// 전체 사진 반복문으로 추가하기
-					System.out.println("whole num "+i+"="+whole_num[i]);
+					//System.out.println("whole num "+i+"="+whole_num[i]);
 					whole_map.remove("whole_img_name");
 				}
 				
@@ -270,7 +279,7 @@ public class OrderController {
 					
 					detail_num[i] = service.insert_detail_img(detail_map);
 					// 상세 사진 반복문으로 추가하기
-					System.out.println("detail_num  ="+i+"="+detail_num[i]);
+					//System.out.println("detail_num  ="+i+"="+detail_num[i]);
 					detail_map.remove("detail_img_name");
 				}
 				
@@ -280,7 +289,7 @@ public class OrderController {
 						detail_num[0]!=0 &&detail_num[1]!=0 &&detail_num[2]!=0 ){
 					
 					// 수선 요청사항 리스트에 넣기
-					String[] arr_reqest_list = reqest_list.split("\\,");
+					String[] arr_reqest_list = reqest_list_num.split("\\,");
 					
 					Map<String,Integer> request_list_map = new HashMap<String, Integer>();
 					// 요청사항 목록들
@@ -298,7 +307,7 @@ public class OrderController {
 						request_list_num[i] = service.insert_detail_request_list(request_list_map);
 						// 요청사항 목록들 반복문으로 추가하기
 						
-						System.out.println("request_list_num"+i+" = "+request_list_num[i]);
+						//System.out.println("request_list_num"+i+" = "+request_list_num[i]);
 						
 						request_list_map.remove("detail_type_fk");
 					}
