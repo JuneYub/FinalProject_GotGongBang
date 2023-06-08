@@ -16,10 +16,11 @@ public class InquiryVO {
 	
 	private MultipartFile attach;
 	
-	private String status;       // 글삭제여부   1:사용가능한 글,  0:삭제된글 
+	private String status;       		// 글삭제여부   1:사용가능한 글,  0:삭제된글 
 	private String inquiry_fileName;    // WAS(톰캣)에 저장될 파일명(2023051909271535243254235235234.png) 
 	private String inquiry_orgFilename; // 진짜 파일명(강아지.png)  // 사용자가 파일을 업로드 하거나 파일을 다운로드 할때 사용되어지는 파일명
 	private String inquiry_fileSize;    // 파일크기 
+	private String inquiry_pw;			// 게시글 암호
 	
 	public InquiryVO() {}
 
