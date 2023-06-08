@@ -10,30 +10,46 @@
 <script>
 
 	$(document).ready(function() {
-		var state = $("select#selectProductState").val();
-		$("strong#productState").text(state);		
+	
+		
 	});
 	
-	function saveProductState() { // 상품의 상태를 Ajax를 통해 갱신
-
+ 	function saveProductState(index) { // 상품의 상태를 Ajax를 통해 갱신
+		var orderNum = $("strong.order_id").eq(index).text();
+ 		var $stateDisplay = $("strong.select-state").eq(index);
+ 		var state =$("#selectProductState").eq(index).val();
+ 		console.log($stateDisplay);
+ 		console.log(state);
+	 	
+	 	
+	 	if(state == $stateDisplay.text() ) {
+	 		alert("이전 진행상태와 동일하게 갱신할 수 없습니다.");
+	 		return;
+	 	}
 		$.ajax({
-			url:"",
+			url:"<%= ctxPath%>/update_state.got",
 			type:"POST",
 			async:true,
-			data {
-				
+			data: {
+				orderNum:orderNum,
+				state:state
 			},
 			dataType:"JSON",
 			success:function(json) {
-				
+				if(json.n == 1) {
+					$stateDisplay.text(state);
+					alert("정상적으로 변경되었습니다.")
+					console.log($stateDisplay.val());
+				}
 			},
 			error: function(request, status, error){
 				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 			}
 				
 		});
+
 	}
-	
+	 
 </script>
 
 <!-- 본문시작 -->
@@ -60,7 +76,7 @@
 				</thead>
 				
 				<tbody>
-				<c:forEach var="repair" items="${requestScope.paraMapList}">
+				<c:forEach var="repair" items="${requestScope.paraMapList}" varStatus="status">
 					<tr>
 					<td>
 						<div class="img-estimate"></div>
@@ -69,7 +85,7 @@
 					<td>
 						<div class="txt-order-info">
 						<ul>
-							<li>주문번호 : <strong>${repair.order_detail_id_pk}</strong></li>
+							<li>주문번호 : <strong class="order_id">${repair.order_detail_id_pk}</strong></li>
 							<li>주문 날짜 : <strong>${repair.payment_date}</strong></li>
 							<li>품목명 : <strong>${repair.order_product_type}</strong></li>
 							<li>요청사항 : <strong>${repair.requests}</strong></li>
@@ -89,11 +105,14 @@
 					</td>
 
 					<td>
-					<select id="selectProductState" name="selectProductState">
-						<option value="수거진행중">수거진행중</option>
+					<select id="selectProductState" name="selectProductState" value="${repair.product_status}">
+						<option value="수거중">수거중</option>
+						<option value="수선중">수선중</option>
+						<option value="배송중">배송중</option>
+						<option value="배송완료">배송완료</option>
 					</select>
-					<button class="btn-save-state" onclick="saveProductState()">상품 상태 저장하기</button>
-					<div>상품 상태 : <strong id="productState"></strong> </div>
+					<button class="btn-save-state" onclick="saveProductState(${status.index})">상품 상태 저장하기</button>
+					<div>상품 상태 : <strong id="productState" class="select-state">${repair.product_status}</strong> </div>
 					</td>
 					</tr>
 					
