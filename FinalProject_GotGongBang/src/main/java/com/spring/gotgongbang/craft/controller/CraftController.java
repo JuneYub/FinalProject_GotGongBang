@@ -384,7 +384,9 @@ public class CraftController {
       
       OrderVO ovo = new OrderVO();
       List<OrderVO> ovoList = service.getAllOrders(paraMap);
-      String pageBar = makePageBar(currentShowPageNoForEstimate, 10, totalPageForEstimate);
+      
+      String url = "estimate_inquiry_list.got";
+      String pageBar = makePageBar(currentShowPageNoForEstimate, 10, totalPageForEstimate, url);
       
       mav.addObject("currentShowPageNo", currentShowPageNoForEstimate);
       mav.addObject("pageBar", pageBar);
@@ -484,7 +486,9 @@ public class CraftController {
       paraMap.put("craftNum", craftNum);
 	  
 	  List<HashMap<String, String>> paraMapList = service.getRepariListBycraftNum(paraMap);
-      String pageBar = makePageBar(currentShowPageNoForRepariList, 10, totalPageRepariList);
+	  
+	  String url = "repair_history_list.got";
+      String pageBar = makePageBar(currentShowPageNoForRepariList, 10, totalPageRepariList, url);
   
       mav.addObject("currentShowPageNo", currentShowPageNoForRepariList);
       mav.addObject("pageBar", pageBar);
@@ -592,12 +596,11 @@ public class CraftController {
 	   return jsonObj.toString();
    }
  
-   public String makePageBar(int currentShowPageNo, int blockSize, int totalPage) {
+   public String makePageBar(int currentShowPageNo, int blockSize, int totalPage, String url) {
       int loop = 1;
       int startPageNo = ((currentShowPageNo-1)/blockSize)*blockSize+1;
       
       String pageBar = "<ul class='pageBar'>";
-      String url = "estimate_inquiry_list.got";
       
       if(startPageNo != 1) {
          pageBar += "<li class='pageBar-edge'><a href='"+url+"?currentShowPageNo=1'>[맨처음]</a></li>";
