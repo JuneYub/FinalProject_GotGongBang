@@ -272,7 +272,7 @@ div.orderSelect{
 				   
 			   } // for
 			   
-			   const req_name_list_join = req_name_list.join(' , ');
+			   const req_name_list_join = req_name_list.join(',');
 			   const req_num_list_join = req_num_list.join(',');	// 리스트로 들어온 값을 string으로 받음
 			   
 			   
