@@ -237,7 +237,7 @@ craft_image                VARCHAR2(1000)  NOT NULL, -- 공방사진
 craft_Introduce            NVARCHAR2(2000) NOT NULL, -- 자기소개
 craft_career               VARCHAR2(10)    NOT NULL, -- 경력기간
 craft_certificate          VARCHAR2(1000)  NOT NULL, -- 자격증
-craft_specialty            VARCHAR2(30)    NOT NULL, -- 전문 품목
+craft_specialty            VARCHAR2(200)    NOT NULL, -- 전문 품목
 craft_post_code            VARCHAR2(20)    NOT NULL, -- 공방우편번호
 craft_address              VARCHAR2(200)   NOT NULL, -- 공방주소
 craft_detail_address       VARCHAR2(200)   NOT NULL, -- 공방상세주소
