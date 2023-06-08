@@ -269,8 +269,6 @@ public class CraftController {
          
           System.out.println("~~~~ 확인용 path => " + path);
          
-          //파일첨부를 위한 변수의 설정 및 값을 초기화 한 후 파일 올리기
-         
           String newFileName = "";
           // WAS(톰캣)의 디스크에 저장될 파일명
          
@@ -288,17 +286,13 @@ public class CraftController {
                   // 첨부파일의 내용물을 읽어오는 것
                   
                   originalFilename = mf.getOriginalFilename();
-                  // attach.getOriginalFilename() 이 첨부파일명의 파일명(예: 강아지.png) 이다. 
                   
                    System.out.println("~~~~ 확인용 originalFilename => " + originalFilename); 
-                  // ~~~~ 확인용 originalFilename => LG_싸이킹청소기_사용설명서.pdf
                   
                   newFileName = fileManager.doFileUpload(bytes, originalFilename, path);
                   // 첨부되어진 파일을 업로드 하는 것이다.
                   
                   System.out.println(">>> 확인용  newFileName => " + newFileName); 
-                   // >>> 확인용  newFileName => 20230522103642842968758293800.pdf
-                  // >>> 확인용  newFileName => 20230522103904843110797635200.pdf
                   
                   cvo.setFileName(newFileName);
                   // WAS(톰캣)에 저장된 파일명(20230522103642842968758293800.pdf)
@@ -331,14 +325,14 @@ public class CraftController {
 
           n = service.add_withFile(cvo);
           if(n==1){
-        	  System.out.println("~~n :" +n);
+        	  return "redirect:/craft_complete.got";
           }else {
-        	  System.out.println("~n : " + n);
+        	  return "javascript:history.go(0)";
           }
           
        } //end of if(!fileList.isEmpty())---------------------------
-             
-       return "";
+       
+       return "javascript:history.go(0)";
        
    }
    
