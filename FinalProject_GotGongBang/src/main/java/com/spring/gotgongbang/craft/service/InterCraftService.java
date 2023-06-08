@@ -32,8 +32,6 @@ public interface InterCraftService {
 
 	// ==== ==================================== 박준엽 시작 ======================================================= // 
 
-
-
 	PartnerVO getPartnerInfoByUserId(String userid);
 	
 	int updatePartnerInfo(PartnerVO pvo);
@@ -55,6 +53,8 @@ public interface InterCraftService {
 	List<HashMap<String, String>> getRepariListBycraftNum(HashMap<String, String> paraMap);
 	
 	int getTotalCountForRepairList(String craftNum);
+	
+	int updateStateByOrderNum(HashMap<String, String> paraMap);
 
 	
 	// ==== ==================================== 박준엽 끝 ======================================================= //
