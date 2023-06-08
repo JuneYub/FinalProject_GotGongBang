@@ -9,9 +9,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 
-
-
-
 @Repository
 public class BoardDAO implements InterBoardDAO {
 	
@@ -67,6 +64,7 @@ public class BoardDAO implements InterBoardDAO {
 	public void setAddReadCount(String inquiry_num_pk) {
 		sqlsession.update("board.setAddReadCount", inquiry_num_pk);
 	}
+	
 	
 	
 	

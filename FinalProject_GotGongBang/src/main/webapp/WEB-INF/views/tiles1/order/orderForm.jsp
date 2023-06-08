@@ -272,7 +272,7 @@ div.orderSelect{
 				   
 			   } // for
 			   
-			   const req_name_list_join = req_name_list.join(' , ');
+			   const req_name_list_join = req_name_list.join(',');
 			   const req_num_list_join = req_num_list.join(',');	// 리스트로 들어온 값을 string으로 받음
 			   
 			   
@@ -284,7 +284,8 @@ div.orderSelect{
 			   $("a.btn-modal").hide();
 			   //$("input#inputSelectList").attr("name",reqest_list);
 			   $("input#inputSelectList").val(req_name_list_join);
-			   $("input[name='reqest_list']").val(req_num_list_join);
+			   $("input[name='reqest_list_num']").val(req_num_list_join);
+			   $("input[name='reqest_list_name']").val(req_name_list_join);
 		   }
 		   
 		    
@@ -495,7 +496,8 @@ div.orderSelect{
    				<div class="orderSelect">
 					<a class="btn-modal" style="cursor: pointer;  color:gray; width:600px; " data-selectNum="" data-toggle="modal" data-target="#selectReq" data-dismiss="modal" data-backdrop="static">수선 요청사항을 선택해 주세요.</a>
 					<input id="inputSelectList"  type="hidden" style="width:600px; height:50px; border-radius:5px; border:solid 1px black; font-size:12pt;" readonly></input>
-					<input type="hidden" name="reqest_list"/>
+					<input type="hidden" name="reqest_list_num"/>
+					<input type="hidden" name="reqest_list_name"/>
 				</div>
 			</td>
    		</tr>

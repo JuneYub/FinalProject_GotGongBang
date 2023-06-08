@@ -20,10 +20,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 
-
 import com.spring.gotgongbang.board.model.InquiryVO;
 import com.spring.gotgongbang.board.service.InterBoardService;
 import com.spring.gotgongbang.common.FileManager;
+import com.spring.gotgongbang.common.MyUtil;
 import com.spring.gotgongbang.member.model.MemberVO;
 
 
@@ -57,15 +57,15 @@ public class BoardController {
 	// 오준혁 시작
 	// ===========================================================================
 	
-	// 고객센터_온라인문의 페이지 불러오기
-	@RequestMapping(value="/board_inquiry.got")
-	public ModelAndView getBoardInquiry(ModelAndView mav) {
-		
-		mav.setViewName("/board/board_inquiry.tiles1");
-		
-		return mav;		
 	
-	}
+	// FAQ 페이지 불러오기
+		@RequestMapping(value="/board-faq.got")
+	    public ModelAndView getBoardFaq(ModelAndView mav) {
+			
+			mav.setViewName("/board/board_Faq.tiles1");
+			
+			return mav;
+		}
 	
 	// 공지사항 페이지 불러오기
 	@RequestMapping(value="/board_notice.got")
@@ -74,6 +74,16 @@ public class BoardController {
 		mav.setViewName("/board/board_notice.tiles1");
 		
 		return mav;
+	}
+	
+	// 고객센터_온라인문의 페이지 불러오기
+		@RequestMapping(value="/board_inquiry.got")
+		public ModelAndView getBoardInquiry(ModelAndView mav) {
+			
+			mav.setViewName("/board/board_inquiry.tiles1");
+			
+			return mav;		
+		
 	}
 	
 	// 질문게시판 페이지 불러오기
@@ -196,8 +206,14 @@ public class BoardController {
 		
 		mav.addObject("pageBar", pageBar);
 		
+		String gobackURL = MyUtil.getCurrentURL(request);
+	//	System.out.println("~~~~ 확인용 gobackURL : " + gobackURL);
+		// ~~~~ 확인용 gobackURL : /board_question.got
+		// ~~~~ 확인용 gobackURL : /board_question.got?searchType=inquiry_title&searchWord=%E3%85%81%E3%84%B4%E3%85%87
 		// 질문게시판 데이터 넘기기
 		/* iqList = service.BoardQuestionList(); */
+		
+		mav.addObject("gobackURL", gobackURL.replaceAll("&", " "));
 		
 		mav.addObject("iqList", iqList);
 		mav.setViewName("/board/board_BoardQuestion.tiles1");
@@ -205,14 +221,6 @@ public class BoardController {
 		return mav;
 	}
 	
-	// FAQ 페이지 불러오기
-	@RequestMapping(value="/board-faq.got")
-    public ModelAndView getBoardFaq(ModelAndView mav) {
-		
-		mav.setViewName("/board/board_BoardFaq.tiles1");
-		
-		return mav;
-	}
 	
 	// 온라인 문의 완료
 	@RequestMapping(value="/board_inquiryEnd.got", method={RequestMethod.POST})
@@ -282,18 +290,18 @@ public class BoardController {
 		}
 		
 		if(n==1) {
-			mav.setViewName("/board/board_BoardQuestion.tiles1");
+			mav.setViewName("redirect:/board_question.got");
 			
 		}
 		else {
-			mav.setViewName("/board/board_BoardInquiery.tiles1");
+			mav.setViewName("/board/board_inquiry.tiles1");
 		}
 		
 		// 파일 첨부 기능 없이 온라인 문의 데이터값 넘겨보기
 		/*
 		   int n = service.add(iqvo);
 		  
-		   mav.setViewName("/board/board_BoardQuestion.tiles1");
+		   mav.setViewName("/board/board_question.tiles1");
 		*/
 		
 		return mav;
@@ -307,6 +315,14 @@ public class BoardController {
 		String searchType = request.getParameter("searchType");
 		String searchWord = request.getParameter("searchWord");
 		
+		String inquiry_content = request.getParameter("inquiry_content");
+		String inquiry_title = request.getParameter("inquiry_title");
+		String inquiry_date = request.getParameter("inquiry_date");
+		
+		System.out.println("확인용 inquiry_num_pk : " + inquiry_num_pk);
+		System.out.println("확인용 inquiry_content : " + inquiry_content);
+		System.out.println("확인용 inquiry_title : " + inquiry_title);
+		
 		if(searchType == null) {
 			searchType = "";
 		}
@@ -316,7 +332,7 @@ public class BoardController {
 		}
 		
 		String gobackURL = request.getParameter("gobackURL");
-		System.out.println("~~~ 확인용 gobackURL : " + gobackURL);
+	//	System.out.println("~~~ 확인용 gobackURL : " + gobackURL);
 		
 		if( gobackURL != null && gobackURL.contains(" ") ) {
 			gobackURL = gobackURL.replaceAll(" ", "&");
@@ -328,10 +344,10 @@ public class BoardController {
 			Integer.parseInt(inquiry_num_pk);
 			
 			Map<String, String> paraMap = new HashMap<>();
-			paraMap.put("seq", inquiry_num_pk);
+			paraMap.put("inquiry_num_pk", inquiry_num_pk);
 			
-			paraMap.put("searchType", searchType); // view.jsp 에서 이전글제목 및 다음글제목 클릭시 사용하기 위해서 임.
-			paraMap.put("searchWord", searchWord); // view.jsp 에서 이전글제목 및 다음글제목 클릭시 사용하기 위해서 임. 
+			paraMap.put("searchType", searchType); // board_view.jsp 에서 이전글제목 및 다음글제목 클릭시 사용하기 위해서 임.
+			paraMap.put("searchWord", searchWord); // board_view.jsp 에서 이전글제목 및 다음글제목 클릭시 사용하기 위해서 임. 
 			
 			mav.addObject("paraMap", paraMap); // view.jsp 에서 이전글제목 및 다음글제목 클릭시 사용하기 위해서 임. 
 			
@@ -351,7 +367,7 @@ public class BoardController {
 				
 				
 				iqvo = service.getView(paraMap);
-				// 글조회수 증가와 함께 글1개를 조회를 해주는 것
+				// 글조회수 증가와 함께 게시글 1개를 조회
 				
 				session.removeAttribute("readCountPermission");
 				// 중요!!  session 에 저장된 readCountPermission 을 삭제한다.
@@ -363,18 +379,26 @@ public class BoardController {
 				// 글조회수 증가는 없고 단순히 글1개를 조회를 해주는 것
 			}
 			
+			
 			mav.addObject("iqvo", iqvo);
+			
+			
 		} catch (NumberFormatException e) {
 			
 		}
 		
-		mav.setViewName("/board/board_view.tiles1");
+		
+		mav.setViewName("board/board_view.tiles1");
+		
+		System.out.println("확인용 inquiry_num_pk2 : " + inquiry_num_pk);
+		System.out.println("확인용 inquiry_content2 : " + inquiry_content);
+		System.out.println("확인용 inquiry_title2 : " + inquiry_title);
 		
 		return mav;
 	}
 	
-	@RequestMapping(value="//board_view.got_2.action")
-	public ModelAndView view_2(ModelAndView mav, HttpServletRequest request) {
+	@RequestMapping(value="//board_view_2.got")
+	public ModelAndView board_view_2(ModelAndView mav, HttpServletRequest request) {
 		
 		String inquiry_num_pk = request.getParameter("inquiry_num_pk");
 		
@@ -390,8 +414,8 @@ public class BoardController {
 			gobackURL = URLEncoder.encode(gobackURL, "UTF-8");   // 한글이 웹브라우저 주소창에서 사용되어질때 한글이 ? 처럼 안깨지게 하려고 하는 것임.
 			
 		/*	
-			System.out.println("~~~~ view_2의 URLEncoder.encode(searchWord, \"UTF-8\") : " + searchWord);
-			System.out.println("~~~~ view_2의 URLEncoder.encode(gobackURL, \"UTF-8\") : " + gobackURL);
+			System.out.println("~~~~ board_view_2의 URLEncoder.encode(searchWord, \"UTF-8\") : " + searchWord);
+			System.out.println("~~~~ board_view_2의 URLEncoder.encode(gobackURL, \"UTF-8\") : " + gobackURL);
 			
 			System.out.println(URLDecoder.decode(searchWord, "UTF-8")); // URL인코딩 되어진 한글을 원래 한글모양으로 되돌려 주는 것임. 
 			System.out.println(URLDecoder.decode(gobackURL, "UTF-8")); // URL인코딩 되어진 한글을 원래 한글모양으로 되돌려 주는 것임.
@@ -404,6 +428,45 @@ public class BoardController {
 		
 		return mav;
 		
+	}
+	
+	// 게시글 수정하기
+	@RequestMapping(value="/board_edit.got")
+	public ModelAndView board_edit(ModelAndView mav, HttpServletRequest request) {
+		
+		String inquiry_num_pk = request.getParameter("inquiry_num_pk");
+		
+		// 수정해야할 게시글 1개 가져오기
+		Map<String, String> paraMap = new HashMap<>();
+		paraMap.put("inquiry_num_pk", inquiry_num_pk);
+		
+		//////////////////////////////
+		paraMap.put("searchType", "");
+		paraMap.put("searchWord", "");
+		//////////////////////////////
+		
+		InquiryVO iqvo = service.getViewWithNoAddCount(paraMap);
+		// 조회수 증가 없이 단순히 글1개만 조회
+		
+		HttpSession session = request.getSession();
+		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+		
+		if( !loginuser.getUser_id_pk().equals(iqvo.getUser_id_fk()) ) {
+			String message = "다른 사용자의 글은 수정이 불가합니다.";
+			String loc = "javascript:history.back()";
+			
+			mav.addObject("message", message);
+			mav.addObject("loc", loc);
+			mav.setViewName("msg");
+		}
+		else {
+			// 자신의 글을 수정할 경우
+			// 가져온 1개글을 글수정할 폼이 있는 view 단으로 보내준다.
+			mav.addObject("iqvo", iqvo);
+			mav.setViewName("board/board_edit.tiles1");
+		}
+		
+		return mav;
 	}
 	
 		// 오준혁 끝

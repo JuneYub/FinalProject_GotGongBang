@@ -7,28 +7,12 @@
    String ctxPath = request.getContextPath();
 %>   
 
-
-<style>
-	
-	
-	
-	    
-</style>
-
 <!-- Font Awesome 6 Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
-
-	
-	
-	
-	
-	$(document).ready(function(){
-	
-	}
 	
 	// 버튼 클릭시 자동적으로 상단스크롤
 	function topScrollFunction() {

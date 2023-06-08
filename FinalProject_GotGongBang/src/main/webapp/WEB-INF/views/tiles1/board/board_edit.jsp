@@ -83,22 +83,20 @@
                             
                         </div>
                         <div class="ojh_css-1xvp3jp ezf0ge90">
-                            <p>${requestScope.iqvo.inquiry_content}</p>
+                             <textarea style="width: 100%; height: 612px; border: 1px solid rgb(244, 244, 244);" name="content" id="content"></textarea>
                         </div>
                         
                         <div class="ojh_css-d7qwpj e1p3kiis0">
 
                             <button class="ojh_css-214ym5 e4nu7ef3" type="button" width="150" height="42" radius="0">
-                                <span class="ojh_css-ymwvow e4nu7ef1">수정</span>
-                            </button>
-
-                            <button class="ojh_css-214ym5 e4nu7ef3" type="button" width="150" height="42" radius="0">
                                 <span class="ojh_css-ymwvow e4nu7ef1">삭제</span>
                             </button>
 
-                            <button class="ojh_css-214ym4 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="javascript:location.href='<%= request.getContextPath()%>${requestScope.gobackURL}'">
-                                <span class="ojh_css-ymwvow e4nu7ef1">목록</span>
+                            <button class="ojh_css-214ym5 e4nu7ef3" type="button" width="150" height="42" radius="0">
+                                <span class="ojh_css-ymwvow e4nu7ef1">완료</span>
                             </button>
+
+                          
                         </div>
                         
                     </table>

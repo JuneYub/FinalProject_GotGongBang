@@ -85,8 +85,8 @@ CREATE TABLE ORDERS (
 CREATE TABLE WHOLE_IMG (
    whole_img_num_pk NUMBER(10)     NOT NULL, -- 전체이미지번호
    order_num_fk     NUMBER         NOT NULL, -- 견적요청번호
-   whole_img_name   NVARCHAR2(100) NOT NULL  -- 파일명
-    
+   whole_img_name   NVARCHAR2(100) NOT NULL,  -- 파일명
+   whole_img_size   NUMBER         NOT NULL   -- 파일사이즈
     ,constraint PK_WHOLE_IMG_whole_img_num_pk primary key(whole_img_num_pk)
     ,constraint FK_WHOLE_IMG_order_num_fk foreign key(order_num_fk)
                                   references ORDERS(order_num_pk)
@@ -97,8 +97,8 @@ CREATE TABLE WHOLE_IMG (
 CREATE TABLE DETAIL_IMG (
    detail_img_num_pk NUMBER         NOT NULL, -- 상세이미지번호
    order_num_fk      NUMBER         NOT NULL, -- 견적요청번호
-   detail_img_name   NVARCHAR2(100) NOT NULL  -- 파일명
-    
+   detail_img_name   NVARCHAR2(100) NOT NULL,  -- 파일명
+   detail_img_size   NUMBER         NOT NULL   -- 파일사이즈
     ,constraint PK_DETAIL_IMG_detail_img_num_pk primary key(detail_img_num_pk)
     ,constraint FK_DETAIL_IMG_order_num_fk foreign key(order_num_fk)
                                   references ORDERS(order_num_pk)
@@ -202,22 +202,23 @@ create table ORDER_DETAIL
 
 -- 문의 테이블
 create table INQUIRY
-(inquiry_num_pk     NUMBER(5)               not null -- 문의번호
-,user_id_fk         VARCHAR2(20)            not null -- 아이디
-,inquiry_title      VARCHAR(100)            not null -- 문의제목
-,inquiry_content    VARCHAR(4000)           not null -- 문의내용
-,inquiry_group      NUMBER(5)               not null -- 그룹번호
-,inquiry_original   NUMBER(5)               not null -- 원글문의번호
-,inquiry_depth      NUMBER(5)               not null -- 깊이번호
+(inquiry_num_pk         NUMBER(5)               not null    -- 문의번호
+,user_id_fk             VARCHAR2(20)            not null    -- 아이디
+,inquiry_title          VARCHAR(100)            not null    -- 문의제목
+,inquiry_content        VARCHAR(4000)           not null    -- 문의내용
+,inquiry_group          NUMBER(5)               not null    -- 그룹번호
+,inquiry_original       NUMBER(5)               not null    -- 원글문의번호
+,inquiry_depth          NUMBER(5)               not null    -- 깊이번호
 
 -- 추가 및 수정
-,inquiry_date       date default sysdate    not null -- 작성날짜
-,inquiry_viewcount  number default 0        not null -- 조회수
+,inquiry_date           date default sysdate    not null    -- 작성날짜
+,inquiry_viewcount      number default 0        not null    -- 조회수
 
-,inquiry_status     number(1) default 1     not null -- 글삭제여부   1:사용가능한 글,  0:삭제된글
-,inquiry_fileName       varchar2(255)                -- WAS(톰캣)에 저장될 파일명(2023051909271535243254235235234.png)                                       
-,inquiry_orgFilename    varchar2(255)                -- 진짜 파일명(강아지.png)  // 사용자가 파일을 업로드 하거나 파일을 다운로드 할때 사용되어지는 파일명 
-,inquiry_fileSize       number                       -- 파일크기 
+,inquiry_status         number(1) default 1     not null    -- 글삭제여부   1:사용가능한 글,  0:삭제된글
+,inquiry_fileName       varchar2(255)                       -- WAS(톰캣)에 저장될 파일명(2023051909271535243254235235234.png)                                       
+,inquiry_orgFilename    varchar2(255)                       -- 진짜 파일명(강아지.png)  // 사용자가 파일을 업로드 하거나 파일을 다운로드 할때 사용되어지는 파일명 
+,inquiry_fileSize       number                              -- 파일크기 
+,inquiry_pw             varchar2(20) default ' '  not null  -- 게시글 비밀번호
 
 ,constraint PK_INQUIRY_inquiry_num_pk primary key(inquiry_num_pk)
 ,constraint FK_INQUIRY_user_id_fk foreign key(user_id_fk) references MEMBER(user_id_pk)
