@@ -182,6 +182,10 @@ where rno between #{startRno} and #{endRno}
     on E.estimate_num_pk = O.estimate_num_fk
 </select>
 
+<update id="updateStateByOrderNum" parameterType="HashMap">
+	UPDATE ORDER_DETAIL set product_status = #{state} where order_detail_id_pk = #{orderNum} 
+</update>
+
 <!--==================== 박준엽 끝 ====================== -->
 
 </mapper>

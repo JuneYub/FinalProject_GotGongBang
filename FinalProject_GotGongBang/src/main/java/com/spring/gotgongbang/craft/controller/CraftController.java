@@ -479,7 +479,6 @@ public class CraftController {
       int endRno = 0;
       
       totalCountForRepariList = service.getTotalCountForRepairList(craftNum);
-      System.out.println("totalCountForRepariList : "+ totalCountForRepariList );
       totalPageRepariList = (int)Math.ceil((double)totalCountForRepariList/sizePerPageRepariList);
       if(str_currentShowPageNo == null) {
     	  currentShowPageNoForRepariList = 1;
@@ -504,9 +503,8 @@ public class CraftController {
       paraMap.put("craftNum", craftNum);
 	  
 	  List<HashMap<String, String>> paraMapList = service.getRepariListBycraftNum(paraMap);
-	  
       String pageBar = makePageBar(currentShowPageNoForRepariList, 10, totalPageRepariList);
-      
+  
       mav.addObject("currentShowPageNo", currentShowPageNoForRepariList);
       mav.addObject("pageBar", pageBar);
 	  mav.addObject("paraMapList", paraMapList); 
@@ -595,6 +593,23 @@ public class CraftController {
 	    jsonObj.put("n", n);
 	    return jsonObj.toString();
    }
+   
+   @ResponseBody
+   @RequestMapping(value="/update_state.got", method= {RequestMethod.POST})
+   public String updateStateByOrderNum(HttpServletRequest request) {
+	   String orderNum = request.getParameter("orderNum");
+	   String state = request.getParameter("state");
+	   
+	   HashMap<String, String> paraMap = new HashMap<String, String>();
+	   paraMap.put("orderNum", orderNum);
+	   paraMap.put("state", state);
+	   
+	   int n = service.updateStateByOrderNum(paraMap);
+	    
+	   JSONObject jsonObj = new JSONObject();
+	   jsonObj.put("n", n);
+	   return jsonObj.toString();
+   }
  
    public String makePageBar(int currentShowPageNo, int blockSize, int totalPage) {
       int loop = 1;
@@ -629,6 +644,7 @@ public class CraftController {
       
       return pageBar;
    }
+   
    
    
    // 박준엽 끝
