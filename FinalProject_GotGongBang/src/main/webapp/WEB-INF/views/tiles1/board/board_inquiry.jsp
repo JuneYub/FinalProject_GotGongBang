@@ -32,9 +32,16 @@
 				return;
 			}
 			
+			/* // 비밀번호 유효성 검사
+			const inquiry_pw = $("input#inquiry_pw").val().trim();
+			if(inquiry_pw == "") {
+				alert("비밀번호를 입력하세요!!");
+				return;
+			}*/
+			
 			const frm = document.addFrm;
 			frm.method = "post";
-			frm.action = "<%= ctxPath%>/BoardinquiryEnd.got";
+			frm.action = "<%= ctxPath%>/board_inquiryEnd.got";
 			frm.submit();
 			});
 		
@@ -143,7 +150,13 @@
                                         </div>
                                     </div>
                                 </td>
-                            </tr>
+                             </tr>
+                             <!-- <tr class="ojh_form-field"> 
+                             	<th scope="row">비밀번호 <strong>*</strong></th>
+                             	<td style="padding: 30px 0px 0px 0px;">
+									<input type="password" name="inquiry_pw" id="inquiry_pw"> 
+								</td>
+                             </tr> -->
                           </div> 
                         </tbody>
                     </table>
