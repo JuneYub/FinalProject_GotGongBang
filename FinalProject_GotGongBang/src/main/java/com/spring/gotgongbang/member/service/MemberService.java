@@ -213,4 +213,10 @@ public class MemberService implements InterMemberService {
 		int n = dao.getTotalCountForOrderListByUserId(userId);
 		return n;
 	}
+
+	@Override
+	public int getTotalCountProposalListByUserId(String userId) {
+		int n = dao.getTotalCountProposalListByUserId(userId);
+		return n;
+	}
 }
