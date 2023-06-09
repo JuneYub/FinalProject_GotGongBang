@@ -136,7 +136,7 @@ public class AdminController {
 		//e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 		
 		mav = service.loginEnd(mav, request, paraMap);  //서비스단의 loginEnd메소드 
-		return mav;   //ModelAndView의 리턴값은 mav
+		return mav;  
 	}
 	
 	

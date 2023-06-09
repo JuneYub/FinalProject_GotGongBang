@@ -6,6 +6,37 @@
    String ctxPath = request.getContextPath();
 %>   
 
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<style type="text/css">
+	
+</style>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	  $(".more1").click(function(){
+	    var $item = $(this).closest(".ojh_accordion__item"); // 클릭한 아이템을 선택합니다.
+	    var $content = $item.find(".dd1"); // 클릭한 아이템 내의 내용을 선택합니다.
+	    
+	    if ($content.hasClass("ojh_accordion__collapse")) {
+	      // 내용이 닫혀있는 경우
+	      $content.find(".div1").show();
+	      $content.removeClass("ojh_accordion__collapse");
+	      $content.addClass("ojh_accordion__collapse--expand");
+	      $content.find(".div1").removeClass("div1_h");
+	    } else {
+	      // 내용이 열려있는 경우
+	      $content.find(".div1").hide();
+	      $content.addClass("ojh_accordion__collapse");
+	      $content.removeClass("ojh_accordion__collapse--expand");
+	      $content.find(".div1").addClass("div1_h");
+	    }
+	  });
+	});
+	
+</script>
+
   <div id="ojh_content">
         <section class="ojh_page_content_inquire">
             <header class="ojh_page-header ojh_page-header--customer" style="height: 200px">
@@ -54,19 +85,17 @@
                         
                     <table class="ojh_table table--row">
                         <div class="ojh_list">
-                            <p class="ojh_list_total">
-                               	 총
-                                <strong class="ojh_list_totalnum">10</strong>
-                                                                       건
-                            </p>
+                           
                             <dl class="ojh_accordion customer-faq__list aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+                                
+                               <c:forEach var="inquiryvo" items="${requestScope.iqvo}">
                                 <div class="ojh_accordion__item accordion__item--show accordion__item--fade">
                                     <dt class="ojh_accordion__header">
-                                        <button class="ojh_accordion__trigger" type="button" data-seq="79" data-accordion-index="0">
-                                                <strong>Q.</strong>하이픈에 방문해서 상담 받을 수 있나요?</button>
+                                        <button class="ojh_accordion__trigger more1 btn" type="button" data-seq="79" onclick="collapse(this);">
+                                                <strong>Q.</strong>${inquiryvo.inquiry_title}</button>
                                     </dt>
-                                    <dd class="ojh_accordion__collapse">
-                                        <div class="ojh_accordion__body ck-content">
+                                    <dd class="ojh_accordion__collapse dd1">
+                                        <div class="ojh_accordion__body div1 div_h1">
                                             <strong>A.</strong>
                                             <p><span>하이픈은 비대면 상담 서비스를 제공하고 있어 내방 상담은 별도로 지원하지 않고 있습니다.&nbsp;</span></p>
                                             <p>&nbsp;</p>
@@ -76,161 +105,8 @@
                                         </div>
                                     </dd>
                                 </div>
-
-                                <div class="ojh_accordion__item accordion__item--show accordion__item--fade">
-                                    <dt class="ojh_accordion__header">
-                                        <button class="ojh_accordion__trigger" type="button" data-seq="79" data-accordion-index="0">
-                                                <strong>Q.</strong>하이픈에 방문해서 상담 받을 수 있나요?</button>
-                                    </dt>
-                                    <dd class="ojh_accordion__collapse">
-                                        <div class="ojh_accordion__body ck-content">
-                                            <strong>A.</strong>
-                                            <p><span>하이픈은 비대면 상담 서비스를 제공하고 있어 내방 상담은 별도로 지원하지 않고 있습니다.&nbsp;</span></p>
-                                            <p>&nbsp;</p>
-                                            <p><span>하이픈 고객센터는 채팅 및 이메일, 홈페이지 등 다양한 경로의 상담을 운영하고 있습니다. 편하신 방법으로 문의해 주시면 최대한 빠르게 안내해드립니다.&nbsp;</span></p>
-                                            <p><span>필요시 컨설턴트가 방문하여 상담을 진행하고 있으니, 상품 &gt; 상품신청 &gt; 컨설팅신청 을 이용하여 주시기 바랍니다.&nbsp;</span></p>
-                                            <p><span>하이픈 컨설턴트가 연락하여 방문일자 및 시간을 조율할 예정입니다.</span></p>
-                                        </div>
-                                    </dd>
-                                </div>
-
-                                <div class="ojh_accordion__item accordion__item--show accordion__item--fade">
-                                    <dt class="ojh_accordion__header">
-                                        <button class="ojh_accordion__trigger" type="button" data-seq="79" data-accordion-index="0">
-                                                <strong>Q.</strong>하이픈에 방문해서 상담 받을 수 있나요?</button>
-                                    </dt>
-                                    <dd class="ojh_accordion__collapse">
-                                        <div class="ojh_accordion__body ck-content">
-                                            <strong>A.</strong>
-                                            <p><span>하이픈은 비대면 상담 서비스를 제공하고 있어 내방 상담은 별도로 지원하지 않고 있습니다.&nbsp;</span></p>
-                                            <p>&nbsp;</p>
-                                            <p><span>하이픈 고객센터는 채팅 및 이메일, 홈페이지 등 다양한 경로의 상담을 운영하고 있습니다. 편하신 방법으로 문의해 주시면 최대한 빠르게 안내해드립니다.&nbsp;</span></p>
-                                            <p><span>필요시 컨설턴트가 방문하여 상담을 진행하고 있으니, 상품 &gt; 상품신청 &gt; 컨설팅신청 을 이용하여 주시기 바랍니다.&nbsp;</span></p>
-                                            <p><span>하이픈 컨설턴트가 연락하여 방문일자 및 시간을 조율할 예정입니다.</span></p>
-                                        </div>
-                                    </dd>
-                                </div>
-
-                                <div class="ojh_accordion__item accordion__item--show accordion__item--fade">
-                                    <dt class="ojh_accordion__header">
-                                        <button class="ojh_accordion__trigger" type="button" data-seq="79" data-accordion-index="0">
-                                                <strong>Q.</strong>하이픈에 방문해서 상담 받을 수 있나요?</button>
-                                    </dt>
-                                    <dd class="ojh_accordion__collapse">
-                                        <div class="ojh_accordion__body ck-content">
-                                            <strong>A.</strong>
-                                            <p><span>하이픈은 비대면 상담 서비스를 제공하고 있어 내방 상담은 별도로 지원하지 않고 있습니다.&nbsp;</span></p>
-                                            <p>&nbsp;</p>
-                                            <p><span>하이픈 고객센터는 채팅 및 이메일, 홈페이지 등 다양한 경로의 상담을 운영하고 있습니다. 편하신 방법으로 문의해 주시면 최대한 빠르게 안내해드립니다.&nbsp;</span></p>
-                                            <p><span>필요시 컨설턴트가 방문하여 상담을 진행하고 있으니, 상품 &gt; 상품신청 &gt; 컨설팅신청 을 이용하여 주시기 바랍니다.&nbsp;</span></p>
-                                            <p><span>하이픈 컨설턴트가 연락하여 방문일자 및 시간을 조율할 예정입니다.</span></p>
-                                        </div>
-                                    </dd>
-                                </div>
-
-                                <div class="ojh_accordion__item accordion__item--show accordion__item--fade">
-                                    <dt class="ojh_accordion__header">
-                                        <button class="ojh_accordion__trigger" type="button" data-seq="79" data-accordion-index="0">
-                                                <strong>Q.</strong>하이픈에 방문해서 상담 받을 수 있나요?</button>
-                                    </dt>
-                                    <dd class="ojh_accordion__collapse">
-                                        <div class="ojh_accordion__body ck-content">
-                                            <strong>A.</strong>
-                                            <p><span>하이픈은 비대면 상담 서비스를 제공하고 있어 내방 상담은 별도로 지원하지 않고 있습니다.&nbsp;</span></p>
-                                            <p>&nbsp;</p>
-                                            <p><span>하이픈 고객센터는 채팅 및 이메일, 홈페이지 등 다양한 경로의 상담을 운영하고 있습니다. 편하신 방법으로 문의해 주시면 최대한 빠르게 안내해드립니다.&nbsp;</span></p>
-                                            <p><span>필요시 컨설턴트가 방문하여 상담을 진행하고 있으니, 상품 &gt; 상품신청 &gt; 컨설팅신청 을 이용하여 주시기 바랍니다.&nbsp;</span></p>
-                                            <p><span>하이픈 컨설턴트가 연락하여 방문일자 및 시간을 조율할 예정입니다.</span></p>
-                                        </div>
-                                    </dd>
-                                </div>
-
-                                <div class="ojh_accordion__item accordion__item--show accordion__item--fade">
-                                    <dt class="ojh_accordion__header">
-                                        <button class="ojh_accordion__trigger" type="button" data-seq="79" data-accordion-index="0">
-                                                <strong>Q.</strong>하이픈에 방문해서 상담 받을 수 있나요?</button>
-                                    </dt>
-                                    <dd class="ojh_accordion__collapse">
-                                        <div class="ojh_accordion__body ck-content">
-                                            <strong>A.</strong>
-                                            <p><span>하이픈은 비대면 상담 서비스를 제공하고 있어 내방 상담은 별도로 지원하지 않고 있습니다.&nbsp;</span></p>
-                                            <p>&nbsp;</p>
-                                            <p><span>하이픈 고객센터는 채팅 및 이메일, 홈페이지 등 다양한 경로의 상담을 운영하고 있습니다. 편하신 방법으로 문의해 주시면 최대한 빠르게 안내해드립니다.&nbsp;</span></p>
-                                            <p><span>필요시 컨설턴트가 방문하여 상담을 진행하고 있으니, 상품 &gt; 상품신청 &gt; 컨설팅신청 을 이용하여 주시기 바랍니다.&nbsp;</span></p>
-                                            <p><span>하이픈 컨설턴트가 연락하여 방문일자 및 시간을 조율할 예정입니다.</span></p>
-                                        </div>
-                                    </dd>
-                                </div>
-
-                                <div class="ojh_accordion__item accordion__item--show accordion__item--fade">
-                                    <dt class="ojh_accordion__header">
-                                        <button class="ojh_accordion__trigger" type="button" data-seq="79" data-accordion-index="0">
-                                                <strong>Q.</strong>하이픈에 방문해서 상담 받을 수 있나요?</button>
-                                    </dt>
-                                    <dd class="ojh_accordion__collapse">
-                                        <div class="ojh_accordion__body ck-content">
-                                            <strong>A.</strong>
-                                            <p><span>하이픈은 비대면 상담 서비스를 제공하고 있어 내방 상담은 별도로 지원하지 않고 있습니다.&nbsp;</span></p>
-                                            <p>&nbsp;</p>
-                                            <p><span>하이픈 고객센터는 채팅 및 이메일, 홈페이지 등 다양한 경로의 상담을 운영하고 있습니다. 편하신 방법으로 문의해 주시면 최대한 빠르게 안내해드립니다.&nbsp;</span></p>
-                                            <p><span>필요시 컨설턴트가 방문하여 상담을 진행하고 있으니, 상품 &gt; 상품신청 &gt; 컨설팅신청 을 이용하여 주시기 바랍니다.&nbsp;</span></p>
-                                            <p><span>하이픈 컨설턴트가 연락하여 방문일자 및 시간을 조율할 예정입니다.</span></p>
-                                        </div>
-                                    </dd>
-                                </div>
-
-                                <div class="ojh_accordion__item accordion__item--show accordion__item--fade">
-                                    <dt class="ojh_accordion__header">
-                                        <button class="ojh_accordion__trigger" type="button" data-seq="79" data-accordion-index="0">
-                                                <strong>Q.</strong>하이픈에 방문해서 상담 받을 수 있나요?</button>
-                                    </dt>
-                                    <dd class="ojh_accordion__collapse">
-                                        <div class="ojh_accordion__body ck-content">
-                                            <strong>A.</strong>
-                                            <p><span>하이픈은 비대면 상담 서비스를 제공하고 있어 내방 상담은 별도로 지원하지 않고 있습니다.&nbsp;</span></p>
-                                            <p>&nbsp;</p>
-                                            <p><span>하이픈 고객센터는 채팅 및 이메일, 홈페이지 등 다양한 경로의 상담을 운영하고 있습니다. 편하신 방법으로 문의해 주시면 최대한 빠르게 안내해드립니다.&nbsp;</span></p>
-                                            <p><span>필요시 컨설턴트가 방문하여 상담을 진행하고 있으니, 상품 &gt; 상품신청 &gt; 컨설팅신청 을 이용하여 주시기 바랍니다.&nbsp;</span></p>
-                                            <p><span>하이픈 컨설턴트가 연락하여 방문일자 및 시간을 조율할 예정입니다.</span></p>
-                                        </div>
-                                    </dd>
-                                </div>
-
-                                <div class="ojh_accordion__item accordion__item--show accordion__item--fade">
-                                    <dt class="ojh_accordion__header">
-                                        <button class="ojh_accordion__trigger" type="button" data-seq="79" data-accordion-index="0">
-                                                <strong>Q.</strong>하이픈에 방문해서 상담 받을 수 있나요?</button>
-                                    </dt>
-                                    <dd class="ojh_accordion__collapse">
-                                        <div class="ojh_accordion__body ck-content">
-                                            <strong>A.</strong>
-                                            <p><span>하이픈은 비대면 상담 서비스를 제공하고 있어 내방 상담은 별도로 지원하지 않고 있습니다.&nbsp;</span></p>
-                                            <p>&nbsp;</p>
-                                            <p><span>하이픈 고객센터는 채팅 및 이메일, 홈페이지 등 다양한 경로의 상담을 운영하고 있습니다. 편하신 방법으로 문의해 주시면 최대한 빠르게 안내해드립니다.&nbsp;</span></p>
-                                            <p><span>필요시 컨설턴트가 방문하여 상담을 진행하고 있으니, 상품 &gt; 상품신청 &gt; 컨설팅신청 을 이용하여 주시기 바랍니다.&nbsp;</span></p>
-                                            <p><span>하이픈 컨설턴트가 연락하여 방문일자 및 시간을 조율할 예정입니다.</span></p>
-                                        </div>
-                                    </dd>
-                                </div>
-
-                                <div class="ojh_accordion__item accordion__item--show accordion__item--fade">
-                                    <dt class="ojh_accordion__header">
-                                        <button class="ojh_accordion__trigger" type="button" data-seq="79" data-accordion-index="0">
-                                                <strong>Q.</strong>하이픈에 방문해서 상담 받을 수 있나요?</button>
-                                    </dt>
-                                    <dd class="ojh_accordion__collapse">
-                                        <div class="ojh_accordion__body ck-content">
-                                            <strong>A.</strong>
-                                            <p><span>하이픈은 비대면 상담 서비스를 제공하고 있어 내방 상담은 별도로 지원하지 않고 있습니다.&nbsp;</span></p>
-                                            <p>&nbsp;</p>
-                                            <p><span>하이픈 고객센터는 채팅 및 이메일, 홈페이지 등 다양한 경로의 상담을 운영하고 있습니다. 편하신 방법으로 문의해 주시면 최대한 빠르게 안내해드립니다.&nbsp;</span></p>
-                                            <p><span>필요시 컨설턴트가 방문하여 상담을 진행하고 있으니, 상품 &gt; 상품신청 &gt; 컨설팅신청 을 이용하여 주시기 바랍니다.&nbsp;</span></p>
-                                            <p><span>하이픈 컨설턴트가 연락하여 방문일자 및 시간을 조율할 예정입니다.</span></p>
-                                        </div>
-                                    </dd>
-                                </div>
-
-                            </dl>
+							   </c:forEach>
+                           	 </dl>
                         </div>
                     </table>
                   </fieldset>

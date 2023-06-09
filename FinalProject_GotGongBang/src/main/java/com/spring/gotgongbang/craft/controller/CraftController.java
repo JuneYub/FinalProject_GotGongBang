@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.common.FileManager;
+import com.spring.gotgongbang.common.MyUtil;
 import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.craft.model.ImageVO;
 import com.spring.gotgongbang.craft.model.PartnerVO;
@@ -44,6 +45,9 @@ public class CraftController {
 
     @Autowired   
     private FileManager fileManager;
+    
+    @Autowired
+    private MyUtil myUtil;
       
    
 
@@ -66,29 +70,57 @@ public class CraftController {
 //      return mav;
 //   }
    
-   @RequestMapping(value="/crafts_list_10bag.got")
-   public ModelAndView craftList_10bag(ModelAndView mav) {
-      mav.setViewName("/craft/craft_list_10bag.tiles1");
-      return mav;
-   }
+	@RequestMapping(value="/crafts_list_10bag.got")
+	public ModelAndView craftList_10bag(ModelAndView mav) {
+	   
+		List<CraftVO> craftsList = null;
+	      
+		craftsList = service.crafts_list_select();
+	      
+		mav.addObject("craftsList", craftsList);
+		mav.setViewName("/craft/craft_list_10bag.tiles1");
+		
+		return mav;
+	}
    
-   @RequestMapping(value="/crafts_list_20shoes.got")
-   public ModelAndView craftList_20shoes(ModelAndView mav) {
-      mav.setViewName("/craft/craft_list_20shoes.tiles1");
-      return mav;
-   }
+	@RequestMapping(value="/crafts_list_20shoes.got")
+	public ModelAndView craftList_20shoes(ModelAndView mav) {
+	   
+	   List<CraftVO> craftsList = null;
+	      
+	   craftsList = service.crafts_list_select();
+	   
+	   mav.addObject("craftsList", craftsList);
+	   mav.setViewName("/craft/craft_list_20shoes.tiles1");
+	   
+	   return mav;
+	}
    
-   @RequestMapping(value="/crafts_list_30wallet.got")
-   public ModelAndView craftList_30wallet(ModelAndView mav) {
-      mav.setViewName("/craft/craft_list_30wallet.tiles1");
-      return mav;
-   }
+	@RequestMapping(value="/crafts_list_30wallet.got")
+	public ModelAndView craftList_30wallet(ModelAndView mav) {
+	   
+		List<CraftVO> craftsList = null;
+	      
+		craftsList = service.crafts_list_select();
+	   
+		mav.addObject("craftsList", craftsList);
+		mav.setViewName("/craft/craft_list_30wallet.tiles1");
+		
+		return mav;
+	}
    
-   @RequestMapping(value="/crafts_list_40cloth.got")
-   public ModelAndView craftList_40cloth(ModelAndView mav) {
-      mav.setViewName("/craft/craft_list_40cloth.tiles1");
-      return mav;
-   }
+	@RequestMapping(value="/crafts_list_40cloth.got")
+	public ModelAndView craftList_40cloth(ModelAndView mav) {
+	   
+		List<CraftVO> craftsList = null;
+	      
+		craftsList = service.crafts_list_select();
+	   
+		mav.addObject("craftsList", craftsList);
+		mav.setViewName("/craft/craft_list_40cloth.tiles1");
+		
+		return mav;
+	}
    
    @RequestMapping(value="/crafts_list.got")
    public ModelAndView crafts_list_select(ModelAndView mav) {
@@ -107,7 +139,6 @@ public class CraftController {
       
       mav.addObject("craftsList", craftsList);
       mav.setViewName("/craft/craft_list.tiles1");
-      
 
       
       return mav;
@@ -294,7 +325,7 @@ public class CraftController {
                   // 첨부되어진 파일을 업로드 하는 것이다.
                   
                   System.out.println(">>> 확인용  newFileName => " + newFileName); 
-                  
+                  /*
                   cvo.setFileName(newFileName);
                   // WAS(톰캣)에 저장된 파일명(20230522103642842968758293800.pdf)
                   
@@ -306,13 +337,23 @@ public class CraftController {
                   cvo.setFileSize(String.valueOf(fileSize));
                   
                      // mf.transferTo(new File(newFileName));
-
+                   */
              } catch (Exception e) {
                    e.printStackTrace();
              }
              
           }// end of for -------------------------------------
-
+/*
+          
+          for(int i = 0; i < fileList.size() ; i++){
+				 //원래 파일명
+				 String orgFilename = fileList.get(i).getOriginalFilename();
+				 //저장되는 파일이름
+				 fileList.get(i).get
+          }
+  */        
+          
+          
           
     	  String other_career = "";
     	  other_career = request.getParameter("other_career");
@@ -393,7 +434,9 @@ public class CraftController {
       
       OrderVO ovo = new OrderVO();
       List<OrderVO> ovoList = service.getAllOrders(paraMap);
-      String pageBar = makePageBar(currentShowPageNoForEstimate, 10, totalPageForEstimate);
+      
+      String url = "estimate_inquiry_list.got";
+      String pageBar = myUtil.makePageBar(currentShowPageNoForEstimate, 10, totalPageForEstimate, url);
       
       mav.addObject("currentShowPageNo", currentShowPageNoForEstimate);
       mav.addObject("pageBar", pageBar);
@@ -493,7 +536,9 @@ public class CraftController {
       paraMap.put("craftNum", craftNum);
 	  
 	  List<HashMap<String, String>> paraMapList = service.getRepariListBycraftNum(paraMap);
-      String pageBar = makePageBar(currentShowPageNoForRepariList, 10, totalPageRepariList);
+	  
+	  String url = "repair_history_list.got";
+      String pageBar = myUtil.makePageBar(currentShowPageNoForRepariList, 10, totalPageRepariList, url);
   
       mav.addObject("currentShowPageNo", currentShowPageNoForRepariList);
       mav.addObject("pageBar", pageBar);
@@ -520,9 +565,6 @@ public class CraftController {
       int n = 0;
       n = service.updatePartnerInfo(pvo);
       
-      if(pvo.getPartner_pwd() != null && pvo.getPartner_pwd() != "") {
-         n = service.updatePartnerPwd(pvo);
-      }
       String message = "";
       String loc = "";
       
@@ -569,16 +611,18 @@ public class CraftController {
    @RequestMapping(value="/check_insert_craftPwd.got", method = {RequestMethod.POST})
    public String checkInsertCraftPw(HttpServletRequest request) {
 		String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것 
-		String insertPwd = request.getParameter("insertPwd");
-		
+		String editPw = request.getParameter("editPw");
+
 		PartnerVO pvo = new PartnerVO();
       	pvo = service.getPartnerInfoByUserId(partnerId);
 	    int n = 0;
-
-	    if(insertPwd.equals(pvo.getPartner_pwd())) {
-	    	n = 1;
+	    if(editPw.equals(pvo.getPartner_pwd())) {
+	    	n = 2;
 	    }
-	    
+		else {
+			pvo.setPartner_pwd(editPw);
+			n = service.updatePartnerPwd(pvo);
+		}
 	    JSONObject jsonObj = new JSONObject();
 	    jsonObj.put("n", n);
 	    return jsonObj.toString();
@@ -601,39 +645,7 @@ public class CraftController {
 	   return jsonObj.toString();
    }
  
-   public String makePageBar(int currentShowPageNo, int blockSize, int totalPage) {
-      int loop = 1;
-      int startPageNo = ((currentShowPageNo-1)/blockSize)*blockSize+1;
-      
-      String pageBar = "<ul class='pageBar'>";
-      String url = "estimate_inquiry_list.got";
-      
-      if(startPageNo != 1) {
-         pageBar += "<li class='pageBar-edge'><a href='"+url+"?currentShowPageNo=1'>[맨처음]</a></li>";
-         pageBar += "<li class='pageBar-move'><a href='"+url+"?currentShowPageNo="+(startPageNo-1)+"'>[이전]</a></li>";
-      }
-      
-      while( !(loop > blockSize || startPageNo > totalPage) ) {
-         if(startPageNo == currentShowPageNo) {
-            pageBar += "<li class='pageBar-currentNo'>"+currentShowPageNo+"</li>";
-         }
-         else {
-        	 pageBar += "<li class='pageBar-currentNo'><a href='"+url+"?currentShowPageNo="+startPageNo+"'>"+startPageNo+"</a></li>";
-         }
-         
-         loop++;
-         startPageNo++;
-      }
-      
-      if( startPageNo <= totalPage) {
-         pageBar += "<li class='pageBar-move><a href='"+url+"?currentShowPageNo="+currentShowPageNo+"'>[다음]</a></li>";
-         pageBar += "<li class='pageBar-edge><a href='"+url+"?currentShowPageNo="+totalPage+"'>[마지막]</a></li>";
-      }
-      
-      pageBar += "</ul>";
-      
-      return pageBar;
-   }
+   
    
    
    

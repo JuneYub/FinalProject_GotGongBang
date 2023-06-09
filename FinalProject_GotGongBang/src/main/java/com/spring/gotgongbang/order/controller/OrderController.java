@@ -181,7 +181,7 @@ public class OrderController {
 
 	@Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.READ_COMMITTED, rollbackFor= {Throwable.class})
 	@RequestMapping(value="/order_form.got", method= {RequestMethod.POST})
-	public ModelAndView requiredLogin_order_form(HttpServletRequest request, HttpServletResponse response,ModelAndView mav) {
+	public ModelAndView requiredLogin_order_form(HttpServletRequest request, HttpServletResponse response,ModelAndView mav, MultipartHttpServletRequest mrequest) {
 		
 		
 		String type_code_pk = request.getParameter("type_code_pk"); 			// 품목번호 : type_code_pk
@@ -191,11 +191,112 @@ public class OrderController {
 		String img_detail_name = request.getParameter("img_detail_name");		//상세사진 : img_detail
 		String reqest_list_num = request.getParameter("reqest_list_num");		//수선요청사항 번호(자르기용):reqest_list_num
 		String reqest_list_name = request.getParameter("reqest_list_name");		//수선요청사항 이름(insert용):reqest_list_name
-		
 		String req_textarea = request.getParameter("req_textarea");				//수선요청사항설명:req_textarea
 		
 		
 		
+		// 사진 업로드용
+		List<MultipartFile> whole_img_list = mrequest.getFiles("img_whole");
+		List<MultipartFile> detail_img_list = mrequest.getFiles("img_detail");
+		
+		//System.out.println("whole_img_list "+whole_img_list);
+		//System.out.println("detail_img_list "+detail_img_list);
+		
+		HttpSession session = mrequest.getSession();
+	    String root = session.getServletContext().getRealPath("/");
+	    //String path_whole = root + "resources"+File.separator+"img\\orders";
+	    //C:\NCS\workspace(spring)\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\FinalProject_GotGongBang\resources\img\orders
+	    
+	    String path_whole = root + "resources"+File.separator+"orders";
+	    String path_detail = root + "resources"+File.separator+"orders_detail";
+		
+	    
+	    System.out.println("~~~~ 확인용 path_whole => " + path_whole);
+	    System.out.println("~~~~ 확인용 path_detail => " + path_detail);
+
+	    
+	    
+	    
+	     // >>> whole_img 첨부파일을 위의 path 경로에 올리기 <<<  //
+	     String[] arr_attachFilename_whole = null;
+	     
+	     if(whole_img_list != null && whole_img_list.size() > 0) {
+	    	 
+	    	 arr_attachFilename_whole = new String[whole_img_list.size()];
+	    	 
+	    	 for(int i = 0; i<whole_img_list.size(); i++) {
+	    		 
+	    		 MultipartFile mtfile_whole = whole_img_list.get(i);
+	    		 System.out.println("파일명 : "+ mtfile_whole.getOriginalFilename()+"/ 파일크기 : "+mtfile_whole.getSize());
+	    		 // 파일명 : berkelekle심플라운드01.jpg/ 파일크기 : 71317
+	    		 
+	    		 
+	    		 
+	    		 try {
+	    			 
+	    			// == MultipartFile 을 File로 변환하여 탐색기 저장폴더에 저장하기 시작 == //
+	    			 
+		    		 File attachFile_whole = new File(path_whole+File.separator+mtfile_whole.getOriginalFilename());
+		    		 // 빈껍데기만 생성
+		    		 
+		    		 mtfile_whole.transferTo(attachFile_whole);
+		    		 //빈껍데기 파일에 mtfile안에 있는 내용 옮기기
+		    		 
+		    		// == MultipartFile 을 File로 변환하여 탐색기 저장폴더에 저장하기 끝 == //
+		    		 
+		    		 
+		    		 arr_attachFilename_whole[i] = mtfile_whole.getOriginalFilename();
+		    		 
+	    		 }catch(Exception e) {
+	    			 e.printStackTrace();
+	    		 }
+	    		 
+	    	 }//for
+	    	 
+	     } // if(fileList != null && fileList.size() > 0)
+	     
+	     
+	     
+	     // >>> detail_img 첨부파일을 위의 path 경로에 올리기 <<<  //
+	     String[] arr_attachFilename_detail = null;
+	     
+	     if(detail_img_list != null && detail_img_list.size() > 0) {
+	    	 
+	    	 arr_attachFilename_detail = new String[detail_img_list.size()];
+	    	 
+	    	 for(int i = 0; i<detail_img_list.size(); i++) {
+	    		 
+	    		 MultipartFile mtfile_detail = detail_img_list.get(i);
+	    		 System.out.println("파일명 : "+ mtfile_detail.getOriginalFilename()+"/ 파일크기 : "+mtfile_detail.getSize());
+	    		 // 파일명 : berkelekle심플라운드01.jpg/ 파일크기 : 71317
+	    		 
+	    		 
+	    		 
+	    		 try {
+	    			 
+	    			// == MultipartFile 을 File로 변환하여 탐색기 저장폴더에 저장하기 시작 == //
+	    			 
+		    		 File attachFile_detail = new File(path_detail+File.separator+mtfile_detail.getOriginalFilename());
+		    		 // 빈껍데기만 생성
+		    		 
+		    		 mtfile_detail.transferTo(attachFile_detail);
+		    		 //빈껍데기 파일에 mtfile안에 있는 내용 옮기기
+		    		 
+		    		// == MultipartFile 을 File로 변환하여 탐색기 저장폴더에 저장하기 끝 == //
+		    		 
+		    		 
+		    		 arr_attachFilename_detail[i] = mtfile_detail.getOriginalFilename();
+		    		 
+	    		 }catch(Exception e) {
+	    			 e.printStackTrace();
+	    		 }
+	    		 
+	    	 }//for
+	    	 
+	     } // if(fileList != null && fileList.size() > 0)
+	    
+	    
+	    
 		//System.out.println("reqest_list_num "+reqest_list_num);
 		//System.out.println("reqest_list_name "+reqest_list_name);
 		/*
@@ -207,7 +308,7 @@ public class OrderController {
 			req_textarea = ㄷㄹㄷㄹㄴㄴㄴㄴ
 		 */
 		
-		HttpSession session = request.getSession();
+
 		//세션에서 로그인된 아이디 가져오기
 		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 		
@@ -233,7 +334,7 @@ public class OrderController {
 
 		// 견적 요청 넣기
 		int n1 = service.insert_order(mapOrder);
-		System.out.println("n1 = "+n1);
+		//System.out.println("n1 = "+n1);
 		
 		if(n1 == 1) {
 			

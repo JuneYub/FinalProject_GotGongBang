@@ -148,7 +148,7 @@ $(document).readty(function(){
                           <c:forEach var="inquiryvo" items="${requestScope.iqList}">
                                 <div class="ojh_table2_notice1">
                                     <div class="ojh_table2_notice2 t14">${inquiryvo.inquiry_num_pk}</div>
-                                    <span class="subject t15" onclick="goView('${inquiryvo.inquiry_num_pk}')">${inquiryvo.inquiry_title}</span>
+                                    <span class="subject t15" style="cursor:pointer;" onclick="goView('${inquiryvo.inquiry_num_pk}')">${inquiryvo.inquiry_title}</span>
                                     <div class="ojh_table2_notice4 t16">${inquiryvo.user_id_fk}</div>
                                     <div class="ojh_table2_notice5 t17">${inquiryvo.inquiry_date}</div>
                                     <div class="ojh_table2_notice5 t18">${inquiryvo.inquiry_viewcount}</div>           

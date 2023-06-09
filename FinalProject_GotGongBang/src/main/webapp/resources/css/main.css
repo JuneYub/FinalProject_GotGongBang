@@ -692,7 +692,7 @@ div.contents-review-promotional {
 }
 
 .btn-estimateDetail:hover {
-	border: 3px solid #6D6D6D;
+	font-weight: bold;
 	transition: 0.1s ease;
 }
 
@@ -947,6 +947,28 @@ ul:has(li.requests-item) {
 	float: right;
 }
 
+li.requests-cont {
+	margin-top: 13px;
+}
+.btn-update-info {
+	border: none;
+    padding: 7px;
+    font-size: 13px;
+    width: 110px;
+    border-radius: 30px;
+    background-color: #400099;
+    color: white;
+    box-shadow: 1px 1px 2px black;
+}
+
+#checkOriginPWD {
+  	top: 40%;
+  	margin-top: -50px;
+}
+
+.btn-font15 {
+	font-size: 15px;
+}
 
 
 /* ======================== 애니메이션 모음 =========================================== */
@@ -1865,7 +1887,7 @@ img.imgCircle2 {
 /* ==== 이지현 끝========================================================================================= */
 
 
-/* ================================= 오 준 혁 시 작 =============================== */
+/* ================================= 오준혁 시 작 =============================== */
 
 a {
     text-decoration: none;
@@ -2507,7 +2529,21 @@ flex-basis: 50px;
 
     opacity: 1;
     transform: translateY(0);
+}
 
+.ojh_accordion__body {
+	overflow: hidden;
+    height: 0;
+    opacity: 0;
+	transform: translateY(30px);
+	transition: opacity .35s ease .15s,transform .35s ease .15s;
+}
+
+.ojh_accordion__collapse--expand .ojh_accordion__body {
+	opacity: 1;
+    transform: translateY(0);
+    height: auto;
+    overflow: hidden;
 }
 
 /* ------------BoardFAQ 끝------- */
@@ -2583,11 +2619,74 @@ flex-basis: 50px;
     font-size: 13px;
 }
 
+.ojh_delcheck {
+	border: 0px solid red;
+	width: 900px;
+	height: 300px;
+	margin: auto;
+	
+}
+
+.ojh_delcheck_small {
+	border: 1px solid #b9b9b9;
+	width: 450px;
+	height: 200px;
+	margin: 140px 0px 0px 225px;
+	
+}
+
+
+.ojh_delcheck_butt1 {
+	background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: #fff;
+    border: solid 0px #5411d2;
+    appearance: none;
+    background: #400099;
+    border: 1px solid #400099;
+    border-radius: 28px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 18px;
+    height: 56px;
+    letter-spacing: -.45px;
+    line-height: 26px;
+    padding: 14px 15px;
+    text-align: center;
+    width: 125px;
+}
+
+.ojh_delcheck_butt2 {
+	background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: #400099;
+    border: solid 0px #5411d2;
+    appearance: none;
+    background: white;
+    border: 1px solid #400099;
+    border-radius: 28px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 18px;
+    height: 56px;
+    letter-spacing: -.45px;
+    line-height: 26px;
+    padding: 14px 15px;
+    text-align: center;
+    width: 125px;
+    margin: 0px 20px
+}    
+
+.ojh_buttbox {
+	margin: 20px 0px 0px 50px;
+}
 
 /* ------------ 본문 끝------------- */
 
 
-/* ================================= 오 준 혁 끄 읕 =============================== */
+/* ================================= 오준혁 끄 읕 =============================== */
 
 
 /* ================================= 김나윤 시작 ================================ */
@@ -2990,6 +3089,15 @@ table#reviewTbl td, th {
 	box-sizing: border-box;
 }
 
+/*
+#plzul {
+	list-style: none;
+}
+
+#plzli {
+	float: left;
+}
+*/
 
 /* ================================= 김나윤 끝 ================================ */
 

@@ -63,6 +63,12 @@ public interface InterMemberDAO {
 
 
 
+
+
+	List<HashMap<String, String>> getOrderListByUserId(HashMap<String, String> paraMap);
+
+	int getTotalCountForOrderListByUserId(String userId);
+
 	
 	// ====== 박준엽 끝 =========================================== //
 
