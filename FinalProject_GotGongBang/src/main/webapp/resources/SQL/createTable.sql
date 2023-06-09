@@ -218,7 +218,7 @@ create table INQUIRY
 ,inquiry_fileName       varchar2(255)                       -- WAS(톰캣)에 저장될 파일명(2023051909271535243254235235234.png)                                       
 ,inquiry_orgFilename    varchar2(255)                       -- 진짜 파일명(강아지.png)  // 사용자가 파일을 업로드 하거나 파일을 다운로드 할때 사용되어지는 파일명 
 ,inquiry_fileSize       number                              -- 파일크기 
-,inquiry_pw             varchar2(20) default ' '  not null  -- 게시글 비밀번호
+,name                   varchar2(20) default' '    not null -- 글쓴이
 
 ,constraint PK_INQUIRY_inquiry_num_pk primary key(inquiry_num_pk)
 ,constraint FK_INQUIRY_user_id_fk foreign key(user_id_fk) references MEMBER(user_id_pk)

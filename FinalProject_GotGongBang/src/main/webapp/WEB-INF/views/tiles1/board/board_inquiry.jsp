@@ -19,6 +19,13 @@
 		$("button#btnWrite").click(function(){
 			
 			// 문의제목 유효성 검사
+			const user_id_fk = $("input#user_id_fk").val().trim();
+			if(user_id_fk == "") {
+				alert("로그인을 해주세요~");
+				return;
+			}
+			
+			// 문의제목 유효성 검사
 			const inquiry_title = $("input#inquiry_title").val().trim();
 			if(inquiry_title == "") {
 				alert("문의제목을 입력하세요!!");
@@ -113,6 +120,7 @@
                         <tbody>
                             <tr class="ojh_form-field">
                                 <th scope="row">상품명</th>
+                                <input type=hidden name="user_id_fk" id="user_id_fk" value="${sessionScope.loginuser.user_id_pk}" readonly />
                                 <td>
                                     <input class="ojh_form-input" type="text" name="product_name" title="상품명 입력" value="" placeholder="문의할 상품을 입력해주세요.">
                                     <div class="form-field__feedback" data-field-feedback="product_name"></div>
