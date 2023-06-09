@@ -28,6 +28,16 @@ public interface InterBoardDAO {
 
 //	int insertReview(HashMap<String, String> paraMap);
 	
+	// 게시글  수정 페이지 완료하기
+	int edit(InquiryVO iqvo);
+	
+	// 게시글 삭제하기
+	int del(Map<String, String> paraMap);
+	
+	// Faq 조회
+	List<InquiryVO> getFaq();
+	
+	
 	
 	
 

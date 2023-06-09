@@ -89,3 +89,12 @@ nominvalue
 nocycle
 nocache;
 
+-- 주문상세내역 id 시퀀스
+create sequence seq_order_detail_id_pk
+start with 1
+increment by 1
+maxvalue 9999
+nominvalue
+cycle
+nocache;
+

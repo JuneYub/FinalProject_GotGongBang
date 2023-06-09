@@ -7,7 +7,43 @@
 <%
    String ctxPath = request.getContextPath();
 %>   
+
+<style type="text/css">
+
+    .subjectStyle {font-weight: bold;
+    			   color: #400099;
+    			   cursor: pointer;}
+</style>
+
 <script>
+
+
+$(document).ready(function(){
+	  
+	  $("span.craft_name").bind("mouseover", function(e){
+		  $(e.target).addClass("subjectStyle");
+	  });
+	  
+	  $("span.craft_name").bind("mouseout", function(e){
+		  $(e.target).removeClass("subjectStyle"); 
+	  });
+	  
+});
+
+
+
+
+
+
+//////////////////////////////
+// Function Declaration //
+	
+	function goView(craft_num_pk){
+		  location.href="<%= ctxPath%>/craft_view.got?craft_num_pk="+craft_num_pk;
+	}
+
+
+
 </script>
 
 
@@ -37,32 +73,35 @@
 
                          <thead>
                              <tr>
-                                 <th style="width: 10%;">공방 번호</th>
-                                 <th style="width: 40%;">공방 이름</th>
-                                 <th style="width: 20%;">공방 신청자 ID</th>                                    
-                                 <th style="width: 20%;">공방 상태(임시/정식)</th>
+                                 <th style="text-align: center;">공방 번호</th>
+                                 <th style="text-align: center;">공방 이름</th>
+                                 <th style="text-align: center;">공방 신청자 ID</th>                                    
+                                 <th style="text-align: center;">공방 상태(임시/정식)</th>
                              </tr>
                          </thead>
 
                          <tbody>
-                             <tr>
-                                 <td>1</td>
-                                 <td>got공방임다</td>
-                                 <td>김진솔</td>
-                                 <td>임시</td>
-                             </tr>
-                             <tr>
-                                 <td>2</td>
-                                 <td>got공방임다</td>
-                                 <td>김진솔</td>
-                                 <td>정식</td>
-                             </tr>
-                             <tr>
-                                 <td>3</td>
-                                 <td>got공방임다</td>
-                                 <td>김진솔</td>
-                                 <td>임시</td>
-                             </tr>
+                         <c:if test="${empty requestScope.craftList}">
+                         </c:if>
+                         
+                         <c:if test="${not empty requestScope.craftList}">
+                         	<c:forEach var="craftvo" items="${requestScope.craftList}">
+	                             <tr>
+		                             <td>${craftvo.craft_num_pk}</td>
+		                             <td>
+								       <span class="craft_name" onclick="goView('${craftvo.craft_num_pk}')" style="padding-left: 128px;">${craftvo.craft_name}
+								       </span>
+									</td>
+		                             <td>${craftvo.partner_id_fk}</td>
+	                                 <c:if test="${craftvo.craft_status == 0}">
+		                                 <td>임시</td>
+	                                 </c:if>
+	                                 <c:if test="${craftvo.craft_status == 1}">
+	                                     <td>정식</td>
+	                                 </c:if>
+	                             </tr>
+                             </c:forEach>
+                         </c:if>
                              
                          </tbody>
 

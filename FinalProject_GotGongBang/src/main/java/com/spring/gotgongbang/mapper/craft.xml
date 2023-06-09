@@ -61,7 +61,25 @@
 	<result column="requests" property="requests"/>
 	<collection column="order_num_pk" property="wholeImgList" javaType="java.util.List" ofType="com.spring.gotgongbang.order.model.WholeImgVO" select="getWholeImagesByOrderNum"></collection>
 	<collection column="order_num_pk" property="detailImgList" javaType="java.util.List" ofType="com.spring.gotgongbang.order.model.DetailImgVO" select="getDetailImagesByOrderNum"></collection>
-	
+</resultMap>
+
+<resultMap type="HashMap" id="getRepariListBycraftNumMap">
+	<result column="brand_name" property="brand_name" />
+	<result column="request_explain" property="request_explain" />
+	<result column="requests" property="requests" />
+	<result column="orderer" property="orderer" />
+	<result column="order_product_type" property="order_product_type" />
+	<result column="order_num_fk" property="order_num_fk" />
+	<result column="order_detail_id_pk" property="order_detail_id_pk" />
+	<result column="payment_date" property="payment_date" />
+	<result column="order_post_code" property="order_post_code" />
+	<result column="order_address" property="order_address" />
+	<result column="order_detail_address" property="order_detail_address" />
+	<result column="order_extra_address" property="order_extra_address" />
+	<result column="order_address" property="order_address" />
+	<result column="product_status" property="product_status" />
+	<result column="payment" property="payment" />
+
 </resultMap>
 
 
@@ -134,6 +152,39 @@
 <select id="checkEstimateExists" parameterType="HashMap" resultType="int">
 	select count(*) from estimate where order_num_fk = #{order_num_fk} and craft_num_fk = #{craft_num_fk}
 </select>
+
+<select id="getRepariListBycraftNum" parameterType="HashMap" resultMap="getRepariListBycraftNumMap">
+select brand_name, request_explain, requests, orderer, order_product_type, order_num_fk, order_detail_id_pk, payment_date, order_post_code, order_address, order_detail_address, order_extra_address, product_status, payment
+from ( 
+    select row_number() over(order by payment_date desc) as rno, brand_name, request_explain, requests, orderer, order_product_type, order_num_fk, order_detail_id_pk, payment_date, order_post_code, order_address, order_detail_address, order_extra_address, product_status, payment
+    from 
+    ORDERS A
+    join
+    (
+        select order_num_fk, order_detail_id_pk, payment_date, order_post_code, order_address, order_detail_address, order_extra_address, product_status, payment
+        from
+        (select * from ESTIMATE where craft_num_fk = #{craftNum} and order_status = 1) E
+        join
+        ORDER_DETAIL O
+        on E.estimate_num_pk = O.estimate_num_fk
+    ) B
+    on A.order_num_pk = B.order_num_fk
+) S
+where rno between #{startRno} and #{endRno}
+</select>
+
+<select id="getTotalCountForRepairList" resultType="int">
+	select count(*)
+    from
+    (select * from ESTIMATE where craft_num_fk = #{craftNum} and order_status = 1) E
+    join
+    ORDER_DETAIL O
+    on E.estimate_num_pk = O.estimate_num_fk
+</select>
+
+<update id="updateStateByOrderNum" parameterType="HashMap">
+	UPDATE ORDER_DETAIL set product_status = #{state} where order_detail_id_pk = #{orderNum} 
+</update>
 
 <!--==================== 박준엽 끝 ====================== -->
 

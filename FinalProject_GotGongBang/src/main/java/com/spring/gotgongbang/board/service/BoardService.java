@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.gotgongbang.board.model.InquiryVO;
 import com.spring.gotgongbang.board.model.InterBoardDAO;
+import com.spring.gotgongbang.common.FileManager;
 
 @Service
 public class BoardService implements InterBoardService {
@@ -19,17 +20,11 @@ public class BoardService implements InterBoardService {
 		private InterBoardDAO dao;
 
 		
+		@Autowired     // Type에 따라 알아서 Bean 을 주입해준다.
+		private FileManager fileManager;
+		
 
 		// 김나윤 시작 ===========================================================================
-		/*
-		@Override
-		public int insertReview(HashMap<String, String> paraMap) {
-			int n = dao.insertReview(paraMap);
-			return n;
-		}
-		*/
-		
-		
 		// 김나윤 끝 ===========================================================================
 		
 		// 김진솔 시작 ===========================================================================
@@ -78,12 +73,12 @@ public class BoardService implements InterBoardService {
 			return iqList;
 		}
 		
-		// 조회수 증가 
+		// 게시글을 조회하면서 조회수 1 증가.
 		@Override
 		public InquiryVO getView(Map<String, String> paraMap) {
 			
 			InquiryVO iqvo = dao.getView(paraMap); // 글1개 조회하기
-			
+		//	System.out.println("service 확인용 iqvo" + iqvo);
 			String login_userid = paraMap.get("login_userid");
 			// paraMap.get("login_userid") 은 로그인을 한 상태이라면 로그인한 사용자의 userid 이고,
 			// 로그인을 하지 않은 상태이라면 paraMap.get("login_userid") 은 null 이다. 
@@ -108,6 +103,43 @@ public class BoardService implements InterBoardService {
 			return iqvo;
 		}
 
+		
+		// 게시글  수정 페이지 완료하기
+		@Override
+		public int edit(InquiryVO iqvo) {
+			int n = dao.edit(iqvo);
+			return n;
+		}
+		
+		// 게시글 삭제하기
+		@Override
+		public int del(Map<String, String> paraMap) {
+			int n =dao.del(paraMap);
+			
+			// 파일첨부 게시물이라면 파일 삭제
+			if(n==1) {
+				String path = paraMap.get("path");
+				String inquiry_fileName = paraMap.get("inquiry_fileName");
+				
+				if( inquiry_fileName !=null && !"".equals(inquiry_fileName) ) {
+					try {
+						fileManager.doFileDelete(inquiry_fileName, path);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				
+			}
+			
+			return n;
+		}
+		
+		// Faq 조회
+		@Override
+		public List<InquiryVO> getFaq() {
+			List<InquiryVO> iqvo = dao.getFaq();
+			return iqvo;
+		}
 		
 		
 		

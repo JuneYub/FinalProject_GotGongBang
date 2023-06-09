@@ -195,6 +195,15 @@ public class MemberController {
 		}
 		
 		
+		@RequestMapping(value="/register_member_first.got")
+		public ModelAndView register_member_first(ModelAndView mav) {
+			
+			mav.setViewName("member/register_member_first.tiles1");
+			return mav;
+	
+		}
+		
+		// 회원가입
 		@RequestMapping(value="/register_member.got")
 		public ModelAndView register_member(ModelAndView mav) {
 			
@@ -242,10 +251,22 @@ public class MemberController {
 		@RequestMapping(value="/register.got", method=RequestMethod.POST)
 		public String register(MemberVO membervo) {
 			
+			System.out.println("들어옴");
+			service.encryptPassword(membervo);
+			
 			service.insertMember(membervo);
 			
-			return "redirect:/end_login.got";
+			return "redirect:/end_register_member.got";
 		}
+		
+		
+		@RequestMapping(value="/end_register_member.got")
+		public ModelAndView end_register_member(ModelAndView mav) {
+			
+			mav.setViewName("member/end_register_member.tiles1");
+			return mav;
+		}
+		
 		
 		@RequestMapping(value="/find_id.got")
 		public ModelAndView find_id(ModelAndView mav) {
@@ -253,6 +274,16 @@ public class MemberController {
 			mav.setViewName("member/find_id.tiles1");
 			return mav;
 		}
+		
+		// 아이디 찾기
+		@RequestMapping(value="/find_id_end.got")
+		public ModelAndView find_id_end(ModelAndView mav) {
+		
+			mav.setViewName("member/find_id_end.tiles1");
+		
+			return mav;
+		}
+		
 		
 		@RequestMapping(value="/find_pwd.got")
 		public ModelAndView find_pwd(ModelAndView mav) {
@@ -279,6 +310,10 @@ public class MemberController {
 			
 			return mav;
 		}
+		
+		
+		
+
 		
 		// 홍용훈 끝
 		// ===========================================================================

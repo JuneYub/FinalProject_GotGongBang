@@ -13,11 +13,6 @@ public interface InterBoardService {
 	
 		
 		// 김나윤 시작 ===========================================================================
-	
-	
-	
-	//	int insertReview(HashMap<String, String> paraMap);
-	
 		// 김나윤 끝 ===========================================================================
 		
 		// 김진솔 시작 ===========================================================================
@@ -48,7 +43,16 @@ public interface InterBoardService {
 		
 		// 조회수 증가 없이 게시글 조회
 		InquiryVO getViewWithNoAddCount(Map<String, String> paraMap);
+		
+		// 게시글  수정 페이지 완료하기 
+		int edit(InquiryVO iqvo);
 
+		// 게시글 삭제하기
+		int del(Map<String, String> paraMap);
+		
+		// Faq 조회
+		List<InquiryVO> getFaq();
+		
 		
 
 		

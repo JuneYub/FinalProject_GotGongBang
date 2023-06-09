@@ -99,7 +99,21 @@
 			
 	});
 
-
+		// 공방 대표 이름 필수입력
+		$("input#craft_representative").blur( (e) => {
+			if($(e.target).val().trim() == ""){	
+				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
+				$(e.target).prop("disabled", false);
+				
+				
+				$(e.target).parent().find("span.error").show();
+				$(e.target).focus();	//다른곳을 클릭 못하게 함 e.target에 포커스 머무름
+			}else{
+				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+				$(e.target).parent().find("span.error").hide();
+			}
+		});
+						
  		
  		//공방 연락처 필수입력
 		$("input#hp1").blur( (e) => {
@@ -346,14 +360,21 @@
 			
 	////////////Function Declaration ////////////
 	
-	
-	
 	// === '신청' 버튼을 눌렀을 때  ===
 	function goComplete() {
-		// 이미지파일(공방 사진, 공방대표자 사진, 자격증 사진)이 모두 입력되었는지 확인
-		let b_Flag_attach = false;
+		// 전문 품목 체크박스 배열로 저장
+	       var obj = $("[name=craft_specialty]");
+	           var chkArray = new Array(); 
+	    
+	           $('input:checkbox[name=craft_specialty]:checked').each(function() { 
+	               chkArray.push(this.value);
+	           });
 
-		
+			   const craft_special_join = chkArray.join();
+	           
+			   console.log(craft_special_join);
+			   
+	           $("input[name='specialized_value']").val(craft_special_join);
 		
 		// 공방이름 중복확인
 		if(!b_flag_nickname_click){
@@ -383,6 +404,8 @@
 			}
 			
 		}
+		
+		  $("#other_career").val();
 			
 
 		  const frm = document.craft_application_frm;
@@ -447,6 +470,8 @@
             </div>
 
             <form name="craft_application_frm" method="POST" action="<%= request.getContextPath()%>/craft_application_end.got" enctype="multipart/form-data">
+                
+                <input type="hidden" name="specialized_value" value=""/>
 
                 <div class="application_right">
 	                    <p style="display: inline; magin:0; float: right; width: 210px; height: 10px; font-size: 12pt;"> * 표시는 필수 입력사항입니다.</p>
@@ -466,7 +491,7 @@
                     </div>
                      <div class="frm_border">
                         <span> <p> * 공방 대표자 이름</p>
-                            <input type="text" name="craft_representative" class="upload" id="" maxlength="10" value=""/>
+                            <input type="text" name="craft_representative" class="upload" id="craft_representative" maxlength="10" value=""/>
                             <span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 대표자 이름은 필수 입력 사항입니다.</span>
                         </span>
                     </div>
@@ -539,15 +564,16 @@
                     </div>
                     <div class="frm_border">
                         <span><p> * 전문 품목</p>
-                            <div id="specialized_chkBox" style="margin-left: 20px;">
-                              	  가방/핸드백<input type="checkbox" name="craft_specialty" id="specialized_chk1" class="specialized_field" value="bag"/>
+                            <div id="specialized_chkBox" style="margin-left: 20px; width: 370px;">
+                              	  가방/핸드백<input type="checkbox" name="craft_specialty" id="specialized_chk1" class="specialized_field" value="가방/핸드백"/>
                                 <label for="specialized_chk1"></label>
-                             	  신발<input type="checkbox" name="craft_specialty"  id="specialized_chk2" class="specialized_field" value="shoes"/>
+                             	  신발<input type="checkbox" name="craft_specialty"  id="specialized_chk2" class="specialized_field" value="신발"/>
                                 <label for="specialized_chk2"></label>
-                              	  지갑<input type="checkbox" name="craft_specialty" id="specialized_chk3"  class="specialized_field" value="wallet"/>
+                              	  지갑/벨트<input type="checkbox" name="craft_specialty" id="specialized_chk3"  class="specialized_field" value="지갑/벨트"/>
                                 <label for="specialized_chk3"></label>
-                              	  벨트<input type="checkbox" name="craft_specialty"  id="specialized_chk4" class="specialized_field" value="belt"/>
+                              	  의류<input type="checkbox" name="craft_specialty"  id="specialized_chk4" class="specialized_field" value="의류"/>
                                 <label for="specialized_chk4"></label>
+                                <input type="hidden" name="specialized_value" id="specialized_value" value=""/>
                              </div>                                
                              <span class="error" style="display: inline-block; color:#400099;">※ 전문 품목은 한 개 이상 선택하셔야 합니다.</span>
                         </span>
@@ -576,7 +602,7 @@
                     </div>
                     <div class="frm_border_3">
                         <span> <p>&nbsp;&nbsp;기타 경력사항</p>
-                            <textarea id="other_career" style="margin-left: 18px;"></textarea>
+                            <textarea id="other_career" name="other_career" style="margin-left: 18px;"></textarea>
                         </span>
                     </div>
                 </div>
@@ -598,7 +624,7 @@
                     <div class="list"><span><image src="resources/img/admin/single (1).png" width="32" />&nbsp;&nbsp;희망급여</span></div>
                     <div class="frm_border">
                         <span> <p> * 희망급여</p> 
-                           <input type="text" class="upload" id="salary" maxlength="7"  style="text-align:right; padding-right: 15px;" onkeyup="inputNumberFormat(this);" placeholder="1,000원 단위로 입력하세요."/><span>천원</span>
+                           <input type="text" class="upload" id="salary" name="craft_salary" maxlength="7"  style="text-align:right; padding-right: 15px;" onkeyup="inputNumberFormat(this);" placeholder="1,000원 단위로 입력하세요."/><span>천원</span>
                         	<span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 희망급여는 필수입력 사항입니다.</span>
                             <span class="error_2" style="display: inline-block; color:#400099; margin-left:20px;">※ 희망급여는 숫자로만 입력 가능합니다.</span>
                         

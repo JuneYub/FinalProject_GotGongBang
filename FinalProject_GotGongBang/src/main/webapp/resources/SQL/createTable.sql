@@ -85,8 +85,8 @@ CREATE TABLE ORDERS (
 CREATE TABLE WHOLE_IMG (
    whole_img_num_pk NUMBER(10)     NOT NULL, -- 전체이미지번호
    order_num_fk     NUMBER         NOT NULL, -- 견적요청번호
-   whole_img_name   NVARCHAR2(100) NOT NULL  -- 파일명
-    
+   whole_img_name   NVARCHAR2(100) NOT NULL,  -- 파일명
+   whole_img_size   NUMBER         NOT NULL   -- 파일사이즈
     ,constraint PK_WHOLE_IMG_whole_img_num_pk primary key(whole_img_num_pk)
     ,constraint FK_WHOLE_IMG_order_num_fk foreign key(order_num_fk)
                                   references ORDERS(order_num_pk)
@@ -97,8 +97,8 @@ CREATE TABLE WHOLE_IMG (
 CREATE TABLE DETAIL_IMG (
    detail_img_num_pk NUMBER         NOT NULL, -- 상세이미지번호
    order_num_fk      NUMBER         NOT NULL, -- 견적요청번호
-   detail_img_name   NVARCHAR2(100) NOT NULL  -- 파일명
-    
+   detail_img_name   NVARCHAR2(100) NOT NULL,  -- 파일명
+   detail_img_size   NUMBER         NOT NULL   -- 파일사이즈
     ,constraint PK_DETAIL_IMG_detail_img_num_pk primary key(detail_img_num_pk)
     ,constraint FK_DETAIL_IMG_order_num_fk foreign key(order_num_fk)
                                   references ORDERS(order_num_pk)
@@ -187,12 +187,13 @@ create table FIXED_PHOTO
 create table ORDER_DETAIL
 (order_detail_id_pk     VARCHAR2(20)    null     -- 주문상세번호
 ,estimate_num_fk        number          not null -- 견적서번호
-,order_date             DATE            not null -- 주문날짜
+,payment_date             DATE            not null -- 주문날짜
 ,order_post_code        VARCHAR2(5)     not null -- 우편번호
-,order_address          VARCHAR(20)     not null -- 주소
+,order_address          NVARCHAR2(40)     not null -- 주소
 ,order_detail_address   VARCHAR(200)    null     -- 상세주소
 ,order_extra_address    VARCHAR(200)    null     -- 부가주소
-,product_status         NVARCHAR2(10)   not null -- 상품진행상태
+,product_status         NVARCHAR2(10) default '수거중'  not null -- 상품진행상태
+,payment                NUMBER                      --결제 내역
 
 ,constraint PK_ORDER_DETAIL_order_detail_id_pk primary key(order_detail_id_pk)
 ,constraint PK_ORDER_DETAIL_estimate_num_fk foreign key(estimate_num_fk) references ESTIMATE(estimate_num_pk)
@@ -201,22 +202,23 @@ create table ORDER_DETAIL
 
 -- 문의 테이블
 create table INQUIRY
-(inquiry_num_pk     NUMBER(5)               not null -- 문의번호
-,user_id_fk         VARCHAR2(20)            not null -- 아이디
-,inquiry_title      VARCHAR(100)            not null -- 문의제목
-,inquiry_content    VARCHAR(4000)           not null -- 문의내용
-,inquiry_group      NUMBER(5)               not null -- 그룹번호
-,inquiry_original   NUMBER(5)               not null -- 원글문의번호
-,inquiry_depth      NUMBER(5)               not null -- 깊이번호
+(inquiry_num_pk         NUMBER(5)               not null    -- 문의번호
+,user_id_fk             VARCHAR2(20)            not null    -- 아이디
+,inquiry_title          VARCHAR(100)            not null    -- 문의제목
+,inquiry_content        VARCHAR(4000)           not null    -- 문의내용
+,inquiry_group          NUMBER(5)               not null    -- 그룹번호
+,inquiry_original       NUMBER(5)               not null    -- 원글문의번호
+,inquiry_depth          NUMBER(5)               not null    -- 깊이번호
 
 -- 추가 및 수정
-,inquiry_date       date default sysdate    not null -- 작성날짜
-,inquiry_viewcount  number default 0        not null -- 조회수
+,inquiry_date           date default sysdate    not null    -- 작성날짜
+,inquiry_viewcount      number default 0        not null    -- 조회수
 
-,inquiry_status     number(1) default 1     not null -- 글삭제여부   1:사용가능한 글,  0:삭제된글
-,inquiry_fileName       varchar2(255)                -- WAS(톰캣)에 저장될 파일명(2023051909271535243254235235234.png)                                       
-,inquiry_orgFilename    varchar2(255)                -- 진짜 파일명(강아지.png)  // 사용자가 파일을 업로드 하거나 파일을 다운로드 할때 사용되어지는 파일명 
-,inquiry_fileSize       number                       -- 파일크기 
+,inquiry_status         number(1) default 1     not null    -- 글삭제여부   1:사용가능한 글,  0:삭제된글
+,inquiry_fileName       varchar2(255)                       -- WAS(톰캣)에 저장될 파일명(2023051909271535243254235235234.png)                                       
+,inquiry_orgFilename    varchar2(255)                       -- 진짜 파일명(강아지.png)  // 사용자가 파일을 업로드 하거나 파일을 다운로드 할때 사용되어지는 파일명 
+,inquiry_fileSize       number                              -- 파일크기 
+,name                   varchar2(20) default' '    not null -- 글쓴이
 
 ,constraint PK_INQUIRY_inquiry_num_pk primary key(inquiry_num_pk)
 ,constraint FK_INQUIRY_user_id_fk foreign key(user_id_fk) references MEMBER(user_id_pk)
@@ -230,12 +232,9 @@ partner_id_fk              VARCHAR2(20)    NOT NULL, -- 파트너 아이디
 craft_name                 VARCHAR2(30)    NOT NULL, -- 공방이름
 craft_mobile               VARCHAR2(200)   NOT NULL, -- 공방연락처
 craft_representative       VARCHAR2(30)    NOT NULL, -- 대표이름
-craft_representative_image VARCHAR2(1000)  NOT NULL, -- 공방대표자사진
-craft_image                VARCHAR2(1000)  NOT NULL, -- 공방사진
 craft_Introduce            NVARCHAR2(2000) NOT NULL, -- 자기소개
 craft_career               VARCHAR2(10)    NOT NULL, -- 경력기간
-craft_certificate          VARCHAR2(1000)  NOT NULL, -- 자격증
-craft_specialty            VARCHAR2(30)    NOT NULL, -- 전문 품목
+craft_specialty            VARCHAR2(200)    NOT NULL, -- 전문 품목
 craft_post_code            VARCHAR2(20)    NOT NULL, -- 공방우편번호
 craft_address              VARCHAR2(200)   NOT NULL, -- 공방주소
 craft_detail_address       VARCHAR2(200)   NOT NULL, -- 공방상세주소
@@ -243,7 +242,7 @@ craft_extra_address        VARCHAR2(200)   NULL,     -- 공방부가주소
 craft_latitude             NUMBER          NOT NULL, -- 위도
 craft_longitude            NUMBER          NOT NULL, -- 경도
 craft_status               NUMBER(1)       default 1 NOT NULL,     -- 공방 상태(업데이트 방식)   1: 정식(가입중) / 0:임시(사용불가) 
-craft_rating               NUMBER(1)       NULL,      -- 공방평점
+craft_rating               NUMBER(1)       NULL      -- 공방평점
 ,fileName                  VARCHAR2(500)              -- WAS(톰캣)에 저장될 이미지 파일명                                       
 ,orgFilename               VARCHAR2(500)              -- 진짜 파일명
 ,fileSize                  NUMBER                     -- 파일크기  

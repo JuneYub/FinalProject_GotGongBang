@@ -10,7 +10,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 
-
 @Repository
 public class BoardDAO implements InterBoardDAO {
 	
@@ -39,38 +38,56 @@ public class BoardDAO implements InterBoardDAO {
 		List<InquiryVO> iqList = sqlsession.selectList("board.BoardQuestionList");
 		return iqList;
 	}
-
+	
+	// 총 게시물 건수 구하기
 	@Override
 	public int getTotalCount(Map<String, String> paraMap) {
-		// TODO Auto-generated method stub
-		return 0;
+		int n = sqlsession.selectOne("board.getTotalCount", paraMap);
+		return n;
 	}
-
+	
+	// 페이징 처리한 글목록 가져오기
 	@Override
 	public List<InquiryVO> iqListSearchWithPaging(Map<String, String> paraMap) {
-		// TODO Auto-generated method stub
-		return null;
+		List<InquiryVO> iqList = sqlsession.selectList("board.iqListSearchWithPaging", paraMap);
+		return iqList;
 	}
-
+	
+	// 1개 조회하기 
 	@Override
 	public InquiryVO getView(Map<String, String> paraMap) {
-		// TODO Auto-generated method stub
-		return null;
+		InquiryVO iqvo = sqlsession.selectOne("board.getView",paraMap);
+	//	System.out.println("DAO iqvo 확인용" + iqvo);
+		return iqvo;
 	}
-
+	
+	// 글조회수 1증가하기
 	@Override
 	public void setAddReadCount(String inquiry_num_pk) {
-		// TODO Auto-generated method stub
-		
+		sqlsession.update("board.setAddReadCount", inquiry_num_pk);
 	}
-
-	/*
+	
+	// 게시글  수정 페이지 완료하기
 	@Override
-	public int insertReview(HashMap<String, String> paraMap) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int edit(InquiryVO iqvo) {
+		int n = sqlsession.update("board.edit", iqvo);
+		return n;
 	}
-	*/
+	
+	// 게시글 삭제하기
+	@Override
+	public int del(Map<String, String> paraMap) {
+		int n = sqlsession.delete("board.del", paraMap);
+		return n;
+	}
+	
+	// Faq 조회
+	@Override
+	public List<InquiryVO> getFaq() {
+		List<InquiryVO> iqvo = sqlsession.selectList("board.getFaq");
+		return iqvo;
+	}
+	
 	
 	
 	
