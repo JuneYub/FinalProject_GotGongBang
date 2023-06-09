@@ -369,12 +369,12 @@
 	           $('input:checkbox[name=craft_specialty]:checked').each(function() { 
 	               chkArray.push(this.value);
 	           });
-	           $('#hiddenValue').val(chkArray);
+
+			   const craft_special_join = chkArray.join();
 	           
-	           alert($('#hiddenValue').val()); 
-	      
-	      
-		
+			   console.log(craft_special_join);
+			   
+	           $("input[name='specialized_value']").val(craft_special_join);
 		
 		// 공방이름 중복확인
 		if(!b_flag_nickname_click){
@@ -404,6 +404,8 @@
 			}
 			
 		}
+		
+		  $("#other_career").val();
 			
 
 		  const frm = document.craft_application_frm;
@@ -468,6 +470,8 @@
             </div>
 
             <form name="craft_application_frm" method="POST" action="<%= request.getContextPath()%>/craft_application_end.got" enctype="multipart/form-data">
+                
+                <input type="hidden" name="specialized_value" value=""/>
 
                 <div class="application_right">
 	                    <p style="display: inline; magin:0; float: right; width: 210px; height: 10px; font-size: 12pt;"> * 표시는 필수 입력사항입니다.</p>
@@ -569,7 +573,7 @@
                                 <label for="specialized_chk3"></label>
                               	  의류<input type="checkbox" name="craft_specialty"  id="specialized_chk4" class="specialized_field" value="의류"/>
                                 <label for="specialized_chk4"></label>
-                                <input type="hidden" name="specialized_val" id="hiddenValue" value=""/>
+                                <input type="hidden" name="specialized_value" id="specialized_value" value=""/>
                              </div>                                
                              <span class="error" style="display: inline-block; color:#400099;">※ 전문 품목은 한 개 이상 선택하셔야 합니다.</span>
                         </span>
@@ -598,7 +602,7 @@
                     </div>
                     <div class="frm_border_3">
                         <span> <p>&nbsp;&nbsp;기타 경력사항</p>
-                            <textarea id="other_career" style="margin-left: 18px;"></textarea>
+                            <textarea id="other_career" name="other_career" style="margin-left: 18px;"></textarea>
                         </span>
                     </div>
                 </div>
@@ -620,7 +624,7 @@
                     <div class="list"><span><image src="resources/img/admin/single (1).png" width="32" />&nbsp;&nbsp;희망급여</span></div>
                     <div class="frm_border">
                         <span> <p> * 희망급여</p> 
-                           <input type="text" class="upload" id="salary" maxlength="7"  style="text-align:right; padding-right: 15px;" onkeyup="inputNumberFormat(this);" placeholder="1,000원 단위로 입력하세요."/><span>천원</span>
+                           <input type="text" class="upload" id="salary" name="craft_salary" maxlength="7"  style="text-align:right; padding-right: 15px;" onkeyup="inputNumberFormat(this);" placeholder="1,000원 단위로 입력하세요."/><span>천원</span>
                         	<span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 희망급여는 필수입력 사항입니다.</span>
                             <span class="error_2" style="display: inline-block; color:#400099; margin-left:20px;">※ 희망급여는 숫자로만 입력 가능합니다.</span>
                         

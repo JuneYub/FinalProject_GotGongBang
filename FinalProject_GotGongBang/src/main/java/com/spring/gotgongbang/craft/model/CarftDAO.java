@@ -120,6 +120,10 @@ public class CarftDAO implements InterCraftDAO {
 		return totalCount;
 	}
 
+	@Override
+	public int updateStateByOrderNum(HashMap<String, String> paraMap) {
+		return sqlsession.update("craft.updateStateByOrderNum", paraMap);
+	}
 	
 	
 	// =============== 박준엽 끝 =================//

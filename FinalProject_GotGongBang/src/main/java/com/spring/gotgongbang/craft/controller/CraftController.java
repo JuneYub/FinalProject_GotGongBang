@@ -4,6 +4,7 @@ package com.spring.gotgongbang.craft.controller;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -247,7 +248,7 @@ public class CraftController {
 
    //공방 신청정보를(첨부파일 포함)DB에 insert해주는 기능
    @RequestMapping(value = "/craft_application_end.got", method = {RequestMethod.POST})
-   public String craft_application_end(CraftVO cvo, ImageVO imgvo, MultipartHttpServletRequest mrequest, HttpServletRequest request) { 
+   public String craft_application_end(CraftVO cvo, ImageVO imgvo, MultipartHttpServletRequest mrequest, HttpServletRequest request , HttpServletResponse response) { 
 
 	  // 이미지 파일들 가져오기
       List<MultipartFile> fileList = new ArrayList<MultipartFile>();
@@ -287,13 +288,13 @@ public class CraftController {
                   
                   originalFilename = mf.getOriginalFilename();
                   
-                   System.out.println("~~~~ 확인용 originalFilename => " + originalFilename); 
+                  System.out.println("~~~~ 확인용 originalFilename => " + originalFilename); 
                   
                   newFileName = fileManager.doFileUpload(bytes, originalFilename, path);
                   // 첨부되어진 파일을 업로드 하는 것이다.
                   
                   System.out.println(">>> 확인용  newFileName => " + newFileName); 
-                  
+                  /*
                   cvo.setFileName(newFileName);
                   // WAS(톰캣)에 저장된 파일명(20230522103642842968758293800.pdf)
                   
@@ -305,14 +306,32 @@ public class CraftController {
                   cvo.setFileSize(String.valueOf(fileSize));
                   
                      // mf.transferTo(new File(newFileName));
-
+                   */
              } catch (Exception e) {
                    e.printStackTrace();
              }
              
           }// end of for -------------------------------------
+/*
           
+          for(int i = 0; i < fileList.size() ; i++){
+				 //원래 파일명
+				 String orgFilename = fileList.get(i).getOriginalFilename();
+				 //저장되는 파일이름
+				 fileList.get(i).get
+          }
+  */        
+          
+          
+          
+    	  String other_career = "";
+    	  other_career = request.getParameter("other_career");
+    	  //System.out.println("other_career : " + other_career);
 
+    	  if(other_career != "") {
+			  session.setAttribute("other_career", other_career);
+    	  }
+    	  
           String hp1= request.getParameter("hp1");
     	  String hp2= request.getParameter("hp2");
     	  String hp3= request.getParameter("hp3");
@@ -320,7 +339,7 @@ public class CraftController {
     	  String craft_mobile = hp1 + hp2 + hp3;
     	  cvo.setCraft_mobile(craft_mobile);
     	  
-    	  
+    	 
           MultipartFile craft_add_file_name = imgvo.getCraft_add_file_name();
 
           n = service.add_withFile(cvo);
@@ -460,7 +479,6 @@ public class CraftController {
       int endRno = 0;
       
       totalCountForRepariList = service.getTotalCountForRepairList(craftNum);
-      System.out.println("totalCountForRepariList : "+ totalCountForRepariList );
       totalPageRepariList = (int)Math.ceil((double)totalCountForRepariList/sizePerPageRepariList);
       if(str_currentShowPageNo == null) {
     	  currentShowPageNoForRepariList = 1;
@@ -485,9 +503,8 @@ public class CraftController {
       paraMap.put("craftNum", craftNum);
 	  
 	  List<HashMap<String, String>> paraMapList = service.getRepariListBycraftNum(paraMap);
-	  
       String pageBar = makePageBar(currentShowPageNoForRepariList, 10, totalPageRepariList);
-      
+  
       mav.addObject("currentShowPageNo", currentShowPageNoForRepariList);
       mav.addObject("pageBar", pageBar);
 	  mav.addObject("paraMapList", paraMapList); 
@@ -576,6 +593,23 @@ public class CraftController {
 	    jsonObj.put("n", n);
 	    return jsonObj.toString();
    }
+   
+   @ResponseBody
+   @RequestMapping(value="/update_state.got", method= {RequestMethod.POST})
+   public String updateStateByOrderNum(HttpServletRequest request) {
+	   String orderNum = request.getParameter("orderNum");
+	   String state = request.getParameter("state");
+	   
+	   HashMap<String, String> paraMap = new HashMap<String, String>();
+	   paraMap.put("orderNum", orderNum);
+	   paraMap.put("state", state);
+	   
+	   int n = service.updateStateByOrderNum(paraMap);
+	    
+	   JSONObject jsonObj = new JSONObject();
+	   jsonObj.put("n", n);
+	   return jsonObj.toString();
+   }
  
    public String makePageBar(int currentShowPageNo, int blockSize, int totalPage) {
       int loop = 1;
@@ -610,6 +644,7 @@ public class CraftController {
       
       return pageBar;
    }
+   
    
    
    // 박준엽 끝

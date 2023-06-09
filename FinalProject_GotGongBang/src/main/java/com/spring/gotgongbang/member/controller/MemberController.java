@@ -195,6 +195,15 @@ public class MemberController {
 		}
 		
 		
+		@RequestMapping(value="/register_member_first.got")
+		public ModelAndView register_member_first(ModelAndView mav) {
+			
+			mav.setViewName("member/register_member_first.tiles1");
+			return mav;
+	
+		}
+		
+		// 회원가입
 		@RequestMapping(value="/register_member.got")
 		public ModelAndView register_member(ModelAndView mav) {
 			

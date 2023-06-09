@@ -232,12 +232,9 @@ partner_id_fk              VARCHAR2(20)    NOT NULL, -- 파트너 아이디
 craft_name                 VARCHAR2(30)    NOT NULL, -- 공방이름
 craft_mobile               VARCHAR2(200)   NOT NULL, -- 공방연락처
 craft_representative       VARCHAR2(30)    NOT NULL, -- 대표이름
-craft_representative_image VARCHAR2(1000)  NOT NULL, -- 공방대표자사진
-craft_image                VARCHAR2(1000)  NOT NULL, -- 공방사진
 craft_Introduce            NVARCHAR2(2000) NOT NULL, -- 자기소개
 craft_career               VARCHAR2(10)    NOT NULL, -- 경력기간
-craft_certificate          VARCHAR2(1000)  NOT NULL, -- 자격증
-craft_specialty            VARCHAR2(30)    NOT NULL, -- 전문 품목
+craft_specialty            VARCHAR2(200)    NOT NULL, -- 전문 품목
 craft_post_code            VARCHAR2(20)    NOT NULL, -- 공방우편번호
 craft_address              VARCHAR2(200)   NOT NULL, -- 공방주소
 craft_detail_address       VARCHAR2(200)   NOT NULL, -- 공방상세주소
@@ -245,7 +242,7 @@ craft_extra_address        VARCHAR2(200)   NULL,     -- 공방부가주소
 craft_latitude             NUMBER          NOT NULL, -- 위도
 craft_longitude            NUMBER          NOT NULL, -- 경도
 craft_status               NUMBER(1)       default 1 NOT NULL,     -- 공방 상태(업데이트 방식)   1: 정식(가입중) / 0:임시(사용불가) 
-craft_rating               NUMBER(1)       NULL,      -- 공방평점
+craft_rating               NUMBER(1)       NULL      -- 공방평점
 ,fileName                  VARCHAR2(500)              -- WAS(톰캣)에 저장될 이미지 파일명                                       
 ,orgFilename               VARCHAR2(500)              -- 진짜 파일명
 ,fileSize                  NUMBER                     -- 파일크기  

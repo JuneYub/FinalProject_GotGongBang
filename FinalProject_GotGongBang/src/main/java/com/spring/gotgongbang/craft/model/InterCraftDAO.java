@@ -57,6 +57,8 @@ public interface InterCraftDAO {
 	
 	int getTotalCountForRepairList(String craftNum);
 	
+	int updateStateByOrderNum(HashMap<String, String> paraMap);
+	
 	// =============== 박준엽 끝 =================//
 	
 	
