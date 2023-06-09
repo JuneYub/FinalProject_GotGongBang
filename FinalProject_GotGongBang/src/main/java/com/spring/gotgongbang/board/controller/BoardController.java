@@ -85,14 +85,22 @@ public class BoardController {
 	}
 	
 	// 고객센터_온라인문의 페이지 불러오기
-		@RequestMapping(value="/board_inquiry.got")
-		public ModelAndView getBoardInquiry(ModelAndView mav) {
-			
-			mav.setViewName("/board/board_inquiry.tiles1");
-			
-			return mav;		
-		
+	@RequestMapping(value="/board_inquiry.got")
+	public ModelAndView getBoardInquiry(ModelAndView mav, HttpServletRequest request, InquiryVO iqvo) {
+	   
+		HttpSession session = request.getSession();
+	    MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+
+	    if (loginuser == null) {
+	        mav.setViewName("redirect:/login.got");
+	        session.setAttribute("goBackURL", "/board_inquiry.got");
+	    } else {
+	        mav.setViewName("/board/board_inquiry.tiles1");
+	    }
+
+	    return mav;
 	}
+	
 	
 	// 질문게시판 페이지 불러오기
 	@RequestMapping(value="/board_question.got")
@@ -465,7 +473,8 @@ public class BoardController {
 		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 		
 		if( !loginuser.getUser_id_pk().equals(iqvo.getUser_id_fk()) ) {
-			String message = "다른 사용자의 글은 수정이 불가합니다.";
+			
+			String message = "다른 사용자의 글은 삭제가 불가합니다.";
 			String loc = "javascript:history.back()";
 			
 			mav.addObject("message", message);
@@ -528,6 +537,7 @@ public class BoardController {
 		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 		
 		if( !loginuser.getUser_id_pk().equals(iqvo.getUser_id_fk()) ) {
+			
 			String message = "다른 사용자의 글은 삭제가 불가합니다.";
 			String loc = "javascript:history.back()";
 			
