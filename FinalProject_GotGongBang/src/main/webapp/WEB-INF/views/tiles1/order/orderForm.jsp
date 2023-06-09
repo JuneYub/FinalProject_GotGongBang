@@ -433,9 +433,9 @@ div.orderSelect{
    			<td class="orderTd" style="display:flex;     justify-content: space-between;">
    				<div style="width:500px;  height:140px;     display: flex; flex-direction: column; justify-content: center;">
    					<input type="hidden" name="img_whole_name"/>
-   					<input type="file" id="img_whole" class="choose_file" name="img_whole" accept="image/*"  style="margin-bottom: 10px;"/>
-					<input type="file" id="img_whole" class="choose_file" name="img_whole" accept="image/*"  style="margin-bottom: 10px;"/>
-					<input type="file" id="img_whole" class="choose_file" name="img_whole" accept="image/*"  style="margin-bottom: 10px;"/>
+   					<input type="file" id="img_whole" class="choose_file img_whole1" name="img_whole" accept="image/*"  style="margin-bottom: 10px;"/>
+					<input type="file" id="img_whole" class="choose_file img_whole2" name="img_whole" accept="image/*"  style="margin-bottom: 10px;"/>
+					<input type="file" id="img_whole" class="choose_file img_whole3" name="img_whole" accept="image/*"  style="margin-bottom: 10px;"/>
       	 		</div>
 			</td>
 			
@@ -468,9 +468,9 @@ div.orderSelect{
    			<td class="orderTd" style="display:flex; justify-content: space-between;">
    				<div style="width:500px;  height:140px;     display: flex; flex-direction: column; justify-content: center;">
 	   				<input type="hidden" name="img_detail_name"/>
-	   				<input type="file" id="img_detail" class="choose_file" name="img_detail" accept="image/*"  style="margin-bottom: 10px;"/>
-					<input type="file" id="img_detail" class="choose_file" name="img_detail" accept="image/*"  style="margin-bottom: 10px;"/>
-					<input type="file" id="img_detail" class="choose_file" name="img_detail" accept="image/*"  style="margin-bottom: 10px;"/>
+	   				<input type="file" id="img_detail" class="choose_file img_detail1" name="img_detail" accept="image/*"  style="margin-bottom: 10px;"/>
+					<input type="file" id="img_detail" class="choose_file img_detail2" name="img_detail" accept="image/*"  style="margin-bottom: 10px;"/>
+					<input type="file" id="img_detail" class="choose_file img_detail3" name="img_detail" accept="image/*"  style="margin-bottom: 10px;"/>
       	 		</div>	
       	 		
 			</td>

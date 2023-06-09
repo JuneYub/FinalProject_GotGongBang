@@ -158,39 +158,41 @@ div#payContent {
 				<!-- <p class="margin" style="font-size:20pt; font-weight:bold; margin:30px 0; margin-left:30px;">배송지 정보</p> -->
 			</div>
 			<hr>
-			<table>
-	    		<tr>
-	    			<td class="orderTd orderTdTitle">수령인</td>
-	    			<td class="orderTd">
-	    				<input class="payInput" type="text" placeholder="50자 이내로 입력하세요"/>
-	    			</td>
-	    		<tr>	
-	    		
-	    		<tr>
-	    			<td class="orderTd orderTdTitle">연락처</td>
-	    			<td class="orderTd">
-	    				<input class="payInput" type="text"  placeholder="010-0000-0000"/>
-	    			</td>
-	    		<tr>
-	    		
-	    		<tr>
-				<td class="orderTd orderTdTitle">주소</td>
-					<td class="orderTd">
-						<input class="inputHeight" type="text" name="postcode" value="${sessionScope.loginuser.postcode}" id="postcode"  readonly></input>
-						<button class="payBtnPost" type="button" id="btnPostcode" onclick="openDaumPOST();">우편번호 검색</button><br>
-						<input class="payInput2" type="text" name="address" id="address" value="${sessionScope.loginuser.address}" readonly></input><br>
-						<input class="payInput2" type="text" name="detailAdress" id="detailAdress" value="${sessionScope.loginuser.detailaddress}"></input>
-					</td>
-			
-				</tr>
-			
-				<tr>
-		    			<td class="orderTd orderTdTitle">배송메모</td>
+			<form name="payment_form">	
+				<table>
+		    		<tr>
+		    			<td class="orderTd orderTdTitle">의뢰자</td>
 		    			<td class="orderTd">
-		    				<input style=" width:500px; height: 35px; font-size:10pt;" placeholder="요청사항을 직접 입력합니다."/>
-		     			</td>
-		     		<tr>
-		     </table>
+		    				<input class="payInput" type="text" name="" placeholder="50자 이내로 입력하세요"/>
+		    			</td>
+		    		<tr>	
+		    		
+		    		<tr>
+		    			<td class="orderTd orderTdTitle">연락처</td>
+		    			<td class="orderTd">
+		    				<input class="payInput" type="text"  placeholder="010-0000-0000"/>
+		    			</td>
+		    		<tr>
+		    		
+		    		<tr>
+					<td class="orderTd orderTdTitle">주소</td>
+						<td class="orderTd">
+							<input class="inputHeight" type="text" name="postcode" value="${sessionScope.loginuser.postcode}" id="postcode"  readonly></input>
+							<button class="payBtnPost" type="button" id="btnPostcode" onclick="openDaumPOST();">우편번호 검색</button><br>
+							<input class="payInput2" type="text" name="address" id="address" value="${sessionScope.loginuser.address}" readonly></input><br>
+							<input class="payInput2" type="text" name="detailAdress" id="detailAdress" value="${sessionScope.loginuser.detailaddress}"></input>
+						</td>
+				
+					</tr>
+				
+					<tr>
+			    			<td class="orderTd orderTdTitle">배송메모</td>
+			    			<td class="orderTd">
+			    				<input style=" width:500px; height: 35px; font-size:10pt;" placeholder="요청사항을 직접 입력합니다."/>
+			     			</td>
+			     		<tr>
+			     </table>
+		     </form>
 		</div>
 		
 		
