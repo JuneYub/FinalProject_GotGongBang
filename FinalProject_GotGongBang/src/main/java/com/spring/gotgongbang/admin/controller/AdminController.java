@@ -50,7 +50,12 @@ public class AdminController {
 		CraftVO craftvo = null;
 		
 		craftvo = service.craftOneView(craft_num_pk);
-				
+		/*
+		String other_career = request.getParameter("other_career_val");
+		System.out.println("other_career : " + other_career);
+		*/
+		//mav.addObject("other_career", other_career);	//기타경력사항
+		
 		mav.addObject("craftvo",craftvo);
 		mav.setViewName("admin/craftView.tiles1");
 		return mav;
@@ -131,7 +136,7 @@ public class AdminController {
 		//e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 		
 		mav = service.loginEnd(mav, request, paraMap);  //서비스단의 loginEnd메소드 
-		return mav;   //ModelAndView의 리턴값은 mav
+		return mav;  
 	}
 	
 	

@@ -42,7 +42,7 @@
                 <ul class="header-member-contents">
 	                <c:if test="${empty sessionScope.loginuser}">
 	                    <li>
-	                        <a onclick="location.href='<%= ctxPath%>/register_member.got'">
+	                        <a onclick="location.href='<%= ctxPath%>/register_member_first.got'">
 	                          	  회원가입
 	                        </a>
 	                        <span class="txt_bar"></span>

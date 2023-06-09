@@ -25,7 +25,7 @@ div#orderContent {
 
 .choose_file {
    /*  visibility: hidden; */
-   display:none;
+  /*  display:none; */
 }
 
 div.orderSelect{
@@ -103,7 +103,7 @@ div.orderSelect{
 	    	
 	    	   
 	    	   if(img_whole_cnt == 3){
-	    		   alert("최대 3개까지 추가 가능합니다.");
+	    		   alert("3개까지 추가 가능합니다.");
 	    		   return;
 	    	   }
         	   fileReader.onload = function() { // FileReader.onload --> 파일 읽기 완료 성공시에만 작동하도록 하는 것임. 
@@ -131,7 +131,7 @@ div.orderSelect{
 	        else if("img_detail" == file_id){
 	        	
 	        	if(img_detail_cnt == 3){
-		    		   alert("최대 3개까지 추가 가능합니다.");
+		    		   alert("3개까지 추가 가능합니다.");
 		    		   return;
 		    	   }
 	        	
@@ -272,7 +272,7 @@ div.orderSelect{
 				   
 			   } // for
 			   
-			   const req_name_list_join = req_name_list.join(' , ');
+			   const req_name_list_join = req_name_list.join(',');
 			   const req_num_list_join = req_num_list.join(',');	// 리스트로 들어온 값을 string으로 받음
 			   
 			   
@@ -284,7 +284,8 @@ div.orderSelect{
 			   $("a.btn-modal").hide();
 			   //$("input#inputSelectList").attr("name",reqest_list);
 			   $("input#inputSelectList").val(req_name_list_join);
-			   $("input[name='reqest_list']").val(req_num_list_join);
+			   $("input[name='reqest_list_num']").val(req_num_list_join);
+			   $("input[name='reqest_list_name']").val(req_name_list_join);
 		   }
 		   
 		    
@@ -358,8 +359,8 @@ div.orderSelect{
 		}
 		
 		// 사진 최소 1장 입력
-		else if(img_whole_list_join=="" || img_detail_list_join==""){
-			alert("사진을 항목별로 최소 1장 넣어주세요.");
+		else if(img_whole_cnt <3  || img_detail_cnt <3){
+			alert("사진을 항목별로 3장씩 넣어주세요.");
 			return;
 		}
 		
@@ -395,6 +396,8 @@ div.orderSelect{
      	<p class="orderTitle">견적 의뢰</p>
      	
      	<hr class="orderHr">
+     	
+     	
     <form name="order_form" enctype="multipart/form-data">	
 	<table>
       	<tr>
@@ -428,16 +431,17 @@ div.orderSelect{
    			</td>
    			
    			<td class="orderTd" style="display:flex;     justify-content: space-between;">
-   				<div class="orderDivPic"  style="width:140px; height:140px;">
+   				<div style="width:500px;  height:140px;     display: flex; flex-direction: column; justify-content: center;">
    					<input type="hidden" name="img_whole_name"/>
-   					<input type="file" id="img_whole" class="choose_file" name="img_whole" accept="image/*" />
-   					<label for="img_whole" style="cursor: pointer;" class="orderDivPic">
-		       			<i class="fa-regular fa-image fa-4x" style="color:lightgray;"></i>
-		       			<div id="img_whole_num" style="text-align: center;">0/3</div>
-	       			</label>
+   					<input type="file" id="img_whole" class="choose_file img_whole1" name="img_whole" accept="image/*"  style="margin-bottom: 10px;"/>
+					<input type="file" id="img_whole" class="choose_file img_whole2" name="img_whole" accept="image/*"  style="margin-bottom: 10px;"/>
+					<input type="file" id="img_whole" class="choose_file img_whole3" name="img_whole" accept="image/*"  style="margin-bottom: 10px;"/>
       	 		</div>
-      	 	
-      	 		<div id="img_whole_div_1" class="orderDivNoBorder" style="width:140px; height:140px;">
+			</td>
+			
+			<td  class="orderTd" style="display:flex; justify-content: space-between;">
+			
+				<div id="img_whole_div_1" class="orderDivNoBorder" style="width:140px; height:140px;">
    					
       	 		</div>
       	 		
@@ -462,17 +466,18 @@ div.orderSelect{
    			</td>
    			
    			<td class="orderTd" style="display:flex; justify-content: space-between;">
-   				<div class="orderDivPic"  style="width:140px;  height:140px;">
-   				<input type="hidden" name="img_detail_name"/>
-   				<input type="file" id="img_detail" class="choose_file" name="img_detail" accept="image/*" />
-   					<label for="img_detail" style="cursor: pointer;" class="orderDivPic">
-		       			<i class="fa-regular fa-image fa-4x" style="color:lightgray;"></i>
-		       			<div id="img_detail_num" style="text-align: center;">0/3</div>
-	       			</label>
-      	 		</div>
+   				<div style="width:500px;  height:140px;     display: flex; flex-direction: column; justify-content: center;">
+	   				<input type="hidden" name="img_detail_name"/>
+	   				<input type="file" id="img_detail" class="choose_file img_detail1" name="img_detail" accept="image/*"  style="margin-bottom: 10px;"/>
+					<input type="file" id="img_detail" class="choose_file img_detail2" name="img_detail" accept="image/*"  style="margin-bottom: 10px;"/>
+					<input type="file" id="img_detail" class="choose_file img_detail3" name="img_detail" accept="image/*"  style="margin-bottom: 10px;"/>
+      	 		</div>	
       	 		
-      	 		
-      	 		<div id="img_detail_div_1" class="orderDivNoBorder" style="width:140px; height:140px;">
+			</td>
+			
+			<td class="orderTd" style="display:flex; justify-content: space-between;">
+
+				<div id="img_detail_div_1" class="orderDivNoBorder" style="width:140px; height:140px;">
    				
       	 		</div>
       	 		
@@ -483,7 +488,7 @@ div.orderSelect{
       	 		<div id="img_detail_div_3" class="orderDivNoBorder" style="width:140px; height:140px;">
    				
       	 		</div>
-      	 		
+	      	 	
 			</td>
    		</tr>
    		
@@ -495,7 +500,8 @@ div.orderSelect{
    				<div class="orderSelect">
 					<a class="btn-modal" style="cursor: pointer;  color:gray; width:600px; " data-selectNum="" data-toggle="modal" data-target="#selectReq" data-dismiss="modal" data-backdrop="static">수선 요청사항을 선택해 주세요.</a>
 					<input id="inputSelectList"  type="hidden" style="width:600px; height:50px; border-radius:5px; border:solid 1px black; font-size:12pt;" readonly></input>
-					<input type="hidden" name="reqest_list"/>
+					<input type="hidden" name="reqest_list_num"/>
+					<input type="hidden" name="reqest_list_name"/>
 				</div>
 			</td>
    		</tr>

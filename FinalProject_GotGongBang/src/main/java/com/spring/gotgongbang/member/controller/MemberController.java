@@ -7,6 +7,7 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -279,6 +280,15 @@ public class MemberController {
 		}
 		
 		
+		@RequestMapping(value="/register_member_first.got")
+		public ModelAndView register_member_first(ModelAndView mav) {
+			
+			mav.setViewName("member/register_member_first.tiles1");
+			return mav;
+	
+		}
+		
+		// 회원가입
 		@RequestMapping(value="/register_member.got")
 		public ModelAndView register_member(ModelAndView mav) {
 			
@@ -304,7 +314,7 @@ public class MemberController {
 		
 
 		
-		// 이메일 인증
+		// 이메일 인증 ( 회원가입 )
 		@ResponseBody
 	    @RequestMapping(value="/member/email_check.got")
 		public String email_check(String email) {
@@ -326,17 +336,74 @@ public class MemberController {
 		@RequestMapping(value="/register.got", method=RequestMethod.POST)
 		public String register(MemberVO membervo) {
 			
+			System.out.println("들어옴");
+			service.encryptPassword(membervo);
+			
 			service.insertMember(membervo);
 			
-			return "redirect:/end_login.got";
+			return "redirect:/end_register_member.got";
 		}
 		
+		
+		@RequestMapping(value="/end_register_member.got")
+		public ModelAndView end_register_member(ModelAndView mav) {
+			
+			mav.setViewName("member/end_register_member.tiles1");
+			return mav;
+		}
+		
+		// 아이디 찾기
 		@RequestMapping(value="/find_id.got")
 		public ModelAndView find_id(ModelAndView mav) {
 			
 			mav.setViewName("member/find_id.tiles1");
 			return mav;
 		}
+		
+		
+		// 이메일 인증 ( 아이디 찾기 )
+		@ResponseBody
+	    @RequestMapping(value="/member/find_id_email_check.got")
+		public String find_id_email_check(String name, String email) {
+			
+			System.out.println("이메일 인증 요청이 들어옴!");
+			System.out.println("이메일 인증 이메일 : " + email);
+			
+			Map<String, String> paraMap = new HashMap<String, String>();
+			paraMap.put("name", name);
+			paraMap.put("email", email);
+			
+			//List<MemberVO> membervo = service.compareNameEmail(name, email);
+			
+			
+			String memberId = service.compareNameEmailMember(paraMap);
+			System.out.println(memberId);
+			String partnerId = service.compareNameEmailpartner(paraMap);
+			System.out.println(partnerId);
+			
+			String emailCode = mailService.joinEmail(email);
+			
+			// JSON 형태로 결과를 반환
+		    JSONObject jsonObj = new JSONObject();
+		    jsonObj.put("memberId", memberId);
+		    jsonObj.put("partnerId", partnerId);
+		    jsonObj.put("emailCode", emailCode);
+
+		    return jsonObj.toString();
+			
+			
+		}
+		
+		
+		// 아이디 찾기 end
+		@RequestMapping(value="/find_id_end.got")
+		public ModelAndView find_id_end(ModelAndView mav) {
+		
+			mav.setViewName("member/find_id_end.tiles1");
+		
+			return mav;
+		}
+		
 		
 		@RequestMapping(value="/find_pwd.got")
 		public ModelAndView find_pwd(ModelAndView mav) {
@@ -363,6 +430,10 @@ public class MemberController {
 			
 			return mav;
 		}
+		
+		
+		
+
 		
 		// 홍용훈 끝
 		// ===========================================================================
