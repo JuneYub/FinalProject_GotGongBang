@@ -145,8 +145,10 @@ public class MemberController {
 		
 		@RequestMapping(value="/order_list.got")
 		public ModelAndView  getOrderListById(ModelAndView mav, HttpServletRequest reqiest) {
-			String userId = "testMember";
+			String userId = "wlgus";
+			List<HashMap<String, String>> orderList = service.getOrderListByUserId(userId);
 			
+			mav.addObject("orderList", orderList);
 			mav.setViewName("member/orderList.tiles1");
 			return mav;
 
