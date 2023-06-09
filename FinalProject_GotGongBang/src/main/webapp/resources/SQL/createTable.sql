@@ -2,7 +2,7 @@
 CREATE TABLE PARTNER (
     partner_id_pk VARCHAR2(20)                                      not null,            -- 파트너 아이디
     partner_name VARCHAR2(20)                                       not null,            -- 파트너 이름
-    partner_pwd VARCHAR2(20)                                        not null,            -- 파트너 비밀번호
+    partner_pwd VARCHAR2(200)                                        not null,            -- 파트너 비밀번호
     partner_email VARCHAR2(40)                                      not null,            -- 파트너 이메일
     partner_mobile VARCHAR2(20)                                     not null,            -- 파트너 전화번호
     partner_post_code VARCHAR2(5)                                   not null,            -- 파트너 우편번호
@@ -21,7 +21,7 @@ CREATE TABLE PARTNER (
     ,constraint CK_PARTNER_partner_gender check( partner_gender in('1','2') )
     ,constraint CK_PARTNER_partner_status check( partner_status in(0,1) )
     ,constraint CK_PARTNER_partner_idle check( partner_idle in(0,1) )
- );   
+ );    
  
  -- 견적서 테이블
 CREATE TABLE ESTIMATE (

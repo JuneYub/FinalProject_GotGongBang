@@ -8,6 +8,8 @@ import java.util.*;
 import com.spring.gotgongbang.member.model.MemberVO;
 
 public interface InterMemberService {
+	
+	// ======== 홍용훈 시작 ========================================== //
 
 	// 회원가입 Service
 	void insertMember(MemberVO membervo);
@@ -24,6 +26,25 @@ public interface InterMemberService {
   	// 로그인
 	ModelAndView loginEnd(ModelAndView mav, HttpServletRequest request, Map<String, String> paraMap);
 	
+	// 이름과 이메일 값으로 아이디 유무 체크
+	List<MemberVO> compareNameEmail(String name, String email);
+	
+	
+	String compareNameEmailMember(Map<String, String> paraMap);
+	
+	
+	String compareNameEmailpartner(Map<String, String> paraMap);
+	
+	
+	
+	
+	
+	
+	// ======== 홍용훈 끝 ========================================== //
+	
+	
+	
+	
 	
 	// ======== 박준엽 시작 ========================================== //
 	
@@ -37,9 +58,14 @@ public interface InterMemberService {
 
 	int updateMemberPwd(MemberVO mvo);
 
+
+
+
+
 	List<HashMap<String, String>> getOrderListByUserId(HashMap<String, String> paraMap);
 
 	int getTotalCountForOrderListByUserId(String userId);
+
 	
 	// ====== 박준엽 끝 =========================================== //
 }

@@ -7,6 +7,31 @@
    String ctxPath = request.getContextPath();
 %>   
 
+<style>
+
+	div.loader {
+     border: 16px solid #f3f3f3;
+     border-radius: 50%;
+     border-top: 12px dotted #9933ff;
+     border-right: 12px dotted #6600ff;
+     border-bottom: 12px dotted #9933ff;
+     border-left: 12px dotted #6600ff; 
+     width: 120px;
+     height: 120px;
+     -webkit-animation: spin 2s linear infinite;
+     animation: spin 2s linear infinite;
+   }
+   @-webkit-keyframes spin {
+     0% { -webkit-transform: rotate(0deg); }
+     100% { -webkit-transform: rotate(360deg); }
+   }
+   
+   @keyframes spin {
+     0% { transform: rotate(0deg); }
+     100% { transform: rotate(360deg); }
+   }
+	
+</style>
 
 <!-- Font Awesome 6 Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -49,6 +74,8 @@
 	
 	
 	$(document).ready(function(){
+		
+		$("div.loader").hide(); // CSS 로딩화면 감추기
 		
 		// 약관 더보기1
 		$(".more1").click(function(){
@@ -192,8 +219,9 @@
 		/* 첫번째 화면 버튼 */
 		$(".btn_next1").click(function() {
 			
-			if( !(flag_check1 || flag_check2 || flag_check3) ) {
+			if( !(flag_check1 && flag_check2 && flag_check3) ) {
 				$(".agree_f").show(); // 경고 표시
+				topScrollFunction();	
 			}
 			else {
 				$(".agree_f").hide(); // 경고 표시
@@ -441,6 +469,8 @@
 			}
 			
 			else if(check_duplicate_email == false) {
+				
+				
 				$.ajax({
 					url: "<%= request.getContextPath()%>/check_email.got",
 				    type: "GET",
@@ -451,7 +481,7 @@
 				        return;
 				        
 				      } else {
-				    	  alert('사용 가능한 이메일입니다. 인증번호를 전송하는 중입니다...');
+				    	  $("div.loader").show(); // CSS 로딩화면 보여주기
 				    	  $.ajax({
 								url:"<%= request.getContextPath()%>/member/email_check.got",
 								data:{"email" : $("#email1").val()},
@@ -461,6 +491,7 @@
 									user_email = $("#email1").val();
 									console.log("code : " + code);
 									check_input.attr('disabled',false);
+									$("div.loader").hide(); // CSS 로딩화면 감추기
 									alert('인증번호가 전송되었습니다.');
 									
 								},
@@ -485,8 +516,8 @@
 			let inputCode = $("input#email_check_number").val();
 			
 			// == 이메일 공백 입력시 == //
-			if( $("input#email").val().trim() == "" ) {
-				$("input#email").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
+			if( $("input#email1").val().trim() == "" ) {
+				$("input#email1").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
 				$(".user_email_f1").show(); // 경고 표시
 				
 				return;
@@ -584,6 +615,8 @@
 			const regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 	     	  
 	     	const bool = regExp.test($(e.target).val());
+	     	
+	     	check_duplicate_email = false;
 			
 			// 공백일 때
 			if( $(e.target).val().trim() == "") {
@@ -901,10 +934,7 @@
 								</div>
 							</dd>
 						</div>
-						
 
-					
-				
 			
 					<div class="sign-up__terms-item accordion__item">
 						<dt class="sign-up__terms-header accordion__header">
@@ -948,7 +978,12 @@
 						<p class="sign-up__step-description">GOTGONGBANG에서는 안전한 회원가입을 위해<br><strong class="sign-up__step-description-point"> 본인확인</strong>을 받고 있습니다. 이메일 인증을 진행해주세요.</p>
 					</div>
 					<div class="sign-up__step-body">
-						<div class="form-field">
+						<div class="form-field" style="z-index: 1;">
+						
+							<div style="display: flex; position: absolute; z-index: 2; left: 350px;">
+							  <div class="loader" style="margin: auto"></div>
+							</div>
+							
 							<h4 class="form-field__title">이메일</h4>
 							<div class="form-field__group form-field__group--input-button">
 								<input class="form-input" type="email" id="email1" name=email1 placeholder="이메일주소를 입력하세요." title="이메일 입력">
