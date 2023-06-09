@@ -56,6 +56,7 @@ public class BoardDAO implements InterBoardDAO {
 	@Override
 	public InquiryVO getView(Map<String, String> paraMap) {
 		InquiryVO iqvo = sqlsession.selectOne("board.getView",paraMap);
+	//	System.out.println("DAO iqvo 확인용" + iqvo);
 		return iqvo;
 	}
 	
@@ -63,6 +64,27 @@ public class BoardDAO implements InterBoardDAO {
 	@Override
 	public void setAddReadCount(String inquiry_num_pk) {
 		sqlsession.update("board.setAddReadCount", inquiry_num_pk);
+	}
+	
+	// 게시글  수정 페이지 완료하기
+	@Override
+	public int edit(InquiryVO iqvo) {
+		int n = sqlsession.update("board.edit", iqvo);
+		return n;
+	}
+	
+	// 게시글 삭제하기
+	@Override
+	public int del(Map<String, String> paraMap) {
+		int n = sqlsession.delete("board.del", paraMap);
+		return n;
+	}
+	
+	// Faq 조회
+	@Override
+	public List<InquiryVO> getFaq() {
+		List<InquiryVO> iqvo = sqlsession.selectList("board.getFaq");
+		return iqvo;
 	}
 	
 	
