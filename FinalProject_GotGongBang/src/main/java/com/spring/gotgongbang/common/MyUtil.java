@@ -2,6 +2,9 @@ package com.spring.gotgongbang.common;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class MyUtil {
    // *** ? 다음의 데이터까지 포함한 현재 URL주소를 알려주는 메소드를 생성한다 
    public static String getCurrentURL(HttpServletRequest request) {
@@ -31,6 +34,39 @@ public class MyUtil {
       
       
       return currentURL;
+   }
+   
+   public String makePageBar(int currentShowPageNo, int blockSize, int totalPage, String url) {
+	      int loop = 1;
+	      int startPageNo = ((currentShowPageNo-1)/blockSize)*blockSize+1;
+	      
+	      String pageBar = "<ul class='pageBar'>";
+	      
+	      if(startPageNo != 1) {
+	         pageBar += "<li class='pageBar-edge'><a href='"+url+"?currentShowPageNo=1'>[맨처음]</a></li>";
+	         pageBar += "<li class='pageBar-move'><a href='"+url+"?currentShowPageNo="+(startPageNo-1)+"'>[이전]</a></li>";
+	      }
+	      
+	      while( !(loop > blockSize || startPageNo > totalPage) ) {
+	         if(startPageNo == currentShowPageNo) {
+	            pageBar += "<li class='pageBar-currentNo'>"+currentShowPageNo+"</li>";
+	         }
+	         else {
+	        	 pageBar += "<li class='pageBar-currentNo'><a href='"+url+"?currentShowPageNo="+startPageNo+"'>"+startPageNo+"</a></li>";
+	         }
+	         
+	         loop++;
+	         startPageNo++;
+	      }
+	      
+	      if( startPageNo <= totalPage) {
+	         pageBar += "<li class='pageBar-move><a href='"+url+"?currentShowPageNo="+currentShowPageNo+"'>[다음]</a></li>";
+	         pageBar += "<li class='pageBar-edge><a href='"+url+"?currentShowPageNo="+totalPage+"'>[마지막]</a></li>";
+	      }
+	      
+	      pageBar += "</ul>";
+	      
+	      return pageBar;
    }
    
    
