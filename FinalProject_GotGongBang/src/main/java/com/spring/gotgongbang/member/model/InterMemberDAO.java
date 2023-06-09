@@ -27,6 +27,26 @@ public interface InterMemberDAO {
 	// 로그인 기록
 	void recordLoginDate(String string, Timestamp loginDate);
 	
+	// 이름과 이메일 값으로 아이디 유무 체크
+	List<MemberVO> compareNameEmail(String name, String email);
+	
+	
+	String compareNameEmailMember(Map<String, String> paraMap);
+	
+	
+	String compareNameEmailpartner(Map<String, String> paraMap);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// ====== 홍용훈 끝 =========================================== //
 
 	// ====== 박준엽 시작 =========================================== //
@@ -38,6 +58,11 @@ public interface InterMemberDAO {
 	int updateMemberInfoByMVO(MemberVO mvo);
 
 	int updateMemberPwd(MemberVO mvo);
+
+
+
+
+
 	
 	// ====== 박준엽 끝 =========================================== //
 

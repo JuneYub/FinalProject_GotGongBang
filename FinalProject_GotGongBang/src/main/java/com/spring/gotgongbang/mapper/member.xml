@@ -58,7 +58,46 @@
         insert into LOGIN_HISTORY (user_id_pk_pk, login_date)
         values (#{userid}, #{loginDate})
     </insert>
+    
+    <!-- 이름과 이메일 값으로 아이디 유무 체크 및 ID 값 가져오기 -->
+    <select id="compareNameEmail" parameterType="HashMap" resultType="com.spring.gotgongbang.member.model.MemberVO">
+    	SELECT COALESCE(m.user_id_pk, p.partner_id_pk) AS user_id_pk
+		FROM member m
+		FULL OUTER JOIN partner p ON m.name = p.partner_name
+		WHERE #{name} IN (m.name, p.partner_name) and #{email} IN (m.email, p.partner_email)
+    </select>
+    
+    
+    <select id="compareNameEmailMember" parameterType="HashMap" resultType="String">
+    	SELECT user_id_pk
+		FROM member
+		WHERE name = #{name} and email = #{email}
+    </select>
+    
+    
+    <select id="compareNameEmailpartner" parameterType="HashMap" resultType="String">
+    	SELECT partner_id_pk AS user_id_pk
+		FROM partner
+		WHERE partner_name = #{name} and partner_email = #{email}
+    </select>
+    
+    
+    
     <!--==================== 홍용훈 끝 ====================== -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
      
     <!--==================== 박준엽 시작 ====================== -->

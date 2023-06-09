@@ -174,7 +174,42 @@ public class MemberService implements InterMemberService {
 		}
 		return mav;
 	}
+	
+	// 이름과 이메일 값으로 아이디 유무 체크
+	@Override
+	public List<MemberVO> compareNameEmail(String name, String email) {
+		List<MemberVO> membervo = dao.compareNameEmail(name, email);
+		return membervo;
+	}
+	
+	
+	@Override
+	public String compareNameEmailMember(Map<String, String> paraMap) {
+		String memberId = dao.compareNameEmailMember(paraMap);
+		return memberId;
+	}
+	
+	
+	@Override
+	public String compareNameEmailpartner(Map<String, String> paraMap) {
+		String partnerId = dao.compareNameEmailpartner(paraMap);
+		return partnerId;
+	}
+	
+	
+	
+	
+	
+	
 	// =========== 홍용훈 끝 =========================================== //
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// =========== 박준엽 시작 =========================================== //
 	
@@ -201,4 +236,9 @@ public class MemberService implements InterMemberService {
 		int n = dao.updateMemberPwd(mvo);
 		return n;
 	}
+
+	
+
+	
+
 }
