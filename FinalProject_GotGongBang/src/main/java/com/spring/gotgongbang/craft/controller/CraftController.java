@@ -1,10 +1,8 @@
 package com.spring.gotgongbang.craft.controller;
 
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Insert;
 import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +28,6 @@ import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.craft.model.ImageVO;
 import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.craft.service.InterCraftService;
-import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.OrderVO;
 
 @Controller
@@ -268,32 +264,29 @@ public class CraftController {
 
          String path = root+"resources"+File.separator+"files";
          
-          System.out.println("~~~~ 확인용 path => " + path);
+         System.out.println("~~~~ 확인용 path => " + path);
          
-          String newFileName = "";
-          // WAS(톰캣)의 디스크에 저장될 파일명
+         String newFileName = "";
+         // WAS(톰캣)의 디스크에 저장될 파일명
+         // 2381899872914.png
          
-          String originalFilename = "";
-          
-          byte[] bytes = null;
+         String originalFilename = "";
+         // 강아지.png, 고양이.png, 판다.png
+         
+         byte[] bytes = null;
           // 첨부파일의 내용물을 담는 것
          
-          long fileSize = 0;
+         long fileSize = 0;
           // 첨부파일의 크기
           
-          for(MultipartFile mf : fileList) {
+         for(MultipartFile mf : fileList) {
                try {
-                   bytes = mf.getBytes();
-                  // 첨부파일의 내용물을 읽어오는 것
+                  bytes = mf.getBytes();
                   
-                  originalFilename = mf.getOriginalFilename();
+                  originalFilename += ("," + mf.getOriginalFilename());
                   
-                  System.out.println("~~~~ 확인용 originalFilename => " + originalFilename); 
-                  
-                  newFileName = fileManager.doFileUpload(bytes, originalFilename, path);
-                  // 첨부되어진 파일을 업로드 하는 것이다.
-                  
-                  System.out.println(">>> 확인용  newFileName => " + newFileName); 
+                  newFileName += ("," + fileManager.doFileUpload(bytes, originalFilename, path));
+
                   /*
                   cvo.setFileName(newFileName);
                   // WAS(톰캣)에 저장된 파일명(20230522103642842968758293800.pdf)
@@ -305,25 +298,21 @@ public class CraftController {
                   fileSize = mf.getSize(); // 첨부파일의 크기(단위는 byte임)
                   cvo.setFileSize(String.valueOf(fileSize));
                   
-                     // mf.transferTo(new File(newFileName));
+                  //mf.transferTo(new File(newFileName));
                    */
              } catch (Exception e) {
                    e.printStackTrace();
              }
              
           }// end of for -------------------------------------
-/*
-          
-          for(int i = 0; i < fileList.size() ; i++){
-				 //원래 파일명
-				 String orgFilename = fileList.get(i).getOriginalFilename();
-				 //저장되는 파일이름
-				 fileList.get(i).get
-          }
-  */        
-          
-          
-          
+
+          String originalFilename_ss = originalFilename.substring(1);
+          String newFileName_ss = newFileName.substring(1);
+        
+          //System.out.println("~~~~ 확인용 originalFilename_ss => " + originalFilename_ss); 
+          //System.out.println(">>> 확인용  newFileName_ss => " + newFileName_ss); 
+
+          // 기타 경력사항이 있는 경우 세션에 저장(하고 뷰단에서 세션 remove)
     	  String other_career = "";
     	  other_career = request.getParameter("other_career");
     	  //System.out.println("other_career : " + other_career);
@@ -331,15 +320,19 @@ public class CraftController {
     	  if(other_career != "") {
 			  session.setAttribute("other_career", other_career);
     	  }
+    	  //=========================//
     	  
+    	  // 연락처(mobile) 합체~~!
           String hp1= request.getParameter("hp1");
     	  String hp2= request.getParameter("hp2");
     	  String hp3= request.getParameter("hp3");
     	  
     	  String craft_mobile = hp1 + hp2 + hp3;
     	  cvo.setCraft_mobile(craft_mobile);
+    	  //=========================//
+    	  cvo.setFileName(newFileName_ss);
+    	  cvo.setOrgFilename(originalFilename_ss);
     	  
-    	 
           MultipartFile craft_add_file_name = imgvo.getCraft_add_file_name();
 
           n = service.add_withFile(cvo);

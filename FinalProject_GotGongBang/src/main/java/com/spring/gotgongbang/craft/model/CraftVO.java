@@ -39,9 +39,9 @@ public class CraftVO {
 	/Board/src/main/webapp/WEB-INF/views/tiles1/board/view.jsp 파일에서 input type="file" 인 name 의 이름(attach)과  
 	동일해야만 파일첨부가 가능해진다.!!!!
 	*/
-	private String[] fileName;    // WAS(톰캣)에 저장될 파일명(2022042911123035243254235235234.png) 
-	private String[] orgFilename; // 진짜 파일명(강아지.png)  // 사용자가 파일을 업로드 하거나 파일을 다운로드 할때 사용되어지는 파일명
-	private String[] fileSize;    // 파일크기 
+	private String fileName;    // WAS(톰캣)에 저장될 파일명(2022042911123035243254235235234.png) 
+	private String orgFilename; // 진짜 파일명(강아지.png)  // 사용자가 파일을 업로드 하거나 파일을 다운로드 할때 사용되어지는 파일명
+	private String fileSize;    // 파일크기 
 	
 	////////////////////////////////////////////////////////
 
@@ -239,32 +239,32 @@ public class CraftVO {
 		this.craft_salary = craft_salary;
 	}
 
-	public String[] getFileName() {
+	public String getFileName() {
 		return fileName;
 	}
 
 
-	public void setFileName(String[] fileName) {
+	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
 
 
-	public String[] getOrgFilename() {
+	public String getOrgFilename() {
 		return orgFilename;
 	}
 
 
-	public void setOrgFilename(String[] orgFilename) {
+	public void setOrgFilename(String orgFilename) {
 		this.orgFilename = orgFilename;
 	}
 
 
-	public String[] getFileSize() {
+	public String getFileSize() {
 		return fileSize;
 	}
 
 
-	public void setFileSize(String[] fileSize) {
+	public void setFileSize(String fileSize) {
 		this.fileSize = fileSize;
 	}
 
