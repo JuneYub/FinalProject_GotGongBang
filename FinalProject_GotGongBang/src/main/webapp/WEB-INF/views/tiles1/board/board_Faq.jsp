@@ -18,35 +18,23 @@ $(document).ready(function(){
 	  $(".more1").click(function(){
 	    var $item = $(this).closest(".ojh_accordion__item"); // 클릭한 아이템을 선택합니다.
 	    var $content = $item.find(".dd1"); // 클릭한 아이템 내의 내용을 선택합니다.
-
+	    
 	    if ($content.hasClass("ojh_accordion__collapse")) {
 	      // 내용이 닫혀있는 경우
+	      $content.find(".div1").show();
 	      $content.removeClass("ojh_accordion__collapse");
 	      $content.addClass("ojh_accordion__collapse--expand");
-	      $content.find(".div1").show();
 	      $content.find(".div1").removeClass("div1_h");
 	    } else {
 	      // 내용이 열려있는 경우
+	      $content.find(".div1").hide();
 	      $content.addClass("ojh_accordion__collapse");
 	      $content.removeClass("ojh_accordion__collapse--expand");
-	      $content.find(".div1").hide();
 	      $content.find(".div1").addClass("div1_h");
 	    }
-
-	    // 클릭 이벤트가 발생한 후에 애니메이션을 적용하기 위해 setTimeout 사용
-	    setTimeout(function() {
-	      // 애니메이션 효과를 위해 transition 속성 초기화
-	      $content.css("transition", "none");
-
-	      // 다음 리플로우를 위해 강제로 레이아웃을 갱신합니다.
-	      $content[0].offsetHeight;
-
-	      // 클릭 이벤트가 발생한 후에 다시 transition 속성을 적용합니다.
-	      $content.css("transition", "");
-	    }, 0);
 	  });
 	});
-		
+	
 </script>
 
   <div id="ojh_content">
