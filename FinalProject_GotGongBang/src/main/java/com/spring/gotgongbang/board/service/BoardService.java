@@ -1,5 +1,6 @@
 package com.spring.gotgongbang.board.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -101,6 +102,7 @@ public class BoardService implements InterBoardService {
 			
 			return iqvo;
 		}
+
 		
 		// 게시글  수정 페이지 완료하기
 		@Override

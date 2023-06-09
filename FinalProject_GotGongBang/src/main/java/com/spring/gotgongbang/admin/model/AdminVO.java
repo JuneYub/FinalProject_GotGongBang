@@ -53,7 +53,7 @@ public class AdminVO {
 		this.lastlogingap = lastlogingap;
 	}
 
-	public boolean isRequirePwdChange() {
+	public boolean getRequirePwdChange() {
 		return requirePwdChange;
 	}
 

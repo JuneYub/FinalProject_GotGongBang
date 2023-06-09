@@ -1,5 +1,6 @@
 package com.spring.gotgongbang.board.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -86,7 +87,6 @@ public class BoardDAO implements InterBoardDAO {
 		List<InquiryVO> iqvo = sqlsession.selectList("board.getFaq");
 		return iqvo;
 	}
-	
 	
 	
 	
