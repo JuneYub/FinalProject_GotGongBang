@@ -6,31 +6,47 @@
    String ctxPath = request.getContextPath();
 %>   
 
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <style type="text/css">
 	
 </style>
 
-<script type="text/javascript"> 
+<script type="text/javascript">
 
 $(document).ready(function(){
-	 function collapse(element) {
-         var before = document.getElementsByClassName("active")[0]               // 기존에 활성화된 버튼
-         if (before && document.getElementsByClassName("active")[0] != element) {  // 자신 이외에 이미 활성화된 버튼이 있으면
-             before.nextElementSibling.style.maxHeight = null;   // 기존에 펼쳐진 내용 접고
-             before.classList.remove("active");                  // 버튼 비활성화
-         }
-         element.classList.toggle("active");         // 활성화 여부 toggle
+	  $(".more1").click(function(){
+	    var $item = $(this).closest(".ojh_accordion__item"); // 클릭한 아이템을 선택합니다.
+	    var $content = $item.find(".dd1"); // 클릭한 아이템 내의 내용을 선택합니다.
 
-         var content = element.nextElementSibling;
-         if (content.style.maxHeight != 0) {         // 버튼 다음 요소가 펼쳐져 있으면
-             content.style.maxHeight = null;         // 접기
-         } else {
-             content.style.maxHeight = content.scrollHeight + "px";  // 접혀있는 경우 펼치기
-         }
-     }
-	
-});
-	
+	    if ($content.hasClass("ojh_accordion__collapse")) {
+	      // 내용이 닫혀있는 경우
+	      $content.removeClass("ojh_accordion__collapse");
+	      $content.addClass("ojh_accordion__collapse--expand");
+	      $content.find(".div1").show();
+	      $content.find(".div1").removeClass("div1_h");
+	    } else {
+	      // 내용이 열려있는 경우
+	      $content.addClass("ojh_accordion__collapse");
+	      $content.removeClass("ojh_accordion__collapse--expand");
+	      $content.find(".div1").hide();
+	      $content.find(".div1").addClass("div1_h");
+	    }
+
+	    // 클릭 이벤트가 발생한 후에 애니메이션을 적용하기 위해 setTimeout 사용
+	    setTimeout(function() {
+	      // 애니메이션 효과를 위해 transition 속성 초기화
+	      $content.css("transition", "none");
+
+	      // 다음 리플로우를 위해 강제로 레이아웃을 갱신합니다.
+	      $content[0].offsetHeight;
+
+	      // 클릭 이벤트가 발생한 후에 다시 transition 속성을 적용합니다.
+	      $content.css("transition", "");
+	    }, 0);
+	  });
+	});
+		
 </script>
 
   <div id="ojh_content">
@@ -87,11 +103,11 @@ $(document).ready(function(){
                                <c:forEach var="inquiryvo" items="${requestScope.iqvo}">
                                 <div class="ojh_accordion__item accordion__item--show accordion__item--fade">
                                     <dt class="ojh_accordion__header">
-                                        <button class="ojh_accordion__trigger" type="button" data-seq="79" onclick="collapse(this);">
+                                        <button class="ojh_accordion__trigger more1 btn" type="button" data-seq="79" onclick="collapse(this);">
                                                 <strong>Q.</strong>${inquiryvo.inquiry_title}</button>
                                     </dt>
-                                    <dd class="ojh_accordion__collapse">
-                                        <div class="ojh_accordion__body ck-content">
+                                    <dd class="ojh_accordion__collapse dd1">
+                                        <div class="ojh_accordion__body div1 div_h1">
                                             <strong>A.</strong>
                                             <p><span>하이픈은 비대면 상담 서비스를 제공하고 있어 내방 상담은 별도로 지원하지 않고 있습니다.&nbsp;</span></p>
                                             <p>&nbsp;</p>
