@@ -204,8 +204,11 @@ public class OrderController {
 		
 		HttpSession session = mrequest.getSession();
 	    String root = session.getServletContext().getRealPath("/");
-	    String path_whole = root + "resources"+File.separator+"img\\orders";
-	    String path_detail = root + "resources"+File.separator+"img\\orders_detail";
+	    //String path_whole = root + "resources"+File.separator+"img\\orders";
+	    //C:\NCS\workspace(spring)\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\FinalProject_GotGongBang\resources\img\orders
+	    
+	    String path_whole = root + "resources"+File.separator+"orders";
+	    String path_detail = root + "resources"+File.separator+"orders_detail";
 		
 	    
 	    System.out.println("~~~~ 확인용 path_whole => " + path_whole);
