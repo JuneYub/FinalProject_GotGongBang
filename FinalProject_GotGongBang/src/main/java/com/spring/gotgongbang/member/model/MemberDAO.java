@@ -17,6 +17,8 @@ public class MemberDAO implements InterMemberDAO {
 	@Resource
 	private SqlSessionTemplate sqlsession;
 	
+	// ====== 홍용훈 시작 =========================================== //
+	
 	// 회원가입
 	@Override
 	public void insertMember(MemberVO membervo) {
@@ -36,6 +38,71 @@ public class MemberDAO implements InterMemberDAO {
 		int n = sqlsession.selectOne("member.isIdDuplicate", id);
 		return n;
 	}
+	
+	// 로그인 처리
+	@Override
+	public MemberVO getLoginMember(Map<String, String> paraMap) {
+		MemberVO loginuser = sqlsession.selectOne("member.getLoginMember", paraMap);
+		return loginuser;
+	}
+
+	// MEMBER 테이블의 idle 컬럼의 값을 1로 변경
+	@Override
+	public int updateIdle(String userid) {
+		int n = sqlsession.update("member.updateIdle", userid);
+		return n;
+	}
+
+	// 로그인 기록
+	@Override
+	public void recordLoginDate(String userid, Timestamp loginDate) {
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+		paraMap.put("userid", userid);
+		paraMap.put("loginDate", loginDate);
+        sqlsession.insert("member.recordLoginDate", paraMap);
+	}
+	
+	// 이름과 이메일 값으로 아이디 유무 체크
+	@Override
+	public List<MemberVO> compareNameEmail(String name, String email) {
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+		paraMap.put("name", name);
+		paraMap.put("email", email);
+		List<MemberVO> membervo = sqlsession.selectList("member.compareNameEmail", paraMap);
+		System.out.println("dao membervo : " + membervo);
+		return membervo;
+	}
+	
+	
+	@Override
+	public String compareNameEmailMember(Map<String, String> paraMap) {
+		String memberId = sqlsession.selectOne("member.compareNameEmailMember", paraMap);
+		return memberId;
+	}
+	
+	
+	@Override
+	public String compareNameEmailpartner(Map<String, String> paraMap) {
+		String partnerId = sqlsession.selectOne("member.compareNameEmailpartner", paraMap);
+		return partnerId;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// ====== 홍용훈 끝 =========================================== //
 	
 	// ====== 박준엽 시작 =========================================== //
 
@@ -78,28 +145,7 @@ public class MemberDAO implements InterMemberDAO {
 	
 	// ====== 박준엽 끝 =========================================== //
 
-	// 로그인 처리
-	@Override
-	public MemberVO getLoginMember(Map<String, String> paraMap) {
-		MemberVO loginuser = sqlsession.selectOne("member.getLoginMember", paraMap);
-		return loginuser;
-	}
-
-	// MEMBER 테이블의 idle 컬럼의 값을 1로 변경
-	@Override
-	public int updateIdle(String userid) {
-		int n = sqlsession.update("member.updateIdle", userid);
-		return n;
-	}
-
-	// 로그인 기록
-	@Override
-	public void recordLoginDate(String userid, Timestamp loginDate) {
-		Map<String, Object> paraMap = new HashMap<String, Object>();
-		paraMap.put("userid", userid);
-		paraMap.put("loginDate", loginDate);
-        sqlsession.insert("member.recordLoginDate", paraMap);
-	}
+	
 
 	
 	
