@@ -38,6 +38,8 @@ public interface InterMemberDAO {
 	int updateMemberInfoByMVO(MemberVO mvo);
 
 	int updateMemberPwd(MemberVO mvo);
+
+	List<HashMap<String, String>> getOrderListByUserId(String userId);
 	
 	// ====== 박준엽 끝 =========================================== //
 
