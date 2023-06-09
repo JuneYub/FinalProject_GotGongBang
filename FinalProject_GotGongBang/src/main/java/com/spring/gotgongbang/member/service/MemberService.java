@@ -203,8 +203,14 @@ public class MemberService implements InterMemberService {
 	}
 
 	@Override
-	public List<HashMap<String, String>> getOrderListByUserId(String userId) {
-		List<HashMap<String, String>> orderList = dao.getOrderListByUserId(userId);
+	public List<HashMap<String, String>> getOrderListByUserId(HashMap<String, String> paraMap) {
+		List<HashMap<String, String>> orderList = dao.getOrderListByUserId(paraMap);
 		return orderList;
+	}
+
+	@Override
+	public int getTotalCountForOrderListByUserId(String userId) {
+		int n = dao.getTotalCountForOrderListByUserId(userId);
+		return n;
 	}
 }

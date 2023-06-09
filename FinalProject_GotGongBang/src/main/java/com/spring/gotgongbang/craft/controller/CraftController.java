@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.common.FileManager;
+import com.spring.gotgongbang.common.MyUtil;
 import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.craft.model.ImageVO;
 import com.spring.gotgongbang.craft.model.PartnerVO;
@@ -44,6 +45,9 @@ public class CraftController {
 
     @Autowired   
     private FileManager fileManager;
+    
+    @Autowired
+    private MyUtil myUtil;
       
    
 
@@ -432,7 +436,7 @@ public class CraftController {
       List<OrderVO> ovoList = service.getAllOrders(paraMap);
       
       String url = "estimate_inquiry_list.got";
-      String pageBar = makePageBar(currentShowPageNoForEstimate, 10, totalPageForEstimate, url);
+      String pageBar = myUtil.makePageBar(currentShowPageNoForEstimate, 10, totalPageForEstimate, url);
       
       mav.addObject("currentShowPageNo", currentShowPageNoForEstimate);
       mav.addObject("pageBar", pageBar);
@@ -534,7 +538,7 @@ public class CraftController {
 	  List<HashMap<String, String>> paraMapList = service.getRepariListBycraftNum(paraMap);
 	  
 	  String url = "repair_history_list.got";
-      String pageBar = makePageBar(currentShowPageNoForRepariList, 10, totalPageRepariList, url);
+      String pageBar = myUtil.makePageBar(currentShowPageNoForRepariList, 10, totalPageRepariList, url);
   
       mav.addObject("currentShowPageNo", currentShowPageNoForRepariList);
       mav.addObject("pageBar", pageBar);
@@ -641,38 +645,7 @@ public class CraftController {
 	   return jsonObj.toString();
    }
  
-   public String makePageBar(int currentShowPageNo, int blockSize, int totalPage, String url) {
-      int loop = 1;
-      int startPageNo = ((currentShowPageNo-1)/blockSize)*blockSize+1;
-      
-      String pageBar = "<ul class='pageBar'>";
-      
-      if(startPageNo != 1) {
-         pageBar += "<li class='pageBar-edge'><a href='"+url+"?currentShowPageNo=1'>[맨처음]</a></li>";
-         pageBar += "<li class='pageBar-move'><a href='"+url+"?currentShowPageNo="+(startPageNo-1)+"'>[이전]</a></li>";
-      }
-      
-      while( !(loop > blockSize || startPageNo > totalPage) ) {
-         if(startPageNo == currentShowPageNo) {
-            pageBar += "<li class='pageBar-currentNo'>"+currentShowPageNo+"</li>";
-         }
-         else {
-        	 pageBar += "<li class='pageBar-currentNo'><a href='"+url+"?currentShowPageNo="+startPageNo+"'>"+startPageNo+"</a></li>";
-         }
-         
-         loop++;
-         startPageNo++;
-      }
-      
-      if( startPageNo <= totalPage) {
-         pageBar += "<li class='pageBar-move><a href='"+url+"?currentShowPageNo="+currentShowPageNo+"'>[다음]</a></li>";
-         pageBar += "<li class='pageBar-edge><a href='"+url+"?currentShowPageNo="+totalPage+"'>[마지막]</a></li>";
-      }
-      
-      pageBar += "</ul>";
-      
-      return pageBar;
-   }
+   
    
    
    

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.HomeController;
+import com.spring.gotgongbang.common.MyUtil;
 import com.spring.gotgongbang.common.Sha256;
 import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.member.model.MemberVO;
@@ -30,6 +31,10 @@ import com.spring.gotgongbang.member.service.MailSendService;
 @Component
 @Controller
 public class MemberController {
+		
+	@Autowired
+	private MyUtil myUtil;
+	
 		// 김나윤 시작
 		// ===========================================================================
 		// 김나윤 끝
@@ -58,6 +63,8 @@ public class MemberController {
 			request.getParameter("endRno");
 			
 			List<HashMap<String, String>> proposalList = service.getProposalListByUserId(paraMap);
+			
+			
 			
 			mav.addObject("proposalList", proposalList);
 			mav.setViewName("member/proposal_list.tiles1");
@@ -144,10 +151,51 @@ public class MemberController {
 		}
 		
 		@RequestMapping(value="/order_list.got")
-		public ModelAndView  getOrderListById(ModelAndView mav, HttpServletRequest reqiest) {
+		public ModelAndView  getOrderListById(ModelAndView mav, HttpServletRequest request) {
 			String userId = "wlgus";
-			List<HashMap<String, String>> orderList = service.getOrderListByUserId(userId);
+
+			String str_currentShowPageNo = request.getParameter("currentShowPageNo");
+			int totalCount = 0;
+			int sizePerPage = 5;
+			int currentShowPageNo = 0;
+			int totalPage = 0;
 			
+			int startRno = 0;
+			int endRno = 0;
+			
+			totalCount = service.getTotalCountForOrderListByUserId(userId);
+			
+			totalPage = (int)Math.ceil((double)totalCount/sizePerPage);
+			if(str_currentShowPageNo == null) {
+				currentShowPageNo = 1;
+			}
+			else {
+				try {
+					currentShowPageNo = Integer.parseInt(str_currentShowPageNo);
+					if(currentShowPageNo < 1 || currentShowPageNo > totalPage) {
+						currentShowPageNo = 1;
+					}
+				}
+				catch(NumberFormatException e) {
+					currentShowPageNo = 1;
+				}
+			}
+			
+			startRno = ((currentShowPageNo - 1 ) * sizePerPage) + 1;
+			endRno = startRno + sizePerPage -1;
+			
+			HashMap<String, String> paraMap = new HashMap<String, String>();
+			paraMap.put("startRno", String.valueOf(startRno));
+			paraMap.put("endRno", String.valueOf(endRno));
+			paraMap.put("userId", userId);
+			
+			String url = "order_list.got";
+			String pageBar = myUtil.makePageBar(currentShowPageNo, 10, totalPage, url);
+			
+			List<HashMap<String, String>> orderList = service.getOrderListByUserId(paraMap);
+			
+			mav.addObject("currentShowPageNo", currentShowPageNo);
+			mav.addObject("pageBar", pageBar);
 			mav.addObject("orderList", orderList);
 			mav.setViewName("member/orderList.tiles1");
 			return mav;

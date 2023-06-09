@@ -126,8 +126,29 @@
 		WHERE user_id_pk = #{user_id_pk}
     </update>
     
-    <select id="getOrderListByUserId" parameterType="String" resultMap="getOrderListByUserIdMap">
-		select order_detail_id_pk, to_char(payment_date, 'yyyy-mm-dd') as payment_date, craft_name, craft_mobile, estimate_price, product_status
+    <select id="getOrderListByUserId" parameterType="HashMap" resultMap="getOrderListByUserIdMap">
+		select order_detail_id_pk, payment_date, craft_name, craft_mobile, estimate_price, product_status
+		from 
+		(
+		    select row_number() over(order by payment_date desc) as rno, order_detail_id_pk, to_char(payment_date, 'yyyy-mm-dd') as payment_date, craft_name, craft_mobile, estimate_price, product_status
+		    from
+		    ORDER_DETAIL
+		    join
+		    ESTIMATE
+		    on estimate_num_fk = estimate_num_pk
+		    join
+		    CRAFT
+		    on craft_num_fk = craft_num_pk
+		    join
+		    orders
+		    on order_num_fk = order_num_pk
+		    where user_id_fk = #{userId}
+		)
+		where rno between #{startRno} and #{endRno}
+    </select>
+    
+    <select id="getTotalCountForOrderListByUserId" parameterType="String" resultType="int">
+    	select count(order_detail_id_pk)
 		from
 		ORDER_DETAIL
 		join
@@ -139,7 +160,7 @@
 		join
 		orders
 		on order_num_fk = order_num_pk
-		where user_id_fk = #{userID}
+		where user_id_fk = #{userId}
     </select>
     
     <!--==================== 박준엽 끝 ====================== -->

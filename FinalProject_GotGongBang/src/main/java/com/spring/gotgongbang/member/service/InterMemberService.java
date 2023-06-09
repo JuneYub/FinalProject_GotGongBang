@@ -37,7 +37,9 @@ public interface InterMemberService {
 
 	int updateMemberPwd(MemberVO mvo);
 
-	List<HashMap<String, String>> getOrderListByUserId(String userId);
+	List<HashMap<String, String>> getOrderListByUserId(HashMap<String, String> paraMap);
+
+	int getTotalCountForOrderListByUserId(String userId);
 	
 	// ====== 박준엽 끝 =========================================== //
 }
