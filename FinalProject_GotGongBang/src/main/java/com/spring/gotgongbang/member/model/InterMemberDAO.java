@@ -59,16 +59,11 @@ public interface InterMemberDAO {
 
 	int updateMemberPwd(MemberVO mvo);
 
-
-
-
-
-
-
 	List<HashMap<String, String>> getOrderListByUserId(HashMap<String, String> paraMap);
 
 	int getTotalCountForOrderListByUserId(String userId);
 
+	int getTotalCountProposalListByUserId(String userId);
 	
 	// ====== 박준엽 끝 =========================================== //
 

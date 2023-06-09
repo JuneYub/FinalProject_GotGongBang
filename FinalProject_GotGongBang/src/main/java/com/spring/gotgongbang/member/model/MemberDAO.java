@@ -141,6 +141,12 @@ public class MemberDAO implements InterMemberDAO {
 		int n = sqlsession.selectOne("member.getTotalCountForOrderListByUserId", userId);
 		return n;
 	}
+	
+	@Override
+	public int getTotalCountProposalListByUserId(String userId) {
+		int n = sqlsession.selectOne("member.getTotalCountProposalListByUserId", userId);
+		return n;
+	}
 
 	
 	// ====== 박준엽 끝 =========================================== //

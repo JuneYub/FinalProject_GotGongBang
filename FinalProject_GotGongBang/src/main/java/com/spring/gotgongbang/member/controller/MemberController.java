@@ -52,21 +52,46 @@ public class MemberController {
 		@RequestMapping(value="/proposal_list.got")
 		public ModelAndView proposalList(ModelAndView mav, HttpServletRequest request) {
 			String userId = "testMember"; // 테스트를 위해서 유저아이디를 지정해준 것 이후에는 세션을 통해서 지정할 예정
-		    int startRno = 1;
-		    int endRno = 5;
-		    
-		    HashMap<String, String> paraMap = new HashMap<String, String>();
-		    paraMap.put("userId", userId);
-		    paraMap.put("startRno", String.valueOf(startRno));
-		    paraMap.put("endRno", String.valueOf(endRno));
-		    
-			request.getParameter("startRno");
-			request.getParameter("endRno");
+			int totalCount = 0;
+			int sizePerPage = 5;
+			int currentShowPageNo = 0;
+			int totalPage = 0;
 			
+			int startRno = 0;
+			int endRno = 0;
+			
+			String str_currentShowPageNo = request.getParameter("currentShowPageNo");
+			totalCount = service.getTotalCountProposalListByUserId(userId);
+			
+			totalPage = (int)Math.ceil((double)totalCount/sizePerPage);
+			if(str_currentShowPageNo == null) {
+				currentShowPageNo = 1;
+			}
+			else {
+				try {
+					currentShowPageNo = Integer.parseInt(str_currentShowPageNo);
+					if(currentShowPageNo < 1 || currentShowPageNo > totalPage) {
+						currentShowPageNo = 1;
+					}
+				}
+				catch(NumberFormatException e) {
+					currentShowPageNo = 1;
+				}
+			}
+		    
+			startRno = ((currentShowPageNo - 1 ) * sizePerPage) + 1;
+			endRno = startRno + sizePerPage -1;
+			
+			HashMap<String, String> paraMap = new HashMap<String, String>();
+			paraMap.put("startRno", String.valueOf(startRno));
+			paraMap.put("endRno", String.valueOf(endRno));
+			paraMap.put("userId", userId);
+			
+			String url = "order_list.got";
+			String pageBar = myUtil.makePageBar(currentShowPageNo, 10, totalPage, url);
 			List<HashMap<String, String>> proposalList = service.getProposalListByUserId(paraMap);
 			
-			
-			
+			mav.addObject("pageBar", pageBar);
 			mav.addObject("proposalList", proposalList);
 			mav.setViewName("member/proposal_list.tiles1");
 			return mav;
