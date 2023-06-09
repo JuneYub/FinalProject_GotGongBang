@@ -125,6 +125,13 @@ public class CarftDAO implements InterCraftDAO {
 		return sqlsession.update("craft.updateStateByOrderNum", paraMap);
 	}
 	
+	@Override
+	public List<HashMap<String, String>> getRepariListBycraftNum(HashMap<String, String> paraMap) {
+		List<HashMap<String, String>> paraMapList = sqlsession.selectList("craft.getRepariListBycraftNum", paraMap);
+		return paraMapList;
+	}
+
+	
 	
 	// =============== 박준엽 끝 =================//
 	
@@ -150,14 +157,6 @@ public class CarftDAO implements InterCraftDAO {
 		CraftVO craftvo = sqlsession.selectOne("craft.crafts_detail_select");
 		return craftvo;
 	}
-
-	@Override
-	public List<HashMap<String, String>> getRepariListBycraftNum(HashMap<String, String> paraMap) {
-		List<HashMap<String, String>> paraMapList = sqlsession.selectList("craft.getRepariListBycraftNum", paraMap);
-		return paraMapList;
-	}
-
-
 
 
 	

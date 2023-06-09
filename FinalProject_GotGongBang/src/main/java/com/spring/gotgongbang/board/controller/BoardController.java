@@ -47,9 +47,9 @@ public class BoardController {
 
 	
 	// 김나윤 시작
-		// ===========================================================================
-		// 김나윤 끝
-		// ===========================================================================
+	// ===========================================================================
+	// 김나윤 끝
+	// ===========================================================================
 
 	// 박준엽 시작
 		// ===========================================================================
@@ -128,7 +128,7 @@ public class BoardController {
 			searchWord = "";
 		}
 		
-		Map<String, String> paraMap = new HashMap<>();
+		Map<String, String> paraMap = new HashMap<String, String>();
 		paraMap.put("searchType", searchType);
 		paraMap.put("searchWord", searchWord);
 		
@@ -357,7 +357,7 @@ public class BoardController {
 			try {
 				Integer.parseInt(inquiry_num_pk);
 				
-				Map<String, String> paraMap = new HashMap<>();
+				Map<String, String> paraMap = new HashMap<String, String>();
 				paraMap.put("inquiry_num_pk", inquiry_num_pk);
 				
 				paraMap.put("searchType", searchType); // board_view.jsp 에서 이전글제목 및 다음글제목 클릭시 사용하기 위해서 임.

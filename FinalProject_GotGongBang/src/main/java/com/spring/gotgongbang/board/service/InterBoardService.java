@@ -1,5 +1,6 @@
 package com.spring.gotgongbang.board.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +53,8 @@ public interface InterBoardService {
 		// Faq 조회
 		List<InquiryVO> getFaq();
 		
+		
+
 		
 		
 		
