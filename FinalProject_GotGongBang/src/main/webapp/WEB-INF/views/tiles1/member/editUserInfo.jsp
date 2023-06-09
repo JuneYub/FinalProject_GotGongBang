@@ -267,7 +267,7 @@
 		<div class="myPage-menu-list">
 			<ul>
 				<li class=""><a class="" href="<%= ctxPath%>/proposal_list.got">견적 제안서 목록</a></li>
-				<li class=""><a class="" href="<%= ctxPath%>/repair_history_list.got">주문 내역</a></li>
+				<li class=""><a class="" href="<%= ctxPath%>/order_list.got">주문 내역</a></li>
 				<li class="menu-list-selected"><a class="menu-list-selected" href="<%= ctxPath%>/edit_user_info.got">개인 정보 변경</a></li>
 			</ul>
 		</div>
