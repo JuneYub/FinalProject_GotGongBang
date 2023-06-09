@@ -201,4 +201,10 @@ public class MemberService implements InterMemberService {
 		int n = dao.updateMemberPwd(mvo);
 		return n;
 	}
+
+	@Override
+	public List<HashMap<String, String>> getOrderListByUserId(String userId) {
+		List<HashMap<String, String>> orderList = dao.getOrderListByUserId(userId);
+		return orderList;
+	}
 }

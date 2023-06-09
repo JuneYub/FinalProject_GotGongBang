@@ -37,8 +37,8 @@
 	<div class="myPage-contents">
 		<div class="myPage-menu-list">
 			<ul>
-				<li class="menu-list-selected"><a class="menu-list-selected" href="<%= ctxPath%>/estimate_inquiry_list.got">견적 목록</a></li>
-				<li><a class="" href="<%= ctxPath%>/repair_history_list.got">수선 내역</a></li>
+				<li class="menu-list-selected"><a class="menu-list-selected" href="<%= ctxPath%>/proposal_list.got">견적 제안서 목록</a></li>
+				<li><a class="" href="<%= ctxPath%>/order_list.got">주문 내역</a></li>
 				<li><a class="" href="<%= ctxPath%>/edit_user_info.got">개인 정보 변경</a></li>
 			</ul>
 		</div>
@@ -66,6 +66,7 @@
 							<div class="txt-estimate-info">
 							<div class="txt-info-center"><strong>내 요청 정보</strong></div>
 							<ul>
+								<input type="hidden" value="${proposal.estimate_num_pk}" />  
 								<li><div class="proposal-info-tit">품목명 :</div> 		<strong>${proposal.order_product_type}</strong></li>
 								<li><div class="proposal-info-tit">브랜드 :</div> 		<strong>${proposal.brand_name}</strong></li>
 								<li><div class="proposal-info-tit">수선 유형 :</div>

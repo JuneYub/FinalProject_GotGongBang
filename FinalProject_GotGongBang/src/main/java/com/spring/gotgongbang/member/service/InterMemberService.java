@@ -1,7 +1,5 @@
 package com.spring.gotgongbang.member.service;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -38,6 +36,8 @@ public interface InterMemberService {
 
 
 	int updateMemberPwd(MemberVO mvo);
+
+	List<HashMap<String, String>> getOrderListByUserId(String userId);
 	
 	// ====== 박준엽 끝 =========================================== //
 }

@@ -63,6 +63,12 @@ public class MemberDAO implements InterMemberDAO {
 		return n;
 	}
 	
+	@Override
+	public List<HashMap<String, String>> getOrderListByUserId(String userId) {
+		List<HashMap<String, String>> orderList = sqlsession.selectList("member.getOrderListByUserId", userId);
+		return orderList;
+	}
+	
 	// ====== 박준엽 끝 =========================================== //
 
 	// 로그인 처리
@@ -82,7 +88,7 @@ public class MemberDAO implements InterMemberDAO {
 	// 로그인 기록
 	@Override
 	public void recordLoginDate(String userid, Timestamp loginDate) {
-		Map<String, Object> paraMap = new HashMap<>();
+		Map<String, Object> paraMap = new HashMap<String, Object>();
 		paraMap.put("userid", userid);
 		paraMap.put("loginDate", loginDate);
         sqlsession.insert("member.recordLoginDate", paraMap);
