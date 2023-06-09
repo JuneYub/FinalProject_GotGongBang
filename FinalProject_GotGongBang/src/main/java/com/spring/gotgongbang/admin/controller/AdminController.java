@@ -1,6 +1,7 @@
 package com.spring.gotgongbang.admin.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,10 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.gotgongbang.admin.model.AdminVO;
-import com.spring.gotgongbang.admin.service.AdminService;
 import com.spring.gotgongbang.admin.service.InterAdminService;
 import com.spring.gotgongbang.common.Sha256;
+import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.member.controller.MemberController;
 
 @Component
@@ -27,16 +27,36 @@ public class AdminController {
 
 	// 김진솔 시작
 	// ===========================================================================
-
+	
+	// 공방 목록 보기 페이지 요청
 	@RequestMapping(value = "/craft_list.got")
 	public ModelAndView craftList(ModelAndView mav) {
+        List<CraftVO> craftList = null;
+
+        craftList = service.selectCraftList();
+
+        mav.addObject("craftList", craftList);
 		mav.setViewName("admin/craftList.tiles1");
+		
 		return mav;
 	}
 	
 
+	// 공방 한 개 보기 페이지 요청
 	@RequestMapping(value = "/craft_view.got")
-	public ModelAndView craftView(ModelAndView mav) {
+	public ModelAndView craftView(ModelAndView mav, HttpServletRequest request) {
+		String craft_num_pk = request.getParameter("craft_num_pk");
+		
+		CraftVO craftvo = null;
+		
+		craftvo = service.craftOneView(craft_num_pk);
+		/*
+		String other_career = request.getParameter("other_career_val");
+		System.out.println("other_career : " + other_career);
+		*/
+		//mav.addObject("other_career", other_career);	//기타경력사항
+		
+		mav.addObject("craftvo",craftvo);
 		mav.setViewName("admin/craftView.tiles1");
 		return mav;
 	}

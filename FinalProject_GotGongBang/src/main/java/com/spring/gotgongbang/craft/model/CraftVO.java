@@ -7,14 +7,14 @@ public class CraftVO {
 	
 	/////////////////// ====== 김진솔 시작 ===== ///////////////////////
 	private String craft_num_pk;				//공방번호
-	private String user_id_fk;					//유저 아이디
+	private String partner_id_fk;					//유저 아이디
 	private String craft_name;					//공방이름
 	private String craft_mobile;				//공방연락처
 	private String craft_representative;		//공방 대표이름
 	private MultipartFile craft_representative_image;	//공방 대표 사진
 	private MultipartFile craft_image;					//공방 사진
 	private String craft_Introduce;				//공방 한줄소개
-	private String craft_career;				//경력사항
+	private String craft_career;				//경력기간
 	private MultipartFile craft_certificate;			//자격증
 	private String craft_specialty;				//전문품목
 	private String craft_post_code;				//우편번호
@@ -24,24 +24,24 @@ public class CraftVO {
 	private String craft_latitude;				//위도
 	private String craft_longitude;				//경도
 	private String craft_status;				//(임시/정식) 상태
+	private String craft_salary;				//희망급여
 	private String craft_rating;				//별점
-
+	
 	// * select용 *
 	private ImageVO imgvo;
 
 	////////////////////////////////////////////////////////
 		   
 	// 먼저, 댓글쓰기에 파일첨부까지 한 것을 위해서 오라클에서 tbl_comment 테이블에 fileName, orgFilename, fileSize 컬럼을 추가해주어야 한다. 
-	private MultipartFile attach;
 	/* form 태그에서 type="file" 인 파일을 받아서 저장되는 필드이다. 
 	진짜파일 ==> WAS(톰캣) 디스크에 저장됨.
 	조심할것은 MultipartFile attach 는 오라클 데이터베이스 tbl_comment 테이블의 컬럼이 아니다.   
 	/Board/src/main/webapp/WEB-INF/views/tiles1/board/view.jsp 파일에서 input type="file" 인 name 의 이름(attach)과  
 	동일해야만 파일첨부가 가능해진다.!!!!
 	*/
-	private String fileName;    // WAS(톰캣)에 저장될 파일명(2022042911123035243254235235234.png) 
-	private String orgFilename; // 진짜 파일명(강아지.png)  // 사용자가 파일을 업로드 하거나 파일을 다운로드 할때 사용되어지는 파일명
-	private String fileSize;    // 파일크기 
+	private String[] fileName;    // WAS(톰캣)에 저장될 파일명(2022042911123035243254235235234.png) 
+	private String[] orgFilename; // 진짜 파일명(강아지.png)  // 사용자가 파일을 업로드 하거나 파일을 다운로드 할때 사용되어지는 파일명
+	private String[] fileSize;    // 파일크기 
 	
 	////////////////////////////////////////////////////////
 
@@ -84,13 +84,15 @@ public class CraftVO {
 		this.craft_num_pk = craft_num_pk;
 	}
 
-	public String getUser_id_fk() {
-		return user_id_fk;
+	public String getPartner_id_fk() {
+		return partner_id_fk;
 	}
 
-	public void setUser_id_fk(String user_id_fk) {
-		this.user_id_fk = user_id_fk;
+
+	public void setPartner_id_fk(String partner_id_fk) {
+		this.partner_id_fk = partner_id_fk;
 	}
+
 
 	public String getCraft_name() {
 		return craft_name;
@@ -228,35 +230,41 @@ public class CraftVO {
 		this.craft_rating = craft_rating;
 	}
 
-	public MultipartFile getAttach() {
-		return attach;
+	public String getCraft_salary() {
+		return craft_salary;
 	}
 
-	public void setAttach(MultipartFile attach) {
-		this.attach = attach;
+
+	public void setCraft_salary(String craft_salary) {
+		this.craft_salary = craft_salary;
 	}
 
-	public String getFileName() {
+	public String[] getFileName() {
 		return fileName;
 	}
 
-	public void setFileName(String fileName) {
+
+	public void setFileName(String[] fileName) {
 		this.fileName = fileName;
 	}
 
-	public String getOrgFilename() {
+
+	public String[] getOrgFilename() {
 		return orgFilename;
 	}
 
-	public void setOrgFilename(String orgFilename) {
+
+	public void setOrgFilename(String[] orgFilename) {
 		this.orgFilename = orgFilename;
 	}
 
-	public String getFileSize() {
+
+	public String[] getFileSize() {
 		return fileSize;
 	}
 
-	public void setFileSize(String fileSize) {
+
+	public void setFileSize(String[] fileSize) {
 		this.fileSize = fileSize;
 	}
 

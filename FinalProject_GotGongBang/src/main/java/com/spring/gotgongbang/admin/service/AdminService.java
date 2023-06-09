@@ -2,6 +2,7 @@ package com.spring.gotgongbang.admin.service;
 
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.admin.model.AdminVO;
 import com.spring.gotgongbang.admin.model.InterAdminDAO;
+import com.spring.gotgongbang.craft.model.CraftVO;
 
 @Service
 public class AdminService implements InterAdminService{
@@ -90,7 +92,40 @@ public class AdminService implements InterAdminService{
 		}
 
 
+
+
 	
 	// ==== ==================================== 김나윤 끝 ======================================================= // 
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// ==== ==================================== 김진솔 시작 ======================================================= // 
+	
+	// 공방 목록 보기
+	@Override
+	public List<CraftVO> selectCraftList() {
+		List<CraftVO> craftList = dao.selectCraftList();
+		return craftList;
+	}
+
+	// 공방 한 개 보기 페이지
+	@Override
+	public CraftVO craftOneView(String craft_num_pk) {
+		CraftVO craftvo = dao.craftOneView(craft_num_pk);
+		return craftvo;
+	}
+	
+	
+	// ==== ==================================== 김진솔 끝 ======================================================= // 
+
 	
 }

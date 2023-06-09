@@ -4,6 +4,7 @@ package com.spring.gotgongbang.craft.controller;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -274,7 +275,7 @@ public class CraftController {
 
    //공방 신청정보를(첨부파일 포함)DB에 insert해주는 기능
    @RequestMapping(value = "/craft_application_end.got", method = {RequestMethod.POST})
-   public String craft_application_end(CraftVO cvo, ImageVO imgvo, MultipartHttpServletRequest mrequest, HttpServletRequest request) { 
+   public String craft_application_end(CraftVO cvo, ImageVO imgvo, MultipartHttpServletRequest mrequest, HttpServletRequest request , HttpServletResponse response) { 
 
 	  // 이미지 파일들 가져오기
       List<MultipartFile> fileList = new ArrayList<MultipartFile>();
@@ -296,8 +297,6 @@ public class CraftController {
          
           System.out.println("~~~~ 확인용 path => " + path);
          
-          //파일첨부를 위한 변수의 설정 및 값을 초기화 한 후 파일 올리기
-         
           String newFileName = "";
           // WAS(톰캣)의 디스크에 저장될 파일명
          
@@ -315,18 +314,14 @@ public class CraftController {
                   // 첨부파일의 내용물을 읽어오는 것
                   
                   originalFilename = mf.getOriginalFilename();
-                  // attach.getOriginalFilename() 이 첨부파일명의 파일명(예: 강아지.png) 이다. 
                   
-                   System.out.println("~~~~ 확인용 originalFilename => " + originalFilename); 
-                  // ~~~~ 확인용 originalFilename => LG_싸이킹청소기_사용설명서.pdf
+                  System.out.println("~~~~ 확인용 originalFilename => " + originalFilename); 
                   
                   newFileName = fileManager.doFileUpload(bytes, originalFilename, path);
                   // 첨부되어진 파일을 업로드 하는 것이다.
                   
                   System.out.println(">>> 확인용  newFileName => " + newFileName); 
-                   // >>> 확인용  newFileName => 20230522103642842968758293800.pdf
-                  // >>> 확인용  newFileName => 20230522103904843110797635200.pdf
-                  
+                  /*
                   cvo.setFileName(newFileName);
                   // WAS(톰캣)에 저장된 파일명(20230522103642842968758293800.pdf)
                   
@@ -338,14 +333,32 @@ public class CraftController {
                   cvo.setFileSize(String.valueOf(fileSize));
                   
                      // mf.transferTo(new File(newFileName));
-
+                   */
              } catch (Exception e) {
                    e.printStackTrace();
              }
              
           }// end of for -------------------------------------
+/*
           
+          for(int i = 0; i < fileList.size() ; i++){
+				 //원래 파일명
+				 String orgFilename = fileList.get(i).getOriginalFilename();
+				 //저장되는 파일이름
+				 fileList.get(i).get
+          }
+  */        
+          
+          
+          
+    	  String other_career = "";
+    	  other_career = request.getParameter("other_career");
+    	  //System.out.println("other_career : " + other_career);
 
+    	  if(other_career != "") {
+			  session.setAttribute("other_career", other_career);
+    	  }
+    	  
           String hp1= request.getParameter("hp1");
     	  String hp2= request.getParameter("hp2");
     	  String hp3= request.getParameter("hp3");
@@ -353,19 +366,19 @@ public class CraftController {
     	  String craft_mobile = hp1 + hp2 + hp3;
     	  cvo.setCraft_mobile(craft_mobile);
     	  
-    	  
+    	 
           MultipartFile craft_add_file_name = imgvo.getCraft_add_file_name();
 
           n = service.add_withFile(cvo);
           if(n==1){
-        	  System.out.println("~~n :" +n);
+        	  return "redirect:/craft_complete.got";
           }else {
-        	  System.out.println("~n : " + n);
+        	  return "javascript:history.go(0)";
           }
           
        } //end of if(!fileList.isEmpty())---------------------------
-             
-       return "";
+       
+       return "javascript:history.go(0)";
        
    }
    
@@ -480,7 +493,48 @@ public class CraftController {
    }
    
    @RequestMapping(value="/repair_history_list.got")
-   public ModelAndView repairHistoryList(ModelAndView mav) {
+   public ModelAndView repairHistoryList(ModelAndView mav, HttpServletRequest request) {
+	  String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+	  String craftNum = service.getCraftNumByPartnerId(partnerId);
+	  String str_currentShowPageNo = request.getParameter("currentShowPageNo");
+      int totalCountForRepariList = 0;
+      int sizePerPageRepariList = 5;
+      int currentShowPageNoForRepariList = 0;
+      int totalPageRepariList = 0;
+      
+      int startRno = 0;
+      int endRno = 0;
+      
+      totalCountForRepariList = service.getTotalCountForRepairList(craftNum);
+      totalPageRepariList = (int)Math.ceil((double)totalCountForRepariList/sizePerPageRepariList);
+      if(str_currentShowPageNo == null) {
+    	  currentShowPageNoForRepariList = 1;
+      }
+      else {
+         try {
+        	 currentShowPageNoForRepariList = Integer.parseInt(str_currentShowPageNo);
+            if(currentShowPageNoForRepariList < 1 || currentShowPageNoForRepariList > totalPageRepariList) {
+            	currentShowPageNoForRepariList = 1;
+            }
+         }
+         catch(NumberFormatException e) {
+        	 currentShowPageNoForRepariList = 1;
+         }
+      }
+      startRno = ((currentShowPageNoForRepariList - 1) * sizePerPageRepariList) + 1;
+      endRno = startRno + sizePerPageRepariList - 1;
+      
+      HashMap<String, String> paraMap = new HashMap<String, String>();
+      paraMap.put("startRno", String.valueOf(startRno));
+      paraMap.put("endRno", String.valueOf(endRno));
+      paraMap.put("craftNum", craftNum);
+	  
+	  List<HashMap<String, String>> paraMapList = service.getRepariListBycraftNum(paraMap);
+      String pageBar = makePageBar(currentShowPageNoForRepariList, 10, totalPageRepariList);
+  
+      mav.addObject("currentShowPageNo", currentShowPageNoForRepariList);
+      mav.addObject("pageBar", pageBar);
+	  mav.addObject("paraMapList", paraMapList); 
       mav.setViewName("/craft/repairHistoryList.tiles1");
       return mav;
    }
@@ -566,6 +620,23 @@ public class CraftController {
 	    jsonObj.put("n", n);
 	    return jsonObj.toString();
    }
+   
+   @ResponseBody
+   @RequestMapping(value="/update_state.got", method= {RequestMethod.POST})
+   public String updateStateByOrderNum(HttpServletRequest request) {
+	   String orderNum = request.getParameter("orderNum");
+	   String state = request.getParameter("state");
+	   
+	   HashMap<String, String> paraMap = new HashMap<String, String>();
+	   paraMap.put("orderNum", orderNum);
+	   paraMap.put("state", state);
+	   
+	   int n = service.updateStateByOrderNum(paraMap);
+	    
+	   JSONObject jsonObj = new JSONObject();
+	   jsonObj.put("n", n);
+	   return jsonObj.toString();
+   }
  
    public String makePageBar(int currentShowPageNo, int blockSize, int totalPage) {
       int loop = 1;
@@ -600,6 +671,7 @@ public class CraftController {
       
       return pageBar;
    }
+   
    
    
    // 박준엽 끝
