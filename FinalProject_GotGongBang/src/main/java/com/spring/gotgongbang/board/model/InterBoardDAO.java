@@ -1,5 +1,6 @@
 package com.spring.gotgongbang.board.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,8 @@ public interface InterBoardDAO {
 	InquiryVO getView(Map<String, String> paraMap);
 	// 글조회수 1증가하기
 	void setAddReadCount(String inquiry_num_pk);
+
+//	int insertReview(HashMap<String, String> paraMap);
 	
 	
 	

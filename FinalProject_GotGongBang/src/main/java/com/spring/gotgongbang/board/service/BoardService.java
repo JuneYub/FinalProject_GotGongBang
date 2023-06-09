@@ -1,5 +1,6 @@
 package com.spring.gotgongbang.board.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,15 @@ public class BoardService implements InterBoardService {
 		
 
 		// 김나윤 시작 ===========================================================================
+		/*
+		@Override
+		public int insertReview(HashMap<String, String> paraMap) {
+			int n = dao.insertReview(paraMap);
+			return n;
+		}
+		*/
+		
+		
 		// 김나윤 끝 ===========================================================================
 		
 		// 김진솔 시작 ===========================================================================
@@ -97,6 +107,7 @@ public class BoardService implements InterBoardService {
 			
 			return iqvo;
 		}
+
 		
 		
 		

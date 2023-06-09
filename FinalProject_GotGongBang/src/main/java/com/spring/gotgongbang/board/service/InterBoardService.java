@@ -1,5 +1,6 @@
 package com.spring.gotgongbang.board.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,11 @@ public interface InterBoardService {
 	
 		
 		// 김나윤 시작 ===========================================================================
+	
+	
+	
+	//	int insertReview(HashMap<String, String> paraMap);
+	
 		// 김나윤 끝 ===========================================================================
 		
 		// 김진솔 시작 ===========================================================================
@@ -42,6 +48,8 @@ public interface InterBoardService {
 		
 		// 조회수 증가 없이 게시글 조회
 		InquiryVO getViewWithNoAddCount(Map<String, String> paraMap);
+
+		
 
 		
 		

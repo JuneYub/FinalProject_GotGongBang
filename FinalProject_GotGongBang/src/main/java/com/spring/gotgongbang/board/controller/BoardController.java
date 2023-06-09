@@ -44,9 +44,36 @@ public class BoardController {
 
 	
 	// 김나윤 시작
-		// ===========================================================================
-		// 김나윤 끝
-		// ===========================================================================
+	// ===========================================================================
+	
+/*	
+	//#1.
+	@RequestMapping(value="/write_review.got")
+	public ModelAndView writeReivew(ModelAndView mav, HttpServletRequest request) {
+		
+		mav.setViewName("/board/write_review.tiles1");
+		
+		return mav;
+	}
+	
+	//#3. ajax로 뷰단 form 내용 넘겨주기
+	@ResponseBody
+	@RequestMapping(value="/")
+	public String insertReview(HttpServletRequest request) {
+		
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		HashMap<String, String> paraMap = new HashMap<String, String>();
+		
+		int n = service.insertReview(paraMap);//뷰단 form이 넘어가면 1, 넘어가지 않으면 0
+		
+		return n;
+	}
+*/	
+	
+	// 김나윤 끝
+	// ===========================================================================
 
 	// 박준엽 시작
 		// ===========================================================================

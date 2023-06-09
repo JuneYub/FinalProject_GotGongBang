@@ -65,29 +65,57 @@ public class CraftController {
 //      return mav;
 //   }
    
-   @RequestMapping(value="/crafts_list_10bag.got")
-   public ModelAndView craftList_10bag(ModelAndView mav) {
-      mav.setViewName("/craft/craft_list_10bag.tiles1");
-      return mav;
-   }
+	@RequestMapping(value="/crafts_list_10bag.got")
+	public ModelAndView craftList_10bag(ModelAndView mav) {
+	   
+		List<CraftVO> craftsList = null;
+	      
+		craftsList = service.crafts_list_select();
+	      
+		mav.addObject("craftsList", craftsList);
+		mav.setViewName("/craft/craft_list_10bag.tiles1");
+		
+		return mav;
+	}
    
-   @RequestMapping(value="/crafts_list_20shoes.got")
-   public ModelAndView craftList_20shoes(ModelAndView mav) {
-      mav.setViewName("/craft/craft_list_20shoes.tiles1");
-      return mav;
-   }
+	@RequestMapping(value="/crafts_list_20shoes.got")
+	public ModelAndView craftList_20shoes(ModelAndView mav) {
+	   
+	   List<CraftVO> craftsList = null;
+	      
+	   craftsList = service.crafts_list_select();
+	   
+	   mav.addObject("craftsList", craftsList);
+	   mav.setViewName("/craft/craft_list_20shoes.tiles1");
+	   
+	   return mav;
+	}
    
-   @RequestMapping(value="/crafts_list_30wallet.got")
-   public ModelAndView craftList_30wallet(ModelAndView mav) {
-      mav.setViewName("/craft/craft_list_30wallet.tiles1");
-      return mav;
-   }
+	@RequestMapping(value="/crafts_list_30wallet.got")
+	public ModelAndView craftList_30wallet(ModelAndView mav) {
+	   
+		List<CraftVO> craftsList = null;
+	      
+		craftsList = service.crafts_list_select();
+	   
+		mav.addObject("craftsList", craftsList);
+		mav.setViewName("/craft/craft_list_30wallet.tiles1");
+		
+		return mav;
+	}
    
-   @RequestMapping(value="/crafts_list_40cloth.got")
-   public ModelAndView craftList_40cloth(ModelAndView mav) {
-      mav.setViewName("/craft/craft_list_40cloth.tiles1");
-      return mav;
-   }
+	@RequestMapping(value="/crafts_list_40cloth.got")
+	public ModelAndView craftList_40cloth(ModelAndView mav) {
+	   
+		List<CraftVO> craftsList = null;
+	      
+		craftsList = service.crafts_list_select();
+	   
+		mav.addObject("craftsList", craftsList);
+		mav.setViewName("/craft/craft_list_40cloth.tiles1");
+		
+		return mav;
+	}
    
    @RequestMapping(value="/crafts_list.got")
    public ModelAndView crafts_list_select(ModelAndView mav) {
@@ -106,7 +134,6 @@ public class CraftController {
       
       mav.addObject("craftsList", craftsList);
       mav.setViewName("/craft/craft_list.tiles1");
-      
 
       
       return mav;

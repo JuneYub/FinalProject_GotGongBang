@@ -1,6 +1,8 @@
 package com.spring.gotgongbang.board.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -37,7 +39,38 @@ public class BoardDAO implements InterBoardDAO {
 		List<InquiryVO> iqList = sqlsession.selectList("board.BoardQuestionList");
 		return iqList;
 	}
-	
+
+	@Override
+	public int getTotalCount(Map<String, String> paraMap) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<InquiryVO> iqListSearchWithPaging(Map<String, String> paraMap) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InquiryVO getView(Map<String, String> paraMap) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setAddReadCount(String inquiry_num_pk) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/*
+	@Override
+	public int insertReview(HashMap<String, String> paraMap) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	*/
 	
 	
 	
