@@ -515,9 +515,6 @@ public class CraftController {
       int n = 0;
       n = service.updatePartnerInfo(pvo);
       
-      if(pvo.getPartner_pwd() != null && pvo.getPartner_pwd() != "") {
-         n = service.updatePartnerPwd(pvo);
-      }
       String message = "";
       String loc = "";
       
@@ -564,16 +561,18 @@ public class CraftController {
    @RequestMapping(value="/check_insert_craftPwd.got", method = {RequestMethod.POST})
    public String checkInsertCraftPw(HttpServletRequest request) {
 		String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것 
-		String insertPwd = request.getParameter("insertPwd");
-		
+		String editPw = request.getParameter("editPw");
+
 		PartnerVO pvo = new PartnerVO();
       	pvo = service.getPartnerInfoByUserId(partnerId);
 	    int n = 0;
-
-	    if(insertPwd.equals(pvo.getPartner_pwd())) {
-	    	n = 1;
+	    if(editPw.equals(pvo.getPartner_pwd())) {
+	    	n = 2;
 	    }
-	    
+		else {
+			pvo.setPartner_pwd(editPw);
+			n = service.updatePartnerPwd(pvo);
+		}
 	    JSONObject jsonObj = new JSONObject();
 	    jsonObj.put("n", n);
 	    return jsonObj.toString();

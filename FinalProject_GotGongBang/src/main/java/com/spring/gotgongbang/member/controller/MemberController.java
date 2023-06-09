@@ -143,6 +143,15 @@ public class MemberController {
 		    return jsonObj.toString();
 		}
 		
+		@RequestMapping(value="/order_list.got")
+		public ModelAndView  getOrderListById(ModelAndView mav, HttpServletRequest reqiest) {
+			String userId = "testMember";
+			
+			mav.setViewName("member/orderList.tiles1");
+			return mav;
+
+		}
+		
 		
 		// 박준엽 끝
 		// ===========================================================================
