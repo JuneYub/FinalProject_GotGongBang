@@ -70,18 +70,28 @@
     	<result column="requests" property="requests"/>
     	<result column="craft_num_fk" property="craft_num_fk"/>
     	<result column="craft_name" property="craft_name"/>
+    	<result column="estimate_num_pk" property="estimate_num_pk"/>
     	<result column="estimate_price" property="estimate_price"/>
     	<result column="estimate_period" property="estimate_period"/>
     	<result column="estimate_proposal_date" property="estimate_proposal_date"/>
     </resultMap>
     
+    <resultMap type="HashMap" id="getOrderListByUserIdMap">
+    	<result column="order_detail_id_pk" property="order_detail_id_pk" />
+    	<result column="payment_date" property="payment_date" />
+    	<result column="craft_name" property="craft_name" />
+    	<result column="craft_mobile" property="craft_mobile" />
+    	<result column="estimate_price" property="estimate_price" />
+    	<result column="product_status" property="product_status" />
+    </resultMap>
+    
     <select id="getProposalListByUserId" parameterType="HashMap" resultMap="getProposalListByUserIdMap">
     	select order_num_pk, order_product_type, brand_name, request_explain, requests, craft_num_fk, 
-    	order_num_fk, craft_name, estimate_price, estimate_period, to_char(estimate_proposal_date, 'yyyy-mm-dd') as estimate_proposal_date
+    	order_num_fk, craft_name, estimate_num_pk, estimate_price, estimate_period, to_char(estimate_proposal_date, 'yyyy-mm-dd') as estimate_proposal_date
 		from
 		(
 		    select row_number() over(order by estimate_proposal_date desc) as rno, order_num_pk, order_product_type, brand_name, request_explain, requests, craft_num_fk, 
-		    order_num_fk, (select craft_name from CRAFT where craft_num_pk = B.craft_num_fk) as craft_name,
+		    order_num_fk, (select craft_name from CRAFT where craft_num_pk = B.craft_num_fk) as craft_name, estimate_num_pk,
 		    estimate_price, estimate_period, estimate_proposal_date
 		    from
 		    (
@@ -91,7 +101,7 @@
 		    ) A
 		    join
 		    (
-		    select craft_num_fk, order_num_fk, estimate_price, estimate_period, estimate_proposal_date
+		    select estimate_num_pk, craft_num_fk, order_num_fk, estimate_price, estimate_period, estimate_proposal_date
 		    from ESTIMATE
 		    ) B
 		    on order_num_pk = order_num_fk
@@ -115,6 +125,22 @@
     	UPDATE MEMBER SET pwd = #{pwd}, last_pwd_change = sysdate
 		WHERE user_id_pk = #{user_id_pk}
     </update>
+    
+    <select id="getOrderListByUserId" parameterType="String" resultMap="getOrderListByUserIdMap">
+		select order_detail_id_pk, to_char(payment_date, 'yyyy-mm-dd') as payment_date, craft_name, craft_mobile, estimate_price, product_status
+		from
+		ORDER_DETAIL
+		join
+		ESTIMATE
+		on estimate_num_fk = estimate_num_pk
+		join
+		CRAFT
+		on craft_num_fk = craft_num_pk
+		join
+		orders
+		on order_num_fk = order_num_pk
+		where user_id_fk = #{userID}
+    </select>
     
     <!--==================== 박준엽 끝 ====================== -->
 
