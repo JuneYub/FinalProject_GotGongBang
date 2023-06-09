@@ -295,6 +295,22 @@
 		});
 		
 		
+		
+		//이미지 파일첨부 필수입력 
+		$("input.img_file").change( (e) => {
+			if( $(e.target).val()=="" ){
+				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
+				$(e.target).prop("disabled", false);
+
+				$(e.target).parent().find("span.error").show();
+				$(e.target).focus();
+				return false;
+			}
+			$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+			$(e.target).parent().find("span.error").hide();
+		});
+	
+		
 
 		
 		// 희망급여 필수입력
@@ -309,22 +325,6 @@
 				$(e.target).focus();	//다른곳을 클릭 못하게 함 e.target에 포커스 머무름
 				
 			}else{
-				//공백이 아닌 숫자를 입력했을 경우
-				/*
-				const regExp = /^[1-9][0-9]{1,5}$/g;
-				const bool = regExp.test($(e.target).val());
-				
-				$(e.target).parent().find("span.error_2").hide();
-				
-				if(bool){	//정규표현식에 만족한 경우
-					$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
-					$(e.target).parent().find("span.error").hide();
-					
-				}
-				else{	//정규표현식 만족하지 못 한 경우
-					$(e.target).parent().find("span.error_2").show();
-				}
-				*/
 				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
 
 			}
@@ -352,6 +352,10 @@
 	         };
 	             
 	     }); 
+	    
+	    
+	    
+	    
 		
 		
 	}); // end of $(document).ready(function() ----------------------------
@@ -362,6 +366,14 @@
 	
 	// === '신청' 버튼을 눌렀을 때  ===
 	function goComplete() {
+		 
+		// 공방 사진 첨부 안했을때 submit 막아주기 및 에러 띄워주기
+		if( $(".img_file").val()=="" ){
+			$(".img_file").parent().find("span.error").show();
+			return;
+		}
+		
+		
 		// 전문 품목 체크박스 배열로 저장
 	       var obj = $("[name=craft_specialty]");
 	           var chkArray = new Array(); 
@@ -398,6 +410,7 @@
 				$("#btnPostcode").parent().parent().find("span.error").hide();
 				$("input#detailAddress").parent().parent().find("span.error_2").show();
 				$("input#detailAddress").focus();
+				return;
 			}else{
 				$("input#detailAddress").parent().parent().find("span.error_2").hide();
 
@@ -405,7 +418,6 @@
 			
 		}
 		
-		  $("#other_career").val();
 			
 
 		  const frm = document.craft_application_frm;
@@ -499,24 +511,24 @@
                         <span> <p> * 공방 사진</p>
                             <div class="filebox" >
                                 <!-- <input class="upload-name" id="craft_img" style="margin-bottom: 10px;" readonly="readonly" placeholder="파일첨부" value=""/> -->
-                                <label for="file"></label> 
-                                <input type="file" class="img_file" id="file" name="craft_image" accept='image/*'/>
-                                <span class="error" style="display: inline-block; margin:0 0 30px 20px; color:#400099;">※ 공방 사진은 필수 입력 사항입니다.</span>
+                                <label for="craft_image"></label> 
+                                <input type="file" class="img_file" id="craft_image" name="craft_image" accept='image/*'/>
+                                <span class="error" style="display: inline-block;color:#400099;">※ 공방 사진은 필수 입력 사항입니다.</span>
                             </div>
                         </span>
                         <span> <p>&nbsp;&nbsp;&nbsp;추가 사진(선택)</p>
                             <div class="filebox" >
                                 <!-- <input class="upload-name" id="craft_add_img" style="margin-bottom: 10px;" readonly="readonly" placeholder="파일첨부"  value=""/> -->
-                                <label for="file"></label> 
-                                <input type="file" class="img_file" id="file" name="craft_add_file_name" accept='image/*' />
+                                <label for="craft_add_file_name"></label> 
+                                <input type="file" class="add_img_file" id="craft_add_file_name" name="craft_add_file_name" accept='image/*' style="padding: 6px; margin-left: 20px;" />
                             </div>
                         </span>
                         <span> <p> * 공방 대표자 사진</p>
                             <div class="filebox" >
                                 <!-- <input class="upload-name" id="craft_rep_img" style="margin-bottom: 10px;" readonly="readonly" placeholder="파일첨부"  value=""/> -->
-                                <label for="file"></label> 
-                                <input type="file" class="img_file" id="file" name="craft_representative_image" accept='image/*' />
-                                <span class="error" style="display: inline-block; margin:0 0 30px 20px; color:#400099;">※ 공방 대표자 사진은 필수 입력 사항입니다.</span>
+                                <label for="craft_representative_image"></label> 
+                                <input type="file" class="img_file" id="craft_representative_image" name="craft_representative_image" accept='image/*' />
+                                <span class="error" style="display: inline-block; color:#400099;">※ 공방 대표자 사진은 필수 입력 사항입니다.</span>
                             </div>
                         </span>
                     </div>
@@ -524,7 +536,7 @@
 	                         <span> <p>&nbsp;&nbsp;&nbsp;사진 미리보기</p>
 	                            <div class="filebox" >
 	                                <span class="prodInputName" style="padding-bottom: 10px; margin-left: 30px;">
-	                                    <img id="previewImg" width="260" />
+	                                    <img id="previewImg" width="200" />
 	                                </span>
 	                            </div>
 	                        </span>
@@ -550,11 +562,13 @@
 	           				 <input type="text" id="address" class="upload" name="craft_address" size="40" placeholder="주소"  style="width: 300px; "/>&nbsp;&nbsp;&nbsp;&nbsp;
 	            		     <input type="text" id="detailAddress" class="upload" name="craft_detail_address" size="40" placeholder="상세주소" style="width: 300px;"/>
 	            		</span>
-	            		
+	            			            		
 						<span style="margin:10px 0 0 150px;">
 						     <input type="text" class="upload" id="extraAddress" name="craft_extra_address"  placeholder="부가주소" class="extra_address" />
 	            		 </span>
-	            		 <span class="error_2" style="display: inline-block; margin-left:150px; color:#400099;">※ 부가주소는 필수입력 사항입니다.</span> 
+	            		 
+	            		 <span class="error_2" style="display: inline-block; margin-left:170px; color:#400099;">※ 상세주소는 필수입력 사항입니다.</span> 
+	            		 
                    </div>
                     <div class="frm_border_2"  style="height: 100px;">
                         <span> <p> * 한 줄 공방소개 </p>
@@ -587,15 +601,15 @@
                             <label for="career"></label>
                             <select name = "craft_career" id="career" style="margin-left: 20px;">
                                 <option value="">선택하세요</option>
-                                <option value="newcomer">신입</option>
-                                <option value="1">1년</option>
-                                <option value="2">2년</option>
-                                <option value="3">3년</option>
-                                <option value="4">4년</option>
-                                <option value="5">5년</option>
-                                <option value="6">6년</option>
-                                <option value="7">7년</option>
-                                <option value="8">8년이상</option>
+                                <option value="신입">신입</option>
+                                <option value="1년">1년</option>
+                                <option value="2년">2년</option>
+                                <option value="3년">3년</option>
+                                <option value="4년">4년</option>
+                                <option value="5년">5년</option>
+                                <option value="6년">6년</option>
+                                <option value="7년">7년</option>
+                                <option value="8년이상">8년이상</option>
                             </select>
                             <span class="error" style="display: inline-block; color:#400099;  margin-left:20px;">※ 경력사항은 필수입력 사항입니다.</span>
                         </span>
@@ -613,10 +627,10 @@
                         <span> <p> * 자격증</p>
                             <div class="filebox">
                                <!--  <input class="upload-name" value="" id="certificate_img" style="margin-bottom: 10px;" readonly="readonly" placeholder="파일첨부" /> -->
-                                <label for="Certificate_file"></label> 
-                                <input type="file" id="Certificate_file" class="img_file" name="craft_certificate" accept='image/*' />
+                                <label for="craft_certificate"></label> 
+                                <input type="file" id="craft_certificate" class="img_file" name="craft_certificate" accept='image/*' />
+                            	<span class="error" style="display: inline-block; color:#400099;  margin-left:20px;">※ 자격증은 필수입력 사항입니다.</span>
                             </div>
-                            <span class="error" style="display: inline-block; color:#400099;  margin-left:20px;">※ 자격증은 필수입력 사항입니다.</span>
                         </span>
                     </div>
                 </div>
