@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%
@@ -10,11 +11,24 @@
 	table.ojh_table th, table.ojh_table td {
   	  border-bottom: none !important;
    }
+   
+   .subjectStyle {font-weight: bold;
+    			   color: navy;
+    			   cursor: pointer;}
+   
 </style>
 
 <script type="text/javascript"> 
 
 $(document).readty(function(){
+	
+	 $("span.subject").bind("mouseover", function(e){
+		  $(e.target).addClass("subjectStyle");
+	  });
+	  
+	  $("span.subject").bind("mouseout", function(e){
+		  $(e.target).removeClass("subjectStyle"); 
+	  });
 	
 	$("input#searchWord").keyup(function(e){
 		  if(e.keyCode == 13) {
@@ -28,10 +42,13 @@ $(document).readty(function(){
 	      $("select#searchType").val("${requestScope.paraMap.searchType}");
 		  $("input#searchWord").val("${requestScope.paraMap.searchWord}");
 	  }
+
+});	
 	
 	function goView(inquiry_num_pk) {
+		
 		const gobackURL = "${requestScope.gobackURL}";
-		alert(gobackURL);
+		//alert(gobackURL);
 		
 	    const searchType = $("select#searchType").val();
 	    const searchWord = $("input#searchWord").val();
@@ -39,7 +56,13 @@ $(document).readty(function(){
 	    location.href="<%= ctxPath%>/board_view.got?inquiry_num_pk="+inquiry_num_pk+"&searchType="+searchType+"&searchWord="+searchWord+"&gobackURL="+gobackURL;
 	}
 	
-});
+	
+	function goSearch() {
+		  const frm = document.searchFrm;
+		  frm.method = "get";
+		  frm.action = "<%= ctxPath%>/board_Question.got";
+		  frm.submit();
+	}
 
 
 </script>
@@ -125,7 +148,7 @@ $(document).readty(function(){
                           <c:forEach var="inquiryvo" items="${requestScope.iqList}">
                                 <div class="ojh_table2_notice1">
                                     <div class="ojh_table2_notice2 t14">${inquiryvo.inquiry_num_pk}</div>
-                                    <span class="ojh_table2_notice3 t15" onclick="goview('${inquiryvo.inquiry_num_pk}')">${inquiryvo.inquiry_title}</span>
+                                    <span class="subject t15" style="cursor:pointer;" onclick="goView('${inquiryvo.inquiry_num_pk}')">${inquiryvo.inquiry_title}</span>
                                     <div class="ojh_table2_notice4 t16">${inquiryvo.user_id_fk}</div>
                                     <div class="ojh_table2_notice5 t17">${inquiryvo.inquiry_date}</div>
                                     <div class="ojh_table2_notice5 t18">${inquiryvo.inquiry_viewcount}</div>           

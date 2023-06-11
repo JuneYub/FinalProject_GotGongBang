@@ -1,7 +1,6 @@
 package com.spring.gotgongbang.craft.controller;
 
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Insert;
 import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +29,6 @@ import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.craft.model.ImageVO;
 import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.craft.service.InterCraftService;
-import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.OrderVO;
 
 @Controller
@@ -69,29 +66,57 @@ public class CraftController {
 //      return mav;
 //   }
    
-   @RequestMapping(value="/crafts_list_10bag.got")
-   public ModelAndView craftList_10bag(ModelAndView mav) {
-      mav.setViewName("/craft/craft_list_10bag.tiles1");
-      return mav;
-   }
+	@RequestMapping(value="/crafts_list_10bag.got")
+	public ModelAndView craftList_10bag(ModelAndView mav) {
+	   
+		List<CraftVO> craftsList = null;
+	      
+		craftsList = service.crafts_list_select();
+	      
+		mav.addObject("craftsList", craftsList);
+		mav.setViewName("/craft/craft_list_10bag.tiles1");
+		
+		return mav;
+	}
    
-   @RequestMapping(value="/crafts_list_20shoes.got")
-   public ModelAndView craftList_20shoes(ModelAndView mav) {
-      mav.setViewName("/craft/craft_list_20shoes.tiles1");
-      return mav;
-   }
+	@RequestMapping(value="/crafts_list_20shoes.got")
+	public ModelAndView craftList_20shoes(ModelAndView mav) {
+	   
+	   List<CraftVO> craftsList = null;
+	      
+	   craftsList = service.crafts_list_select();
+	   
+	   mav.addObject("craftsList", craftsList);
+	   mav.setViewName("/craft/craft_list_20shoes.tiles1");
+	   
+	   return mav;
+	}
    
-   @RequestMapping(value="/crafts_list_30wallet.got")
-   public ModelAndView craftList_30wallet(ModelAndView mav) {
-      mav.setViewName("/craft/craft_list_30wallet.tiles1");
-      return mav;
-   }
+	@RequestMapping(value="/crafts_list_30wallet.got")
+	public ModelAndView craftList_30wallet(ModelAndView mav) {
+	   
+		List<CraftVO> craftsList = null;
+	      
+		craftsList = service.crafts_list_select();
+	   
+		mav.addObject("craftsList", craftsList);
+		mav.setViewName("/craft/craft_list_30wallet.tiles1");
+		
+		return mav;
+	}
    
-   @RequestMapping(value="/crafts_list_40cloth.got")
-   public ModelAndView craftList_40cloth(ModelAndView mav) {
-      mav.setViewName("/craft/craft_list_40cloth.tiles1");
-      return mav;
-   }
+	@RequestMapping(value="/crafts_list_40cloth.got")
+	public ModelAndView craftList_40cloth(ModelAndView mav) {
+	   
+		List<CraftVO> craftsList = null;
+	      
+		craftsList = service.crafts_list_select();
+	   
+		mav.addObject("craftsList", craftsList);
+		mav.setViewName("/craft/craft_list_40cloth.tiles1");
+		
+		return mav;
+	}
    
    @RequestMapping(value="/crafts_list.got")
    public ModelAndView crafts_list_select(ModelAndView mav) {
@@ -110,7 +135,6 @@ public class CraftController {
       
       mav.addObject("craftsList", craftsList);
       mav.setViewName("/craft/craft_list.tiles1");
-      
 
       
       return mav;
@@ -251,7 +275,7 @@ public class CraftController {
 
    //공방 신청정보를(첨부파일 포함)DB에 insert해주는 기능
    @RequestMapping(value = "/craft_application_end.got", method = {RequestMethod.POST})
-   public String craft_application_end(CraftVO cvo, ImageVO imgvo, MultipartHttpServletRequest mrequest, HttpServletRequest request) { 
+   public String craft_application_end(CraftVO cvo, ImageVO imgvo, MultipartHttpServletRequest mrequest, HttpServletRequest request , HttpServletResponse response) { 
 
 	  // 이미지 파일들 가져오기
       List<MultipartFile> fileList = new ArrayList<MultipartFile>();
@@ -271,33 +295,30 @@ public class CraftController {
 
          String path = root+"resources"+File.separator+"files";
          
-          System.out.println("~~~~ 확인용 path => " + path);
+         System.out.println("~~~~ 확인용 path => " + path);
          
-          String newFileName = "";
-          // WAS(톰캣)의 디스크에 저장될 파일명
+         String newFileName = "";
+         // WAS(톰캣)의 디스크에 저장될 파일명
+         // 2381899872914.png
          
-          String originalFilename = "";
-          
-          byte[] bytes = null;
+         String originalFilename = "";
+         // 강아지.png, 고양이.png, 판다.png
+         
+         byte[] bytes = null;
           // 첨부파일의 내용물을 담는 것
          
-          long fileSize = 0;
+         long fileSize = 0;
           // 첨부파일의 크기
           
-          for(MultipartFile mf : fileList) {
+         for(MultipartFile mf : fileList) {
                try {
-                   bytes = mf.getBytes();
-                  // 첨부파일의 내용물을 읽어오는 것
+                  bytes = mf.getBytes();
                   
-                  originalFilename = mf.getOriginalFilename();
+                  originalFilename += ("," + mf.getOriginalFilename());
                   
-                   System.out.println("~~~~ 확인용 originalFilename => " + originalFilename); 
-                  
-                  newFileName = fileManager.doFileUpload(bytes, originalFilename, path);
-                  // 첨부되어진 파일을 업로드 하는 것이다.
-                  
-                  System.out.println(">>> 확인용  newFileName => " + newFileName); 
-                  
+                  newFileName += ("," + fileManager.doFileUpload(bytes, originalFilename, path));
+
+                  /*
                   cvo.setFileName(newFileName);
                   // WAS(톰캣)에 저장된 파일명(20230522103642842968758293800.pdf)
                   
@@ -308,22 +329,40 @@ public class CraftController {
                   fileSize = mf.getSize(); // 첨부파일의 크기(단위는 byte임)
                   cvo.setFileSize(String.valueOf(fileSize));
                   
-                     // mf.transferTo(new File(newFileName));
-
+                  //mf.transferTo(new File(newFileName));
+                   */
              } catch (Exception e) {
                    e.printStackTrace();
              }
              
           }// end of for -------------------------------------
-          
 
+          String originalFilename_ss = originalFilename.substring(1);
+          String newFileName_ss = newFileName.substring(1);
+        
+          //System.out.println("~~~~ 확인용 originalFilename_ss => " + originalFilename_ss); 
+          //System.out.println(">>> 확인용  newFileName_ss => " + newFileName_ss); 
+
+          // 기타 경력사항이 있는 경우 세션에 저장(하고 뷰단에서 세션 remove)
+    	  String other_career = "";
+    	  other_career = request.getParameter("other_career");
+    	  //System.out.println("other_career : " + other_career);
+
+    	  if(other_career != "") {
+			  session.setAttribute("other_career", other_career);
+    	  }
+    	  //=========================//
+    	  
+    	  // 연락처(mobile) 합체~~!
           String hp1= request.getParameter("hp1");
     	  String hp2= request.getParameter("hp2");
     	  String hp3= request.getParameter("hp3");
     	  
     	  String craft_mobile = hp1 + hp2 + hp3;
     	  cvo.setCraft_mobile(craft_mobile);
-    	  
+    	  //=========================//
+    	  cvo.setFileName(newFileName_ss);
+    	  cvo.setOrgFilename(originalFilename_ss);
     	  
           MultipartFile craft_add_file_name = imgvo.getCraft_add_file_name();
 

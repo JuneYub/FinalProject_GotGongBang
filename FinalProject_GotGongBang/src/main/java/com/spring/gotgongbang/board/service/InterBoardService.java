@@ -1,5 +1,6 @@
 package com.spring.gotgongbang.board.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +43,17 @@ public interface InterBoardService {
 		
 		// 조회수 증가 없이 게시글 조회
 		InquiryVO getViewWithNoAddCount(Map<String, String> paraMap);
+		
+		// 게시글  수정 페이지 완료하기 
+		int edit(InquiryVO iqvo);
+
+		// 게시글 삭제하기
+		int del(Map<String, String> paraMap);
+		
+		// Faq 조회
+		List<InquiryVO> getFaq();
+		
+		
 
 		
 		
