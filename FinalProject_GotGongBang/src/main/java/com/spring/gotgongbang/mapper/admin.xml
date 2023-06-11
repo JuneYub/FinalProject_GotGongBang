@@ -23,6 +23,29 @@
 </select>
 
 
+
+
+<resultMap type="HashMap" id="selectImgList_Map">
+	<result property="craft_image_orgFilename" column="craft_image_orgFilename" javaType="String"/>
+	<result property="craft_representative_image_orgFilename" column="craft_representative_image_orgFilename" javaType="String"/>
+	<result property="craft_certificate_orgFilename" column="craft_certificate_orgFilename" javaType="String"/>
+	<result property="craft_image_fileName" column="craft_image_fileName" javaType="String"/>
+	<result property="craft_representative_image_fileName" column="craft_representative_image_fileName" javaType="String"/>
+	<result property="craft_certificate_fileName" column="craft_certificate_fileName" javaType="String"/>
+</resultMap>
+<select id="selectImgList" resultMap="selectImgList_Map">
+	select substr(orgFilename, 1, instr(orgFilename,',',1)-1 ) AS craft_image_orgFilename
+    ,substr(orgFilename, instr(orgFilename,',',1, 1)+1,  instr(orgFilename,',',1, 2) - instr(orgFilename, ',', 1, 1) -1 ) AS craft_representative_image_orgFilename
+    ,substr(orgFilename, instr(orgFilename,',',1, 2)+1 )AS craft_certificate_orgFilename
+    ,substr(fileName, 1, instr(fileName,',',1)-1 ) AS craft_image_fileName
+    ,substr(fileName, instr(fileName,',',1, 1)+1,  instr(fileName,',',1, 2) - instr(fileName, ',', 1, 1) -1 ) AS craft_representative_image_fileName
+    ,substr(fileName, instr(fileName,',',1, 2)+1 )AS craft_certificate_fileName
+	from craft
+	where craft_num_pk = #{craft_num_pk}
+</select>
+
+
+
  <!--==================== 김진솔 끝 ====================== -->
 
 
