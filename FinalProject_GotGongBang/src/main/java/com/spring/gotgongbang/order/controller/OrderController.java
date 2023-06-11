@@ -448,32 +448,35 @@ public class OrderController {
 	
 
 	// 결제하러 가는 페이지
-	@RequestMapping(value = "/PurchaseEnd.got")
+	@RequestMapping(value = "/requiredLogin_PurchaseEnd.got")
 	public ModelAndView requiredLogin_PurchaseEnd(HttpServletRequest request, HttpServletResponse response,ModelAndView mav) {
-		/*
-		 * 
-		 * //System.out.println("type_code_pk"+type_code_pk);
-		 * //System.out.println("brand_name"+brand_name);
-		 * 
-		 * 
-		 * HttpSession session = request.getSession();
-		 * 
-		 * //세션에서 로그인된 아이디 가져오기 MemberVO loginuser = (MemberVO)
-		 * session.getAttribute("loginuser");
-		 * 
-		 * // 아이디와 이메일 보내기 request.setAttribute("user_id_pk",
-		 * loginuser.getUser_id_pk()); request.setAttribute("email",
-		 * loginuser.getEmail());
-		 * 
-		 * // form 태그에서 가져오는 데이터 String order_name = request.getParameter("order_name");
-		 * //주문자이름 String order_mobile= request.getParameter("order_mobile"); //전화번호
-		 * String order_post_code= request.getParameter("order_post_code");//우편번호 String
-		 * order_address= request.getParameter("order_address");//주소 String
-		 * order_detail_address= request.getParameter("order_detail_address");//상세주소
-		 * 
-		 * 
-		 */ mav.setViewName("/none_tiles/order/paymentGateway"); return mav;
-		 
+		
+		
+		//System.out.println("type_code_pk"+type_code_pk);
+		//System.out.println("brand_name"+brand_name);
+		
+		
+		HttpSession session = request.getSession();
+		
+		//세션에서 로그인된 아이디 가져오기
+		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+		
+		// 아이디와 이메일 보내기
+		request.setAttribute("user_id_pk", loginuser.getUser_id_pk()); 
+		request.setAttribute("email", loginuser.getEmail()); 
+		request.setAttribute("coinmoney", Integer.parseInt(request.getParameter("price")) ); 
+
+		
+		// form 태그에서 가져오는 데이터
+		String order_name = request.getParameter("order_name");		//주문자이름
+		String order_mobile= request.getParameter("order_mobile");	//전화번호
+		String order_post_code= request.getParameter("order_post_code");//우편번호
+		String order_address= request.getParameter("order_address");//주소
+		String order_detail_address= request.getParameter("order_detail_address");//상세주소
+
+		
+		mav.setViewName("/none_tiles/order/paymentGateway");
+		return mav;
 	}
 	
 
