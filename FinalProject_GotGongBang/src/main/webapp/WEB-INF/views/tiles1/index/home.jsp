@@ -105,94 +105,10 @@
 				
 				<div class="swiper">
 					<div class="swiper-wrapper">
-					
-						<div class="swiper-slide">
-							<%-- 카드 시작 --%>
-							<div class="swiper-slide-card">
-								<div class="swiper-card-img">
-									<span class="swiper-img-span"> <img
-										src="<%=ctxPath%>/resources/img/main_test.jpg">
-									</span>
-								</div>
-								<div class="swiper-card-info">
-									<p class="card-craft-name">공방명</p>
-									<p class="card-craft-intro">공방 한줄 소개입니다</p>
-
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-
-									<div class="card-craft-place">
-										<span class="material-symbols-outlined">location_on</span>서울시
-										마포구
-									</div>
-								</div>
-							</div>
-							<%-- 카드 끝 --%>
-						</div>
 						
+						<%-- 카드 시작 --%>
+						<c:forEach var="cvo" items="${requestScope.craftList}">	
 						<div class="swiper-slide">
-							<%-- 카드 시작 --%>
-							<div class="swiper-slide-card">
-								<div class="swiper-card-img">
-									<span class="swiper-img-span"> <img
-										src="<%=ctxPath%>/resources/img/main_test.jpg">
-									</span>
-								</div>
-								<div class="swiper-card-info">
-									<p class="card-craft-name">공방명</p>
-									<p class="card-craft-intro">공방 한줄 소개입니다</p>
-
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-
-									<div class="card-craft-place">
-										<span class="material-symbols-outlined">location_on</span>서울시
-										마포구
-									</div>
-								</div>
-							</div>
-							<%-- 카드 끝 --%>
-						</div>
-						
-						<div class="swiper-slide">
-							<%-- 카드 시작 --%>
-							<div class="swiper-slide-card">
-								<div class="swiper-card-img">
-									<span class="swiper-img-span"> <img
-										src="<%=ctxPath%>/resources/img/main_test.jpg">
-									</span>
-								</div>
-								<div class="swiper-card-info">
-									<p class="card-craft-name">공방명</p>
-									<p class="card-craft-intro">공방 한줄 소개입니다</p>
-
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-
-									<div class="card-craft-place">
-										<span class="material-symbols-outlined">location_on</span>서울시
-										마포구
-									</div>
-								</div>
-							</div>
-							<%-- 카드 끝 --%>
-						</div><div class="swiper-slide">
-							<%-- 카드 시작 --%>
 							<div class="swiper-slide-card">
 								<div class="swiper-card-img">
 									<span class="swiper-img-span"> 
@@ -200,16 +116,13 @@
 									</span>
 								</div>
 								<div class="swiper-card-info">
-									<p class="card-craft-name">공방명</p>
-									<p class="card-craft-intro">공방 한줄 소개입니다</p>
+									<p class="card-craft-name">${cvo.craft_name}</p>
+									<p class="card-craft-intro">${cvo.craft_Introduce}</p>
 
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
-									<div class="craft-strength">가방</div>
+									
+									<c:forTokens var="specialty" items="${cvo.craft_specialty}" delims=",">
+									<div class="craft-strength">${specialty}</div>
+									</c:forTokens>
 
 									<div class="card-craft-place">
 										<span class="material-symbols-outlined">location_on</span>서울시
@@ -217,8 +130,12 @@
 									</div>
 								</div>
 							</div>
-							<%-- 카드 끝 --%>
 						</div>
+						</c:forEach>
+						<%-- 카드 끝 --%>
+						
+						
+						
 						
 					</div>
 					<div class="swiper-pagination"></div>

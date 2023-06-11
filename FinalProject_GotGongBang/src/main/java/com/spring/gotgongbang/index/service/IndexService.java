@@ -2,6 +2,7 @@ package com.spring.gotgongbang.index.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.gotgongbang.craft.model.CraftVO;
@@ -10,6 +11,7 @@ import com.spring.gotgongbang.index.model.InterIndexDAO;
 @Service
 public class IndexService implements InterIndexService {
 	
+	@Autowired
 	private InterIndexDAO idao;
 	
 	// 김나윤 시작 ===========================================================================
@@ -22,7 +24,7 @@ public class IndexService implements InterIndexService {
 	@Override
 	public List<CraftVO> getlatestCraftList() {
 		List<CraftVO> craftList = idao.getlatestCraftList();
-		return null;
+		return craftList;
 	}
 	// 박준엽 끝 ===========================================================================
 	

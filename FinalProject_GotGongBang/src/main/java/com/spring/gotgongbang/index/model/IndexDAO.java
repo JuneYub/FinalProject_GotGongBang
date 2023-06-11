@@ -5,9 +5,11 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.spring.gotgongbang.craft.model.CraftVO;
 
+@Repository
 public class IndexDAO implements InterIndexDAO {
 	
 	@Resource
@@ -23,7 +25,7 @@ public class IndexDAO implements InterIndexDAO {
 	@Override
 	public List<CraftVO> getlatestCraftList() {
 		List<CraftVO> craftList = sqlsession.selectList("index.getlatestCraftList");
-		return null;
+		return craftList;
 	}
 	// 박준엽 끝 ===========================================================================
 	
