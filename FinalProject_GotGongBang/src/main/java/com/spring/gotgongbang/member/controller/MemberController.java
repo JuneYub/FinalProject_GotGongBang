@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections4.map.HashedMap;
@@ -50,8 +51,10 @@ public class MemberController {
 		// ===========================================================================
 
 		@RequestMapping(value="/proposal_list.got")
-		public ModelAndView proposalList(ModelAndView mav, HttpServletRequest request) {
-			String userId = "testMember"; // 테스트를 위해서 유저아이디를 지정해준 것 이후에는 세션을 통해서 지정할 예정
+		public ModelAndView requiredLogin_proposalList(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+			HttpSession session = request.getSession();
+			MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+			String userId = loginuser.getUser_id_pk(); 
 			int totalCount = 0;
 			int sizePerPage = 5;
 			int currentShowPageNo = 0;
@@ -98,11 +101,13 @@ public class MemberController {
 		}
 		
 		@RequestMapping(value="/edit_user_info.got")
-		public ModelAndView editUserInfo(ModelAndView mav, HttpServletRequest request) {
-		      String userid = "testMember"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+		public ModelAndView requiredLogin_editUserInfo(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+			  HttpSession session = request.getSession();
+			  MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+			  String userId = loginuser.getUser_id_pk();
 		      
 		      MemberVO mvo = new MemberVO();
-		      mvo = service.getUserInfoByUserId(userid);
+		      mvo = service.getUserInfoByUserId(userId);
 		      mav.addObject("mvo", mvo);
 		      mav.setViewName("member/editUserInfo.tiles1");
 		      return mav;
@@ -137,9 +142,11 @@ public class MemberController {
 		@ResponseBody
 		@RequestMapping(value="/update_user_pwd.got")
 		public String updateUserPwd(HttpServletRequest request) {
-			String userId = "testMember"; // 테스트를 위해서 유저아이디를 지정해준 것 이후에는 세션을 통해서 지정할 예정
-			String editPw = request.getParameter("editPw"); 
-			  
+			HttpSession session = request.getSession();
+			MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+			String userId = loginuser.getUser_id_pk();
+			String editPw = request.getParameter("editPw");
+			editPw = Sha256.encrypt(editPw); 
 		    MemberVO mvo = new MemberVO();
 		    mvo = service.getUserInfoByUserId(userId);
 		    int n = 0;
@@ -160,7 +167,9 @@ public class MemberController {
 		@ResponseBody
 		@RequestMapping(value="/check_insert_pwd.got")
 		public String checkInsertPwd(HttpServletRequest request) {
-			String userId = "testMember"; // 테스트를 위해서 유저아이디를 지정해준 것 이후에는 세션을 통해서 지정할 예정
+			HttpSession session = request.getSession();
+			MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+			String userId = loginuser.getUser_id_pk();
 			String insertPwd = request.getParameter("insertPwd");
 			
 		    MemberVO mvo = new MemberVO();
@@ -177,8 +186,10 @@ public class MemberController {
 		}
 		
 		@RequestMapping(value="/order_list.got")
-		public ModelAndView  getOrderListById(ModelAndView mav, HttpServletRequest request) {
-			String userId = "wlgus";
+		public ModelAndView requiredLogin_getOrderListById(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+			HttpSession session = request.getSession();
+			MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+			String userId = loginuser.getUser_id_pk();
 
 			String str_currentShowPageNo = request.getParameter("currentShowPageNo");
 			int totalCount = 0;

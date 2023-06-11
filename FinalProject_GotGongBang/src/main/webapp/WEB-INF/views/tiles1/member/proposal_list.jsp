@@ -55,6 +55,9 @@
 				</thead>
 				
 				<tbody>
+					<c:if test="${empty requestScope.proposalList}">
+					<tr><td colspan="3">조회할 견적 제안서가 없습니다</td></tr>
+					</c:if>
 					<c:if test="${not empty requestScope.proposalList}">
 						<c:forEach var="proposal" items="${requestScope.proposalList}">
 						<tr>
