@@ -1,17 +1,18 @@
-package com.spring.gotgongbang.index.service;
+package com.spring.gotgongbang.index.model;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
+
+import org.mybatis.spring.SqlSessionTemplate;
 
 import com.spring.gotgongbang.craft.model.CraftVO;
-import com.spring.gotgongbang.index.model.InterIndexDAO;
 
-@Service
-public class IndexService implements InterIndexService {
+public class IndexDAO implements InterIndexDAO {
 	
-	private InterIndexDAO idao;
-	
+	@Resource
+	private SqlSessionTemplate sqlsession;
+
 	// 김나윤 시작 ===========================================================================
 	// 김나윤 끝 ===========================================================================
 	
@@ -21,7 +22,7 @@ public class IndexService implements InterIndexService {
 	// 박준엽 시작 ===========================================================================
 	@Override
 	public List<CraftVO> getlatestCraftList() {
-		List<CraftVO> craftList = idao.getlatestCraftList();
+		List<CraftVO> craftList = sqlsession.selectList("index.getlatestCraftList");
 		return null;
 	}
 	// 박준엽 끝 ===========================================================================
