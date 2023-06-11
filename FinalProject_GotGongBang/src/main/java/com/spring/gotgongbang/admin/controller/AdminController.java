@@ -1,10 +1,14 @@
 package com.spring.gotgongbang.admin.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.admin.service.InterAdminService;
+import com.spring.gotgongbang.common.FileManager;
 import com.spring.gotgongbang.common.Sha256;
 import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.member.controller.MemberController;
@@ -25,6 +30,9 @@ import com.spring.gotgongbang.member.controller.MemberController;
 @Controller
 public class AdminController {
 
+    @Autowired   
+    private FileManager fileManager;
+    
 	// 김진솔 시작
 	// ===========================================================================
 	
@@ -60,6 +68,79 @@ public class AdminController {
 		mav.setViewName("admin/craftView.tiles1");
 		return mav;
 	}
+
+	
+	//공방 한 개 보기 공방사진,대표자사진,자격증사진 파일 다운로드하기
+	@RequestMapping(value = "/craft_download.got")
+	public void craft_download(HttpServletRequest request, HttpServletResponse response, CraftVO craftvo) {
+		String craft_num_pk = request.getParameter("craft_num_pk");
+
+			// 첨부파일 클릭하면 파일 다운로드하기
+				response.setContentType("text/html; charset=UTF-8");
+			    PrintWriter out = null;
+			    // out 은 웹브라우저에 기술하는 대상체라고 생각하자.
+				
+			    List<Map<String, String>> imgList = service.selectImgList(craft_num_pk);
+			    System.out.println("~확인용 imgList: "+ imgList);
+			    
+			    Map<String, String> paraMap = new HashMap<String, String>();
+			    paraMap.put("craft_image_orgFilename", imgList.get(0).get("craft_image_orgFilename").toString());
+			    paraMap.put("craft_representative_image_orgFilename", imgList.get(0).get("craft_representative_image_orgFilename").toString());
+			    paraMap.put("craft_certificate_orgFilename", imgList.get(0).get("craft_representative_image_orgFilename").toString());
+			    paraMap.put("craft_image_fileName", imgList.get(0).get("craft_image_fileName").toString());
+			    paraMap.put("craft_representative_image_fileName", imgList.get(0).get("craft_representative_image_fileName").toString());
+			    paraMap.put("craft_certificate_fileName", imgList.get(0).get("craft_certificate_fileName").toString());
+
+			    System.out.println("paraMap : " + paraMap);
+			    
+			    try {
+				    Integer.parseInt(craft_num_pk);
+
+					if( craftvo == null || (craftvo != null && craftvo.getFileName() == null ) ) {
+						out = response.getWriter();
+						out.println("<script type='text/javascript'>alert('존재하지 않는 글번호 이거나 첨부파일이 없으므로 파일다운로드가 불가합니다.'); history.back();</script>"); 
+					}else {
+						// 정상적으로 다운로드를 할 경우 
+						
+						String craft_image_fileName = imgList.get(0).get("craft_image_fileName").toString();
+						
+						String craft_image_orgFilename = imgList.get(0).get("craft_image_orgFilename").toString();
+						
+						HttpSession session = request.getSession();
+						String root = session.getServletContext().getRealPath("/");
+						
+						String path = root+"resources"+File.separator+"files";
+						
+					   
+						// **** file 다운로드 하기 **** //
+						boolean flag = false; // file 다운로드 성공, 실패를 알려주는 용도 
+						flag = fileManager.doFileDownload(craft_image_fileName, craft_image_orgFilename, path, response);
+						// file 다운로드 성공시 flag 는 true, 
+						// file 다운로드 실패시 flag 는 false 를 가진다. 
+						
+						if(!flag) {
+							out = response.getWriter();					
+							out.println("<script type='text/javascript'>alert('파일다운로드가 실패되었습니다.'); history.back();</script>");
+						}
+						
+					}
+				
+			    } catch (IOException e) {
+			    	try {
+						out = response.getWriter();
+						// out 은 웹브라우저에 기술하는 대상체라고 생각하자.
+						
+						out.println("<script type='text/javascript'>alert('파일다운로드가 불가합니다.'); history.back();</script>"); 
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+			    
+
+	}
+	
+	
+	
 	
 	// 김진솔 끝
 	// ===========================================================================
