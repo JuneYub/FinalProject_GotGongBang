@@ -119,10 +119,9 @@
                           <div class="ojh_table">
                         <tbody>
                             <tr class="ojh_form-field">
-                                <th scope="row">상품명</th>
-                                <input type=hidden name="user_id_fk" id="user_id_fk" value="${sessionScope.loginuser.user_id_pk}" readonly />
+                                <th scope="row">아이디</th>
                                 <td>
-                                    <input class="ojh_form-input" type="text" name="product_name" title="상품명 입력" value="" placeholder="문의할 상품을 입력해주세요.">
+                                    <input class="ojh_form-input" type="text" name="user_id_fk" id="user_id_fk" value="${sessionScope.loginuser.user_id_pk}" readonly />
                                     <div class="form-field__feedback" data-field-feedback="product_name"></div>
                                 </td>
                             </tr>

@@ -105,7 +105,13 @@
                             <button class="ojh_css-214ym5 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="javascript:location.href='<%= request.getContextPath()%>/board_del.got?inquiry_num_pk=${requestScope.iqvo.inquiry_num_pk}'">
                                 <span class="ojh_css-ymwvow e4nu7ef1">삭제</span>
                             </button>
-
+                            
+                             
+                            <button class="ojh_css-214ym5 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="javascript:location.href='<%= request.getContextPath()%>/add.got?inquiry_num_pk=${requestScope.iqvo.inquiry_num_pk}=${requestScope.iqvo.inquiry_title}'">
+                               <span class="ojh_css-ymwvow e4nu7ef1">답변</span>
+                            </button>
+							
+							
                             <button class="ojh_css-214ym4 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="javascript:location.href='<%= request.getContextPath()%>${requestScope.gobackURL}'">
                                 <span class="ojh_css-ymwvow e4nu7ef1">목록</span>
                             </button>
