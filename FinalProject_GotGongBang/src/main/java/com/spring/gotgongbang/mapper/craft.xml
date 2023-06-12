@@ -32,7 +32,22 @@
 <select id="crafts_list_select" resultType="com.spring.gotgongbang.craft.model.CraftVO">
 	SELECT *
 	FROM CRAFT
+	
 </select>
+
+
+<select id="craft_detail" parameterType="int" resultType="com.spring.gotgongbang.craft.model.CraftVO">
+	SELECT *
+	FROM CRAFT
+	WHERE CRAFT_NUM_PK = #{craft_num_pk, jdbcType=NUMERIC}
+</select>
+
+<select id="craft_new" resultType="com.spring.gotgongbang.craft.model.CraftVO">
+ SELECT *
+ FROM CRAFT
+ ORDER BY CRAFT_NUM_PK DESC
+</select>
+
 <!--==================== 김나윤 끝 ====================== -->
 
 
