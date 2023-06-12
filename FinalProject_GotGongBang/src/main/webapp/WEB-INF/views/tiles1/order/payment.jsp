@@ -172,35 +172,35 @@ div#payContent {
 			</div>
 			
 			<div style="width:fit-content;">
-				<p class="orderMargin detailPName" style="margin-left: 0px;">샤넬 가방 수선 의뢰</p>
+				<p class="orderMargin detailPName" style="margin-left: 0px;">${requestScope.paymentInfo.brand_name} ${requestScope.paymentInfo.order_product_type} 수선 의뢰</p>
 				<div class="detailDiv detailMargin" >
 					<i class="fa-solid fa-check" style="padding-right:5px;"></i>
-					<p>품목 : 가방/핸드백</p>
+					<p>품목 : ${requestScope.paymentInfo.order_product_type}</p>
 				</div>
 				
 				<div class="detailDiv ">
 					<i class="fa-solid fa-check" style="padding-right:5px;"></i>
-					<p>브랜드 : 샤넬</p>
+					<p>브랜드 : ${requestScope.paymentInfo.brand_name}</p>
 				</div>
 				
 				<div class="detailDiv ">
 					<i class="fa-solid fa-check" style="padding-right:5px;"></i>
-					<p>수선 요청사항 목록 : 부분 가죽교체</p>
+					<p>수선 요청사항 목록 : ${requestScope.paymentInfo.requests}</p>
 				</div>
 				
 				<div class="detailDiv ">
 					<i class="fa-solid fa-check" style="padding-right:5px;"></i>
-					<p>수선 요청사항설명 : 깨끗하게 해주세요</p>
+					<p>수선 요청사항설명 : ${requestScope.paymentInfo.request_explain}</p>
 				</div>
 				
 				<div class="detailDiv ">
 					<i class="fa-solid fa-check" style="padding-right:5px;"></i>
-					<p> 선정된 공방 : 공공공방</p>
+					<p> 선정된 공방 : ${requestScope.paymentInfo.craft_name}</p>
 				</div>
 				
 				<div class="detailDiv ">
 					<i class="fa-solid fa-check" style="padding-right:5px;"></i>
-					<p> 예상작업기간 : 3개월</p>
+					<p> 예상작업기간 : ${requestScope.paymentInfo.estimate_period}개월</p>
 				</div>
 			</div>
 			
@@ -275,7 +275,7 @@ div#payContent {
 		<hr>
 		
 		<div class="payFlex2">
-			<p style="font-weight:bold; font-size:20px;">최종 가격 : <span id="price">200000</span></p>
+			<p style="font-weight:bold; font-size:20px;">최종 가격 : <span id="price">${requestScope.paymentInfo.estimate_price}</span></p>
 			<%-- <fmt:formatNumber value="${requestScope.boardvo.fileSize}" pattern="#,###" /> --%>
 		</div>
 		

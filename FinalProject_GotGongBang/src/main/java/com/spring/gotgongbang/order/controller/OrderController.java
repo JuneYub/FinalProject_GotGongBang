@@ -440,6 +440,20 @@ public class OrderController {
 		
 		//세션에서 로그인된 아이디 가져오기
 		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+		String estimate_num_pk = request.getParameter("estimate_num_pk");
+		mav.addObject("estimate_num_pk",estimate_num_pk);
+		
+		// 견적서번호를 가지고 정보 가져오기
+		HashMap<String,String> paymentInfo = service.get_estimate_info(estimate_num_pk);
+		
+		int craftNum = Integer.parseInt(String.valueOf(paymentInfo.get("craft_num_fk")) );
+		// 공방번호를 가지고 공방이름 가져오기
+		String craft_name = service.get_craft_name(craftNum );
+		
+		paymentInfo.put("craft_name", craft_name);
+		
+		mav.addObject("paymentInfo", paymentInfo);
+		
 		
 		mav.setViewName("order/payment.tiles1");
 		return mav;

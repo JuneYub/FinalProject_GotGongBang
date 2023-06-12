@@ -1,5 +1,6 @@
 package com.spring.gotgongbang.order.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -85,6 +86,25 @@ public class OrderService implements InterOrderService {
 		
 		return request_list_num1;
 	}
+	
+	// 견적서번호를 가지고 정보 가져오기
+	@Override
+	public HashMap<String, String> get_estimate_info(String estimate_num_pk) {
+		
+		HashMap<String, String> paymentInfo = odao.get_estimate_info(estimate_num_pk);
+		
+		return paymentInfo;
+	}
+
+	// 공방번호를 가지고 공방이름 가져오기
+	@Override
+	public String get_craft_name(int craftNum) {
+		
+		String craftName = odao.get_craft_name(craftNum);
+		return craftName;
+	}
+	
+	
 	
 	// ================ 이지현 끝 ================== //
 	
