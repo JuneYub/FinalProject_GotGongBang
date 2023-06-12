@@ -47,7 +47,7 @@ public class PartnerVO {
 	// 마지막으로 암호를 변경한 날짜가 현재시각으로 부터 3개월이 지나지 않았으면 false
 	
 	// 일반회원과 공방회원을 나누기 위함.
-	private int gradelevel;
+	private int partner_gradelevel;
 	
 	
 	public String getPartner_id_pk() {
@@ -169,13 +169,15 @@ public class PartnerVO {
 	public void setRequirePwdChange(boolean requirePwdChange) {
 		this.requirePwdChange = requirePwdChange;
 	}
-	public int getGradelevel() {
-		return gradelevel;
-    }
 
-    public void setGradelevel(int gradelevel) {
-		this.gradelevel = gradelevel;
-    }
+	public int getPartner_gradelevel() {
+		return partner_gradelevel;
+	}
+
+	public void setPartner_gradelevel(int partner_gradelevel) {
+		this.partner_gradelevel = partner_gradelevel;
+	}
+	
 	
 	
 	

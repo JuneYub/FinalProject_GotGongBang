@@ -43,9 +43,9 @@ public interface InterOrderDAO {
 	int updateOrderStatus(String estimate_num_pk);
 
 	// order_num_fk 가져오기
-	int getOrderNumPk(int estimate_num_pk);
+	String getOrderNumPk(String estimate_num_pk);
 
 	// order_status가 0이면서 order_num_fk가 해당 번호인 얘들 전부 삭제하기
-	int deleteEstimate(int order_num_fk);
+	int deleteEstimate(String order_num_fk);
 
 }
