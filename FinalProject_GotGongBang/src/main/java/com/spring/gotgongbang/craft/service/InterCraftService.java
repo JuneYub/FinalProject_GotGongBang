@@ -3,6 +3,8 @@ package com.spring.gotgongbang.craft.service;
 import java.util.HashMap;
 import java.util.List;
 import com.spring.gotgongbang.craft.model.CraftVO;
+import com.spring.gotgongbang.craft.model.ImageVO;
+
 import java.util.Map;
 
 import com.spring.gotgongbang.craft.model.PartnerVO;
@@ -20,6 +22,9 @@ public interface InterCraftService {
 	
 	//공방 신청정보를 DB에 insert해주는 기능
 	int add_withFile(CraftVO cvo);
+
+	// 추가이미지 파일 insert
+	int imgAddFile(ImageVO imgvo);
 
 	
 	// ==== ==================================== 김진솔 끝 ======================================================= // 
@@ -73,6 +78,7 @@ public interface InterCraftService {
 	
 	//공방상세페이지를 보여주기 위해 공방정보 조회해오기
 	CraftVO crafts_detail_select();
+
 
 
 

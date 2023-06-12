@@ -22,6 +22,8 @@ public interface InterCraftDAO {
 	//공방 신청정보를 DB에 insert해주는 기능
 	int add_withFile(CraftVO cvo);
 
+	//공방 추가 이미지 파일 insert
+	int imgAddFile(ImageVO imgvo);
 
 	
 	// =============== 김진솔 끝 =================//
@@ -73,6 +75,7 @@ public interface InterCraftDAO {
 	List<CraftVO> crafts_list_select();
 
 	CraftVO crafts_detail_select();
+
 
 
 

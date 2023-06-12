@@ -289,7 +289,7 @@ public class CraftController {
        System.out.println("확인용 fileList: " + fileList);
        
        if(!fileList.isEmpty()) {
-          HttpSession session = mrequest.getSession();
+         HttpSession session = mrequest.getSession();
          String root = session.getServletContext().getRealPath("/"); 
          //   System.out.println("~~~~ 확인용 webapp 의 절대경로 => " + root); 
 
@@ -307,9 +307,6 @@ public class CraftController {
          byte[] bytes = null;
           // 첨부파일의 내용물을 담는 것
          
-         long fileSize = 0;
-          // 첨부파일의 크기
-          
          for(MultipartFile mf : fileList) {
                try {
                   bytes = mf.getBytes();
@@ -318,19 +315,6 @@ public class CraftController {
                   
                   newFileName += ("," + fileManager.doFileUpload(bytes, originalFilename, path));
 
-                  /*
-                  cvo.setFileName(newFileName);
-                  // WAS(톰캣)에 저장된 파일명(20230522103642842968758293800.pdf)
-                  
-                  cvo.setOrgFilename(originalFilename);
-                  // 게시판 페이지에서 첨부된 파일(강아지.png)을 보여줄 때 사용.
-                  // 또한 사용자가 파일을 다운로드 할때 사용되어지는 파일명으로 사용.
-                  
-                  fileSize = mf.getSize(); // 첨부파일의 크기(단위는 byte임)
-                  cvo.setFileSize(String.valueOf(fileSize));
-                  
-                  //mf.transferTo(new File(newFileName));
-                   */
              } catch (Exception e) {
                    e.printStackTrace();
              }
@@ -340,19 +324,16 @@ public class CraftController {
           String originalFilename_ss = originalFilename.substring(1);
           String newFileName_ss = newFileName.substring(1);
         
-          //System.out.println("~~~~ 확인용 originalFilename_ss => " + originalFilename_ss); 
-          //System.out.println(">>> 확인용  newFileName_ss => " + newFileName_ss); 
-
           // 기타 경력사항이 있는 경우 세션에 저장(하고 뷰단에서 세션 remove)
     	  String other_career = "";
     	  other_career = request.getParameter("other_career");
-    	  //System.out.println("other_career : " + other_career);
 
     	  if(other_career != "") {
 			  session.setAttribute("other_career", other_career);
     	  }
-    	  //=========================//
     	  
+    	  
+    	  //===================================//
     	  // 연락처(mobile) 합체~~!
           String hp1= request.getParameter("hp1");
     	  String hp2= request.getParameter("hp2");
@@ -360,18 +341,29 @@ public class CraftController {
     	  
     	  String craft_mobile = hp1 + hp2 + hp3;
     	  cvo.setCraft_mobile(craft_mobile);
-    	  //=========================//
+    	  //===================================//
+    	  
     	  cvo.setFileName(newFileName_ss);
     	  cvo.setOrgFilename(originalFilename_ss);
-    	  
-          MultipartFile craft_add_file_name = imgvo.getCraft_add_file_name();
 
           n = service.add_withFile(cvo);
-          if(n==1){
+          if(n==1) {
         	  return "redirect:/craft_complete.got";
           }else {
         	  return "javascript:history.go(0)";
           }
+          
+          
+          
+          
+         
+          
+          
+          
+          
+          
+          
+          
           
        } //end of if(!fileList.isEmpty())---------------------------
        
