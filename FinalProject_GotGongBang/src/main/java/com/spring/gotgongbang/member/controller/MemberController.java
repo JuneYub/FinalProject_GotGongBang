@@ -241,7 +241,7 @@ public class MemberController {
 		
 		@RequestMapping(value="/review.got")
 		public ModelAndView writeReview(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
-			mav.setViewName("member/revire.tiles1");
+			mav.setViewName("member/review.tiles1");
 			return mav;
 			
 		}
