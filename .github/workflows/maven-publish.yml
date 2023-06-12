@@ -35,5 +35,5 @@ jobs:
     
     - name: web docker build and push
       run: |    
-        docker build -t ${{ secrets.DOCKER_REPO }}/gotgongbang-image -f FinalProject_GotGongBang/Dockerfile --build-arg WAR_FILE=/FinalProject_GotGongBang/target/gotgongbang-* .
+        docker build -t ${{ secrets.DOCKER_REPO }}/gotgongbang-image -f FinalProject_GotGongBang/Dockerfile --build-arg WAR_FILE=/FinalProject_GotGongBang/target/FinalProject_GotGongBang .
         docker push ${{ secrets.DOCKER_REPO }}/gotgongbang-image .
