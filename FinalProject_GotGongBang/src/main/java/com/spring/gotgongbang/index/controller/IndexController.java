@@ -1,16 +1,24 @@
 package com.spring.gotgongbang.index.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.gotgongbang.craft.model.CraftVO;
+import com.spring.gotgongbang.index.service.InterIndexService;
+
 @Component
 @Controller
 public class IndexController {
-
+	
+	@Autowired
+	private InterIndexService service;
+	
 	// 김나윤 시작
 	// ===========================================================================
 	// 김나윤 끝
@@ -31,6 +39,8 @@ public class IndexController {
 
 	@RequestMapping(value = "/index.got")
 	public ModelAndView index(ModelAndView mav) {
+		List<CraftVO> craftList = service.getlatestCraftList();
+		mav.addObject("craftList", craftList);
 		mav.setViewName("index/home.tiles1");
 		return mav;
 	}

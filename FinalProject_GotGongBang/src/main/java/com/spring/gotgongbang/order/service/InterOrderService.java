@@ -1,5 +1,6 @@
 package com.spring.gotgongbang.order.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,12 @@ public interface InterOrderService {
 
 	// 요청사항 목록들 반복문으로 추가하기
 	int insert_detail_request_list(Map<String, Integer> request_list_map);
+
+	// 견적서번호를 가지고 정보 가져오기
+	HashMap<String, String> get_estimate_info(String estimate_num_pk);
+
+	// 공방번호를 가지고 공방이름 가져오기
+	String get_craft_name(int craftNum);
 
 
 	

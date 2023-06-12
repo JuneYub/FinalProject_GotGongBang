@@ -88,6 +88,13 @@ public class BoardDAO implements InterBoardDAO {
 		return iqvo;
 	}
 	
+	// groupno 의 최대값 알아오기
+	@Override
+	public int getGroupno_max() {
+		int maxgroupno = sqlsession.selectOne("board.getGroupno_max");
+		return maxgroupno;
+	}
+	
 	
 	
 	

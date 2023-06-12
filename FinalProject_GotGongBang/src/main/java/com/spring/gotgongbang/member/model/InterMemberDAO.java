@@ -9,7 +9,7 @@ public interface InterMemberDAO {
 
 	// ====== 홍용훈 시작 =========================================== //
 	
-	// 회원가입
+	// 일반회원가입
 	void insertMember(MemberVO membervo);
 
 	// 이메일 중복 확인 AJAX 요청 처리
@@ -25,7 +25,31 @@ public interface InterMemberDAO {
 	int updateIdle(String string);
 
 	// 로그인 기록
-	void recordLoginDate(String string, Timestamp loginDate);
+	void recordLoginDate(String id, int grade, Timestamp loginDate);
+	
+	// 이름과 이메일 값으로 아이디 유무 체크
+	List<MemberVO> compareNameEmail(String name, String email);
+	
+	
+	String compareNameEmailMember(Map<String, String> paraMap);
+	
+	
+	String compareNameEmailpartner(Map<String, String> paraMap);
+	
+	// 공방회원가입
+	void insertPartner(MemberVO membervo);
+	
+	// 이메일 중복 확인 AJAX 요청 처리 ( 공방회원 )
+	int isEmailDuplicate_partner(String email);
+	
+	// PARTNER 테이블의 idle 컬럼의 값을 1로 변경
+	int updateIdlePartner(String string);
+	
+	
+	
+	
+	
+	
 	
 	// ====== 홍용훈 끝 =========================================== //
 
@@ -38,7 +62,21 @@ public interface InterMemberDAO {
 	int updateMemberInfoByMVO(MemberVO mvo);
 
 	int updateMemberPwd(MemberVO mvo);
-	
+
+	List<HashMap<String, String>> getOrderListByUserId(HashMap<String, String> paraMap);
+
+	int getTotalCountForOrderListByUserId(String userId);
+
+
+
+
+
+
+
+
+
+	int getTotalCountProposalListByUserId(String userId);
+
 	// ====== 박준엽 끝 =========================================== //
 
 

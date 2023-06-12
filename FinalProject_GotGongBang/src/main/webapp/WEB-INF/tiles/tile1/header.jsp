@@ -56,7 +56,7 @@
 	                
 	                <c:if test="${not empty sessionScope.loginuser}">
 	                	<li>
-	                        <a onclick="location.href='<%= ctxPath%>/mypage.got'">
+	                        <a onclick="location.href='<%= ctxPath%>/proposal_list.got'">
 	                          	  ${(sessionScope.loginuser).name}님 환영합니다.
 	                        </a>
 	                        <span class="txt_bar"></span>

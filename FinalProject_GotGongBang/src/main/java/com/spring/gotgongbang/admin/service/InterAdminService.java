@@ -32,6 +32,9 @@ public interface InterAdminService {
 	// 공방 한 개 보기 페이지
 	CraftVO craftOneView(String craft_num_pk);
 
+	//공방 한 개 보기 공방사진,대표자사진,자격증사진 파일 다운로드하기
+	List<Map<String, String>> selectImgList(String craft_num_pk);
+
 	// ==== ==================================== 김진솔 끝 ======================================================= // 
 
 }

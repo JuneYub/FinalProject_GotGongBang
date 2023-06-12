@@ -39,41 +39,13 @@ public class CraftVO {
 	/Board/src/main/webapp/WEB-INF/views/tiles1/board/view.jsp 파일에서 input type="file" 인 name 의 이름(attach)과  
 	동일해야만 파일첨부가 가능해진다.!!!!
 	*/
-	private String[] fileName;    // WAS(톰캣)에 저장될 파일명(2022042911123035243254235235234.png) 
-	private String[] orgFilename; // 진짜 파일명(강아지.png)  // 사용자가 파일을 업로드 하거나 파일을 다운로드 할때 사용되어지는 파일명
-	private String[] fileSize;    // 파일크기 
+	private String fileName;    // WAS(톰캣)에 저장될 파일명(2022042911123035243254235235234.png) 
+	private String orgFilename; // 진짜 파일명(강아지.png)  // 사용자가 파일을 업로드 하거나 파일을 다운로드 할때 사용되어지는 파일명
+	private String fileSize;    // 파일크기 
 	
 	////////////////////////////////////////////////////////
 
-	
-	
 	public CraftVO(){}
-	/*
-	public CraftVO(String craft_num_pk, String user_id_fk, String craft_name, String craft_mobile, 
-			String craft_representative, String craft_representative_image, String craft_image, 
-			String craft_Introduce, String craft_career, String craft_certificate, String craft_specialty, 
-			String craft_post_code, String craft_address, String craft_detail_address, String craft_extra_address, 
-			String craft_latitude, String craft_longitude, String craft_status, String craft_rating) {
-		this.craft_num_pk = craft_num_pk;
-		this.user_id_fk = user_id_fk;
-		this.craft_name = craft_name;
-		this.craft_mobile = craft_mobile;
-		this.craft_representative = craft_representative;
-		this.craft_representative_image = craft_representative_image;
-		this.craft_image = craft_image;
-		this.craft_Introduce = craft_Introduce;
-		this.craft_career = craft_career;
-		this.craft_certificate = craft_certificate;
-		this.craft_specialty = craft_specialty;
-		this.craft_post_code = craft_post_code;
-		this.craft_address = craft_address;
-		this.craft_detail_address = craft_detail_address;
-		this.craft_extra_address = craft_extra_address;
-		this.craft_latitude = craft_latitude;
-		this.craft_longitude = craft_longitude;
-		this.craft_status = craft_status;
-		this.craft_rating = craft_rating;
-	}*/
 	
 
 	public String getCraft_num_pk() {
@@ -239,32 +211,32 @@ public class CraftVO {
 		this.craft_salary = craft_salary;
 	}
 
-	public String[] getFileName() {
+	public String getFileName() {
 		return fileName;
 	}
 
 
-	public void setFileName(String[] fileName) {
+	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
 
 
-	public String[] getOrgFilename() {
+	public String getOrgFilename() {
 		return orgFilename;
 	}
 
 
-	public void setOrgFilename(String[] orgFilename) {
+	public void setOrgFilename(String orgFilename) {
 		this.orgFilename = orgFilename;
 	}
 
 
-	public String[] getFileSize() {
+	public String getFileSize() {
 		return fileSize;
 	}
 
 
-	public void setFileSize(String[] fileSize) {
+	public void setFileSize(String fileSize) {
 		this.fileSize = fileSize;
 	}
 
