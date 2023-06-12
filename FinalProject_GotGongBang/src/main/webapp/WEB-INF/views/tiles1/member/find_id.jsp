@@ -14,6 +14,8 @@
 <script type="text/javascript">
 	
 	//=== 이메일 인증번호 입력 체크 === //
+	var memberId = ""; 	// 받은 일반회원 아이디
+	var partnerId = "";	// 받은 공방회원 아이디
 	let code = "";
 	
 	// === 회원정보 입력 체크 === //
@@ -22,8 +24,11 @@
 	
 	// === 인증번호 받기 눌렀는지 체크 === //
 	let check_duplicate_email = false;
+	
 
 	$(document).ready(function(){		
+		
+		$("div.loader").hide(); // CSS 로딩화면 감추기
 		
 		// 모든 경고표시
 		$(".form-field__feedback").hide();
@@ -43,7 +48,7 @@
 			}
 			
 			else if(check_duplicate_email == false) {
-				
+				$("div.loader").show(); // CSS 로딩화면 감추기
 		    	alert('인증번호를 발송하는 중입니다. 인증번호가 오지 않으면 입력하신 정보가 회원정보와 일치하는지 확인해 주세요.');
 		    	$.ajax({
 						url:"<%= request.getContextPath()%>/member/find_id_email_check.got",
@@ -52,21 +57,23 @@
 						type : "GET",
 						success: function(json) {
 							var result = JSON.parse(json);
-					        var memberId = result.memberId; 	// 받은 일반회원 아이디
-					        var partnerId = result.partnerId; 	// 받은 공방회원 아이디
-					        code = result.emailCode;	// 코드
-							
-					        if(memberId == null && partnerId == null) {
+					        memberId = result.memberId; 	// 받은 일반회원 아이디
+					        partnerId = result.partnerId; 	// 받은 공방회원 아이디
+					        code = result.emailCode;	// 코드							
+					        
+					        if(memberId == "" && partnerId == "") {
 					        	alert("일치하는 정보가 없습니다.");
-					        	check_duplicate_email == false;
-					        	return;
+					        	check_duplicate_email == false;					 
 					        }
 					        else {
+					        	
 					        	console.log("code : " + code);								
 								check_input.attr('disabled',false);
 								alert('인증번호가 발송되었습니다.');
 								check_duplicate_email == true;
 					        }
+					        
+					        $("div.loader").hide(); // CSS 로딩화면 감추기
 							
 						},
 						error: function(request, status, error){
@@ -128,7 +135,7 @@
 				
 				code = "";  // 인증번호 체크 초기화
 				
-				findIdEnd();  // 다음 단계로 넘어가기
+				findIdEnd(memberId, partnerId);  // 다음 단계로 넘어가기
 			} 
 		});//end of $(".btn_next2").click(function()-----------------
 				
@@ -183,16 +190,17 @@
 			}
 		});
 	
- 	});
+ 	});// end of $(document).ready(function()--------------------------
+		
 	// 다음 단계로 넘어가기
-	function findIdEnd() {
-        window.location.href = "<%= ctxPath%>/find_id_end.got";
+	function findIdEnd(memberId, partnerId) {
+        window.location.href = "<%= ctxPath%>/find_id_end.got?memberId=" + memberId + "&partnerId=" + partnerId;
     }
 	
 </script>
 
 <div id="content">
-	<section class="login-search">
+	<section class="login-search" style="z-index: 1;">
 		<header class="login-search__header">
 			<h2 class="login-search__title">아이디 찾기</h2>
 			<p class="login-search__description">GOTGONGBANG에 등록된 이메일로 아이디를 찾을 수 있습니다.</p>
@@ -207,6 +215,10 @@
 					<div class="form-field__feedback user_name_f" data-field-feedback="user_name"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;이름을 입력해주세요.</div>
 				</div>
 				<div class="form-field">
+				
+					<div style="display: flex; position: absolute; z-index: 2; left: 46%;">
+					  <div class="loader" style="margin: auto"></div>
+					</div>
 
 					<div class="form-field__group form-field__group--input-button">
 						<input class="form-input" type="email" id="email" name="email" title="이메일 입력" placeholder="이메일 주소를 입력하세요.">

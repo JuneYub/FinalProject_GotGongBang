@@ -94,8 +94,15 @@ public class MemberService implements InterMemberService {
 			// 마지막으로 로그인 한 날짜시간이 현재시각으로 부터 1년이 지났으면 휴면으로 지정
 			loginuser.setIdle(1);
 			
-			// === MEMBER 테이블의 idle 컬럼의 값을 1로 변경 === //
-			int n = dao.updateIdle(paraMap.get("userid"));
+			if(loginuser.getGradelevel() == 1) {
+				// === MEMBER 테이블의 idle 컬럼의 값을 1로 변경 === //
+				int n = dao.updateIdle(paraMap.get("userid"));
+			}
+			else if(loginuser.getGradelevel() == 2) {
+				// === PARTNER 테이블의 idle 컬럼의 값을 1로 변경 === //
+				int n = dao.updateIdlePartner(paraMap.get("userid"));
+			}
+			
 		}
 		if(loginuser != null) {
 			String email = loginuser.getEmail();
@@ -137,7 +144,7 @@ public class MemberService implements InterMemberService {
 				// 로그인 성공 시 login_date를 기록
 		        Date now = new Date();
 		        Timestamp loginDate = new Timestamp(now.getTime());
-		        dao.recordLoginDate(loginuser.getUser_id_pk(), loginDate);
+		        dao.recordLoginDate(loginuser.getUser_id_pk(), loginuser.getGradelevel(), loginDate);
 
 				
 				if(loginuser.isRequirePwdChange() == true) { // 암호를 마지막으로 변경한 것이 3개월이 경과한 경우
@@ -196,7 +203,18 @@ public class MemberService implements InterMemberService {
 		return partnerId;
 	}
 	
+	// 공방회원가입 Service
+	@Override
+	public void insertPartner(MemberVO membervo) {
+		dao.insertPartner(membervo);
+	}
 	
+	// 이메일 중복 확인 AJAX 요청 처리 ( 공방회원 )
+	@Override
+	public boolean isEmailDuplicate_partner(String email) {
+		int n = dao.isEmailDuplicate_partner(email);
+		return n > 0;
+	}
 	
 	
 	
@@ -254,5 +272,9 @@ public class MemberService implements InterMemberService {
 		int n = dao.getTotalCountProposalListByUserId(userId);
 		return n;
 	}
+
+
+
+
 
 }

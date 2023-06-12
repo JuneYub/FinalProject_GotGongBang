@@ -273,7 +273,18 @@ public class MemberController {
 	
 		}
 		
+		// === 아이디 찾기를 통해 로그인 폼 페이지 요청 === //
+		@RequestMapping(value="/login_include_id.got", method= {RequestMethod.GET})
+		public ModelAndView login_include_id(ModelAndView mav, @RequestParam("id") String id) {
+			
+			mav.addObject("id", id);
+			
+			mav.setViewName("member/login_include_id.tiles1");
+			return mav;
+	
+		}
 		
+		// 로그인 버튼 클릭시 로그인 처리
 		@RequestMapping(value="/end_login.got")
 		public ModelAndView end_login(ModelAndView mav, HttpServletRequest request) {
 			
@@ -285,12 +296,12 @@ public class MemberController {
 		    paraMap.put("pwd", Sha256.encrypt(pwd));
 
 		    // service의 loginEnd() 메서드 호출하여 로그인 처리
-		    mav = service.loginEnd(mav, request, paraMap);
+		    mav = service.loginEnd(mav, request, paraMap);		    		 
 	    
 		    return mav;
 		}
 		
-		
+		// 회원가입 member, partner 선택하기
 		@RequestMapping(value="/register_member_first.got")
 		public ModelAndView register_member_first(ModelAndView mav) {
 			
@@ -299,11 +310,20 @@ public class MemberController {
 	
 		}
 		
-		// 회원가입
+		// 일반회원 회원가입
 		@RequestMapping(value="/register_member.got")
 		public ModelAndView register_member(ModelAndView mav) {
 			
 			mav.setViewName("member/register_member.tiles1");
+			return mav;
+	
+		}
+		
+		// 공방회원 회원가입
+		@RequestMapping(value="/register_partner.got")
+		public ModelAndView register_partner(ModelAndView mav) {
+			
+			mav.setViewName("member/register_partner.tiles1");
 			return mav;
 	
 		}
@@ -314,8 +334,17 @@ public class MemberController {
 		@GetMapping("/check_email.got")	    
 	    public boolean checkEmail(@RequestParam("email") String email) {
 	        return service.isEmailDuplicate(email);
+	    }		
+		
+		
+		// 이메일 중복 확인 AJAX 요청 처리 ( 공방회원 )
+		@ResponseBody
+		@GetMapping("/check_email_partner.got")	    
+	    public boolean check_email_partner(@RequestParam("email") String email) {
+	        return service.isEmailDuplicate_partner(email);
 	    }
 	    
+		
 	    // 아이디 중복 확인 AJAX 요청 처리
 	    @ResponseBody
 	    @GetMapping("/check_id.got")
@@ -337,13 +366,13 @@ public class MemberController {
 			
 		}
 		
-		// 회원가입 get
+		// 일반회원가입 get
 		@RequestMapping(value="/register.got", method=RequestMethod.GET)
 		public void register() {
 			
 		}
 		
-		// 회원가입 post
+		// 일반회원가입 post
 		@RequestMapping(value="/register.got", method=RequestMethod.POST)
 		public String register(MemberVO membervo) {
 			
@@ -351,6 +380,24 @@ public class MemberController {
 			service.encryptPassword(membervo);
 			
 			service.insertMember(membervo);
+			
+			return "redirect:/end_register_member.got";
+		}
+		
+		// 공방회원가입 get
+		@RequestMapping(value="/register_to_partner.got", method=RequestMethod.GET)
+		public void register_partner() {
+			
+		}
+		
+		// 공방회원가입 post
+		@RequestMapping(value="/register_to_partner.got", method=RequestMethod.POST)
+		public String register_partner(MemberVO membervo) {
+			
+			System.out.println("공방 들어옴");
+			service.encryptPassword(membervo);
+			
+			service.insertPartner(membervo);
 			
 			return "redirect:/end_register_member.got";
 		}
@@ -392,13 +439,24 @@ public class MemberController {
 			String partnerId = service.compareNameEmailpartner(paraMap);
 			System.out.println(partnerId);
 			
-			String emailCode = mailService.joinEmail(email);
-			
+			if(memberId == null) {
+	        	memberId = "";
+	        }
+	        if(partnerId == null) {
+	        	partnerId = "";
+	        }
+	        
 			// JSON 형태로 결과를 반환
 		    JSONObject jsonObj = new JSONObject();
 		    jsonObj.put("memberId", memberId);
 		    jsonObj.put("partnerId", partnerId);
-		    jsonObj.put("emailCode", emailCode);
+			
+			if(memberId != "" || partnerId != "") {
+				String emailCode = mailService.joinIdEmail(email);
+				
+				jsonObj.put("emailCode", emailCode);
+			}
+		    
 
 		    return jsonObj.toString();
 			
@@ -408,7 +466,10 @@ public class MemberController {
 		
 		// 아이디 찾기 end
 		@RequestMapping(value="/find_id_end.got")
-		public ModelAndView find_id_end(ModelAndView mav) {
+		public ModelAndView find_id_end(ModelAndView mav, @RequestParam("memberId") String memberId, @RequestParam("partnerId") String partnerId ) {
+			
+			mav.addObject("memberId",memberId);
+			mav.addObject("partnerId", partnerId);
 		
 			mav.setViewName("member/find_id_end.tiles1");
 		

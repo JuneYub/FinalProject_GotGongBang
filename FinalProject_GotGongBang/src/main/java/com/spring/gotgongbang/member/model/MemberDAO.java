@@ -43,6 +43,11 @@ public class MemberDAO implements InterMemberDAO {
 	@Override
 	public MemberVO getLoginMember(Map<String, String> paraMap) {
 		MemberVO loginuser = sqlsession.selectOne("member.getLoginMember", paraMap);
+		
+		if(loginuser == null) {
+			loginuser = sqlsession.selectOne("member.getLoginPartner", paraMap);
+		}
+		
 		return loginuser;
 	}
 
@@ -55,9 +60,10 @@ public class MemberDAO implements InterMemberDAO {
 
 	// 로그인 기록
 	@Override
-	public void recordLoginDate(String userid, Timestamp loginDate) {
+	public void recordLoginDate(String userid, int grade, Timestamp loginDate) {
 		Map<String, Object> paraMap = new HashMap<String, Object>();
 		paraMap.put("userid", userid);
+		paraMap.put("grade", grade);
 		paraMap.put("loginDate", loginDate);
         sqlsession.insert("member.recordLoginDate", paraMap);
 	}
@@ -88,16 +94,33 @@ public class MemberDAO implements InterMemberDAO {
 	}
 	
 	
+	// 공방회원가입
+	@Override
+	public void insertPartner(MemberVO membervo) {
+		sqlsession.insert("member.insertPartner", membervo);
+	}
+	
+	
+	// 이메일 중복 확인 AJAX 요청 처리 ( 공방회원 )
+	@Override
+	public int isEmailDuplicate_partner(String email) {
+		int n = sqlsession.selectOne("member.isEmailDuplicate_partner", email);
+		return n;
+	}
+	
+	// MEMBER 테이블의 idle 컬럼의 값을 1로 변경
+	@Override
+	public int updateIdlePartner(String userid) {
+		int n = sqlsession.update("member.updateIdlePartner", userid);
+		return n;
+	}
 	
 	
 	
 	
 	
-	
-	
-	
-	
-	
+
+			
 	
 	
 	
@@ -147,6 +170,12 @@ public class MemberDAO implements InterMemberDAO {
 		int n = sqlsession.selectOne("member.getTotalCountProposalListByUserId", userId);
 		return n;
 	}
+
+
+
+
+
+
 
 	
 	// ====== 박준엽 끝 =========================================== //

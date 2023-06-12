@@ -5,77 +5,6 @@
     String ctxPath = request.getContextPath();
 %>
 
-<style>
-	.css-1imsxus {
-	    margin-bottom: 12px;
-	    font-size: 15px;
-	    font-weight: 500;
-	    color: #555969;
-	}
-	
-	.css-xxlgyb {
-	    outline: none;
-	    border-width: 1px;
-	    border-style: solid;
-	    box-sizing: border-box;
-	    border-radius: 4px;
-	    line-height: 1;
-	    font-weight: 500;
-	    -webkit-transition: background-color 0.3s,border-color 0.3s;
-	    transition: background-color 0.3s,border-color 0.3s;
-	    -webkit-text-decoration: none;
-	    text-decoration: none;
-	    -webkit-tap-highlight-color: transparent;
-	    display: -webkit-inline-box;
-	    display: -webkit-inline-flex;
-	    display: -ms-inline-flexbox;
-	    display: inline-flex;
-	    -webkit-align-items: center;
-	    -webkit-box-align: center;
-	    -ms-flex-align: center;
-	    align-items: center;
-	    -webkit-box-pack: center;
-	    -ms-flex-pack: center;
-	    -webkit-justify-content: center;
-	    justify-content: center;
-	    cursor: pointer;
-	    position: relative;
-	    -webkit-user-select: none;
-	    -moz-user-select: none;
-	    -ms-user-select: none;
-	    user-select: none;
-	    white-space: nowrap;
-	    max-width: 100%;
-	    width: 100%;
-	    min-width: 100%;
-	    max-width: 100%;
-	    height: 36px;
-	    font-size: 14px;
-	    padding: 0 16px;
-	    min-width: 64px;
-	    background-color: #fff;
-	    border-color: #fae57c;
-	    color: #303441;
-	    padding: 16px;
-	    -webkit-box-pack: start;
-	    -ms-flex-pack: start;
-	    -webkit-justify-content: flex-start;
-	    justify-content: flex-start;
-	    height: -webkit-fit-content;
-	    height: -moz-fit-content;
-	    height: fit-content;
-	    border-color: #e4e5ed;
-	}
-	
-	.css-xxlgyb:hover {
-		
-		background-color: #e6e6ff;
-		border-color: #ccccff;
-		
-	}
-</style>
-
- 
 <body>
 
     <!-- 회원가입 폼 본문시작 -->
@@ -111,7 +40,7 @@
 			<h2 style="height: 15px;"></h2>
 								
 			<div class="css-1imsxus e1hbznyv3">내 전문성을 판매하고 싶다면</div>
-			<button type="button" color="yellow" class="e1hbznyv4 css-xxlgyb eklkj752" onclick="">
+			<button type="button" color="yellow" class="e1hbznyv4 css-xxlgyb eklkj752" onclick="location.href='<%= ctxPath%>/register_partner.got'">
 				<span class="button__start-icon-wrapper">
 					<span role="img" color="#e4e5ed" rotate="0" class="css-nh621w e181xm9y1">
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" class="css-7kp13n e181xm9y0">
