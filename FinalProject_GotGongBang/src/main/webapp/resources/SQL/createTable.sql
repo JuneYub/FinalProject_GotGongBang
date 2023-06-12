@@ -15,7 +15,8 @@ CREATE TABLE PARTNER (
     partner_lastPwdChange DATE               default sysdate        not null,            -- 파트너 마지막 비밀번호 변경 날짜
     partner_idle NUMBER(1)                   DEFAULT 0 not null,                         -- 파트너 휴먼회원 여부  0
     partner_pwd_change_required NUMBER(1)    DEFAULT 0 not null,                         -- 파트너 비밀번호 갱신 필요 여부 0
-    partner_status NUMBER(1)                 DEFAULT 1 not null                          -- 파트너 회원 탈퇴 여부 1
+    partner_status NUMBER(1)                 DEFAULT 1 not null,                         -- 파트너 회원 탈퇴 여부 1
+    partner_gradelevel number   default 1                                                -- 회원등급
     , CONSTRAINT PK_PARTNER_partner_id_pk primary key(partner_id_pk)
     ,constraint UQ_PARTNER_partner_email  unique(partner_email)
     ,constraint CK_PARTNER_partner_gender check( partner_gender in('1','2') )
@@ -55,6 +56,7 @@ CREATE TABLE MEMBER
 ,idle                   number(1)   default 0            NOT NULL  -- 휴먼회원여부
 ,pwd_change_required    number(1)   default 0            NOT NULL  -- 비밀번호갱신필요여부
 ,status                 number(1)   default 1            NOT NULL  -- 탈퇴여부
+,gradelevel             number      default 1                      -- 회원등급
 ,constraint PK_MEMBER_user_id_pk primary key(user_id_pk)
 ,constraint UQ_MEMBER_email  unique(email)
 ,constraint CK_MEMBER_gender check( gender in('1','2') )
@@ -267,12 +269,11 @@ constraint PK_CRAFT_IMG_craft_add_img_pk primary key(craft_add_img_pk),
 constraint FK_CRAFT_craft_num_fk foreign key(craft_num_fk) references CRAFT(craft_num_pk)
 );
 
---- 로그인이 성공되어지면 자동적으로 로그인 기록을 남기려고 insert 되어질 테이블 --
+--- *** 로그인이 성공되어지면 자동적으로 로그인 기록을 남기려고 insert 되어질 테이블
 CREATE TABLE LOGIN_HISTORY 
-(user_id_pk_pk      VARCHAR2(20)         NOT NULL -- 아이디
-,login_date      DATE default sysdate    NOT NULL -- 로그인한 시간
-,constraint FK_LOGIN_HISTORY foreign key(user_id_pk_pk) 
-                                references MEMBER(user_id_pk)
+(user_id_pk_pk      VARCHAR2(20)         NOT NULL
+,grade              number               NOT NULL
+,login_date      DATE default sysdate    NOT NULL
 );
 
 
