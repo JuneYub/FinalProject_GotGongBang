@@ -239,6 +239,24 @@ public class MemberController {
 
 		}
 		
+		@RequestMapping(value="/review.got")
+		public ModelAndView writeReview(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+			mav.setViewName("member/revire.tiles1");
+			return mav;
+			
+		}
+		
+	   @ResponseBody
+	   @RequestMapping(value="/check_review_count.got", method= {RequestMethod.POST})
+	   public String getReviewCntByOrderNum(HttpServletRequest request) {
+		   String orderNum = request.getParameter("orderNum");
+		   int cnt = service.getReviewCntByOrderNum(orderNum);
+		   
+		   JSONObject jsonObj = new JSONObject();
+		   jsonObj.put("cnt", cnt);
+		   return jsonObj.toString();
+	   }
+		
 		
 		// 박준엽 끝
 		// ===========================================================================
