@@ -11,9 +11,6 @@
  	select count(*) from CRAFT where craft_name=#{craft_name}
 </select>
 
-<select id="craft_add_image" resultType="com.spring.gotgongbang.craft.model.CraftVO">
-
-</select>
 
 <insert id="add_withFile" parameterType="com.spring.gotgongbang.craft.model.CraftVO">
 	insert into CRAFT(craft_num_pk, partner_id_fk, craft_name, craft_mobile, craft_representative,

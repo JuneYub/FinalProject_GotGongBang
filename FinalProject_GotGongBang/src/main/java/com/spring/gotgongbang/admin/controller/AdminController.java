@@ -133,8 +133,27 @@ public class AdminController {
 					}
 				}
 			    
-
+			    
+	}	    
+		    /*
+	@RequestMapping(value = "/craft_del.got")
+	public ModelAndView craft_del(ModelAndView mav, HttpServletRequest request) {
+		
+		return mav;
 	}
+
+	   
+
+	@RequestMapping(value = "/craft_edit.got")
+	public ModelAndView craft_edit(ModelAndView mav, HttpServletRequest request) {	 
+		
+		return mav;
+	}
+		    
+			  
+			    */
+
+	
 	
 	
 	

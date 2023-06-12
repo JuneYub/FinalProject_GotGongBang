@@ -74,17 +74,17 @@
                         </div>
                         <div class="frm_border">
                             <span> <p>공방이름</p>
-                                <input type="text" class="view" value="${craftvo.craft_name}" readonly/>
+                                <input type="text" class="view" name="craft_name" value="${craftvo.craft_name}" readonly/>
                             </span>
                         </div>
                         <div class="frm_border">
                             <span> <p>공방 신청자 ID</p>
-                                <input type="text" class="view" value="${craftvo.partner_id_fk}" readonly/>
+                                <input type="text" class="view" name="partner_id_fk" value="${craftvo.partner_id_fk}" readonly/>
                             </span>
                         </div>
                         <div class="frm_border">
                             <span> <p>공방 대표자 이름</p>
-                                <input type="text" class="view" value="${craftvo.craft_representative}"/>
+                                <input type="text" class="view" name="craft_representative" value="${craftvo.craft_representative}"/>
                             </span>
                         </div>
                         <div class="image">
@@ -99,39 +99,39 @@
                         </div>
                         <div class="frm_border">
                             <span> <p>공방 연락처</p>
-                                <input type="text" class="view" value="${craftvo.craft_mobile}"/>
+                                <input type="text" class="view" name="craft_mobile" value="${craftvo.craft_mobile}"/>
                             </span>
                         </div>
                         <div class="frm_border" style="height: 185px;" id="view_address">
                             <span style="display: block;">  <p style="width:100px; display: inline-block;">공방 주소</p>
                    
                                 <span>
-                                    <input type="text" class="view" value="${craftvo.craft_post_code}"/>
+                                    <input type="text" class="view" name="craft_post_code" value="${craftvo.craft_post_code}"/>
                                 </span>
 
                                 <span>
-                                    <input type="text" id="address" class="upload" value="${craftvo.craft_address}" name="address" style="width: 300px; padding: 0 10px; margin: 0;"/>
-                                    <input type="text" id="detailAddress" class="upload"  value="${craftvo.craft_detail_address}" name="detailAddress"   style="width: 300px; padding:0 10px; margin: 0 10px;"/>
+                                    <input type="text" id="address" class="upload" name="craft_address" value="${craftvo.craft_address}" name="address" style="width: 300px; padding: 0 10px; margin: 0;"/>
+                                    <input type="text" id="detailAddress" class="upload" name="craft_detail_address" value="${craftvo.craft_detail_address}" name="detailAddress"   style="width: 300px; padding:0 10px; margin: 0 10px;"/>
                                 </span>
                                 
                                 <span>
-                                    <input type="text" class="upload" id="extraAddress" value="${craftvo.craft_extra_address}" name="extraAddress" style="padding:0 10px; margin: 0;"/>
+                                    <input type="text" class="upload" id="extraAddress" name="craft_extra_address" value="${craftvo.craft_extra_address}" name="extraAddress" style="padding:0 10px; margin: 0;"/>
                                 </span>
                             </span>
                         </div>
                         <div class="frm_border_2">
                             <span> <p>공방 한 줄 소개</p>
-                                <input id="self_introduce" value="${craftvo.craft_Introduce}" style="height: 70px;"/>
+                                <input id="self_introduce" name="craft_Introduce" value="${craftvo.craft_Introduce}" style="height: 70px;"/>
                             </span>
                         </div>
                         <div class="frm_border">
                             <span> <p>전문품목</p>
-                                <input type="text" class="view" value="${craftvo.craft_specialty}" style="width: 500px;" />
+                                <input type="text" class="view" name="craft_specialty" value="${craftvo.craft_specialty}" style="width: 500px;" />
                             </span>
                         </div>
                         <div class="frm_border">
                             <span> <p>총 경력기간</p>
-                                <input type="text" class="view" value="${craftvo.craft_career}"/>
+                                <input type="text" class="view" name="craft_career" value="${craftvo.craft_career}"/>
                             </span>
                         </div>
                         <div class="frm_border_3">
@@ -152,7 +152,7 @@
                         </div>
                         <div class="frm_border">
                             <span> <p> * 평점</p> 
-                               <input type="text" class="view" style="padding-right: 15px;" />
+                               <input type="text" class="view" name="craft_rating" style="padding-right: 15px;" />
                             </span>
                         </div>
                     </div>
@@ -160,12 +160,10 @@
 
                 <div class="application_right">
                     <div class="craftOneView_btn">
-                        <button class="del" type="button" onclick="">삭제</button>
-					    <button class="update" type="button" onclick="">수정</button>
+                        <button class="del" type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/craft_del.got?craft_num_pk=${requestScope.craftvo.craft_num_pk}'">삭제</button>
+					    <button class="update" type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/craft_edit.got?craft_num_pk=${requestScope.craftvo.craft_num_pk}'">수정</button>
                     </div>
                 </div>
-
-
 
             </form>    
         </div>
