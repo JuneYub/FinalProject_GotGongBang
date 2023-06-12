@@ -39,6 +39,12 @@ public class BoardService implements InterBoardService {
 		// 파일 첨부 기능이 없는 온라인 문의 데이터 넣기
 		@Override
 		public int add(InquiryVO iqvo) {
+			
+			// 원글쓰기, 답변인지 구분
+			if("".equals(iqvo.getFk_seq())) {
+				int groupno = dao.getGroupno_max() + 1;
+				iqvo.setGroupno(String.valueOf(groupno));
+			}
 			int n = dao.add(iqvo);
 			return n;
 		}
@@ -46,6 +52,12 @@ public class BoardService implements InterBoardService {
 		// 파일 첨부 기능이 있는 온라인 문의
 		@Override
 		public int add_withFile(InquiryVO iqvo) {
+			
+			if("".equals(iqvo.getFk_seq())) {
+				int groupno = dao.getGroupno_max() + 1;
+				iqvo.setGroupno(String.valueOf(groupno));
+			}
+			
 			int n = dao.add_withFile(iqvo); // 첨부파일이 있는 경우  
 			return n;
 		}
