@@ -90,7 +90,7 @@ public class MemberController {
 			paraMap.put("endRno", String.valueOf(endRno));
 			paraMap.put("userId", userId);
 			
-			String url = "order_list.got";
+			String url = "proposal_list.got";
 			String pageBar = myUtil.makePageBar(currentShowPageNo, 10, totalPage, url);
 			List<HashMap<String, String>> proposalList = service.getProposalListByUserId(paraMap);
 			
