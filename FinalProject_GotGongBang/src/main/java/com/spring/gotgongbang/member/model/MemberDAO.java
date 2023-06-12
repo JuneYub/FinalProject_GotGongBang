@@ -10,6 +10,8 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.spring.gotgongbang.craft.model.PartnerVO;
+
 
 @Repository
 public class MemberDAO implements InterMemberDAO {
@@ -42,12 +44,7 @@ public class MemberDAO implements InterMemberDAO {
 	// 로그인 처리
 	@Override
 	public MemberVO getLoginMember(Map<String, String> paraMap) {
-		MemberVO loginuser = sqlsession.selectOne("member.getLoginMember", paraMap);
-		
-		if(loginuser == null) {
-			loginuser = sqlsession.selectOne("member.getLoginPartner", paraMap);
-		}
-		
+		MemberVO loginuser = sqlsession.selectOne("member.getLoginMember", paraMap);		
 		return loginuser;
 	}
 
@@ -115,6 +112,13 @@ public class MemberDAO implements InterMemberDAO {
 		return n;
 	}
 	
+	// 로그인 처리 ( 공방회원 )
+	@Override
+	public PartnerVO getLoginPartner(Map<String, String> paraMap) {
+		PartnerVO loginuser2 = sqlsession.selectOne("member.getLoginPartner", paraMap);
+		return loginuser2;
+	}
+	
 	
 	
 	
@@ -170,6 +174,8 @@ public class MemberDAO implements InterMemberDAO {
 		int n = sqlsession.selectOne("member.getTotalCountProposalListByUserId", userId);
 		return n;
 	}
+
+
 
 
 
