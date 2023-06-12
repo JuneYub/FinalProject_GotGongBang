@@ -18,6 +18,38 @@ public class PartnerVO {
 	private int partner_pwd_change_required;
 	private int partner_status;
 	
+	public PartnerVO() {}
+	
+	public PartnerVO(String partner_id_pk, String partner_name, String partner_pwd, String partner_email,
+			String partner_mobile, String partner_post_code, String partner_address, String partner_detail_address,
+			String partner_extra_address, String partner_gender, String partner_birthday) {
+		super();
+		this.partner_id_pk = partner_id_pk;
+		this.partner_name = partner_name;
+		this.partner_pwd = partner_pwd;
+		this.partner_email = partner_email;
+		this.partner_mobile = partner_mobile;
+		this.partner_post_code = partner_post_code;
+		this.partner_address = partner_address;
+		this.partner_detail_address = partner_detail_address;
+		this.partner_extra_address = partner_extra_address;
+		this.partner_gender = partner_gender;
+		this.partner_birthday = partner_birthday;
+	}
+	
+	
+	private int pwdchangegap;          // select 용. 지금으로 부터 마지막으로 암호를 변경한지가 몇개월인지 알려주는 개월수(3개월 동안 암호를 변경 안 했을시 암호를 변경하라는 메시지를 보여주기 위함)  
+	private int lastlogingap;          // select 용. 지금으로 부터 마지막으로 로그인한지가 몇개월인지 알려주는 개월수(12개월 동안 로그인을 안 했을 경우 해당 로그인 계정을 비활성화 시키려고 함) 
+	
+	
+	private boolean requirePwdChange = false;
+	// 마지막으로 암호를 변경한 날짜가 현재시각으로 부터 3개월이 지났으면 true
+	// 마지막으로 암호를 변경한 날짜가 현재시각으로 부터 3개월이 지나지 않았으면 false
+	
+	// 일반회원과 공방회원을 나누기 위함.
+	private int gradelevel;
+	
+	
 	public String getPartner_id_pk() {
 		return partner_id_pk;
 	}
@@ -114,6 +146,37 @@ public class PartnerVO {
 	public void setPartner_status(int partner_status) {
 		this.partner_status = partner_status;
 	}
+	public int getPwdchangegap() {
+		return pwdchangegap;
+	}
+
+	public void setPwdchangegap(int pwdchangegap) {
+		this.pwdchangegap = pwdchangegap;
+	}
+
+	public int getLastlogingap() {
+		return lastlogingap;
+	}
+
+	public void setLastlogingap(int lastlogingap) {
+		this.lastlogingap = lastlogingap;
+	}
+
+	public boolean isRequirePwdChange() {
+		return requirePwdChange;
+	}
+
+	public void setRequirePwdChange(boolean requirePwdChange) {
+		this.requirePwdChange = requirePwdChange;
+	}
+	public int getGradelevel() {
+		return gradelevel;
+    }
+
+    public void setGradelevel(int gradelevel) {
+		this.gradelevel = gradelevel;
+    }
+	
 	
 	
 }
