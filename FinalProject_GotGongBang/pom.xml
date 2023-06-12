@@ -399,6 +399,7 @@
    </dependencies>
     <build>
     	<finalName>FinalProject_GotGongBang</finalName>
+	<outputDirectory>${project.basedir}/target</outputDirectory>
         <plugins>
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>
