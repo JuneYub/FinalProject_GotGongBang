@@ -50,6 +50,13 @@
  ORDER BY CRAFT_NUM_PK DESC
 </select>
 
+<select id="crafts_list_search" resultType="com.spring.gotgongbang.craft.model.CraftVO">
+	SELECT *
+	FROM craft
+	WHERE craft_status = 1
+	ORDER BY craft_num_pk desc
+</select>
+
 <!--==================== 김나윤 끝 ====================== -->
 
 

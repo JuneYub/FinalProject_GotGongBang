@@ -164,6 +164,12 @@ public class CarftDAO implements InterCraftDAO {
 		return craftvo;
 	}
 
+	@Override
+	public List<CraftVO> crafts_list_search(Map<String, String> paraMap) {
+		List<CraftVO> craftvo = sqlsession.selectList("craft.crafts_list_search");
+		return craftvo;
+	}
+
 
 	
 

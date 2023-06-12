@@ -71,12 +71,6 @@ public class CraftController {
    }
    
    
-//   @RequestMapping(value="/crafts_list.got")
-//   public ModelAndView craftList(ModelAndView mav) {
-//      mav.setViewName("/craft/craft_list.tiles1");
-//      return mav;
-//   }
-   
 	@RequestMapping(value="/crafts_list_10bag.got")
 	public ModelAndView craftList_10bag(ModelAndView mav) {
 	   
@@ -130,13 +124,17 @@ public class CraftController {
 	}
    
    @RequestMapping(value="/crafts_list.got")
-   public ModelAndView crafts_list_select(ModelAndView mav) {
+   public ModelAndView crafts_list_select(ModelAndView mav, HttpServletRequest request) {
       
-      List<CraftVO> craftsList = null;
-      List<CraftVO> craftsNewList = null;
+      List<CraftVO> craftsList = null;  //수선사 정보 받아오기용
+      List<CraftVO> craftsNewList = null;  //신규입점수선사 띄우기용
+      List<CraftVO> craftsSearchList = null;  //수선사 검색용
       
-      craftsList = service.crafts_list_select();
-      craftsNewList = service.crafts_new_select();
+      HttpSession session = request.getSession();
+      
+      craftsList = service.crafts_list_select();  //수선사 정보 받아오기
+      craftsNewList = service.crafts_new_select();  //신규입점수선사 띄우기
+      
       
       /*
       for(int i = 0; i< craftsList.size(); i++) {
@@ -146,16 +144,40 @@ public class CraftController {
       }
       */
       
-      System.out.println(craftsNewList);
+//    System.out.println(craftsNewList);
+      
+      String searchType = request.getParameter("searchType");
+      String searchWord = request.getParameter("searchWord");
+      
+      if(searchType == null || (!"subject".equals(searchType) && !"name".equals(searchType))) {
+    	  searchType = "";
+      }
+      
+      if(searchWord == null || ("".equals(searchWord) || searchWord.trim().isEmpty())) {
+    	  searchWord = "";
+      }
+      
+      Map<String, String> paraMap = new HashMap<String, String>();
+      paraMap.put("searchType", searchType);
+      paraMap.put("searchWord", searchWord);
+      
+      craftsSearchList = service.crafts_list_search(paraMap);  //수선사 정보 검색하기
+      
+      //검색대상 컬럼과 검색어 유지
+      if(!"".equals(searchType) && !"".equals(searchWord)) {
+    	  mav.addObject("paraMap", paraMap);
+      }
       
       mav.addObject("craftsList", craftsList);
       mav.addObject("craftsNewList", craftsNewList);
-      mav.setViewName("/craft/craft_list.tiles1");
-
+      mav.addObject("craftsSearchList", craftsSearchList);
       
-      return mav;
+      mav.setViewName("/craft/craft_list.tiles1");   //뷰단 지정
+      
+      return mav;  //craft_list.jsp 로 List가 전달된다.
       
    }
+   
    
 
    

@@ -71,9 +71,15 @@ public interface InterCraftService {
 	// 공방 목록을 보여주기 위해 공방정보 조회해오기
 	List<CraftVO> crafts_list_select();
 
+	//수선사 상세페이지를 보여주기 위해 공방정보 조회해오기
 	CraftVO craftDetail(int craft_num_pk);
 
+	//수선사 찾기 페이지에서 상단 최근입점공방을 알아오기
 	List<CraftVO> crafts_new_select();
+
+	//수선사 정보 검색하기
+	List<CraftVO> crafts_list_search(Map<String, String> paraMap);
+
 
 
 

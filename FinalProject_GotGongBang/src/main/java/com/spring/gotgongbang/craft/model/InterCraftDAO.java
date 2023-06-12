@@ -76,6 +76,8 @@ public interface InterCraftDAO {
 
 	List<CraftVO> crafts_new_select();
 
+	List<CraftVO> crafts_list_search(Map<String, String> paraMap);
+
 
 
 

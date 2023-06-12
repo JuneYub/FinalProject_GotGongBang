@@ -158,7 +158,7 @@ public class CratfService implements InterCraftService {
 		return craftvo;
 	}
 
-
+	//수선사 상세정보 조회하기
 	@Override
 	public CraftVO craftDetail(int craft_num_pk) {
 		CraftVO craftvo = cdao.crafts_detail_select(craft_num_pk);
@@ -166,10 +166,18 @@ public class CratfService implements InterCraftService {
 		return craftvo;
 	}
 
+	//수선사 찾기 페이지에 신규입점공방 보여주기
 	@Override
 	public List<CraftVO> crafts_new_select() {
 		List<CraftVO> craftnewvo = cdao.crafts_new_select();
 		return craftnewvo;
+	}
+
+	//수선사 정보 검색하기
+	@Override
+	public List<CraftVO> crafts_list_search(Map<String, String> paraMap) {
+		List<CraftVO> craftsearchvo = cdao.crafts_list_search(paraMap);
+		return craftsearchvo;
 	}
 
 	
