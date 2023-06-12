@@ -101,6 +101,48 @@ public class OrderDAO implements InterOrderDAO {
 		String craftName = sqlsession.selectOne("order.get_craft_name",craftNum);
 		return craftName;
 	}
+
+
+	// orderDetail 테이블에 주문정보 넣어주기
+	@Override
+	public int insertOrderDetail(Map<String, String> paraMap) {
+		int i = sqlsession.insert("order.insertOrderDetail",paraMap);
+		return i;
+	}
+
+
+	// 견적서번호를 가지고 주문상세 정보 가져오기
+	@Override
+	public OrderDetailVO get_order_detail_info(String estimate_num_fk) {
+		
+		OrderDetailVO orderDetailInfo = sqlsession.selectOne("order.get_order_detail_info", estimate_num_fk);
+		return orderDetailInfo;
+	}
+
+
+	// 테이블 estimate에 있는 order_status 1로 바꿔주기
+	@Override
+	public int updateOrderStatus(String estimate_num_pk) {
+		
+		int k = sqlsession.update("order.updateOrderStatus",estimate_num_pk);
+		return k;
+	}
+
+
+	// order_num_fk 가져오기
+	@Override
+	public int getOrderNumPk(int estimate_num_pk) {
+		int order_num_fk = sqlsession.selectOne("order.getOrderNumPk",estimate_num_pk);
+		return order_num_fk;
+	}
+
+
+	// order_status가 0이면서 order_num_fk가 해당 번호인 얘들 전부 삭제하기
+	@Override
+	public int deleteEstimate(int order_num_fk) {
+		int j = sqlsession.selectOne("order.deleteEstimate",order_num_fk);
+		return j;
+	}
 	
 	// ================ 이지현 끝 ==================//
 
