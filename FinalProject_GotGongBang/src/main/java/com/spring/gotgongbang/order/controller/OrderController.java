@@ -391,7 +391,7 @@ public class OrderController {
 					Map<String,Integer> request_list_map = new HashMap<String, Integer>();
 					// 요청사항 목록들
 					
-					request_list_map.put("order_num_fk", order_num_pk);
+					request_list_map.put("order_num_fk", order_num_pk); 
 					
 					int[] request_list_num = {-1,-1,-1};
 					
