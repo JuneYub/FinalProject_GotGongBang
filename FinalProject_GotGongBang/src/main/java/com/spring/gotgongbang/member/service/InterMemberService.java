@@ -11,7 +11,7 @@ public interface InterMemberService {
 	
 	// ======== 홍용훈 시작 ========================================== //
 
-	// 회원가입 Service
+	// 일반회원가입 Service
 	void insertMember(MemberVO membervo);
 
 	// 비밀번호 암호화
@@ -35,8 +35,11 @@ public interface InterMemberService {
 	
 	String compareNameEmailpartner(Map<String, String> paraMap);
 	
+	// 공방회원가입 Service
+	void insertPartner(MemberVO membervo);
 	
-	
+	// 이메일 중복 확인 AJAX 요청 처리 ( 공방회원 )
+	boolean isEmailDuplicate_partner(String email);
 	
 	
 	
@@ -65,6 +68,9 @@ public interface InterMemberService {
 	List<HashMap<String, String>> getOrderListByUserId(HashMap<String, String> paraMap);
 
 	int getTotalCountForOrderListByUserId(String userId);
+
+	
+
 
 	
 	// ====== 박준엽 끝 =========================================== //
