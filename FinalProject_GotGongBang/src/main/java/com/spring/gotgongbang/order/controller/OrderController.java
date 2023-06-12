@@ -385,7 +385,7 @@ public class OrderController {
 				if(whole_num[0]!=0 && whole_num[1]!=0 &&whole_num[2]!=0 &&
 						detail_num[0]!=0 &&detail_num[1]!=0 &&detail_num[2]!=0 ){
 					
-					// 수선 요청사항 리스트에 넣기
+					// 수선 요청사항 리스트에 넣기  
 					String[] arr_reqest_list = reqest_list_num.split("\\%");
 					
 					Map<String,Integer> request_list_map = new HashMap<String, Integer>();
