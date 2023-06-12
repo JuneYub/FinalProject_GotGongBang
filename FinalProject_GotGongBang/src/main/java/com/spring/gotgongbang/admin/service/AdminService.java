@@ -20,27 +20,9 @@ import com.spring.gotgongbang.craft.model.CraftVO;
 public class AdminService implements InterAdminService{
 	
 	// ==== ==================================== 김나윤 시작 ======================================================= // 
-	// === #34. 의존객체 주입하기(DI : Dependency Injection) ===
 	@Autowired    //Type에 따라 알아서 Bean을 주입해준다.
 	private InterAdminDAO dao;
 	
-/*	
-	@Override    //로그인 체크 관련 메소드 (세션에 아이디와 비밀번호를 저장함)
-    public boolean loginCheck(AdminVO avo, HttpSession session) throws Exception {
-        
-        boolean result = dao.loginCheck(avo);
-        
-        if(result) {    //로그인 성공
-            
-        	//세션에 아이디, 비밀번호 값 저장하기
-            session.setAttribute("admin_id_pk", avo.getAdmin_id_pk());
-            session.setAttribute("admin_pwd", avo.getAdmin_pwd());
-            
-        }
-        
-        return result;
-    }
-*/
 
 	@Override
 	public ModelAndView loginEnd(ModelAndView mav, HttpServletRequest request, Map<String, String> paraMap) {
@@ -83,7 +65,7 @@ public class AdminService implements InterAdminService{
 					session.removeAttribute("goBackURL");  //세션에서 반드시 제거해주어야 한다.
 				}
 				else {
-					mav.setViewName("redirect:/index.got");  //로그인 되지마자 시작페이지로 이동. 나중에 goback 쓸 거!
+					mav.setViewName("redirect:/index.got");  //로그인 되지마자 시작페이지로 이동. 추후 관리자 페이지로 수정
 				}
 			}
 				

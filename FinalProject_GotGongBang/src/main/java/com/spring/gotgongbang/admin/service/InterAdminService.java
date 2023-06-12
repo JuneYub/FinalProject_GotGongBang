@@ -16,7 +16,6 @@ import com.spring.gotgongbang.craft.model.CraftVO;
 public interface InterAdminService {
 	
 	// ==== ==================================== 김나윤 시작 ======================================================= // 
-//	boolean loginCheck(AdminVO avo, HttpSession session) throws Exception;    //관리자 로그인을 체크하는 메소드
 	
 	ModelAndView loginEnd(ModelAndView mav, HttpServletRequest request, Map<String, String> paraMap);
 	

@@ -6,11 +6,8 @@ public class AdminVO {
 	
 	private String admin_id_pk;
 	private String admin_pwd;
-	
-	//이 부분은 데이터 select 용도!
-	private int pwdchangegap;          //select 용. 지금으로 부터 마지막으로 암호를 변경한지가 몇개월인지 알려주는 개월수(3개월 동안 암호를 변경 안 했을시 암호를 변경하라는 메시지를 보여주기 위함)  
-	private int lastlogingap;          //select 용. 지금으로 부터 마지막으로 로그인한지가 몇개월인지 알려주는 개월수(12개월 동안 로그인을 안 했을 경우 해당 로그인 계정을 비활성화 시키려고 함) 
-	
+	private String name = "관리자";
+	 
 	//이 부분은 select 용도!
 	private boolean requirePwdChange = false;
 	//마지막으로 암호를 변경한 날짜가 로그인 되어진 현재시간으로부터 3개월이 넘었으면 true 로 변경하도록 한다.
@@ -37,29 +34,14 @@ public class AdminVO {
 		this.admin_pwd = admin_pwd;
 	}
 
-	public int getPwdchangegap() {
-		return pwdchangegap;
+	public String getName() {
+		return name;
 	}
 
-	public void setPwdchangegap(int pwdchangegap) {
-		this.pwdchangegap = pwdchangegap;
+	public void setName(String name) {
+		this.name = name;
 	}
-
-	public int getLastlogingap() {
-		return lastlogingap;
-	}
-
-	public void setLastlogingap(int lastlogingap) {
-		this.lastlogingap = lastlogingap;
-	}
-
-	public boolean getRequirePwdChange() {
-		return requirePwdChange;
-	}
-
-	public void setRequirePwdChange(boolean requirePwdChange) {
-		this.requirePwdChange = requirePwdChange;
-	}
+	
 	
 	
 	
