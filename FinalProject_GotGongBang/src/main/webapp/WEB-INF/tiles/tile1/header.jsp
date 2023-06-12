@@ -18,12 +18,32 @@
                 <h1><img src="<%= ctxPath%>/resources/img/main_got.png" width="300" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/'"></h1>
             </div>
             <div class="header-nav">
-                <ul>
+            <c:if test="${sessionScope.loginuser != null and sessionScope.loginuser.user_id_pk == 'admin'}">
+                 <ul>
+                    <li>
+                        <a class="header-nav-button" style="padding: 10px 12px;" onclick="location.href='<%= ctxPath%>/service_info.got'">서비스 소개</a>
+                    </li>
+                    <li>
+                        <a class="header-nav-button" style="padding: 10px 12px;" onclick="location.href='<%= ctxPath%>/crafts_list.got'">수선사 찾기</a>
+                    </li>
+                    <li>
+                        <a class="header-nav-button" style="padding: 10px 12px;" onclick="location.href='<%= ctxPath%>/orderForm.got'">견적 의뢰</a>
+                    </li>
+                    <li>
+                        <a class="header-nav-button" style="padding: 10px 12px;" onclick="location.href='<%= ctxPath%>/board_inquiry.got'">고객센터</a>
+                    </li>
+                    <li>
+                        <a class="header-nav-button" style="padding: 10px 12px;">Admin</a>
+                    </li>
+                </ul>
+             </c:if>
+            <c:if test="${sessionScope.loginuser.user_id_pk ne 'admin'}">
+            	 <ul>
                     <li>
                         <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/service_info.got'">서비스 소개</a>
                     </li>
                     <li>
-                        <a class="header-nav-button" onclick="location.href='<%= ctxPath%>/crafts_list.got'">수선사 찾기</a>
+                        <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/crafts_list.got'">수선사 찾기</a>
                     </li>
                     <li>
                         <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/orderForm.got'">견적 의뢰</a>
@@ -32,9 +52,7 @@
                         <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/board_inquiry.got'">고객센터</a>
                     </li>
                 </ul>
-                
-                
-                
+              </c:if> 
                 
             </div>
 
