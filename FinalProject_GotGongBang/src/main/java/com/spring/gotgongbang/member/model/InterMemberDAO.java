@@ -71,15 +71,9 @@ public interface InterMemberDAO {
 
 	int getTotalCountForOrderListByUserId(String userId);
 
-
-
-
-
-
-
-
-
 	int getTotalCountProposalListByUserId(String userId);
+
+	int getReviewCntByOrderNum(String orderNum);
 
 	
 

@@ -612,9 +612,17 @@ div.contents-review-promotional {
 	text-align: center;
 }
 
+.myPage-cont table.tbl-myPageList thead th:first-child {
+	width: 15%;
+}
+
+.myPage-cont table.tbl-myPageList thead th:last-child {
+	width: 15%;
+}
+
 .myPage-cont table.tbl-myPageList tbody td {
 	text-align: center;
-	font-size: 17px;
+	font-size: 14px;
 	padding: 10px 0px;
 	line-height: 30px;
 }
@@ -840,11 +848,11 @@ ul:has(li.requests-item) {
 
 .tbl-myPageList tbody tr .txt-estimate-info .requests-item {
     display: inline-block;
+    margin: 5px 0 5px 5px; 
     background-color: white;
     color: #400099;
     border-radius: 13px;
     padding: 1px 11px;
-    margin-left: 5px;
     border: 1px solid #400099;
     font-weight: 400;
 }

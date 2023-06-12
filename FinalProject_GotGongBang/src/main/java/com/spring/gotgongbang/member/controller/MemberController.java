@@ -90,7 +90,7 @@ public class MemberController {
 			paraMap.put("endRno", String.valueOf(endRno));
 			paraMap.put("userId", userId);
 			
-			String url = "order_list.got";
+			String url = "proposal_list.got";
 			String pageBar = myUtil.makePageBar(currentShowPageNo, 10, totalPage, url);
 			List<HashMap<String, String>> proposalList = service.getProposalListByUserId(paraMap);
 			
@@ -238,6 +238,24 @@ public class MemberController {
 			return mav;
 
 		}
+		
+		@RequestMapping(value="/review.got")
+		public ModelAndView writeReview(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+			mav.setViewName("member/revire.tiles1");
+			return mav;
+			
+		}
+		
+	   @ResponseBody
+	   @RequestMapping(value="/check_review_count.got", method= {RequestMethod.POST})
+	   public String getReviewCntByOrderNum(HttpServletRequest request) {
+		   String orderNum = request.getParameter("orderNum");
+		   int cnt = service.getReviewCntByOrderNum(orderNum);
+		   
+		   JSONObject jsonObj = new JSONObject();
+		   jsonObj.put("cnt", cnt);
+		   return jsonObj.toString();
+	   }
 		
 		
 		// 박준엽 끝

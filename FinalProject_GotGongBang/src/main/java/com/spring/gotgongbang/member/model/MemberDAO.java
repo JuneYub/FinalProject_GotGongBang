@@ -175,6 +175,12 @@ public class MemberDAO implements InterMemberDAO {
 		return n;
 	}
 
+	@Override
+	public int getReviewCntByOrderNum(String orderNum) {
+		int n = sqlsession.selectOne("member.getReviewCntByOrderNum", orderNum);
+		return n;
+	}
+
 
 
 
