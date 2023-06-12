@@ -52,19 +52,24 @@ public class CraftController {
     
    @RequestMapping(value="/crafts_detail.got")
    public ModelAndView craftDetail(ModelAndView mav, HttpServletRequest request) {
+	   
+	   int craft_num_pk = Integer.parseInt(request.getParameter("craft_num_pk"));
+	   System.out.println("craft_num_pk = "+craft_num_pk);
+//	   List<String> : 공방명만 여러개 
+//	   List<CraftVO> : 여러개의 공방정보 데리고
+	   
+	   CraftVO craftvo = service.craftDetail(craft_num_pk);
+	   //where절에서 필요한 데이터만 골라오기 위해 craft_num_pk 파라미터로 넣어준다.
+	    
 	  //request.getParameter("")
       mav.setViewName("/craft/craft_detail.tiles1");
- //     mav.addObject("craftvo_2", craftvo_2);
+      mav.addObject("craftvo", craftvo);  //mav 안에 craftvo 넣어주기
+      
+     System.out.println(mav);
       
       return mav;
    }
    
-   
-//   @RequestMapping(value="/crafts_list.got")
-//   public ModelAndView craftList(ModelAndView mav) {
-//      mav.setViewName("/craft/craft_list.tiles1");
-//      return mav;
-//   }
    
 	@RequestMapping(value="/crafts_list_10bag.got")
 	public ModelAndView craftList_10bag(ModelAndView mav) {
@@ -119,11 +124,17 @@ public class CraftController {
 	}
    
    @RequestMapping(value="/crafts_list.got")
-   public ModelAndView crafts_list_select(ModelAndView mav) {
+   public ModelAndView crafts_list_select(ModelAndView mav, HttpServletRequest request) {
       
-      List<CraftVO> craftsList = null;
+      List<CraftVO> craftsList = null;  //수선사 정보 받아오기용
+      List<CraftVO> craftsNewList = null;  //신규입점수선사 띄우기용
+      List<CraftVO> craftsSearchList = null;  //수선사 검색용
       
-      craftsList = service.crafts_list_select();
+      HttpSession session = request.getSession();
+      
+      craftsList = service.crafts_list_select();  //수선사 정보 받아오기
+      craftsNewList = service.crafts_new_select();  //신규입점수선사 띄우기
+      
       
       /*
       for(int i = 0; i< craftsList.size(); i++) {
@@ -133,89 +144,42 @@ public class CraftController {
       }
       */
       
-      mav.addObject("craftsList", craftsList);
-      mav.setViewName("/craft/craft_list.tiles1");
-
-      
-      return mav;
-      
-   }
-   
-/*   
-   @RequestMapping(value="/crafts_detail.got")
-   public ModelAndView crafts_detail_select()
-*/   
-   
-/*   
-   @ResponseBody
-   @RequestMapping(value="/wordSearchShow.action", method= {RequestMethod.GET}, produces="text/plain;charset=UTF-8")
-   public String wordSearchShow(HttpServletRequest request) {
+//    System.out.println(craftsNewList);
       
       String searchType = request.getParameter("searchType");
       String searchWord = request.getParameter("searchWord");
       
-      Map<String, String> paraMap = new HashMap<>();  //map에 담아서 넘겨준다.
+      if(searchType == null || (!"subject".equals(searchType) && !"name".equals(searchType))) {
+    	  searchType = "";
+      }
+      
+      if(searchWord == null || ("".equals(searchWord) || searchWord.trim().isEmpty())) {
+    	  searchWord = "";
+      }
+      
+      Map<String, String> paraMap = new HashMap<String, String>();
       paraMap.put("searchType", searchType);
       paraMap.put("searchWord", searchWord);
       
-      String json = service.wordSearchShow(paraMap);  //map을 보내어준다.
+      craftsSearchList = service.crafts_list_search(paraMap);  //수선사 정보 검색하기
       
-      return json;
-   }
-   
-*/
-   
-   
-/*   
-   @RequestMapping(value="/crafts_detail.got")
-   public ModelAndView crafts_detail_select(ModelAndView mav) {
-      
-      CraftVO craftvo = null;
-      
-      craftvo = service.crafts_detail_select();
-      
-      
-      
-      mav.addObject("craftvo", craftvo);
-      mav.setViewName("/craft/craft_detail.tiles1");
-      
-
-      
-      return mav;
-      
-   }
-*/   
-   
-/*   
-   @ResponseBody
-   @RequestMapping(value="/crafts_list.got")
-   public ModelAndView crafts_list_select(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
-      
-      String craft_specialty = request.getParameter("craft_specialty");
-      
-      List<CraftVO> cvo = service.crafts_list_select(craft_specialty);
-      
-      JSONArray jsonArr = new JSONArray();
-      
-      for(CraftVO craftvo : cvo ) {
-         JSONObject jsonObj = new JSONObject();
-         jsonObj.put("craft_name", craftvo.getCraft_name());
-         jsonObj.put("craft_introduce", craftvo.getCraft_Introduce());
-         jsonObj.put("craft_representative", craftvo.getCraft_representative());
-         jsonObj.put("craft_image", craftvo.getCraft_image());
-         
-         jsonArr.put(jsonObj);
-         
+      //검색대상 컬럼과 검색어 유지
+      if(!"".equals(searchType) && !"".equals(searchWord)) {
+    	  mav.addObject("paraMap", paraMap);
       }
       
-      System.out.println(jsonArr);
-//      console.log(jsonArr);
-      mav.setViewName("/craft/craft_list.tiles1");
-      return mav;
+      mav.addObject("craftsList", craftsList);
+      mav.addObject("craftsNewList", craftsNewList);
+      mav.addObject("craftsSearchList", craftsSearchList);
+      
+      mav.setViewName("/craft/craft_list.tiles1");   //뷰단 지정
+      
+      return mav;  //craft_list.jsp 로 List가 전달된다.
+      
    }
-*/   
    
    
+
    
    
    

@@ -157,12 +157,27 @@ public class CarftDAO implements InterCraftDAO {
 		return craftvo;
 	}
 
-
 	@Override
-	public CraftVO crafts_detail_select() {
-		CraftVO craftvo = sqlsession.selectOne("craft.crafts_detail_select");
+	public CraftVO crafts_detail_select(int craft_num_pk) {
+		CraftVO craftvo = sqlsession.selectOne("craft.craft_detail", craft_num_pk);
+		System.out.println(craftvo);
 		return craftvo;
 	}
+
+	@Override
+	public List<CraftVO> crafts_new_select() {
+		List<CraftVO> craftvo = sqlsession.selectList("craft.craft_new");
+		return craftvo;
+	}
+
+	@Override
+	public List<CraftVO> crafts_list_search(Map<String, String> paraMap) {
+		List<CraftVO> craftvo = sqlsession.selectList("craft.crafts_list_search");
+		return craftvo;
+	}
+
+
+	
 
 
 
