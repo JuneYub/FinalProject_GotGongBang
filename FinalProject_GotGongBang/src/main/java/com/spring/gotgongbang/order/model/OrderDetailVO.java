@@ -17,10 +17,17 @@ public class OrderDetailVO {
 	private String order_extra_address; 	//부가주소
 	private String product_status; 			//상품진행상태
 	private String order_name; 				//주문자명
-	private String order_mobile; 			//주문자전화번호
+	private String order_num; 			//주문자전화번호
+	private int payment;				//금액
 	
 	
 	
+	public int getPayment() {
+		return payment;
+	}
+	public void setPayment(int payment) {
+		this.payment = payment;
+	}
 	
 	public String getOrder_detail_id_pk() {
 		return order_detail_id_pk;
@@ -76,11 +83,11 @@ public class OrderDetailVO {
 	public void setOrder_name(String order_name) {
 		this.order_name = order_name;
 	}
-	public String getOrder_mobile() {
-		return order_mobile;
+	public String getOrder_num() {
+		return order_num;
 	}
-	public void setOrder_mobile(String order_mobile) {
-		this.order_mobile = order_mobile;
+	public void setOrder_num(String order_mobile) {
+		this.order_num = order_mobile;
 	}
 	
 	

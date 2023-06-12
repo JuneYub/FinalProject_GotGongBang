@@ -25,6 +25,12 @@
 			#{craft_detail_address}, #{craft_extra_address}, 1321.454, 56545.215, default,
 			#{orgFilename}, #{fileName})
 </insert>
+
+<insert id="imgAddFile" parameterType="com.spring.gotgongbang.craft.model.ImageVO">
+	insert into CRAFT_IMG(craft_add_img_pk, craft_num_fk, add_file_name, add_origin_file_name) 
+	values(seq_estimate_num_pk.nextval, #{craft_num_fk}, #{add_file_name}, #{add_origin_file_name})
+</insert>
+
  <!--==================== 김진솔 끝 ====================== -->
 
 
@@ -34,7 +40,29 @@
 <select id="crafts_list_select" resultType="com.spring.gotgongbang.craft.model.CraftVO">
 	SELECT *
 	FROM CRAFT
+	
 </select>
+
+
+<select id="craft_detail" parameterType="int" resultType="com.spring.gotgongbang.craft.model.CraftVO">
+	SELECT *
+	FROM CRAFT
+	WHERE CRAFT_NUM_PK = #{craft_num_pk, jdbcType=NUMERIC}
+</select>
+
+<select id="craft_new" resultType="com.spring.gotgongbang.craft.model.CraftVO">
+ SELECT *
+ FROM CRAFT
+ ORDER BY CRAFT_NUM_PK DESC
+</select>
+
+<select id="crafts_list_search" resultType="com.spring.gotgongbang.craft.model.CraftVO">
+	SELECT *
+	FROM craft
+	WHERE craft_status = 1
+	ORDER BY craft_num_pk desc
+</select>
+
 <!--==================== 김나윤 끝 ====================== -->
 
 

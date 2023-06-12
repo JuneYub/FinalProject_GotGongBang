@@ -8,7 +8,8 @@
 
 %>   
 
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <style type="text/css">
@@ -127,7 +128,7 @@ div#payContent {
 	// 결제해주러 가는 함수 //
 	function goPurchase(){
 	      
-		const price = $("span#price").text();
+		const price = $("div#price").text();
 		const user_id_pk = "${sessionScope.loginuser.user_id_pk}";
         const url = "<%= request.getContextPath()%>/requiredLogin_PurchaseEnd.got?user_id_pk="+user_id_pk+"&price="+price; 
         // 견적서번호 넘기기 
@@ -140,8 +141,22 @@ div#payContent {
 	} // end of function PurchaseEnd()-------------------------------------------
 	
 
-
 	
+	// == 결제 후 DB 상의 order_detail 테이블에 insert 시켜주는 함수 == //
+   function goInsertOrder(price){
+		
+	   const frm = document.payment_form;
+		//post방식으로 넘기려면 form태그. get은 ?
+		frm.estimante_price.value = price;
+		frm.estimate_num_fk.value = ${requestScope.estimate_num_pk};
+	
+		frm.action = "<%= request.getContextPath()%>/requiredLogin_insertOrderDetail.got"; 
+		frm.method = "post";
+		frm.submit();
+		
+		
+   }
+
 	
 	
 
@@ -248,6 +263,9 @@ div#payContent {
 							<button name="order_name" class="payBtnPost" type="button" id="btnPostcode" onclick="openDaumPOST();">우편번호 검색</button><br>
 							<input name="order_address" class="payInput2" type="text"  id="address"  readonly></input><br>
 							<input name="order_detail_address" class="payInput2" type="text" id="detailAdress" ></input>
+							<div id="price" style="display:none;">${requestScope.paymentInfo.estimate_price}</div>
+							<input type="hidden" value="" name="estimante_price" id="estimante_price" ></input>
+							<input type="hidden" value="" name="estimate_num_fk" id="estimate_num_fk" ></input>
 						</td>
 				
 					</tr>
@@ -275,7 +293,7 @@ div#payContent {
 		<hr>
 		
 		<div class="payFlex2">
-			<p style="font-weight:bold; font-size:20px;">최종 가격 : <span id="price">${requestScope.paymentInfo.estimate_price}</span></p>
+			<p style="font-weight:bold; font-size:20px;">최종 가격 : <span ><fmt:formatNumber value="${requestScope.paymentInfo.estimate_price}" pattern="#,###" /></span>원</p>
 			<%-- <fmt:formatNumber value="${requestScope.boardvo.fileSize}" pattern="#,###" /> --%>
 		</div>
 		

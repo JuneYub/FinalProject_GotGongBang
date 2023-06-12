@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.gotgongbang.common.FileManager;
 import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.DetailImgVO;
+import com.spring.gotgongbang.order.model.OrderDetailVO;
 import com.spring.gotgongbang.order.model.TypesVO;
 import com.spring.gotgongbang.order.model.WholeImgVO;
 import com.spring.gotgongbang.order.service.InterOrderService;
@@ -52,11 +53,7 @@ public class OrderController {
 	// 오준혁 끝 ===========================================================================
 	
 	// 이지현 시작 ===========================================================================
-	@RequestMapping(value = "/buyResult.got")
-	public ModelAndView buyResult(ModelAndView mav) {
-		mav.setViewName("order/buyResult.tiles1");
-		return mav;
-	}
+
 	
 	@RequestMapping(value = "/orderDetail.got")
 	public ModelAndView orderDetail(ModelAndView mav) {
@@ -388,13 +385,14 @@ public class OrderController {
 				if(whole_num[0]!=0 && whole_num[1]!=0 &&whole_num[2]!=0 &&
 						detail_num[0]!=0 &&detail_num[1]!=0 &&detail_num[2]!=0 ){
 					
-					// 수선 요청사항 리스트에 넣기
-					String[] arr_reqest_list = reqest_list_num.split("\\,");
+					   
+					// 수선 요청사항 리스트에 넣기  
+					String[] arr_reqest_list = reqest_list_num.split("\\%"); 
 					
 					Map<String,Integer> request_list_map = new HashMap<String, Integer>();
 					// 요청사항 목록들
 					
-					request_list_map.put("order_num_fk", order_num_pk);
+					request_list_map.put("order_num_fk", order_num_pk); 
 					
 					int[] request_list_num = {-1,-1,-1};
 					
@@ -475,21 +473,102 @@ public class OrderController {
 		//세션에서 로그인된 아이디 가져오기
 		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 		
+		
+		// 로그인 한 유저와 결제하는 사용자가 다르면
+		if(!request.getParameter("user_id_pk").equals(loginuser.getUser_id_pk()) ) {
+			
+		}
+		
 		// 아이디와 이메일 보내기
 		request.setAttribute("user_id_pk", loginuser.getUser_id_pk()); 
 		request.setAttribute("email", loginuser.getEmail()); 
-		request.setAttribute("coinmoney", Integer.parseInt(request.getParameter("price")) ); 
-
-		
-		// form 태그에서 가져오는 데이터
-		String order_name = request.getParameter("order_name");		//주문자이름
-		String order_mobile= request.getParameter("order_mobile");	//전화번호
-		String order_post_code= request.getParameter("order_post_code");//우편번호
-		String order_address= request.getParameter("order_address");//주소
-		String order_detail_address= request.getParameter("order_detail_address");//상세주소
+		request.setAttribute("price", Integer.parseInt(request.getParameter("price")) ); 
 
 		
 		mav.setViewName("/none_tiles/order/paymentGateway");
+		return mav;
+	}
+	
+	
+	
+	// 결제한 내용 order_detail에 넣기
+	@RequestMapping(value = "/requiredLogin_insertOrderDetail.got")
+	public ModelAndView requiredLogin_insertOrderDetail(HttpServletRequest request, HttpServletResponse response,ModelAndView mav) {
+		
+		String order_name = request.getParameter("order_name");						//주문자명
+		String order_mobile = request.getParameter("order_mobile");					//주문자폰번호
+		String order_post_code = request.getParameter("order_post_code");			//우편번호
+		String order_address = request.getParameter("order_address");				//주소
+		String order_detail_address = request.getParameter("order_detail_address");	//상세주소
+		String estimate_num_fk = request.getParameter("estimate_num_fk");			//견적서번호
+		String payment = request.getParameter("estimante_price");					//가격
+		
+		Map<String,String> paraMap = new HashMap<>();
+		
+		paraMap.put("order_name", order_name);
+		paraMap.put("order_num", order_mobile);
+		paraMap.put("order_post_code", order_post_code);
+		paraMap.put("order_address", order_address);
+		paraMap.put("order_detail_address", order_detail_address);
+		paraMap.put("estimate_num_fk", estimate_num_fk);
+		paraMap.put("payment", payment);
+		
+		// orderDetail 테이블에 주문정보 넣어주기
+		int i = service.insertOrderDetail(paraMap);
+
+		mav.addObject("estimate_num_fk", estimate_num_fk);
+		
+		
+		
+		String estimate_num_pk = request.getParameter("estimate_num_fk");
+		
+		// 테이블 estimate에 있는 order_status 1로 바꿔주기
+		int k = service.updateOrderStatus(estimate_num_pk);
+		
+		// order_num_fk 가져오기
+		int order_num_fk = service.getOrderNumPk(Integer.parseInt(estimate_num_pk) );
+		
+		// order_status가 0이면서 order_num_fk가 해당 번호인 얘들 전부 삭제하기
+		int j = service.deleteEstimate(order_num_fk);
+		
+		if(i==1) {
+			
+			
+		  estimate_num_pk = request.getParameter("estimate_num_fk");
+			
+			
+			
+			// 견적서번호를 가지고 정보 가져오기
+			HashMap<String,String> paymentInfo = service.get_estimate_info(estimate_num_pk);
+			
+			int craftNum = Integer.parseInt(String.valueOf(paymentInfo.get("craft_num_fk")) );
+			// 공방번호를 가지고 공방이름 가져오기
+			String craft_name = service.get_craft_name(craftNum );
+			
+			paymentInfo.put("craft_name", craft_name);
+			
+			mav.addObject("paymentInfo", paymentInfo);
+			
+			
+			/////////////// 결제 정보 확인하기 ////////////////
+			// 견적서번호를 가지고 주문상세 정보 가져오기
+			OrderDetailVO orderDetailInfo = service.get_order_detail_info(estimate_num_fk);
+			mav.addObject("orderDetailInfo", orderDetailInfo);
+			
+			mav.setViewName("order/buyResult.tiles1");
+		}
+		
+		return mav;
+	}
+		
+	
+	// 결제한 후 결과 페이지 보여주기
+	@RequestMapping(value = "buyResult.got")
+	public ModelAndView requiredLogin_buyResult(HttpServletRequest request, HttpServletResponse response,ModelAndView mav) {
+		
+		
+		
+		mav.setViewName("order/buyResult.tiles1");
 		return mav;
 	}
 	

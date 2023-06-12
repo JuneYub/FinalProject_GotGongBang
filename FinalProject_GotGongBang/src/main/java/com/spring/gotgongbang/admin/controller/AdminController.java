@@ -54,16 +54,23 @@ public class AdminController {
 	@RequestMapping(value = "/craft_view.got")
 	public ModelAndView craftView(ModelAndView mav, HttpServletRequest request) {
 		String craft_num_pk = request.getParameter("craft_num_pk");
-		
+
 		CraftVO craftvo = null;
 		
 		craftvo = service.craftOneView(craft_num_pk);
-		/*
-		String other_career = request.getParameter("other_career_val");
-		System.out.println("other_career : " + other_career);
-		*/
-		//mav.addObject("other_career", other_career);	//기타경력사항
+
+	    List<Map<String, String>> imgList = service.selectImgList(craft_num_pk);
+	    System.out.println("~확인용 imgList: "+ imgList);
+	    // 뷰단에 파일 originalFileName을 띄워주기 위한 것
+	    Map<String, String> paraMap = new HashMap<String, String>();
+	    paraMap.put("craft_image_orgFilename", imgList.get(0).get("craft_image_orgFilename").toString());
+	    paraMap.put("craft_representative_image_orgFilename", imgList.get(0).get("craft_representative_image_orgFilename").toString());
+	    paraMap.put("craft_certificate_orgFilename", imgList.get(0).get("craft_certificate_orgFilename").toString());
+	    
+	    System.out.println("paraMap : " + paraMap);
+	    
 		
+		mav.addObject("paraMap",paraMap);
 		mav.addObject("craftvo",craftvo);
 		mav.setViewName("admin/craftView.tiles1");
 		return mav;
@@ -78,34 +85,26 @@ public class AdminController {
 			// 첨부파일 클릭하면 파일 다운로드하기
 				response.setContentType("text/html; charset=UTF-8");
 			    PrintWriter out = null;
-			    // out 은 웹브라우저에 기술하는 대상체라고 생각하자.
-				
-			    List<Map<String, String>> imgList = service.selectImgList(craft_num_pk);
-			    System.out.println("~확인용 imgList: "+ imgList);
-			    
-			    Map<String, String> paraMap = new HashMap<String, String>();
-			    paraMap.put("craft_image_orgFilename", imgList.get(0).get("craft_image_orgFilename").toString());
-			    paraMap.put("craft_representative_image_orgFilename", imgList.get(0).get("craft_representative_image_orgFilename").toString());
-			    paraMap.put("craft_certificate_orgFilename", imgList.get(0).get("craft_representative_image_orgFilename").toString());
-			    paraMap.put("craft_image_fileName", imgList.get(0).get("craft_image_fileName").toString());
-			    paraMap.put("craft_representative_image_fileName", imgList.get(0).get("craft_representative_image_fileName").toString());
-			    paraMap.put("craft_certificate_fileName", imgList.get(0).get("craft_certificate_fileName").toString());
-
-			    System.out.println("paraMap : " + paraMap);
-			    
 			    try {
 				    Integer.parseInt(craft_num_pk);
 
-					if( craftvo == null || (craftvo != null && craftvo.getFileName() == null ) ) {
+				    List<Map<String, String>> imgList = service.selectImgList(craft_num_pk);
+				   
+					if( craftvo == null ) {
 						out = response.getWriter();
 						out.println("<script type='text/javascript'>alert('존재하지 않는 글번호 이거나 첨부파일이 없으므로 파일다운로드가 불가합니다.'); history.back();</script>"); 
-					}else {
-						// 정상적으로 다운로드를 할 경우 
+					}
+					else{
 						
 						String craft_image_fileName = imgList.get(0).get("craft_image_fileName").toString();
-						
 						String craft_image_orgFilename = imgList.get(0).get("craft_image_orgFilename").toString();
-						
+
+						String craft_representative_image_fileName = imgList.get(0).get("craft_representative_image_fileName").toString();					
+						String craft_representative_image_orgFilename = imgList.get(0).get("craft_representative_image_orgFilename").toString();
+
+						String craft_certificate_fileName = imgList.get(0).get("craft_certificate_fileName").toString();						
+						String craft_certificate_orgFilename = imgList.get(0).get("craft_certificate_orgFilename").toString();
+
 						HttpSession session = request.getSession();
 						String root = session.getServletContext().getRealPath("/");
 						
@@ -115,10 +114,10 @@ public class AdminController {
 						// **** file 다운로드 하기 **** //
 						boolean flag = false; // file 다운로드 성공, 실패를 알려주는 용도 
 						flag = fileManager.doFileDownload(craft_image_fileName, craft_image_orgFilename, path, response);
-						// file 다운로드 성공시 flag 는 true, 
-						// file 다운로드 실패시 flag 는 false 를 가진다. 
-						
-						if(!flag) {
+						flag = fileManager.doFileDownload(craft_representative_image_fileName, craft_representative_image_orgFilename, path, response);
+						flag = fileManager.doFileDownload(craft_certificate_fileName, craft_certificate_orgFilename, path, response);
+
+						if(!flag) {	//다운로드 실패시
 							out = response.getWriter();					
 							out.println("<script type='text/javascript'>alert('파일다운로드가 실패되었습니다.'); history.back();</script>");
 						}
@@ -127,9 +126,7 @@ public class AdminController {
 				
 			    } catch (IOException e) {
 			    	try {
-						out = response.getWriter();
-						// out 은 웹브라우저에 기술하는 대상체라고 생각하자.
-						
+						out = response.getWriter();						
 						out.println("<script type='text/javascript'>alert('파일다운로드가 불가합니다.'); history.back();</script>"); 
 					} catch (IOException e1) {
 						e1.printStackTrace();
@@ -155,45 +152,7 @@ public class AdminController {
 	//LoggerFactory 사용시 
 	private static final Logger logger= LoggerFactory.getLogger(MemberController.class);  //로깅을 위한 변수
 	
-/*	
-	//관리자 로그인 페이지에서 관리자 아이디와 패스워드를 입력후 로그인 버튼을 누를시에 맵핑되는 메소드
-    //관리자 로그인을 할 수 있도록 한다.
-    @RequestMapping(value="/admin_login.got")
-    public ModelAndView admin_login(String admin_id_pk, String admin_pwd, HttpSession session) throws Exception {
-        
-        //로그인 체크도 같이 함
-        AdminVO avo = new AdminVO();
-        
-        
-        avo.setAdmin_id_pk(admin_id_pk);
-        avo.setAdmin_pwd(admin_pwd);
-        
-        //로그인 체크를 하기위한 메소드, 로그인 체크후 결과를 result 변수에 넣는다.
-        boolean result = service.loginCheck(avo, session);
-        ModelAndView mav = new ModelAndView();
-        
-        
-        if(result) {  //로그인이 성공했을시 출력되는 구문
-            mav.setViewName("admin/admin_index.tiles1");    //로그인이 성공했을시 이동하게되는 뷰의 이름
-            mav.addObject("admin_id_pk", session.getAttribute(admin_id_pk));
-        }
-        else if(session.getAttribute(admin_id_pk) == null) {    //로그인 실패 했을시 출력
-                
-            //로그인이 실패했을 시에 다시 관리자 로그인 페이지로 이동함
-            mav.setViewName("admin/admin_login.tiles1");
-            
-            //뷰에 전달할 값
-            mav.addObject("message", "관리자의 아이디 혹은 비밀번호가 일치하지 않습니다.");
-        
-        }
-	
-	        return mav;
-	}
-*/
-	
-	
-	
-	// === 1-1. 로그인 폼 페이지 요청 === //
+	// === #1. 로그인 폼 페이지 요청 === //
 	@RequestMapping(value="/admin_login.got", method={RequestMethod.GET})
 	public ModelAndView login(ModelAndView mav) {
 		
@@ -203,7 +162,7 @@ public class AdminController {
 	}
 	
 	
-	// === 1-2. 로그인 폼 페이지 요청 === //
+	// === #2. 로그인 폼 페이지 요청 === //
 	@RequestMapping(value="/admin_login.got", method= {RequestMethod.POST})
 	public ModelAndView loginEnd(ModelAndView mav, HttpServletRequest request) {
 		

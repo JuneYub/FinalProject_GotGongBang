@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.gotgongbang.craft.model.CraftVO;
+import com.spring.gotgongbang.craft.model.ImageVO;
 import com.spring.gotgongbang.craft.model.InterCraftDAO;
 
 
@@ -135,6 +136,12 @@ public class CratfService implements InterCraftService {
 		return n;
 	}
 
+	// 추가이미지 파일 insert
+	@Override
+	public int imgAddFile(ImageVO imgvo) {
+		int m = cdao.imgAddFile(imgvo);
+		return m;
+	}
 
 	
 	// ================ 김진솔 끝 ================== //
@@ -158,31 +165,28 @@ public class CratfService implements InterCraftService {
 		return craftvo;
 	}
 
+	//수선사 상세정보 조회하기
 	@Override
-	public CraftVO crafts_detail_select() {
-		CraftVO craftvo = cdao.crafts_detail_select();
+	public CraftVO craftDetail(int craft_num_pk) {
+		CraftVO craftvo = cdao.crafts_detail_select(craft_num_pk);
+		System.out.println(craftvo);
 		return craftvo;
 	}
 
-	
-	//공방상세페이지를 보여주기 위해 공방정보 조회해오기
-	/*
+	//수선사 찾기 페이지에 신규입점공방 보여주기
 	@Override
-	public List<CraftVO> crafts_detail_select() {
-		List<CraftVO> craftvo_2 = cdao.crafts_detail_select();
-		return craftvo_2;
+	public List<CraftVO> crafts_new_select() {
+		List<CraftVO> craftnewvo = cdao.crafts_new_select();
+		return craftnewvo;
 	}
-	*/
+
+	//수선사 정보 검색하기
+	@Override
+	public List<CraftVO> crafts_list_search(Map<String, String> paraMap) {
+		List<CraftVO> craftsearchvo = cdao.crafts_list_search(paraMap);
+		return craftsearchvo;
+	}
+
 	
-//	@Override
-//	public ModelAndView crafts_list_select(ModelAndView mav) {
-//		List<CraftVO> craftvo = cdao.crafts_list_select();
-//		
-//		mav.addObject("craftvo", craftvo);
-//		mav.setViewName("/craft/craft_list.tiles1");
-//		
-//		return mav;
-//	}
-//	
 	// ================ 김나윤 끝 ================== //
 }
