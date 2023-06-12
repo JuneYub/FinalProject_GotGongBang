@@ -47,6 +47,7 @@ public class CraftVO {
 
 	public CraftVO(){}
 	
+
 	public String getCraft_num_pk() {
 		return craft_num_pk;
 	}
