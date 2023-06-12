@@ -64,6 +64,8 @@ public interface InterMemberService {
 	int getTotalCountForOrderListByUserId(String userId);
 
 	int getTotalCountProposalListByUserId(String userId);
+
+	int getReviewCntByOrderNum(String orderNum);
 	
 
 
