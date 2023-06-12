@@ -138,17 +138,25 @@ $(document).readty(function(){
                             <div  class="ojh_table2_info t13_1">조회수</div>
                       </div> 
 					  
-					   <c:if test="${empty requestScope.iqList}">
+					   <c:if test="${empty requestScope.iqvo}">
                       		<td style="padding: 32px 0px 0px 252px";>게시글 데이터가 없습니다</td>
                       </c:if>    	
                       
-                    <c:if test="${not empty requestScope.iqList}">  
+                    <c:if test="${not empty requestScope.iqvo}">  
                       <ul class="ojh_table2_notice">
                         <li>
-                          <c:forEach var="inquiryvo" items="${requestScope.iqList}">
+                          <c:forEach var="inquiryvo" items="${requestScope.iqvo}">
                                 <div class="ojh_table2_notice1">
                                     <div class="ojh_table2_notice2 t14">${inquiryvo.inquiry_num_pk}</div>
-                                    <span class="subject t15" style="cursor:pointer;" onclick="goView('${inquiryvo.inquiry_num_pk}')">${inquiryvo.inquiry_title}</span>
+                                    
+                                    <c:if test="${inquiryvo.depthno == 0}">
+	                                    	<span class="subject t15" name="inquiry_title" style="cursor:pointer;" onclick="goView('${inquiryvo.inquiry_num_pk}')"> ${inquiryvo.inquiry_title} </span>
+	                                </c:if> 
+	                                
+	                                <c:if test="${inquiryvo.depthno > 0}">
+	                                    	<span class="subject t15" name="inquiry_title" style="cursor:pointer;" onclick="goView('${inquiryvo.inquiry_num_pk}')"><span style="color: red; font-style: italic; padding-left: ${boardvo.depthno * 20}px;">└Re&nbsp; </span> ${inquiryvo.inquiry_title} </span>
+                                    </c:if> 
+                                    
                                     <div class="ojh_table2_notice4 t16">${inquiryvo.user_id_fk}</div>
                                     <div class="ojh_table2_notice5 t17">${inquiryvo.inquiry_date}</div>
                                     <div class="ojh_table2_notice5 t18">${inquiryvo.inquiry_viewcount}</div>           

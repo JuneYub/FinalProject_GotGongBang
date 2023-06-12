@@ -245,6 +245,23 @@
 		where user_id_fk = #{userId}
     </select>
     
+    <select id="getTotalCountProposalListByUserId" parameterType="String" resultType="int">
+    		select count(order_num_pk)
+		    from
+		    (
+		    select order_num_pk, order_product_type, brand_name, request_explain, requests
+		    from ORDERS
+		    where user_id_fk = #{userId}
+		    ) A
+		    join
+		    (
+		    select estimate_num_pk, craft_num_fk, order_num_fk, estimate_price, estimate_period, estimate_proposal_date
+		    from ESTIMATE
+		    ) B
+		    on order_num_pk = order_num_fk
+    
+    </select>
+    
     <!--==================== 박준엽 끝 ====================== -->
 
 </mapper>

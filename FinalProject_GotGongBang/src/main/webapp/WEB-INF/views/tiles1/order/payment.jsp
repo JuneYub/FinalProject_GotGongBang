@@ -23,6 +23,7 @@ div#payContent {
 }
 </style>
 
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -31,6 +32,7 @@ div#payContent {
 	});
 	
 	
+
 	function openDaumPOST(){
 	      new daum.Postcode({
 	            oncomplete: function(data) {
@@ -82,6 +84,66 @@ div#payContent {
 	            }
 	        }).open();
 	}//openDaumPOST	
+	
+	
+	function goPayment(){
+		
+		const regExp = /^\d{11}$/;
+		const bool = regExp.test($("input[name='order_mobile']").val());
+		
+		
+		// 수령자명이 빈칸이면
+		if( $("input[name='order_name']").val().trim() == "" ){
+			alert("수령인을 입력하세요!");
+			return;
+		}
+		
+		// 번호가 형식에 맞지 않거나 빈칸이면
+		else if(!bool || $("input[name='order_mobile']").val().trim() == ""){
+			alert("휴대폰번호를 형식에 맞게 입력하세요!");
+			return;
+		}
+		
+		// 주소가 빈칸이면
+		else if($("input[name='order_address']").val().trim() == "" || $("input[name='order_detail_address']").val().trim() == ""){
+			alert("주소를 입력하세요!");
+			return;
+		}
+		
+/* 		else{
+			const frm = document.payment_form;
+			frm.action = "payment_form.got";
+			frm.method = "post";
+			frm.submit();
+		} */
+		
+		else{
+			goPurchase();
+		}
+		
+	}
+	
+
+	// 결제해주러 가는 함수 //
+	function goPurchase(){
+	      
+		const price = $("span#price").text();
+		const user_id_pk = "${sessionScope.loginuser.user_id_pk}";
+        const url = "<%= request.getContextPath()%>/requiredLogin_PurchaseEnd.got?user_id_pk="+user_id_pk+"&price="+price; 
+        // 견적서번호 넘기기 
+        
+        window.open(url, "requiredLogin_PurchaseEnd",
+	             "left=350px, top=100px, width=1000px height=600px");
+        
+
+      
+	} // end of function PurchaseEnd()-------------------------------------------
+	
+
+
+	
+	
+	
 
 </script>
 
@@ -110,30 +172,35 @@ div#payContent {
 			</div>
 			
 			<div style="width:fit-content;">
-				<p class="orderMargin detailPName">샤넬 가방 수선 의뢰</p>
+				<p class="orderMargin detailPName" style="margin-left: 0px;">${requestScope.paymentInfo.brand_name} ${requestScope.paymentInfo.order_product_type} 수선 의뢰</p>
 				<div class="detailDiv detailMargin" >
-					<i class="fa-solid fa-check"></i>
-					<p>품목 : 가방/핸드백</p>
+					<i class="fa-solid fa-check" style="padding-right:5px;"></i>
+					<p>품목 : ${requestScope.paymentInfo.order_product_type}</p>
 				</div>
 				
 				<div class="detailDiv ">
-					<i class="fa-solid fa-check"></i>
-					<p>브랜드 : 샤넬</p>
+					<i class="fa-solid fa-check" style="padding-right:5px;"></i>
+					<p>브랜드 : ${requestScope.paymentInfo.brand_name}</p>
 				</div>
 				
 				<div class="detailDiv ">
-					<i class="fa-solid fa-check"></i>
-					<p>수선 요청사항 : 부분 가죽교체</p>
+					<i class="fa-solid fa-check" style="padding-right:5px;"></i>
+					<p>수선 요청사항 목록 : ${requestScope.paymentInfo.requests}</p>
 				</div>
 				
 				<div class="detailDiv ">
-					<i class="fa-solid fa-check"></i>
-					<p>수선 요청사항 : 부분 염색</p>
+					<i class="fa-solid fa-check" style="padding-right:5px;"></i>
+					<p>수선 요청사항설명 : ${requestScope.paymentInfo.request_explain}</p>
 				</div>
 				
 				<div class="detailDiv ">
-					<i class="fa-solid fa-check"></i>
-					<p> 선정된 공방 : 공공공방</p>
+					<i class="fa-solid fa-check" style="padding-right:5px;"></i>
+					<p> 선정된 공방 : ${requestScope.paymentInfo.craft_name}</p>
+				</div>
+				
+				<div class="detailDiv ">
+					<i class="fa-solid fa-check" style="padding-right:5px;"></i>
+					<p> 예상작업기간 : ${requestScope.paymentInfo.estimate_period}개월</p>
 				</div>
 			</div>
 			
@@ -161,36 +228,36 @@ div#payContent {
 			<form name="payment_form">	
 				<table>
 		    		<tr>
-		    			<td class="orderTd orderTdTitle">의뢰자</td>
+		    			<td class="orderTd orderTdTitle">수령인</td>
 		    			<td class="orderTd">
-		    				<input class="payInput" type="text" name="" placeholder="50자 이내로 입력하세요"/>
+		    				<input class="payInput" type="text" name="order_name" placeholder="50자 이내로 입력하세요"/>
 		    			</td>
 		    		<tr>	
 		    		
 		    		<tr>
 		    			<td class="orderTd orderTdTitle">연락처</td>
 		    			<td class="orderTd">
-		    				<input class="payInput" type="text"  placeholder="010-0000-0000"/>
+		    				<input class="payInput" type="text" name="order_mobile" placeholder="-를 제외하고 입력하세요"/>
 		    			</td>
 		    		<tr>
 		    		
 		    		<tr>
-					<td class="orderTd orderTdTitle">주소</td>
-						<td class="orderTd">
-							<input class="inputHeight" type="text" name="postcode" value="${sessionScope.loginuser.postcode}" id="postcode"  readonly></input>
-							<button class="payBtnPost" type="button" id="btnPostcode" onclick="openDaumPOST();">우편번호 검색</button><br>
-							<input class="payInput2" type="text" name="address" id="address" value="${sessionScope.loginuser.address}" readonly></input><br>
-							<input class="payInput2" type="text" name="detailAdress" id="detailAdress" value="${sessionScope.loginuser.detailaddress}"></input>
+					<td class="orderTd orderTdTitle" style="border-bottom: 1px solid white;">주소</td>
+						<td class="orderTd" style="border-bottom: 1px solid white;">
+							<input name="order_post_code" class="inputHeight" type="text"  id="postcode"  readonly></input>
+							<button name="order_name" class="payBtnPost" type="button" id="btnPostcode" onclick="openDaumPOST();">우편번호 검색</button><br>
+							<input name="order_address" class="payInput2" type="text"  id="address"  readonly></input><br>
+							<input name="order_detail_address" class="payInput2" type="text" id="detailAdress" ></input>
 						</td>
 				
 					</tr>
 				
-					<tr>
+<!-- 					<tr>
 			    			<td class="orderTd orderTdTitle">배송메모</td>
 			    			<td class="orderTd">
 			    				<input style=" width:500px; height: 35px; font-size:10pt;" placeholder="요청사항을 직접 입력합니다."/>
 			     			</td>
-			     		<tr>
+			     		<tr> -->
 			     </table>
 		     </form>
 		</div>
@@ -208,12 +275,12 @@ div#payContent {
 		<hr>
 		
 		<div class="payFlex2">
-			<p style="font-weight:bold; font-size:20px;">가격 : 200,000</p>
+			<p style="font-weight:bold; font-size:20px;">최종 가격 : <span id="price">${requestScope.paymentInfo.estimate_price}</span></p>
 			<%-- <fmt:formatNumber value="${requestScope.boardvo.fileSize}" pattern="#,###" /> --%>
 		</div>
 		
 		<p class="pCenter">
-   			<button type="button" style=" margin-top:60px;   border-radius:15px; font-size:15pt; width:200px; height:50px; background-color:#400099; color:white;" >다 음</button>			
+   			<button type="button" onclick="goPayment()" style=" margin-top:60px;   border-radius:15px; font-size:15pt; width:200px; height:50px; background-color:#400099; color:white;" >결제하기</button>			
 		</p>
     </div>
 

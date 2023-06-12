@@ -1,10 +1,13 @@
-package com.spring.gotgongbang.index.service;
+package com.spring.gotgongbang.index.model;
 
 import java.util.List;
 
 import com.spring.gotgongbang.craft.model.CraftVO;
 
-public interface InterIndexService {
+public interface InterIndexDAO {
+
+	
+
 	// 김나윤 시작 ===========================================================================
 	// 김나윤 끝 ===========================================================================
 	
@@ -14,8 +17,6 @@ public interface InterIndexService {
 	// 박준엽 시작 ===========================================================================
 	List<CraftVO> getlatestCraftList();
 	// 박준엽 끝 ===========================================================================
-
-	
 	
 	// 오준혁 시작 ===========================================================================
 	// 오준혁 끝 ===========================================================================

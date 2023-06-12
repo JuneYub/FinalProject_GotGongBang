@@ -62,6 +62,13 @@ public class AdminDAO implements InterAdminDAO{
 		CraftVO craftvo = sqlsession.selectOne("admin.craftOneView",craft_num_pk);
 		return craftvo;
 	}
+
+	// 공방 한 개마다 공방사진, 대표자사진, 자격증사진 select하기
+	@Override
+	public List<Map<String, String>> selectImgList(String craft_num_pk) {
+		List<Map<String, String>> imgList = sqlsession.selectList("admin.selectImgList",craft_num_pk);
+		return imgList;
+	}
 	
 	// ==== ==================================== 김진솔 끝 ======================================================= // 
 

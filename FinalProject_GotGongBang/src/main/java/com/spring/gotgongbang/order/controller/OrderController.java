@@ -98,11 +98,7 @@ public class OrderController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/payment.got")
-	public ModelAndView payment(ModelAndView mav) {
-		mav.setViewName("order/payment.tiles1");
-		return mav;
-	}
+
 	
 
 	@RequestMapping(value = "/selectGongbang.got")
@@ -178,7 +174,7 @@ public class OrderController {
    // >>>>> 트랜잭션처리를 해야할 메소드에 @Transactional 어노테이션을 설정하면 된다. 
    // rollbackFor={Throwable.class} 은 롤백을 해야할 범위를 말하는데 Throwable.class 은 error 및 exception 을 포함한 최상위 루트이다. 
    // 즉, 해당 메소드 실행시 발생하는 모든 error 및 exception 에 대해서 롤백을 하겠다는 말이다.
-
+ 
 	@Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.READ_COMMITTED, rollbackFor= {Throwable.class})
 	@RequestMapping(value="/order_form.got", method= {RequestMethod.POST})
 	public ModelAndView requiredLogin_order_form(HttpServletRequest request, HttpServletResponse response,ModelAndView mav, MultipartHttpServletRequest mrequest) {
@@ -198,6 +194,9 @@ public class OrderController {
 		// 사진 업로드용
 		List<MultipartFile> whole_img_list = mrequest.getFiles("img_whole");
 		List<MultipartFile> detail_img_list = mrequest.getFiles("img_detail");
+		
+		
+		
 		
 		//System.out.println("whole_img_list "+whole_img_list);
 		//System.out.println("detail_img_list "+detail_img_list);
@@ -428,6 +427,69 @@ public class OrderController {
 		
 		
 		mav.setViewName("index/home.tiles1");
+		return mav;
+	}
+	
+	
+	// 결제정보 입력하는 페이지
+	@RequestMapping(value = "/payment.got")
+	public ModelAndView requiredLogin_payment(HttpServletRequest request, HttpServletResponse response,ModelAndView mav) {
+		
+		
+		HttpSession session = request.getSession();
+		
+		//세션에서 로그인된 아이디 가져오기
+		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+		String estimate_num_pk = request.getParameter("estimate_num_pk");
+		mav.addObject("estimate_num_pk",estimate_num_pk);
+		
+		// 견적서번호를 가지고 정보 가져오기
+		HashMap<String,String> paymentInfo = service.get_estimate_info(estimate_num_pk);
+		
+		int craftNum = Integer.parseInt(String.valueOf(paymentInfo.get("craft_num_fk")) );
+		// 공방번호를 가지고 공방이름 가져오기
+		String craft_name = service.get_craft_name(craftNum );
+		
+		paymentInfo.put("craft_name", craft_name);
+		
+		mav.addObject("paymentInfo", paymentInfo);
+		
+		
+		mav.setViewName("order/payment.tiles1");
+		return mav;
+	}
+	
+	
+
+	// 결제하러 가는 페이지
+	@RequestMapping(value = "/requiredLogin_PurchaseEnd.got")
+	public ModelAndView requiredLogin_PurchaseEnd(HttpServletRequest request, HttpServletResponse response,ModelAndView mav) {
+		
+		
+		//System.out.println("type_code_pk"+type_code_pk);
+		//System.out.println("brand_name"+brand_name);
+		
+		
+		HttpSession session = request.getSession();
+		
+		//세션에서 로그인된 아이디 가져오기
+		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+		
+		// 아이디와 이메일 보내기
+		request.setAttribute("user_id_pk", loginuser.getUser_id_pk()); 
+		request.setAttribute("email", loginuser.getEmail()); 
+		request.setAttribute("coinmoney", Integer.parseInt(request.getParameter("price")) ); 
+
+		
+		// form 태그에서 가져오는 데이터
+		String order_name = request.getParameter("order_name");		//주문자이름
+		String order_mobile= request.getParameter("order_mobile");	//전화번호
+		String order_post_code= request.getParameter("order_post_code");//우편번호
+		String order_address= request.getParameter("order_address");//주소
+		String order_detail_address= request.getParameter("order_detail_address");//상세주소
+
+		
+		mav.setViewName("/none_tiles/order/paymentGateway");
 		return mav;
 	}
 	
