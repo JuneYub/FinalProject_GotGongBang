@@ -54,7 +54,7 @@
 	}
  	
  	function writeReview(orderNum) {
- 		console.log(orderNum);
+
  		$.ajax({
  			url:"<%= ctxPath%>/check_review_count.got",
  			type:"POST",
@@ -69,6 +69,10 @@
 				}
 				else {
 					alert("후기를 작성할 수 있습니다");
+					const frm = document.forms["writeReviewForm"]
+					frm.action = "<%= ctxPath%>/review.got";
+					frm.method ="post";
+					frm.submit();
 				}
 			},
 			error: function(request, status, error){
@@ -129,11 +133,12 @@
 						</td>
 	
 						<td>
-							<button class="btn-estimateDetail btn-font15" onclick="writeReview(${orderList.order_detail_id_pk})">후기 작성하기</button>
+							<form name="writeReviewForm">
+							<input type="hidden" name="orderNum" value="${orderList.order_detail_id_pk}">
+							</form>	
+							<button type="button" class="btn-estimateDetail btn-font15" onclick="writeReview(${orderList.order_detail_id_pk})">후기 작성하기</button>
 						</td>
-						<form name="wrtiteReviewForm">
-						<input type="hidden" name="orderNum" value="${orderList.order_detail_id_pk}">
-						</form>
+
 						</tr>
 						</c:forEach>
 					</c:if>
