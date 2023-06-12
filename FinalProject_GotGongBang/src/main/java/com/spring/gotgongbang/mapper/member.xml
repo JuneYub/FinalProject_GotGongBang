@@ -6,8 +6,8 @@
 	<!--==================== 홍용훈 시작 ====================== -->
 	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="com.spring.gotgongbang.member.model.MemberVO">
-		insert into MEMBER (user_id_pk, name, pwd, email, mobile, post_code, address, detail_address, extra_address, gender, birthday, mileage, registerday, last_pwd_change, idle, pwd_change_required, status)
-		values(#{user_id_pk},#{name},#{pwd},#{email},#{mobile},#{post_code},#{address},#{detail_address},#{extra_address},#{gender},#{birthday},default,default,default,default,default,default)
+		insert into MEMBER (user_id_pk, name, pwd, email, mobile, post_code, address, detail_address, extra_address, gender, birthday, mileage, registerday, last_pwd_change, idle, pwd_change_required, status, gradelevel)
+		values(#{user_id_pk},#{name},#{pwd},#{email},#{mobile},#{post_code},#{address},#{detail_address},#{extra_address},#{gender},#{birthday},default,default,default,default,default,default,default)
 	</insert>
 	
 	
@@ -27,14 +27,14 @@
     <!-- 로그인 처리 -->
     <select id="getLoginMember" parameterType="HashMap" resultType="com.spring.gotgongbang.member.model.MemberVO">
     	select user_id_pk, name, email, mobile, post_code, address, detail_address, extra_address, gender,
-		    birthday, mileage, registerday, idle,
+		    birthday, mileage, registerday, idle, gradelevel,
 		    pwdchangegap,
 		    NVL(lastlogingap, trunc( months_between(sysdate, registerday) ) ) AS lastlogingap
 		from 
 		( 
 		select user_id_pk, name, email, mobile, post_code, address, detail_address, extra_address, gender 
 		     , birthday
-		     , mileage, to_char(registerday, 'yy/mm/dd') AS registerday, idle
+		     , mileage, to_char(registerday, 'yy/mm/dd') AS registerday, idle, gradelevel
 		     , trunc( months_between(sysdate, last_pwd_change) ) AS pwdchangegap 
 		 from MEMBER 
 		 where status = 1 and user_id_pk = #{userid} and pwd = #{pwd} 
@@ -55,10 +55,92 @@
 	
 	<!-- 로그인 기록 -->
 	<insert id="recordLoginDate" parameterType="HashMap">
-        insert into LOGIN_HISTORY (user_id_pk_pk, login_date)
-        values (#{userid}, #{loginDate})
+        insert into LOGIN_HISTORY (user_id_pk_pk, grade, login_date)
+        values (#{userid}, #{grade}, #{loginDate})
     </insert>
+    
+    <!-- 이름과 이메일 값으로 아이디 유무 체크 및 ID 값 가져오기 -->
+    <select id="compareNameEmail" parameterType="HashMap" resultType="com.spring.gotgongbang.member.model.MemberVO">
+    	SELECT COALESCE(m.user_id_pk, p.partner_id_pk) AS user_id_pk
+		FROM member m
+		FULL OUTER JOIN partner p ON m.name = p.partner_name
+		WHERE #{name} IN (m.name, p.partner_name) and #{email} IN (m.email, p.partner_email)
+    </select>
+    
+    
+    <select id="compareNameEmailMember" parameterType="HashMap" resultType="String">
+    	SELECT user_id_pk
+		FROM member
+		WHERE name = #{name} and email = #{email}
+    </select>
+    
+    
+    <select id="compareNameEmailpartner" parameterType="HashMap" resultType="String">
+    	SELECT partner_id_pk AS user_id_pk
+		FROM partner
+		WHERE partner_name = #{name} and partner_email = #{email}
+    </select>
+    
+    <!-- 공방회원가입 -->
+	<insert id="insertPartner" parameterType="com.spring.gotgongbang.member.model.MemberVO">
+		insert into PARTNER (partner_id_pk, partner_name, partner_pwd, partner_email, partner_mobile, partner_post_code, partner_address, partner_detail_address, partner_extra_address, partner_gender, partner_birthday, partner_registerday, partner_lastPwdChange, partner_idle, partner_pwd_change_required, partner_status, partner_gradelevel)
+		values(#{user_id_pk},#{name},#{pwd},#{email},#{mobile},#{post_code},#{address},#{detail_address},#{extra_address},#{gender},#{birthday},default,default,default,default,default,default)
+	</insert>
+	
+	
+	<!-- 이메일 중복 체크 공방회원 -->
+	<select id="isEmailDuplicate_partner" resultType="int">
+        SELECT COUNT(*) FROM PARTNER WHERE partner_email = #{email}
+    </select>
+    
+    
+    <!-- 로그인 처리 ( 공방 )-->
+    <select id="getLoginPartner" parameterType="HashMap" resultType="com.spring.gotgongbang.member.model.MemberVO">
+    	select partner_id_pk AS user_id_pk, partner_name AS name, partner_email AS email, partner_mobile AS mobile, partner_post_code AS post_code, partner_address AS address, partner_detail_address AS detail_address, partner_extra_address AS extra_address, partner_gender AS gender,
+		    partner_birthday AS birthday, partner_registerday AS registerday, partner_idle AS idle, partner_gradelevel AS gradelevel,
+		    pwdchangegap,
+		    NVL(lastlogingap, trunc( months_between(sysdate, partner_registerday) ) ) AS lastlogingap
+		from 
+		( 
+		select partner_id_pk, partner_name, partner_email, partner_mobile, partner_post_code, partner_address, partner_detail_address, partner_extra_address, partner_gender 
+		     , partner_birthday
+		     , to_char(partner_registerday, 'yy/mm/dd') AS partner_registerday, partner_idle, partner_gradelevel
+		     , trunc( months_between(sysdate, partner_lastPwdChange) ) AS pwdchangegap 
+		 from PARTNER 
+		 where partner_status = 1 and partner_id_pk = #{userid} and partner_pwd = #{pwd} 
+		 ) M 
+		 CROSS JOIN 
+		 ( 
+		 select trunc( months_between(sysdate, max(login_date)) ) AS lastlogingap 
+		 from LOGIN_HISTORY 
+		 where user_id_pk_pk = #{userid} 
+		 ) H
+    </select>
+    
+    
+    <!--  MEMBER 테이블의 idle 컬럼의 값을 1로 변경  -->
+    <update id="updateIdlePartner" parameterType="String">
+		update PARTNER set partner_idle = 1
+		where partner_id_pk = #{userid}
+	</update>
+    
+    
+    
     <!--==================== 홍용훈 끝 ====================== -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
      
     <!--==================== 박준엽 시작 ====================== -->
@@ -70,18 +152,28 @@
     	<result column="requests" property="requests"/>
     	<result column="craft_num_fk" property="craft_num_fk"/>
     	<result column="craft_name" property="craft_name"/>
+    	<result column="estimate_num_pk" property="estimate_num_pk"/>
     	<result column="estimate_price" property="estimate_price"/>
     	<result column="estimate_period" property="estimate_period"/>
     	<result column="estimate_proposal_date" property="estimate_proposal_date"/>
     </resultMap>
     
+    <resultMap type="HashMap" id="getOrderListByUserIdMap">
+    	<result column="order_detail_id_pk" property="order_detail_id_pk" />
+    	<result column="payment_date" property="payment_date" />
+    	<result column="craft_name" property="craft_name" />
+    	<result column="craft_mobile" property="craft_mobile" />
+    	<result column="estimate_price" property="estimate_price" />
+    	<result column="product_status" property="product_status" />
+    </resultMap>
+    
     <select id="getProposalListByUserId" parameterType="HashMap" resultMap="getProposalListByUserIdMap">
     	select order_num_pk, order_product_type, brand_name, request_explain, requests, craft_num_fk, 
-    	order_num_fk, craft_name, estimate_price, estimate_period, to_char(estimate_proposal_date, 'yyyy-mm-dd') as estimate_proposal_date
+    	order_num_fk, craft_name, estimate_num_pk, estimate_price, estimate_period, to_char(estimate_proposal_date, 'yyyy-mm-dd') as estimate_proposal_date
 		from
 		(
 		    select row_number() over(order by estimate_proposal_date desc) as rno, order_num_pk, order_product_type, brand_name, request_explain, requests, craft_num_fk, 
-		    order_num_fk, (select craft_name from CRAFT where craft_num_pk = B.craft_num_fk) as craft_name,
+		    order_num_fk, (select craft_name from CRAFT where craft_num_pk = B.craft_num_fk) as craft_name, estimate_num_pk,
 		    estimate_price, estimate_period, estimate_proposal_date
 		    from
 		    (
@@ -91,7 +183,7 @@
 		    ) A
 		    join
 		    (
-		    select craft_num_fk, order_num_fk, estimate_price, estimate_period, estimate_proposal_date
+		    select estimate_num_pk, craft_num_fk, order_num_fk, estimate_price, estimate_period, estimate_proposal_date
 		    from ESTIMATE
 		    ) B
 		    on order_num_pk = order_num_fk
@@ -115,6 +207,60 @@
     	UPDATE MEMBER SET pwd = #{pwd}, last_pwd_change = sysdate
 		WHERE user_id_pk = #{user_id_pk}
     </update>
+    
+    <select id="getOrderListByUserId" parameterType="HashMap" resultMap="getOrderListByUserIdMap">
+		select order_detail_id_pk, payment_date, craft_name, craft_mobile, estimate_price, product_status
+		from 
+		(
+		    select row_number() over(order by payment_date desc) as rno, order_detail_id_pk, to_char(payment_date, 'yyyy-mm-dd') as payment_date, craft_name, craft_mobile, estimate_price, product_status
+		    from
+		    ORDER_DETAIL
+		    join
+		    ESTIMATE
+		    on estimate_num_fk = estimate_num_pk
+		    join
+		    CRAFT
+		    on craft_num_fk = craft_num_pk
+		    join
+		    orders
+		    on order_num_fk = order_num_pk
+		    where user_id_fk = #{userId}
+		)
+		where rno between #{startRno} and #{endRno}
+    </select>
+    
+    <select id="getTotalCountForOrderListByUserId" parameterType="String" resultType="int">
+    	select count(order_detail_id_pk)
+		from
+		ORDER_DETAIL
+		join
+		ESTIMATE
+		on estimate_num_fk = estimate_num_pk
+		join
+		CRAFT
+		on craft_num_fk = craft_num_pk
+		join
+		orders
+		on order_num_fk = order_num_pk
+		where user_id_fk = #{userId}
+    </select>
+    
+    <select id="getTotalCountProposalListByUserId" parameterType="String" resultType="int">
+    		select count(order_num_pk)
+		    from
+		    (
+		    select order_num_pk, order_product_type, brand_name, request_explain, requests
+		    from ORDERS
+		    where user_id_fk = #{userId}
+		    ) A
+		    join
+		    (
+		    select estimate_num_pk, craft_num_fk, order_num_fk, estimate_price, estimate_period, estimate_proposal_date
+		    from ESTIMATE
+		    ) B
+		    on order_num_pk = order_num_fk
+    
+    </select>
     
     <!--==================== 박준엽 끝 ====================== -->
 

@@ -314,7 +314,7 @@
 				// 폼(form)을 전송(submit)
 	            const frm = document.signup_form;
 	            frm.method = "post";
-	            frm.action = "<%= ctxPath%>/register.got";
+	            frm.action = "<%= ctxPath%>/register_to_partner.got";
 	            frm.submit();
 			}
 		});
@@ -451,7 +451,7 @@
 				
 				
 				$.ajax({
-					url: "<%= request.getContextPath()%>/check_email.got",
+					url: "<%= request.getContextPath()%>/check_email_partner.got",
 				    type: "GET",
 				    data: { "email": $("#email1").val() },
 				    success: function (data) {
@@ -824,7 +824,7 @@
 <div id="content">
 		<section class="yh_sign-up">
 			<header class="yh_sign-up__header">
-				<h2 class="sign-up__title">회원가입</h2>
+				<h2 class="sign-up__title">공방(PARTNER)회원가입</h2>
 				<ol class="sign-up__order">
 					<li class="sign-up__order-item sign1 sign-up__order-item--current"><span class="sign-up__order-index">01</span><span class="sign-up__order-menu">이용약관</span></li>
 					<li class="sign-up__order-item sign2"><span class="sign-up__order-index">02</span><span class="sign-up__order-menu">이메일 인증</span></li>
@@ -835,14 +835,6 @@
 			
 			
 			<form class="sign-up__form" name="signup_form">
-				<!-- <input type="hidden" name="auth_type" value="SU">
-				<input type="hidden" name="ci_code">
-				<input type="hidden" name="user_birth_date">
-				<input type="hidden" name="user_gender_code">
-				<input type="hidden" name="_csrf" value="3886e5ea-8f5a-4bb8-a876-37a0622cc718">
-				<input type="hidden" name="providing_agree_yn" value="Y">
-				<input type="hidden" name="collection_agree_yn" value="Y"> -->
-				
 				
 				<fieldset class="sign-up__step step1">
 					<legend class="sign-up__legend">GOTGONGBANG 회원 이용약관</legend>

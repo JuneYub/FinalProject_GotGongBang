@@ -2,7 +2,7 @@
 CREATE TABLE PARTNER (
     partner_id_pk VARCHAR2(20)                                      not null,            -- 파트너 아이디
     partner_name VARCHAR2(20)                                       not null,            -- 파트너 이름
-    partner_pwd VARCHAR2(20)                                        not null,            -- 파트너 비밀번호
+    partner_pwd VARCHAR2(200)                                        not null,            -- 파트너 비밀번호
     partner_email VARCHAR2(40)                                      not null,            -- 파트너 이메일
     partner_mobile VARCHAR2(20)                                     not null,            -- 파트너 전화번호
     partner_post_code VARCHAR2(5)                                   not null,            -- 파트너 우편번호
@@ -21,7 +21,7 @@ CREATE TABLE PARTNER (
     ,constraint CK_PARTNER_partner_gender check( partner_gender in('1','2') )
     ,constraint CK_PARTNER_partner_status check( partner_status in(0,1) )
     ,constraint CK_PARTNER_partner_idle check( partner_idle in(0,1) )
- );   
+ );    
  
  -- 견적서 테이블
 CREATE TABLE ESTIMATE (
@@ -218,7 +218,9 @@ create table INQUIRY
 ,inquiry_fileName       varchar2(255)                       -- WAS(톰캣)에 저장될 파일명(2023051909271535243254235235234.png)                                       
 ,inquiry_orgFilename    varchar2(255)                       -- 진짜 파일명(강아지.png)  // 사용자가 파일을 업로드 하거나 파일을 다운로드 할때 사용되어지는 파일명 
 ,inquiry_fileSize       number                              -- 파일크기 
-,name                   varchar2(20) default' '    not null -- 글쓴이
+,groupno                number default 0        not null    -- (답변글쓰기) 그룹번호
+,fk_seq                 number default 0        not null    -- (답변글쓰기) 원글인 경우 0, 답변글일 경우  inquiry_num_pk 값을 가짐.
+,depthno                number default 0        not null    -- (답변글쓰기) 깊이번호 
 
 ,constraint PK_INQUIRY_inquiry_num_pk primary key(inquiry_num_pk)
 ,constraint FK_INQUIRY_user_id_fk foreign key(user_id_fk) references MEMBER(user_id_pk)
@@ -234,7 +236,7 @@ craft_mobile               VARCHAR2(200)   NOT NULL, -- 공방연락처
 craft_representative       VARCHAR2(30)    NOT NULL, -- 대표이름
 craft_Introduce            NVARCHAR2(2000) NOT NULL, -- 자기소개
 craft_career               VARCHAR2(10)    NOT NULL, -- 경력기간
-craft_specialty            VARCHAR2(200)    NOT NULL, -- 전문 품목
+craft_specialty            VARCHAR2(200)   NOT NULL, -- 전문 품목
 craft_post_code            VARCHAR2(20)    NOT NULL, -- 공방우편번호
 craft_address              VARCHAR2(200)   NOT NULL, -- 공방주소
 craft_detail_address       VARCHAR2(200)   NOT NULL, -- 공방상세주소
@@ -243,8 +245,8 @@ craft_latitude             NUMBER          NOT NULL, -- 위도
 craft_longitude            NUMBER          NOT NULL, -- 경도
 craft_status               NUMBER(1)       default 1 NOT NULL,     -- 공방 상태(업데이트 방식)   1: 정식(가입중) / 0:임시(사용불가) 
 craft_rating               NUMBER(1)       NULL      -- 공방평점
-,fileName                  VARCHAR2(500)              -- WAS(톰캣)에 저장될 이미지 파일명                                       
-,orgFilename               VARCHAR2(500)              -- 진짜 파일명
+,fileName                  VARCHAR2(2000)  NOT NULL     -- WAS(톰캣)에 저장될 이미지 파일명                                       
+,orgFilename               VARCHAR2(500)   NOT NULL     -- 진짜 파일명
 ,fileSize                  NUMBER                     -- 파일크기  
 
 constraint PK_CRAFT_craft_num_pk primary key(craft_num_pk),

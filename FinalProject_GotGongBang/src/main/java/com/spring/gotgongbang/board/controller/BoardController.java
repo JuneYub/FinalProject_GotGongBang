@@ -85,20 +85,49 @@ public class BoardController {
 	}
 	
 	// 고객센터_온라인문의 페이지 불러오기
-		@RequestMapping(value="/board_inquiry.got")
-		public ModelAndView getBoardInquiry(ModelAndView mav) {
-			
-			mav.setViewName("/board/board_inquiry.tiles1");
-			
-			return mav;		
-		
+	@RequestMapping(value="/board_inquiry.got")
+	public ModelAndView getBoardInquiry(HttpServletRequest request, HttpServletResponse response, ModelAndView mav, InquiryVO iqvo) {
+	   
+		HttpSession session = request.getSession();
+		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+
+		if (loginuser == null) {
+		    mav.setViewName("redirect:/login.got");
+		    session.setAttribute("goBackURL", "/board_inquiry.got");
+		} else {
+		   
+		    
+		    String fk_seq = request.getParameter("fk_seq");
+			String groupno = request.getParameter("groupno");
+			String depthno = request.getParameter("depthno");
+			String inquiry_title = "[답변] " + request.getParameter("inquiry_title");
+
+		    if (fk_seq == null) {
+		    	fk_seq = "";
+		    }
+
+		    mav.addObject("fk_seq", fk_seq);
+		    mav.addObject("groupno", groupno);
+		    mav.addObject("depthno", depthno);
+		    mav.addObject("inquiry_title", inquiry_title);
+		    
+	//	    System.out.println("inquiry_title" + inquiry_title);
+	//	    System.out.println("fk_seq" + fk_seq);
+	//	    System.out.println("groupno" + groupno);
+	//	    System.out.println("depthno" + depthno);
+		    
+		    mav.setViewName("/board/board_inquiry.tiles1");
+		}
+
+		return mav;
 	}
+	
 	
 	// 질문게시판 페이지 불러오기
 	@RequestMapping(value="/board_question.got")
     public ModelAndView getBoardQuestion(ModelAndView mav, HttpServletRequest request) {
 		
-		List<InquiryVO> iqList = null;
+		List<InquiryVO> iqvo = null;
 		
 		// 조회수 증가
 		HttpSession session = request.getSession();
@@ -160,7 +189,7 @@ public class BoardController {
 		paraMap.put("startRno", String.valueOf(startRno));
 		paraMap.put("endRno", String.valueOf(endRno));
 		
-		iqList = service.iqListSearchWithPaging(paraMap);
+		iqvo = service.iqListSearchWithPaging(paraMap);
 		// 페이징 처리한 글목록 가져오기(검색이 있든지, 검색이 없든지 모두 다 포함한 것)
 		
 		// 아래는 검색대상 컬럼과 검색어를 유지시키기 위한 것임.
@@ -228,7 +257,7 @@ public class BoardController {
 		
 		mav.addObject("gobackURL", gobackURL.replaceAll("&", " "));
 		
-		mav.addObject("iqList", iqList);
+		mav.addObject("iqvo", iqvo);
 		mav.setViewName("/board/board_BoardQuestion.tiles1");
 		
 		return mav;
@@ -404,7 +433,7 @@ public class BoardController {
 			  System.out.println("확인용 inquiry_num_pk2 : " + inquiry_num_pk);
 			  System.out.println("확인용 inquiry_content2 : " + inquiry_content);
 			  System.out.println("확인용 inquiry_title2 : " + inquiry_title);
-			 */
+			*/
 			
 			return mav;
 		}
@@ -465,7 +494,8 @@ public class BoardController {
 		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 		
 		if( !loginuser.getUser_id_pk().equals(iqvo.getUser_id_fk()) ) {
-			String message = "다른 사용자의 글은 수정이 불가합니다.";
+			
+			String message = "다른 사용자의 글은 삭제가 불가합니다.";
 			String loc = "javascript:history.back()";
 			
 			mav.addObject("message", message);
@@ -528,6 +558,7 @@ public class BoardController {
 		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 		
 		if( !loginuser.getUser_id_pk().equals(iqvo.getUser_id_fk()) ) {
+			
 			String message = "다른 사용자의 글은 삭제가 불가합니다.";
 			String loc = "javascript:history.back()";
 			

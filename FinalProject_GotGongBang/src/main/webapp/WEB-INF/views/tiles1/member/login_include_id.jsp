@@ -65,7 +65,7 @@
 
 
 
-			<input type="text" id="userid" name="userid" class="yh_input" placeholder="아이디" hname="아이디">
+			<input type="text" id="userid" name="userid" class="yh_input" value="${id}" placeholder="아이디" hname="아이디">
 			<input type="password" id="pwd" name="pwd" class="yh_input" placeholder="비밀번호" hname="비밀번호">
 			<button type="button" id="yh_loginSubmit" value="로그인" class="yh_bgColor search_btn" >로그인</button>
 

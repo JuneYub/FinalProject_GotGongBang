@@ -20,7 +20,10 @@
  		var state =$("#selectProductState").eq(index).val();
  		console.log($stateDisplay);
  		console.log(state);
-	 	
+	 	if(state == '--') {
+	 		alert("상태를 선택해주세요.");
+	 		return;
+	 	}
 	 	
 	 	if(state == $stateDisplay.text() ) {
 	 		alert("이전 진행상태와 동일하게 갱신할 수 없습니다.");
@@ -106,13 +109,14 @@
 
 					<td>
 					<select id="selectProductState" name="selectProductState" value="${repair.product_status}">
+						<option value="--">--</option>
 						<option value="수거중">수거중</option>
 						<option value="수선중">수선중</option>
 						<option value="배송중">배송중</option>
 						<option value="배송완료">배송완료</option>
 					</select>
 					<button class="btn-save-state" onclick="saveProductState(${status.index})">상품 상태 저장하기</button>
-					<div>상품 상태 : <strong id="productState" class="select-state">${repair.product_status}</strong> </div>
+					<div>상품 상태 : <strong id="productState" class="select-state" style="color: red">${repair.product_status}</strong> </div>
 					</td>
 					</tr>
 					

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="index">
+	<select id="getlatestCraftList" resultType="com.spring.gotgongbang.craft.model.CraftVO">
+		select craft_num_pk, partner_id_fk, craft_name, craft_introduce, craft_specialty, craft_address
+		from 
+		(
+		select rank() over(order by craft_num_pk) as row_num, craft_num_pk, partner_id_fk, craft_name, craft_introduce, craft_specialty, craft_address
+		from craft
+		)
+		<![CDATA[where row_num <= 6]]>
+	</select>
+</mapper>
