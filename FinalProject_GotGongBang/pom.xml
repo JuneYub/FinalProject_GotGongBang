@@ -398,6 +398,7 @@
 	  
    </dependencies>
     <build>
+    	<finalName>FinalProject_GotGongBang.war</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>
