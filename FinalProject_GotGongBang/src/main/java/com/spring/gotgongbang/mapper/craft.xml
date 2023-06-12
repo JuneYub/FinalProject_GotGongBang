@@ -25,6 +25,12 @@
 			#{craft_detail_address}, #{craft_extra_address}, 1321.454, 56545.215, default,
 			#{orgFilename}, #{fileName})
 </insert>
+
+<insert id="imgAddFile" parameterType="com.spring.gotgongbang.craft.model.ImageVO">
+	insert into CRAFT_IMG(craft_add_img_pk, craft_num_fk, add_file_name, add_origin_file_name) 
+	values(seq_estimate_num_pk.nextval, #{craft_num_fk}, #{add_file_name}, #{add_origin_file_name})
+</insert>
+
  <!--==================== 김진솔 끝 ====================== -->
 
 

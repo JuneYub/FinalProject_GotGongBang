@@ -19,6 +19,16 @@
 			$("input#temporarily").prop("checked", true);
 		}
 		
+		$("input#formal").click(function() {
+			$("input#temporarily").prop("checked", false);
+		});
+		
+		$("input#temporarily").click(function () {
+			$("input#formal").prop("checked", false);
+		});
+		
+		
+		
 		
 		
 		
@@ -42,13 +52,13 @@
                         Admin
                     </div>
                     <div>
-                        <image src="resources/img/admin/icon_check.png" width="18"/><span>공방 목록</span>
+                        <image src="resources/img/admin/icon_check.png" width="18"/><a href="<%= ctxPath%>/craft_list.got"><span>공방 목록</span></a>
                     </div>
                     
                 </div>
             </div>
 
-            <form name="craft_application_frm">
+            <form name="craft_view_frm">
 
                 <div class="application_right">
                     <div class="craftOneView">
@@ -79,12 +89,12 @@
                         </div>
                         <div class="image">
                             <span> <p>공방 사진</p>
-                                
+                              <a href="<%= ctxPath%>/craft_download.got?craft_num_pk=${requestScope.craftvo.craft_num_pk}">${requestScope.paraMap.craft_image_orgFilename}</a>
                             </span>
                         </div>
                         <div class="image">
                             <span> <p>공방 대표자 사진</p>
-                                
+                              <a href="<%= ctxPath%>/craft_download.got?craft_num_pk=${requestScope.craftvo.craft_num_pk}">${requestScope.paraMap.craft_representative_image_orgFilename}</a>
                             </span>
                         </div>
                         <div class="frm_border">
@@ -137,7 +147,7 @@
                         </div>
                         <div class="image">
                             <span> <p>자격증</p>
-                                
+                                <a href="<%= ctxPath%>/craft_download.got?craft_num_pk=${requestScope.craftvo.craft_num_pk}">${requestScope.paraMap.craft_certificate_orgFilename}</a>
                             </span>
                         </div>
                         <div class="frm_border">

@@ -10,6 +10,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.spring.gotgongbang.order.model.OrderVO;
+import com.sun.mail.handlers.image_gif;
 
 
 @Repository
@@ -47,8 +48,13 @@ public class CarftDAO implements InterCraftDAO {
 		return n;
 	}
 	
-	
-	
+	//공방 추가 이미지 파일 insert
+	@Override
+	public int imgAddFile(ImageVO imgvo) {
+		int m = sqlsession.insert("craft.imgAddFile", imgvo);
+		return m;
+	}
+
 
 	// ================ 김진솔 끝 ==================//
 
@@ -172,6 +178,7 @@ public class CarftDAO implements InterCraftDAO {
 
 
 	
+
 
 
 	

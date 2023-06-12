@@ -1,0 +1,39 @@
+# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
+# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
+
+name: Maven Package
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 8
+      uses: actions/setup-java@v3
+      with:
+        java-version: '8'
+        distribution: 'temurin'
+
+    - name: Build with Maven
+      run: mvn -B package --file FinalProject_GotGongBang/pom.xml
+      
+    - name: Docker 로그인
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: |
+        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+    
+    - name: web docker build and push
+      run: |    
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/gotgongbang-image:latest -f FinalProject_GotGongBang/Dockerfile --build-arg WAR_FILE=/FinalProject_GotGongBang/target/FinalProject_GotGongBang .
+        docker push ${{ secrets.DOCKER_USERNAME }}/gotgongbang-image:latest

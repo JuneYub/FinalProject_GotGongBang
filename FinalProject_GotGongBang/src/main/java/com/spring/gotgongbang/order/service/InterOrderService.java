@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.spring.gotgongbang.order.model.OrderDetailVO;
 import com.spring.gotgongbang.order.model.TypesVO;
 
 public interface InterOrderService {
@@ -34,6 +35,21 @@ public interface InterOrderService {
 
 	// 공방번호를 가지고 공방이름 가져오기
 	String get_craft_name(int craftNum);
+	
+	// orderDetail 테이블에 주문정보 넣어주기
+	int insertOrderDetail(Map<String, String> paraMap);
+
+	// 견적서번호를 가지고 주문상세 정보 가져오기
+	OrderDetailVO get_order_detail_info(String estimate_num_fk);
+
+	// 테이블 estimate에 있는 order_status 1로 바꿔주기
+	int updateOrderStatus(String estimate_num_pk);
+
+	// order_num_fk 가져오기
+	int getOrderNumPk(int estimate_num_pk);
+
+	// order_status가 0이면서 order_num_fk가 해당 번호인 얘들 전부 삭제하기
+	int deleteEstimate(int order_num_fk);
 
 
 	

@@ -55,6 +55,9 @@
 				</thead>
 				
 				<tbody>
+					<c:if test="${empty requestScope.proposalList}">
+					<tr><td colspan="3">조회할 견적 정보가 없습니다</td></tr>
+					</c:if>
 					<c:if test="${not empty requestScope.proposalList}">
 						<c:forEach var="proposal" items="${requestScope.proposalList}">
 						<tr>
@@ -93,7 +96,7 @@
 						</td>
 	
 						<td>
-							<button class="btn-estimateDetail" onclick="">결제하기</button>
+							<button class="btn-estimateDetail" onclick="location.href='<%= ctxPath%>/payment.got?estimate_num_pk=${proposal.estimate_num_pk}'">결제하기</button>
 						</td>
 						</tr>
 						</c:forEach>

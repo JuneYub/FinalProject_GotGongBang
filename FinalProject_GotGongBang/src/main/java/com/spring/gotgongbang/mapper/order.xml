@@ -97,6 +97,43 @@
 		where craft_num_pk = #{craft_num_fk}
 	 </select>
 	 
+	 
+	 
+	 <!-- orderDetail 테이블에 주문정보 넣어주기 -->
+	 <insert id="insertOrderDetail" parameterType="HashMap">
+		insert into order_detail(order_detail_id_pk, estimate_num_fk, payment_date ,order_post_code ,order_address  ,order_detail_address ,product_status ,payment,order_name,order_num )
+		values(to_char(sysdate,'yyyymmdd')|| LPAD(seq_order_detail_id_pk.nextval, 4, '0'),#{estimate_num_fk},sysdate,#{order_post_code}, #{order_address}, #{order_detail_address},default,#{payment},#{order_name},#{order_num})
+	</insert>	 
+	
+	
+	<!-- 견적서번호를 가지고 주문상세 정보 가져오기 -->
+	<select id="get_order_detail_info" parameterType="String" resultType="com.spring.gotgongbang.order.model.OrderDetailVO">
+		select order_name, order_num, order_address, order_detail_address,payment
+		from order_detail
+		where estimate_num_fk = #{estimate_num_fk}
+	 </select>
+	 
+	 
+	 <!-- 테이블 estimate에 있는 order_status 1로 바꿔주기 -->
+	 <update id="updateOrderStatus" parameterType="String">
+		update estimate set order_status = 1
+		where estimate_num_pk = #{estimate_num_pk}
+	</update>
+	
+	
+	<!-- order_num_fk 가져오기 -->
+	<select id="getOrderNumPk" parameterType="String" resultType="String">
+		select order_num_fk
+		from estimate
+		where estimate_num_pk = #{estimate_num_pk}
+	 </select>
+	 
+	 
+	 <!-- order_status가 0이면서 order_num_fk가 해당 번호인 얘들 전부 삭제하기 -->
+	 <delete id="deleteEstimate" parameterType="String">
+		delete from estimate
+		where order_num_fk = #{order_num_fk} and order_status='0'
+	</delete>
 	 <!--==================== 이지현 끝 ====================== -->
 
 

@@ -7,7 +7,8 @@
     String ctxPath = request.getContextPath();
 
 %>   
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- Font Awesome 6 Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -52,30 +53,35 @@ div#resultContent{
 			</div>
 			
 			<div style="width:fit-content;">
-				<p class="orderMargin detailPName">샤넬 가방 수선 의뢰</p>
+				<p class="orderMargin detailPName">${requestScope.paymentInfo.brand_name} ${requestScope.paymentInfo.order_product_type} 수선 의뢰</p>
 				<div class="detailDiv detailMargin" >
 					<i class="fa-solid fa-check"></i>
-					<p>품목 : 가방/핸드백</p>
+					<p>품목 : ${requestScope.paymentInfo.order_product_type}</p>
 				</div>
 				
 				<div class="detailDiv ">
 					<i class="fa-solid fa-check"></i>
-					<p>브랜드 : 샤넬</p>
+					<p>브랜드 : ${requestScope.paymentInfo.brand_name}</p>
 				</div>
 				
 				<div class="detailDiv ">
 					<i class="fa-solid fa-check"></i>
-					<p>수선 요청사항 : 부분 가죽교체</p>
+					<p>수선 요청사항 목록 : ${requestScope.paymentInfo.requests}</p>
 				</div>
 				
 				<div class="detailDiv ">
 					<i class="fa-solid fa-check"></i>
-					<p>수선 요청사항 : 부분 염색</p>
+					<p>수선 요청사항설명 : ${requestScope.paymentInfo.request_explain}</p>
 				</div>
 				
 				<div class="detailDiv ">
 					<i class="fa-solid fa-check"></i>
-					<p> 선정된 공방 : 공공공방</p>
+					<p> 선정된 공방 : 선정된 공방 : ${requestScope.paymentInfo.craft_name}</p>
+				</div>
+				
+				<div class="detailDiv ">
+					<i class="fa-solid fa-check" style="padding-right:5px;"></i>
+					<p> 예상작업기간 : ${requestScope.paymentInfo.estimate_period}개월</p>
 				</div>
 			</div>
 			
@@ -92,37 +98,32 @@ div#resultContent{
 	     		<tr>
 	     			<td class="orderTd orderTdTitle">수령인</td>
 	     			<td class="orderTd">
-	     				이순신
+	     				${requestScope.orderDetailInfo.order_name}
 	     			</td>
 	     		<tr>	
 	     		
 	     		<tr>
 	     			<td class="orderTd orderTdTitle">연락처</td>
 	     			<td class="orderTd">
-	     				010-0000-0000
+	     				${requestScope.orderDetailInfo.order_num}
 	     			</td>
 	     		<tr>
 	     		
-	     		<tr>
-					<td class="orderTd orderTdTitle">주소</td>
-					<td class="orderTd">
-						서울시 강남구 어쩌구 저쩌고 1111동 1111호
+	     		<tr style="border-bottom: 1px solid #f2f2f2;">
+					<td class="orderTd orderTdTitle" style="border-bottom: 1px solid #f2f2f2;" >주소</td>
+					<td class="orderTd" style="border-bottom: 1px solid #f2f2f2;">
+						${requestScope.orderDetailInfo.order_address} ${requestScope.orderDetailInfo.order_detail_address}
 					</td>
 				</tr>
 				
-				<tr>
-	     			<td class="orderTd orderTdTitle">배송메모</td>
-	     			<td class="orderTd">
-	     				부재시 경비실에 
-	     			</td>
-	     		<tr>
+
 		     </table>
 		</div>
 
 		<hr class="lightgray"> 	
 		
 		<div class="resultDivFlex4">
-			<p style="font-weight:bold; font-size:20px;"> 가격 : 200,000 </p>
+			<p style="font-weight:bold; font-size:20px;">가격 : <span ><fmt:formatNumber value="${requestScope.paymentInfo.estimate_price}" pattern="#,###" /></span>원</p>
 				
 		</div>
 		
