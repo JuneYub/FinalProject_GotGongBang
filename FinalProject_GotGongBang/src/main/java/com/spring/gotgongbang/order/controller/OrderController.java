@@ -475,10 +475,16 @@ public class OrderController {
 		//세션에서 로그인된 아이디 가져오기
 		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 		
+		
+		// 로그인 한 유저와 결제하는 사용자가 다르면
+		if(!request.getParameter("user_id_pk").equals(loginuser.getUser_id_pk()) ) {
+			
+		}
+		
 		// 아이디와 이메일 보내기
 		request.setAttribute("user_id_pk", loginuser.getUser_id_pk()); 
 		request.setAttribute("email", loginuser.getEmail()); 
-		request.setAttribute("coinmoney", Integer.parseInt(request.getParameter("price")) ); 
+		request.setAttribute("price", Integer.parseInt(request.getParameter("price")) ); 
 
 		
 		// form 태그에서 가져오는 데이터
