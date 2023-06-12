@@ -37,6 +37,9 @@ public interface InterBoardDAO {
 	// Faq 조회
 	List<InquiryVO> getFaq();
 	
+	// groupno 의 최대값 알아오기
+	int getGroupno_max();
+	
 	
 	
 	

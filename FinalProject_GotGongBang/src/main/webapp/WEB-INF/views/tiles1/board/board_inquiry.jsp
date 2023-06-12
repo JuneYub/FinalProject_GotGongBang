@@ -18,6 +18,22 @@
 	$(document).ready(function(){
 		$("button#btnWrite").click(function(){
 			
+
+			$("input[name=attach]").off().on("change", function(){
+
+				if (this.files && this.files[0]) {
+
+					var maxSize = 1 * 1024 * 1024;
+					var fileSize = this.files[0].size;
+
+					if(fileSize > maxSize){
+						alert("첨부파일 사이즈는 1MB 이내로 등록 가능합니다.");
+						$(this).val('');
+						return false;
+					}
+				}
+			});
+			
 			// 문의제목 유효성 검사
 			const user_id_fk = $("input#user_id_fk").val().trim();
 			if(user_id_fk == "") {
@@ -51,21 +67,6 @@
 			frm.action = "<%= ctxPath%>/board_inquiryEnd.got";
 			frm.submit();
 			});
-		
-		$("input[name=attach]").off().on("change", function(){
-
-			if (this.files && this.files[0]) {
-
-				var maxSize = 1 * 1024 * 1024;
-				var fileSize = this.files[0].size;
-
-				if(fileSize > maxSize){
-					alert("첨부파일 사이즈는 1MB 이내로 등록 가능합니다.");
-					$(this).val('');
-					return false;
-				}
-			}
-		});
 		
 	});
 </script>
@@ -112,7 +113,14 @@
                     <input type="hidden"/>
                     <input type="hidden"/>
                   <fieldset style="border: 0; width: 850px;">
+                  	
+                  	<c:if test='${requestScope.fk_seq eq ""}'>
                         <legend>문의사항 입력</legend>
+                    </c:if>
+                    
+                    <c:if test='${requestScope.fk_seq ne ""}'>
+						<legend>답변 입력</legend>
+					</c:if>    
                         <p><strong>*</strong> 표시는 필수 입력 사항입니다.</p>
                         
                     <table class="ojh_table table--row">
@@ -128,8 +136,15 @@
                             <tr class="ojh_form-field">
                                 <th scope="row">문의제목 <strong>*</strong></th>
                                 <td>
+                                <c:if test='${requestScope.fk_seq eq ""}'>
                                     <input class="ojh_form-input" type="text" id="inquiry_title" name="inquiry_title" title="문의제목 입력" placeholder="문의하실 내용의 제목을 입력해주세요.">
-                                    <div class="form-field__feedback" data-field-feedback="title"></div>
+                                	<div class="form-field__feedback" data-field-feedback="title"></div>
+                                </c:if>
+                                
+                                <c:if test='${requestScope.fk_seq ne ""}'>     
+                                	<input class="ojh_form-input" type="text" id="inquiry_title" name="inquiry_title" value="${requestScope.inquiry_title}" readonly />
+                                	<div class="form-field__feedback" data-field-feedback="title"></div>
+                                </c:if>	    
                                 </td>
                             </tr>
                             <tr class="ojh_form-field">
@@ -168,6 +183,11 @@
                         </tbody>
                     </table>
                   </fieldset>
+                  
+                  <input type="hidden" name="fk_seq" value="${requestScope.fk_seq}" /> 
+				  <input type="hidden" name="groupno" value="${requestScope.groupno}" /> 
+			      <input type="hidden" name="depthno" value="${requestScope.depthno}" /> 
+				                  
                   <ul id="ojh_form_ul">
 					<li style="padding: 0 15px;"><a class="ojh_button button--outline-point" onclick="javascript:history.back()" style="background: #fff;
                         color: #400099;">취소</a></li>
