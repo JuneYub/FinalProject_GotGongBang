@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.spring.gotgongbang.craft.model.PartnerVO;
+
 public interface InterMemberDAO {
 
 	// ====== 홍용훈 시작 =========================================== //
@@ -45,6 +47,8 @@ public interface InterMemberDAO {
 	// PARTNER 테이블의 idle 컬럼의 값을 1로 변경
 	int updateIdlePartner(String string);
 	
+	// 로그인 처리 ( 공방회원 )
+	PartnerVO getLoginPartner(Map<String, String> paraMap);
 	
 	
 	
@@ -76,6 +80,8 @@ public interface InterMemberDAO {
 
 
 	int getTotalCountProposalListByUserId(String userId);
+
+	
 
 	// ====== 박준엽 끝 =========================================== //
 

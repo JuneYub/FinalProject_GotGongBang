@@ -5,6 +5,41 @@
 
 %>
 
+<style>
+
+</style>
+
+<script type="text/javascript">
+
+	let flag_input_id = false;
+
+	$(document).ready(function(){
+		
+		// 모든 경고표시
+		$(".form-field__feedback").hide();
+		
+		//아이디 blur
+		$("input#id").blur( (e) => {
+			
+			if($(e.target).val().trim() == "") {
+				$("input#id").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
+				$(".user_id_f").show(); // 경고 표시
+				
+				flag_input_id = false;
+			}
+			else {
+				$("input#id").removeClass("form-input--invalid");
+				$(".user_id_f").hide();
+				
+				flag_input_id = true;
+			}
+		});// end of 
+		
+	});
+
+
+</script>
+
 <div id="content">
 		<section class="login-search">
 			<header class="login-search__header">
@@ -17,12 +52,12 @@
 
 					<div class="form-field">
 
-						<input class="form-input" type="text" name="user_id" title="아이디 입력" placeholder="아이디를 입력하세요.">
-						<div class="form-field__feedback" data-field-feedback="user_id"></div>
+						<input class="form-input" type="text" id="id" name="id" title="아이디 입력" placeholder="아이디를 입력하세요.">
+						<div class="form-field__feedback user_id_f" data-field-feedback="user_name"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;아이디를 입력하세요.</div>
 					</div>
 					<div class="form-field">
 
-						<input class="form-input" type="email" name="user_email" title="이메일 입력" placeholder="이메일 주소를 입력하세요.">
+						<input class="form-input" type="email" name="email" title="이메일 입력" placeholder="이메일 주소를 입력하세요.">
 						<div class="form-field__feedback" data-field-feedback="user_email"></div>
 					</div>
 				</fieldset>
@@ -31,26 +66,8 @@
 				</div>
 			</form>
 		</section>
-		<section class="login-related login-related--hide">
-			<header class="login-related__header">
-				<h2 class="login-related__title">비밀번호 재설정</h2>
-			</header>
-			<div class="login-related__content">
-				<h3 class="login-related__result"><strong class="login-related__description-point"></strong> 계정에 등록된 메일주소로 <br> <strong class="login-related__description-point">비밀번호 재설정</strong>을 위한 이메일이 발송되었습니다.</h3>
-				<p class="login-related__info">가입 시 입력하신 정보는 로그인 후 MY > 내정보에서 확인하실 수 있습니다.</p><a class="button login-related__button login-related__button--home" href="/">홈으로 이동</a>
-			</div>
-		</section>
-		<div class="modal modal-message modal-message--alert">
-			<div class="modal__backdrop"></div>
-			<div class="modal__dialog">
-				<div class="modal__container">
-					<h3 class="modal-message__title"></h3>
-					<p class="modal-message__message"></p>
-					<button class="button modal-message__close" type="button">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
+</div>	
+			
 	
 <div class="site-top">
     <a href="#">
