@@ -33,7 +33,7 @@
                         <a class="header-nav-button" style="padding: 10px 12px;" onclick="location.href='<%= ctxPath%>/board_inquiry.got'">고객센터</a>
                     </li>
                     <li>
-                        <a class="header-nav-button" style="padding: 10px 12px;">Admin</a>
+                        <a class="header-nav-button" style="padding: 10px 12px;" onclick="location.href='<%= ctxPath%>/craft_list.got'">Admin</a>
                     </li>
                 </ul>
              </c:if>
