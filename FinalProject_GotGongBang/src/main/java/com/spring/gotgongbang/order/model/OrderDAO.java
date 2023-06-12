@@ -131,16 +131,16 @@ public class OrderDAO implements InterOrderDAO {
 
 	// order_num_fk 가져오기
 	@Override
-	public int getOrderNumPk(int estimate_num_pk) {
-		int order_num_fk = sqlsession.selectOne("order.getOrderNumPk",estimate_num_pk);
+	public String getOrderNumPk(String estimate_num_pk) {
+		String order_num_fk = sqlsession.selectOne("order.getOrderNumPk",estimate_num_pk);
 		return order_num_fk;
 	}
 
 
 	// order_status가 0이면서 order_num_fk가 해당 번호인 얘들 전부 삭제하기
 	@Override
-	public int deleteEstimate(int order_num_fk) {
-		int j = sqlsession.selectOne("order.deleteEstimate",order_num_fk);
+	public int deleteEstimate(String order_num_fk) {
+		int j = sqlsession.delete("order.deleteEstimate",order_num_fk);
 		return j;
 	}
 	
