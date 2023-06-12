@@ -640,7 +640,7 @@
 				
 				flag_input_id = true;
 			}
-		});// end of 
+		});// end of $("input#user_id_pk").blur( (e) 
 		
 		
 		$("input#user_id_pk").change(function (){
