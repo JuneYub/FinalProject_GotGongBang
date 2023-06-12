@@ -526,10 +526,12 @@ public class OrderController {
 		int k = service.updateOrderStatus(estimate_num_pk);
 		
 		// order_num_fk 가져오기
-		int order_num_fk = service.getOrderNumPk(Integer.parseInt(estimate_num_pk) );
+		String order_num_fk = service.getOrderNumPk(estimate_num_pk );
+		
+		System.out.println("order_num_fk "+order_num_fk);
 		
 		// order_status가 0이면서 order_num_fk가 해당 번호인 얘들 전부 삭제하기
-		int j = service.deleteEstimate(order_num_fk);
+		int j = service.deleteEstimate(order_num_fk );
 		
 		if(i==1) {
 			

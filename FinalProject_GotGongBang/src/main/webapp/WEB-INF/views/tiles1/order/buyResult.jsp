@@ -138,7 +138,7 @@ div#resultContent{
 			</div>	 
 		-->
 		<p style="text-align:center;">
-   			<button type="button" class="orderButton" >메인 페이지로</button>			
+   			<button type="button" class="orderButton" onclick="location.href='<%= ctxPath%>/index.got'">메인 페이지로</button>			
 		</p>
     </div>
 <!-- </div> -->
