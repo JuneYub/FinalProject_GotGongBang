@@ -113,6 +113,30 @@ public class AdminService implements InterAdminService{
 		List<Map<String, String>> imgList = dao.selectImgList(craft_num_pk);
 		return imgList;
 	}
+
+	//공방 정보 수정을 위해 공방 정보 조회해오기
+	@Override
+	public CraftVO craft_edit_view(String craft_num_pk) {
+		CraftVO cvo = dao.craft_edit_view(craft_num_pk);
+		return cvo;
+	}
+	
+	//공방 한 개 보기  (대표자이름, 연락처, 한줄소개, 경력기간) 수정 
+	@Override
+	public int craft_edit(CraftVO cvo) {
+		int n = dao.craft_edit(cvo);
+		return n;
+	}
+
+	//공방 한 개 삭제
+	@Override
+	public int craft_del(Map<String, String> paraMap) {
+		int n = dao.craft_del(paraMap);
+		return n;
+	}
+
+
+
 	
 	
 	// ==== ==================================== 김진솔 끝 ======================================================= // 
