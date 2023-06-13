@@ -6,6 +6,24 @@
    String ctxPath = request.getContextPath();
 %>   
 
+<<style type="text/css">
+
+</style>
+
+<script type="text/javascript">
+ 
+ function goView(notice_num_pk) {
+		
+		const gobackURL = "${requestScope.gobackURL}";
+		//alert(gobackURL);
+		
+	    const searchType = $("select#searchType").val();
+	    const searchWord = $("input#searchWord").val();
+	      
+	    location.href="<%= ctxPath%>/board_notiview.got?notice_num_pk="+notice_num_pk+"&gobackURL="+gobackURL;
+ }
+ 
+</script>
  <div id="ojh_content">
         <section class="ojh_page_content_inquire">
             <header class="ojh_page-header ojh_page-header--customer" style="height: 200px;">
@@ -52,216 +70,54 @@
                         <p>갗공방의 새로운 소식과 유용한 정보를 이곳에서 한번에 확인하세요.</p>
                         
                     <table class="ojh_table table--row">
-                      <div class="ojh_table2">
+                      
+					  <div class="ojh_table2">
                             <div  class="ojh_table2_info t11">번호</div>
                             <div class="ojh_table2_info t12">제목</div>
                             <div  class="ojh_table2_info t13">작성자</div>
                             <div  class="ojh_table2_info t13">작성일</div>
+                            <div  class="ojh_table2_info t13_1">조회수</div>
                       </div> 
-
-                      <ul class="ojh_table2_notice">
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">공지</div>
-                                    <div class="ojh_table2_notice3 t15">[안내] 5월 배송 휴무 일정 안내</div>
-                                    <div class="ojh_table2_notice4 t16">관리자</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">공지</div>
-                                    <div class="ojh_table2_notice3 t15">[안내] 5월 배송 휴무 일정 안내</div>
-                                    <div class="ojh_table2_notice4 t16">관리자</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">공지</div>
-                                    <div class="ojh_table2_notice3 t15">[안내] 5월 배송 휴무 일정 안내</div>
-                                    <div class="ojh_table2_notice4 t16">관리자</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">공지</div>
-                                    <div class="ojh_table2_notice3 t15">[안내] 5월 배송 휴무 일정 안내</div>
-                                    <div class="ojh_table2_notice4 t16">관리자</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">공지</div>
-                                    <div class="ojh_table2_notice3 t15">[안내] 5월 배송 휴무 일정 안내</div>
-                                    <div class="ojh_table2_notice4 t16">관리자</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">공지</div>
-                                    <div class="ojh_table2_notice3 t15">[안내] 5월 배송 휴무 일정 안내</div>
-                                    <div class="ojh_table2_notice4 t16">관리자</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">공지</div>
-                                    <div class="ojh_table2_notice3 t15">[안내] 5월 배송 휴무 일정 안내</div>
-                                    <div class="ojh_table2_notice4 t16">관리자</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">공지</div>
-                                    <div class="ojh_table2_notice3 t15">[안내] 5월 배송 휴무 일정 안내</div>
-                                    <div class="ojh_table2_notice4 t16">관리자</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">공지</div>
-                                    <div class="ojh_table2_notice3 t15">[안내] 5월 배송 휴무 일정 안내</div>
-                                    <div class="ojh_table2_notice4 t16">관리자</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                        <li>
-                            <a href="/">
-                                <div class="ojh_table2_notice1">
-                                    <div class="ojh_table2_notice2 t14">공지</div>
-                                    <div class="ojh_table2_notice3 t15">[안내] 5월 배송 휴무 일정 안내</div>
-                                    <div class="ojh_table2_notice4 t16">관리자</div>
-                                    <div class="ojh_table2_notice5 t17">2023.05.28</div>
-                                </div>  
-                            </a>
-
-                        </li>
-
-                    </ul>
-
+                      
+                      <c:if test="${empty requestScope.novo}">
+                      		<td style="padding: 32px 0px 0px 252px";>게시글 데이터가 없습니다</td>
+                      </c:if>    	
+                      
+						<c:if test="${not empty requestScope.novo}">  
+	                      <ul class="ojh_table2_notice">
+	                        <li>
+	                          <c:forEach var="novo" items="${requestScope.novo}">
+	                                <div class="ojh_table2_notice1">
+	                                    <div class="ojh_table2_notice2 t14">${novo.notice_num_pk}</div>
+	                                    
+	                                    
+		                                 <span class="subject t15" name="notice_title" style="cursor:pointer;" onclick="goView('${novo.notice_num_pk}')"> ${novo.notice_title} </span>
+		                                 
+		                               
+	                                    <div class="ojh_table2_notice4 t16">${novo.admin_id_fk}</div>
+	                                    <div class="ojh_table2_notice5 t17">${novo.notice_date}</div>
+	                                    <div class="ojh_table2_notice5 t18">${novo.notice_viewcount}</div>           
+	                                </div>  
+	                            </a>
+							  </c:forEach>
+	                        </li>
+	                    </ul>
+					   </c:if>
+							
+						<c:if test="${sessionScope.loginuser.user_id_pk == 'admin'}"> 
+							<button class="ojh_css-214ym4 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="javascript:location.href='<%= request.getContextPath()%>/board_noticeiq.got'">
+	                                <span class="ojh_css-ymwvow e4nu7ef1">글쓰기</span>
+	                        </button>
+                        </c:if>
                     </table>
 
                   </fieldset>
                   
-                  <nav class="ojh_pagination_nav">
-                    <ul class="ojh_pagination">
-                        <li class="ojh_pagination_item_first">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">처음</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item_before">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">이전</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item_one">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">1</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">2</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">3</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">4</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">5</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">6</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">7</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">8</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">9</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">10</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item_next">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">다음</span>
-                            </a>
-                        </li>
-                        <li class="ojh_pagination_item_last">
-                            <a class="ojh_pagination_link" href="/">
-                                <span class="ojh_pagination_name">마지막</span>
-                            </a>
-                        </li>
-                    </ul>
-                  </nav>
+                   <div align="center" style="border: solid 0px gray; width: 70%; margin: 20px auto; ">
+					    	${requestScope.pageBar}
+				   </div> 
 
-                </div>
+               </div>
             </form>
         </section>
     </div>

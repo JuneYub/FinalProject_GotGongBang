@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.spring.gotgongbang.craft.model.PartnerVO;
+import com.spring.gotgongbang.order.model.DetailImgVO;
+import com.spring.gotgongbang.order.model.WholeImgVO;
 
 public interface InterMemberDAO {
 
@@ -71,15 +73,13 @@ public interface InterMemberDAO {
 
 	int getTotalCountForOrderListByUserId(String userId);
 
-
-
-
-
-
-
-
-
 	int getTotalCountProposalListByUserId(String userId);
+
+	int getReviewCntByOrderNum(String orderNum);
+
+	List<WholeImgVO> getWholeImgListByOrderDetailNum(String orderDetailNum);
+
+	List<DetailImgVO> getDetailImgListByOrderDetailNum(String orderDetailNum);
 
 	
 

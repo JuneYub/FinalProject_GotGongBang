@@ -121,19 +121,38 @@
 	<!-- FAQ 조회 -->
 	<select id="getFaq" resultType="com.spring.gotgongbang.board.model.InquiryVO">
 		
-	
-		    SELECT 
-		        ROW_NUMBER() OVER (ORDER BY inquiry_viewcount DESC) AS rank,
+		SELECT *
+		FROM (
+		     SELECT 
+		        ROW_NUMBER() OVER (PARTITION BY groupno ORDER BY inquiry_viewcount DESC) AS rank,
 		        inquiry_viewcount,
 		        inquiry_title,
-		        inquiry_content
+		        groupno,
+		        depthno
 		    FROM 
 		        INQUIRY
 		    WHERE 
-		        inquiry_viewcount > 1
+		        depthno = 0
+		) A
+		INNER JOIN (
 		
-		    
-	</select>
+		    SELECT 
+		        ROW_NUMBER() OVER (PARTITION BY groupno ORDER BY inquiry_viewcount DESC) AS rank,
+		        inquiry_viewcount,
+		        inquiry_title,
+		        inquiry_content,
+		        groupno,
+		        depthno
+		    FROM 
+		        INQUIRY
+		    WHERE 
+		        depthno = 1
+		   
+		) B
+		ON A.groupno = B.groupno
+		ORDER BY A.inquiry_viewcount desc, B.rank
+		
+	</select>	
 	
 	<!-- Groupno 최대값 알아오기 -->
 	<select id="getGroupno_max" resultType="int">
@@ -141,4 +160,65 @@
 	    from INQUIRY
 	</select>
 	
+	
+	
+	
+	
+	<!-- 공지사항 - 게시물 건 수 구하기 --> 
+	 <select id="getnoTotalCount" parameterType="HashMap" resultType="int"> 
+	   select count(*)
+	   from notice
+	   where notice_status = 1 
+	 </select>
+	
+	<!-- 공지사항 - 페이징 처리한 게시물  -->
+	<select id="noiqListSearchWithPaging" parameterType="HashMap" resultType="com.spring.gotgongbang.board.model.NoticeVO">
+		
+	  select notice_num_pk, admin_id_fk, notice_title, notice_viewcount, notice_date 
+	  from 
+	  (
+          select rownum AS rno, notice_num_pk, admin_id_fk, notice_title, notice_viewcount, notice_date
+                     from 
+                         ( 
+                          select notice_num_pk, admin_id_fk, notice_title, notice_viewcount,
+                                             to_char(notice_date, 'yyyy-mm-dd hh24:mi:ss') AS notice_date 
+                                         from notice
+                                         where notice_status = 1
+                                         order by notice_num_pk desc
+                          )V 
+          ) X
+        where rno between #{startRno} and #{endRno}
+   </select>	 
+	
+	<!-- 공지사항 - 글 쓰기 완료-->
+	<insert id="add_notice" parameterType="com.spring.gotgongbang.board.model.NoticeVO">
+ 	
+		insert into notice(notice_num_pk, admin_id_fk, notice_title, notice_content, notice_date, notice_viewcount)
+		values(seq_notice_num_pk.nextval, 'admin', #{notice_title}, #{notice_content}, default, 0)
+	
+	</insert>
+	
+	<!-- 공지사항 조회수 증가와 함께 게시글 조회 -->
+	
+	<select id="getnotiView" parameterType="HashMap" resultType="com.spring.gotgongbang.board.model.NoticeVO">
+		select previousseq, previoussubject
+			 , notice_num_pk, admin_id_fk, notice_title, notice_content, notice_viewcount, notice_date
+		from
+		(
+		select lag(notice_num_pk,1) over(order by notice_num_pk desc) AS previousseq
+		     , lag(notice_title,1) over(order by notice_num_pk desc) AS previoussubject
+		     , notice_num_pk, admin_id_fk, notice_title, notice_content, notice_viewcount
+		     , to_char(notice_date, 'yyyy-mm-dd hh24:mi:ss') AS notice_date 
+		from notice
+		where notice_status = 1
+		) V
+		where V.notice_num_pk = #{notice_num_pk}
+    </select>
+	
+	
+	<!-- 공지사항  수정 페이지 완료하기 -->
+	<update id="notiedit" parameterType="com.spring.gotgongbang.board.model.NoticeVO">
+	   update notice set notice_title = #{notice_title}, notice_content = #{notice_content}
+	    where notice_num_pk = #{notice_num_pk}
+	</update>
 </mapper>

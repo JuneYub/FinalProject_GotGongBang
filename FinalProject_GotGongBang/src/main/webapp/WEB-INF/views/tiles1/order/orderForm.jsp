@@ -16,7 +16,7 @@ div#orderContent {
    padding: 50px;
    width: 1000px;
    margin: 30px auto;
-   border: 1px solid #400099;
+   border: 0px solid #400099;
    /* background-color:#cceeff; */
     border-radius:10px;
 	height:fit-content;
@@ -45,8 +45,8 @@ div.orderSelect{
 	var value="10";
 	
 	// 사진 리스트
-	var img_whole_list = new Array();
-	var img_detail_list = new Array();
+	var img_whole_list = ['','',''];
+	var img_detail_list = ['','',''];
 	
 	// 사진 리스트 카운트
 	let img_whole_cnt = 0;
@@ -55,6 +55,9 @@ div.orderSelect{
 	// 사진 html
 	let img_whole_html ="";
 	let img_detail_html ="";
+	
+	let req_name_list_join='';
+	let req_name_list = new Array();
 
 	$(document).ready(function(){
 		
@@ -97,30 +100,33 @@ div.orderSelect{
 	       const fileReader = new FileReader();
 	        
 	       fileReader.readAsDataURL(input_file.files[0]); // FileReader.readAsDataURL() --> 파일을 읽고, result속성에 파일을 나타내는 URL을 저장 시켜준다.
-	     
+	       let img_whole_index = file_id.indexOf("img_whole");
+	       let img_detail_index = file_id.indexOf("img_detail");
 	       // 전체사진 추가했을 경우   
-	       if("img_whole" == file_id){
-	    	
+	       if(img_whole_index != -1){
 	    	   
-	    	   if(img_whole_cnt == 3){
+	    	   let img_num = file_id.slice(file_id.length-1,file_id.length);
+/* 	    	   if(img_whole_cnt == 3){
 	    		   alert("3개까지 추가 가능합니다.");
 	    		   return;
-	    	   }
+	    	   } */
         	   fileReader.onload = function() { // FileReader.onload --> 파일 읽기 완료 성공시에만 작동하도록 하는 것임. 
 	 	       
 	 	           /*
 	 	               data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAg 
 	 	                            이러한 형태로 출력되며, img.src 의 값으로 넣어서 사용한다.
 	 	           */
-	 	           img_whole_cnt ++; 
+	 	           if(img_whole_cnt <3){
+	 	           		img_whole_cnt ++;
+	 	           }
 	 	           img_whole_html = "<label style='cursor: pointer;' class='orderDivPic'>" +
-						 	           "<img src='" + fileReader.result + "' id='previewImg0" + img_whole_cnt + "' style='width:140px; height:140px; position:static;' />" +
+						 	           "<img src='" + fileReader.result + "' id='previewImg0" + img_num + "' style='width:140px; height:140px; position:static;' />" +
 						 	           "</label>";
 	   			 
-				   $("div[id='img_whole_num']").text(img_whole_cnt+"/3"); 
+				   $("div[id='img_whole_num']").text(img_num+"/3"); 
 	 	           //document.getElementById("previewImg01").src = fileReader.result;
-	   			   $("div[id='img_whole_div_"+img_whole_cnt+"']").html(img_whole_html); 
-	   			   img_whole_list.push(file_name);
+	   			   $("div[id='img_whole_div_"+img_num+"']").html(img_whole_html); 
+	   			   img_whole_list[img_num-1]=file_name;
 	   			   
 	   						
 				   
@@ -128,24 +134,27 @@ div.orderSelect{
 	        }
 	      
 	     	// 디테일사진 추가했을 경우   
-	        else if("img_detail" == file_id){
-	        	
+	        else if(img_detail_index != -1){
+		    	let img_num = file_id.slice(file_id.length-1,file_id.length);
+/* 	        	
 	        	if(img_detail_cnt == 3){
 		    		   alert("3개까지 추가 가능합니다.");
 		    		   return;
-		    	   }
+		    	   } */
 	        	
 	        	fileReader.onload = function() { // FileReader.onload --> 파일 읽기 완료 성공시에만 작동하도록 하는 것임. 
-	
-		 	        img_detail_cnt ++; 
+	    		   
+		    		 if(img_detail_cnt <3){
+		    			img_detail_cnt ++;
+	 	           }
 		   			img_detail_html = "<label style='cursor: pointer;' class='orderDivPic'>" +
-						 	           "<img src='" + fileReader.result + "' id='previewImg1" + img_detail_cnt + "' style='width:140px; height:140px; position:static;' />" +
+						 	           "<img src='" + fileReader.result + "' id='previewImg1" + img_num + "' style='width:140px; height:140px; position:static;' />" +
 						 	           "</label>";
 		
-					$("div[id='img_detail_num']").text(img_detail_cnt+"/3"); 
+					$("div[id='img_detail_num']").text(img_num+"/3"); 
 		 	        //document.getElementById("previewImg01").src = fileReader.result;
-		   			$("div[id='img_detail_div_"+img_detail_cnt+"']").html(img_detail_html); 
-		   			img_detail_list.push(file_name);
+		   			$("div[id='img_detail_div_"+img_num+"']").html(img_detail_html); 
+		   			img_detail_list[img_num-1]=file_name;
 		 	     };
 	        }
 	        
@@ -234,7 +243,7 @@ div.orderSelect{
 		   
 		   
 		   // 선택한 라디오들 가져오기
-		   const req_name_list = new Array();	// 얘는 요청사항 이름들 (가죽교체, 스트랩교체 )
+		   //req_name_list = new Array();	// 얘는 요청사항 이름들 (가죽교체, 스트랩교체 ) 위로 이사감
 		   const req_num_list = new Array();	// 얘는 요청사항 번호 (10, 11 )
 		   
 		   
@@ -271,8 +280,7 @@ div.orderSelect{
 				   } // if
 				   
 			   } // for
-			   
-			   const req_name_list_join = req_name_list.join('\\%'); 
+			   req_name_list_join = req_name_list.join('\,'); 
 			   const req_num_list_join = req_num_list.join(',');	// 리스트로 들어온 값을 string으로 받음
 			   
 			   
@@ -325,23 +333,15 @@ div.orderSelect{
 	} */
 	
 	
-	
-	
-	//썸네일 클릭시 삭제.
-	function fileRemove(index) {
-	    console.log("index: "+index);
-	    fileInfoArr.splice(index,1);
-	 
-	    var imgId="#img_id_"+index;
-	    $(imgId).remove();
-	    console.log(fileInfoArr);
-	}
-	
+
 	
 	function goRegister(){
 		
 		const img_whole_list_join = img_whole_list.join(',');
 		const img_detail_list_join = img_detail_list.join(',');
+		
+		
+		req_name_list_join = req_name_list.join('\%'); 
 		
 		// 품목 이름
 		$("input[name='order_product_type']").val($("#type_code_pk option:checked").text());
@@ -358,8 +358,10 @@ div.orderSelect{
 			return;
 		}
 		
-		// 사진 최소 1장 입력
+		// 사진 3장입력
 		else if(img_whole_cnt <3  || img_detail_cnt <3){
+			console.log(img_whole_cnt);
+			console.log(img_detail_cnt);
 			alert("사진을 항목별로 3장씩 넣어주세요.");
 			return;
 		}
@@ -377,6 +379,7 @@ div.orderSelect{
 		}
 		
 		else{
+			$("input[name='reqest_list_name']").val(req_name_list_join);
 			alert("수선 요청 신청 완료!");
 			const frm = document.order_form;
 			frm.action = "order_form.got";
@@ -433,9 +436,9 @@ div.orderSelect{
    			<td class="orderTd" style="display:flex;     justify-content: space-between;">
    				<div style="width:500px;  height:140px;     display: flex; flex-direction: column; justify-content: center;">
    					<input type="hidden" name="img_whole_name"/>
-   					<input type="file" id="img_whole" class="choose_file img_whole1" name="img_whole" accept="image/*"  style="margin-bottom: 10px;"/>
-					<input type="file" id="img_whole" class="choose_file img_whole2" name="img_whole" accept="image/*"  style="margin-bottom: 10px;"/>
-					<input type="file" id="img_whole" class="choose_file img_whole3" name="img_whole" accept="image/*"  style="margin-bottom: 10px;"/>
+   					<input type="file" id="img_whole1" class="choose_file img_whole1" name="img_whole" accept="image/*"  style="margin-bottom: 10px;"/>
+					<input type="file" id="img_whole2" class="choose_file img_whole2" name="img_whole" accept="image/*"  style="margin-bottom: 10px;"/>
+					<input type="file" id="img_whole3" class="choose_file img_whole3" name="img_whole" accept="image/*"  style="margin-bottom: 10px;"/>
       	 		</div>
 			</td>
 			
@@ -468,9 +471,9 @@ div.orderSelect{
    			<td class="orderTd" style="display:flex; justify-content: space-between;">
    				<div style="width:500px;  height:140px;     display: flex; flex-direction: column; justify-content: center;">
 	   				<input type="hidden" name="img_detail_name"/>
-	   				<input type="file" id="img_detail" class="choose_file img_detail1" name="img_detail" accept="image/*"  style="margin-bottom: 10px;"/>
-					<input type="file" id="img_detail" class="choose_file img_detail2" name="img_detail" accept="image/*"  style="margin-bottom: 10px;"/>
-					<input type="file" id="img_detail" class="choose_file img_detail3" name="img_detail" accept="image/*"  style="margin-bottom: 10px;"/>
+	   				<input type="file" id="img_detail1" class="choose_file img_detail1" name="img_detail" accept="image/*"  style="margin-bottom: 10px;"/>
+					<input type="file" id="img_detail2" class="choose_file img_detail2" name="img_detail" accept="image/*"  style="margin-bottom: 10px;"/>
+					<input type="file" id="img_detail3" class="choose_file img_detail3" name="img_detail" accept="image/*"  style="margin-bottom: 10px;"/>
       	 		</div>	
       	 		
 			</td>

@@ -34,14 +34,42 @@ public interface InterBoardDAO {
 	// 게시글 삭제하기
 	int del(Map<String, String> paraMap);
 	
+	////////////////////////////////////////
+	
 	// Faq 조회
 	List<InquiryVO> getFaq();
+	// Faq admin 답글 조회
+	List<InquiryVO> getFaqin();
+
+	////////////////////////////////////////
 	
 	// groupno 의 최대값 알아오기
 	int getGroupno_max();
 	
 	
+
+	/////////////////////////////// 공지사항 ///////////////////////////////
 	
+	// 공지사항 - 게시물 건 수 구하기
+	int getnoTotalCount(Map<String, String> paraMap);
+	
+	// 공지사항 - 페이징 처리한 게시물
+	List<NoticeVO> noiqListSearchWithPaging(Map<String, String> paraMap);
+	
+	// 공지사항 글쓰기 완료
+	int add_notice(NoticeVO novo);
+	
+	// 공지사항 조회수 증가와 함께 게시글 조회
+	NoticeVO getnotiView(Map<String, String> paraMap);
+	
+	// 공지사항 수정 완료
+	int notiedit(NoticeVO novo);
+	
+	
+	
+	
+	
+	/////////////////////////////////////////////////////////////////////
 	
 
 }

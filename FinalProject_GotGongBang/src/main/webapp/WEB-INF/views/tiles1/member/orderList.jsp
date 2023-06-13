@@ -52,6 +52,36 @@
 		});
 
 	}
+ 	
+ 	function writeReview(orderNum) {
+
+ 		$.ajax({
+ 			url:"<%= ctxPath%>/check_review_count.got",
+ 			type:"POST",
+ 			async:true,
+ 			data: {
+ 				orderNum:orderNum
+ 			},
+			success:function(json) {
+				if(json.cnt >= 1) {
+					alert("이미 후기를 작성하셨습니다.");
+					return;
+				}
+				else {
+					alert("후기를 작성할 수 있습니다");
+					const frm = document.forms["writeReviewForm"]
+					frm.action = "<%= ctxPath%>/review.got";
+					frm.method ="post";
+					frm.submit();
+				}
+			},
+			error: function(request, status, error){
+				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			}
+ 			
+ 			
+ 		})
+ 	}
 	 
 </script>
 
@@ -103,8 +133,12 @@
 						</td>
 	
 						<td>
-							<button class="btn-estimateDetail btn-font15" onclick="">후기 작성하기</button>
+							<form name="writeReviewForm">
+							<input type="hidden" name="orderNum" value="${orderList.order_detail_id_pk}">
+							</form>	
+							<button type="button" class="btn-estimateDetail btn-font15" onclick="writeReview(${orderList.order_detail_id_pk})">후기 작성하기</button>
 						</td>
+
 						</tr>
 						</c:forEach>
 					</c:if>

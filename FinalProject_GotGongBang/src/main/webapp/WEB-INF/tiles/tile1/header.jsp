@@ -58,7 +58,7 @@
 
             <div class="header-member-box">
                 <ul class="header-member-contents">
-	                <c:if test="${empty sessionScope.loginuser}">
+	                <c:if test="${empty sessionScope.loginuser and empty sessionScope.loginpartner}">
 	                    <li>
 	                        <a onclick="location.href='<%= ctxPath%>/register_member_first.got'">
 	                          	  회원가입
@@ -75,7 +75,21 @@
 	                <c:if test="${not empty sessionScope.loginuser}">
 	                	<li>
 	                        <a onclick="location.href='<%= ctxPath%>/proposal_list.got'">
-	                          	  ${(sessionScope.loginuser).name}님 환영합니다.
+	                          	  일반회원 | ${(sessionScope.loginuser).name}님
+	                        </a>
+	                        <span class="txt_bar"></span>
+	                    </li>
+	                    <li>
+	                        <a onclick="location.href='<%= ctxPath%>/logout.got'">
+	                           	 로그아웃
+	                        </a>
+	                    </li>
+	                </c:if>
+	                
+	                <c:if test="${not empty sessionScope.loginpartner}">
+	                	<li>
+	                        <a onclick="location.href='<%= ctxPath%>/proposal_list.got'">
+	                          	  공방회원 | ${(sessionScope.loginpartner).partner_name}님
 	                        </a>
 	                        <span class="txt_bar"></span>
 	                    </li>

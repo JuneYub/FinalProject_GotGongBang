@@ -11,6 +11,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.spring.gotgongbang.craft.model.PartnerVO;
+import com.spring.gotgongbang.order.model.DetailImgVO;
+import com.spring.gotgongbang.order.model.WholeImgVO;
 
 
 @Repository
@@ -173,6 +175,26 @@ public class MemberDAO implements InterMemberDAO {
 	public int getTotalCountProposalListByUserId(String userId) {
 		int n = sqlsession.selectOne("member.getTotalCountProposalListByUserId", userId);
 		return n;
+	}
+
+	@Override
+	public int getReviewCntByOrderNum(String orderNum) {
+		int n = sqlsession.selectOne("member.getReviewCntByOrderNum", orderNum);
+		return n;
+	}
+
+	@Override
+	public List<WholeImgVO> getWholeImgListByOrderDetailNum(String orderDetailNum) {
+		//List<WholeImgVO> wholeImgList = sqlsession.selectList("member.getWholeImgListByOrderDetailNum", orderDetailNum);
+		//return wholeImgList;
+		return null;
+	}
+
+	@Override
+	public List<DetailImgVO> getDetailImgListByOrderDetailNum(String orderDetailNum) {
+		//List<DetailImgVO> detailImgList = sqlsession.selectList("member.getDetailImgListByOrderDetailNum", orderDetailNum);
+		//return detailImgList;
+		return null;
 	}
 
 
