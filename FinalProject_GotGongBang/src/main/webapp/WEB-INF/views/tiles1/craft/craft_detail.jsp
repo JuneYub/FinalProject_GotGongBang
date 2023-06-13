@@ -21,8 +21,6 @@ $(window).scroll(function() {
 	  });
 });
 
-
-
 </script>
 
 
@@ -56,11 +54,12 @@ $(window).scroll(function() {
         				<div class="sub1_1_1">
 		        			<span>전문품목 | ${craftvo.craft_specialty}</span>
 		        		</div>
-        				<p>경력기간 | ${craftvo.craft_career }</p>
-        				<p>공방평점   ★★★★★</p>
+        				<p>경력기간 | ${craftvo.craft_career}</p>
+        				<p>공방평점 | ${craftvo.craft_rating}</p>
         			</div>
        		</div>
 		</div>
+		<!-- div.master_intro 끝 -->
 		
 		<div class="nice-header"> 
 			<div class="header-overlay">
@@ -106,9 +105,15 @@ $(window).scroll(function() {
 				</div>
 			</div>
 		</div>
+		<!-- div.detail_2 끝 -->
+		
+		
 		<div class="detail_3">
 			<img alt="" src="http://woorimp.com/img_file/ckeditor_img/3662331629.jpg" style="width:100%;">
 		</div>
+		<!-- div.detail_3 끝 -->
+		
+		
 		<div class="detail_4">
 			<div class="detail_4_sub" style="display:flex; margin: 50px 0; padding-left: 30px;">
 				<div>
@@ -128,9 +133,15 @@ $(window).scroll(function() {
 				</div>
 			</div>
 		</div>
+		<!-- div.detail_4 끝 -->
+		
+		
 		<div class="detail_5">
 			<img alt="" src="http://woorimp.com/img_file/ckeditor_img/3662331645.jpg" style="width:100%;">
 		</div>
+		<!-- div.detail_5 끝 -->
+		
+		
 		<div class="detail_6" style="display:flex; margin: 50px 0; padding-left: 30px;">
 			<div>
 				<h1 data-aos="fade-up" class="aos-init aos-animate">GOT GONGBANG</h1>
@@ -143,6 +154,9 @@ $(window).scroll(function() {
 				<img alt="지도" src="">
 			</div>
 		</div>
+		<!-- div.detail_6 끝 -->
+		
+		
 		<hr style="border: solid 1px #e8e8e8;">
 		<div style="height:50px;">
 		</div>	
@@ -150,13 +164,6 @@ $(window).scroll(function() {
 			<h2 style="font-size: 30px; font-weight: bold; margin-left:155px; margin-bottom: 10px;">후기가 증명합니다.</h2>
 		</div>
 		<table id="reviewTbl" style="width:80%; margin: 0 auto; padding-bottom: 100px;" class="table table--col customer-notice-list__table aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
-			<%-- <colgroup style="width: 80%;">
-			    <col width="160">
-			    <col width="*">
-			    <col width="180">
-			    <col width="120">
-			    <col width="160">
-			</colgroup> --%>
             <thead>
             <tr>
                 <th scope="col">번호</th>
@@ -279,13 +286,13 @@ $(window).scroll(function() {
 					</tr>
 				</tbody>
 			</table>
-			<!-- end of <table class="table table--col customer-notice-list__table aos-init aos-animate" data-aos="fade-up" data-aos-delay="300"> -->
+			<!-- table#reviewTbl 끝 -->
 			
 	</div>
-	<!-- end of <div class="master_contents"> -->
+	<!-- div.master_contents 끝 -->
 	
 </div>
-<!-- end of <div class="master_container"> -->
+<!-- div.master_container 끝 -->
 
 <script>
     AOS.init();
