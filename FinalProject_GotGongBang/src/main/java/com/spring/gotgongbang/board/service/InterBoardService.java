@@ -70,6 +70,8 @@ public interface InterBoardService {
 		NoticeVO getnotiViewWithNoAddCount(Map<String, String> paraMap);
 		// 공지사항 수정 완료
 		int notiedit(NoticeVO novo);
+		// 공지사항 삭제 완료
+		int notidel(Map<String, String> paraMap);
 				
 	
 		// 오준혁 끝 ===========================================================================
