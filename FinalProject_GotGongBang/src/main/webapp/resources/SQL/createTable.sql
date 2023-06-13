@@ -88,7 +88,7 @@ CREATE TABLE WHOLE_IMG (
    whole_img_num_pk NUMBER(10)     NOT NULL, -- 전체이미지번호
    order_num_fk     NUMBER         NOT NULL, -- 견적요청번호
    whole_img_name   NVARCHAR2(100) NOT NULL,  -- 파일명
-   whole_img_size   NUMBER         NOT NULL   -- 파일사이즈
+   whole_img_new_name   NVARCHAR2(100)         NOT NULL   -- 저장되는 파일명
     ,constraint PK_WHOLE_IMG_whole_img_num_pk primary key(whole_img_num_pk)
     ,constraint FK_WHOLE_IMG_order_num_fk foreign key(order_num_fk)
                                   references ORDERS(order_num_pk)
@@ -100,7 +100,7 @@ CREATE TABLE DETAIL_IMG (
    detail_img_num_pk NUMBER         NOT NULL, -- 상세이미지번호
    order_num_fk      NUMBER         NOT NULL, -- 견적요청번호
    detail_img_name   NVARCHAR2(100) NOT NULL,  -- 파일명
-   detail_img_size   NUMBER         NOT NULL   -- 파일사이즈
+   detail_img_new_name   NVARCHAR2(100)         NOT NULL   -- 저장되는 파일명
     ,constraint PK_DETAIL_IMG_detail_img_num_pk primary key(detail_img_num_pk)
     ,constraint FK_DETAIL_IMG_order_num_fk foreign key(order_num_fk)
                                   references ORDERS(order_num_pk)
@@ -156,6 +156,8 @@ create table NOTICE
 ,notice_content     NVARCHAR2(1000)         NOT NULL      -- 본문
 ,notice_date        DATE DEFAULT SYSDATE    NOT NULL      -- 작성날짜
 ,notice_viewcount   NUMBER(10)              NOT NULL      -- 조회수
+,notice_status      number(1) default 1     not null      -- 공지사항 상태
+
 ,CONSTRAINT PK_NOTICE PRIMARY KEY(notice_num_pk)
 ,CONSTRAINT FK_ADMIN_ADMIN_ID_PK FOREIGN KEY(admin_id_fk) REFERENCES ADMIN(admin_id_pk)
 );
@@ -208,9 +210,6 @@ create table INQUIRY
 ,user_id_fk             VARCHAR2(20)            not null    -- 아이디
 ,inquiry_title          VARCHAR(100)            not null    -- 문의제목
 ,inquiry_content        VARCHAR(4000)           not null    -- 문의내용
-,inquiry_group          NUMBER(5)               not null    -- 그룹번호
-,inquiry_original       NUMBER(5)               not null    -- 원글문의번호
-,inquiry_depth          NUMBER(5)               not null    -- 깊이번호
 
 -- 추가 및 수정
 ,inquiry_date           date default sysdate    not null    -- 작성날짜

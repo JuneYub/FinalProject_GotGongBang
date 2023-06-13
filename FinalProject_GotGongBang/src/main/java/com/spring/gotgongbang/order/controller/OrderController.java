@@ -193,22 +193,38 @@ public class OrderController {
 		List<MultipartFile> detail_img_list = mrequest.getFiles("img_detail");
 		
 		
+		// 사진의 원래 이름
+		List<String> whole_img_origin = new ArrayList<>();
+		List<String> detail_img_origin = new ArrayList<>();
+		
+		// 사진의 새로운 이름
+		List<String> whole_img_new = new ArrayList<>();
+		List<String> detail_img_new = new ArrayList<>();
+		
 		
 		
 		//System.out.println("whole_img_list "+whole_img_list);
 		//System.out.println("detail_img_list "+detail_img_list);
 		
 		HttpSession session = mrequest.getSession();
-	    String root = session.getServletContext().getRealPath("/");
+	    String root = session.getServletContext().getRealPath("/").substring(0, 3);
+	    //System.out.println(root);
 	    //String path_whole = root + "resources"+File.separator+"img\\orders";
 	    //C:\NCS\workspace(spring)\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\FinalProject_GotGongBang\resources\img\orders
 	    
-	    String path_whole = root + "resources"+File.separator+"orders";
-	    String path_detail = root + "resources"+File.separator+"orders_detail";
-		
+	    //String path_whole = root + "resources"+File.separator+"img"+File.separator+"orders";
 	    
-	    System.out.println("~~~~ 확인용 path_whole => " + path_whole);
-	    System.out.println("~~~~ 확인용 path_detail => " + path_detail);
+	    String path_whole = root + "Users"+File.separator+"user"+File.separator+"git"+File.separator+"FinalProject_GotGongBang"+File.separator+"FinalProject_GotGongBang"+File.separator+"src"+File.separator+"main"+File.separator+"webapp"+File.separator+"resources"+File.separator+"img"+File.separator+"orders";
+	    //root + "Users"+File.separator+"user"+File.separator+"git"+File.separator+"FinalProject_GotGongBang"+File.separator+"FinalProject_GotGongBang"+File.separator+"src"+File.separator+"main"+File.separator+"webapp"+File.separator+"resources"+File.separator+"img"++File.separator+"order";
+	    
+	    //String path_detail = root + "resources"+File.separator+"img"+File.separator+"orders_detail";
+		// 확인용 path_detail => C:\NCS\workspace(spring)\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\FinalProject_GotGongBang\resources\img\orders
+	    String path_detail = root + "Users"+File.separator+"user"+File.separator+"git"+File.separator+"FinalProject_GotGongBang"+File.separator+"FinalProject_GotGongBang"+File.separator+"src"+File.separator+"main"+File.separator+"webapp"+File.separator+"resources"+File.separator+"img"+File.separator+"orders_detail";
+	    //root + "Users"+File.separator+"user"+File.separator+"git"+File.separator+"FinalProject_GotGongBang"+File.separator+"FinalProject_GotGongBang"+File.separator+"src"+File.separator+"main"+File.separator+"webapp"+File.separator+"resources"+File.separator+"img"++File.separator+"order";
+	    
+	    
+	    //System.out.println("~~~~ 확인용 path_whole => " + path_whole);
+	    //System.out.println("~~~~ 확인용 path_detail => " + path_detail);
 
 	    
 	    
@@ -223,7 +239,14 @@ public class OrderController {
 	    	 for(int i = 0; i<whole_img_list.size(); i++) {
 	    		 
 	    		 MultipartFile mtfile_whole = whole_img_list.get(i);
-	    		 System.out.println("파일명 : "+ mtfile_whole.getOriginalFilename()+"/ 파일크기 : "+mtfile_whole.getSize());
+	    		 
+		    	  String newFileName = "";
+		   		  // WAS(톰캣)의 디스크에 저장될 파일명
+		   		  
+		   		  byte[] bytes = null;
+		   		  // 첨부파일의 내용물을 담는 것
+	   		  
+	    		 //System.out.println("파일명 : "+ mtfile_whole.getOriginalFilename()+"/ 파일크기 : "+mtfile_whole.getSize());
 	    		 // 파일명 : berkelekle심플라운드01.jpg/ 파일크기 : 71317
 	    		 
 	    		 
@@ -232,7 +255,13 @@ public class OrderController {
 	    			 
 	    			// == MultipartFile 을 File로 변환하여 탐색기 저장폴더에 저장하기 시작 == //
 	    			 
-		    		 File attachFile_whole = new File(path_whole+File.separator+mtfile_whole.getOriginalFilename());
+	    			 bytes = mtfile_whole.getBytes();
+	    			 
+	    			 whole_img_origin.add(i,mtfile_whole.getOriginalFilename());
+	    			 newFileName = fileManager.doFileUpload(bytes, mtfile_whole.getOriginalFilename(), path_whole);
+	    			 whole_img_new.add(i,newFileName);
+	    			 
+		    		 File attachFile_whole = new File(path_whole+File.separator+newFileName);
 		    		 // 빈껍데기만 생성
 		    		 
 		    		 mtfile_whole.transferTo(attachFile_whole);
@@ -263,16 +292,26 @@ public class OrderController {
 	    	 for(int i = 0; i<detail_img_list.size(); i++) {
 	    		 
 	    		 MultipartFile mtfile_detail = detail_img_list.get(i);
-	    		 System.out.println("파일명 : "+ mtfile_detail.getOriginalFilename()+"/ 파일크기 : "+mtfile_detail.getSize());
+	    		 //System.out.println("파일명 : "+ mtfile_detail.getOriginalFilename()+"/ 파일크기 : "+mtfile_detail.getSize());
 	    		 // 파일명 : berkelekle심플라운드01.jpg/ 파일크기 : 71317
 	    		 
-	    		 
+	    		 String newFileName = "";
+		   		  // WAS(톰캣)의 디스크에 저장될 파일명
+		   		  
+		   		  byte[] bytes = null;
+		   		  // 첨부파일의 내용물을 담는 것
 	    		 
 	    		 try {
 	    			 
 	    			// == MultipartFile 을 File로 변환하여 탐색기 저장폴더에 저장하기 시작 == //
 	    			 
-		    		 File attachFile_detail = new File(path_detail+File.separator+mtfile_detail.getOriginalFilename());
+	    			 bytes = mtfile_detail.getBytes();
+	    			 
+	    			 detail_img_origin.add(i,mtfile_detail.getOriginalFilename());
+	    			 newFileName = fileManager.doFileUpload(bytes, mtfile_detail.getOriginalFilename(), path_detail);
+	    			 detail_img_new.add(i,newFileName);
+	    			 
+		    		 File attachFile_detail = new File(path_detail+File.separator+newFileName);
 		    		 // 빈껍데기만 생성
 		    		 
 		    		 mtfile_detail.transferTo(attachFile_detail);
@@ -356,28 +395,33 @@ public class OrderController {
 				whole_map.put("order_num_pk",order_num_pk );
 				detail_map.put("order_num_pk",order_num_pk);
 				
+
 				// 전체 사진
 				for(int i =0; i<arr_img_whole_name.length;i++) {
 					
 					String whole_img_name = arr_img_whole_name[i];
 					whole_map.put("whole_img_name",whole_img_name);
+					whole_map.put("whole_img_new_name",whole_img_new.get(i));
 					
 					whole_num[i] = service.insert_whole_img(whole_map);
 					// 전체 사진 반복문으로 추가하기
 					//System.out.println("whole num "+i+"="+whole_num[i]);
 					whole_map.remove("whole_img_name");
+					whole_map.remove("whole_img_new_name");
 				}
 				
-				// 부분사진
+				// 상세사진
 				for(int i =0; i<arr_img_detail_name.length;i++) {
 					
 					String detail_img_name = arr_img_detail_name[i];
 					detail_map.put("detail_img_name",detail_img_name);
+					detail_map.put("detail_img_new_name",detail_img_new.get(i));
 					
 					detail_num[i] = service.insert_detail_img(detail_map);
 					// 상세 사진 반복문으로 추가하기
 					//System.out.println("detail_num  ="+i+"="+detail_num[i]);
 					detail_map.remove("detail_img_name");
+					whole_map.remove("detail_img_new_name");
 				}
 				
 				
@@ -387,7 +431,7 @@ public class OrderController {
 					
 					   
 					// 수선 요청사항 리스트에 넣기  
-					String[] arr_reqest_list = reqest_list_num.split("\\%"); 
+					String[] arr_reqest_list = reqest_list_num.split("\\,"); 
 					
 					Map<String,Integer> request_list_map = new HashMap<String, Integer>();
 					// 요청사항 목록들

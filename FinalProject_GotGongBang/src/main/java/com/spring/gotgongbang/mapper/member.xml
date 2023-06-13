@@ -146,6 +146,7 @@
     <!--==================== 박준엽 시작 ====================== -->
     <resultMap type="HashMap" id="getProposalListByUserIdMap">
     	<result column="order_num_pk" property="order_num_pk"/>
+    	<result column="order_status" property="order_status"/>
     	<result column="order_product_type" property="order_product_type"/>
     	<result column="brand_name" property="brand_name"/>
     	<result column="request_explain" property="request_explain"/>
@@ -168,12 +169,12 @@
     </resultMap>
     
     <select id="getProposalListByUserId" parameterType="HashMap" resultMap="getProposalListByUserIdMap">
-    	select order_num_pk, order_product_type, brand_name, request_explain, requests, craft_num_fk, 
+    	select order_num_pk, order_status, order_product_type, brand_name, request_explain, requests, craft_num_fk, 
     	order_num_fk, craft_name, estimate_num_pk, estimate_price, estimate_period, to_char(estimate_proposal_date, 'yyyy-mm-dd') as estimate_proposal_date
 		from
 		(
 		    select row_number() over(order by estimate_proposal_date desc) as rno, order_num_pk, order_product_type, brand_name, request_explain, requests, craft_num_fk, 
-		    order_num_fk, (select craft_name from CRAFT where craft_num_pk = B.craft_num_fk) as craft_name, estimate_num_pk,
+		    order_num_fk, order_status, (select craft_name from CRAFT where craft_num_pk = B.craft_num_fk) as craft_name, estimate_num_pk,
 		    estimate_price, estimate_period, estimate_proposal_date
 		    from
 		    (
@@ -183,7 +184,7 @@
 		    ) A
 		    join
 		    (
-		    select estimate_num_pk, craft_num_fk, order_num_fk, estimate_price, estimate_period, estimate_proposal_date
+		    select estimate_num_pk, craft_num_fk, order_num_fk, order_status, estimate_price, estimate_period, estimate_proposal_date
 		    from ESTIMATE
 		    ) B
 		    on order_num_pk = order_num_fk
@@ -260,6 +261,15 @@
 		    ) B
 		    on order_num_pk = order_num_fk
     
+    </select>
+    
+    <select id="getReviewCntByOrderNum" parameterType="String" resultType="int">
+    	select count(*)
+    	from REVIEW
+    	where order_detail_id_fk = #{orderNum}
+    </select>
+    
+    <select id="getWholeImgListByOrderDetailNum" parameterType="String" resultType="com.spring.gotgongbang.order.model.WholeImgVO">
     </select>
     
     <!--==================== 박준엽 끝 ====================== -->

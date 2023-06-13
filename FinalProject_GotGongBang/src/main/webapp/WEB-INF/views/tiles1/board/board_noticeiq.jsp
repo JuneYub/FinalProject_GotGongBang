@@ -17,36 +17,20 @@
 
 	$(document).ready(function(){
 		$("button#btnWrite").click(function(){
-			
-
-			$("input[name=attach]").off().on("change", function(){
-
-				if (this.files && this.files[0]) {
-
-					var maxSize = 1 * 1024 * 1024;
-					var fileSize = this.files[0].size;
-
-					if(fileSize > maxSize){
-						alert("첨부파일 사이즈는 1MB 이내로 등록 가능합니다.");
-						$(this).val('');
-						return false;
-					}
-				}
-			});
-			
+						
 			// 문의아이디 유효성 검사
 			
 			// 문의제목 유효성 검사
-			const inquiry_title = $("input#inquiry_title").val().trim();
+			const inquiry_title = $("input#notice_title").val().trim();
 			if(inquiry_title == "") {
-				alert("문의제목을 입력하세요!!");
+				alert("공지 제목을 입력하세요!!");
 				return;
 			}
 			
 			// 문의내용 유효성 검사
-			const inquiry_content = $("textarea#inquiry_content").val().trim();
+			const inquiry_content = $("textarea#notice_content").val().trim();
 			if(inquiry_content == "") {
-				alert("문의내용을 입력하세요!!");
+				alert("공지 내용을 입력하세요!!");
 				return;
 			}
 			
@@ -57,9 +41,9 @@
 				return;
 			}*/
 			
-			const frm = document.addFrm;
+			const frm = document.add_noticeFrm;
 			frm.method = "post";
-			frm.action = "<%= ctxPath%>/board_inquiryEnd.got";
+			frm.action = "<%= ctxPath%>/board_noticeiqEnd.got";
 			frm.submit();
 			});
 		
@@ -77,12 +61,12 @@
                 <span class="page-header__backdrop-item"></span>
               </span>
               <h2 class="page-header__title aos-init aos-animate" data-aos="fade-up">
-                <span aria-hidden="true" data-breadcrumb-menu="고객센터">고객센터</span>
-                <span data-breadcrumb-current="온라인 문의">온라인 문의</span>
+                <span aria-hidden="true" data-breadcrumb-menu="고객센터">공지사항</span>
+                <span data-breadcrumb-current="온라인 문의">공지사항 등록</span>
               </h2>
 
             </header>
-            <form name="addFrm" enctype="multipart/form-data">
+            <form name="add_noticeFrm" enctype="multipart/form-data">
             	<div id="ojh_category">
                     <div class="ojh_center"> 고객센터 </div>
                     <ul class="ojh_sub_category">
@@ -108,14 +92,9 @@
                     <input type="hidden"/>
                     <input type="hidden"/>
                   <fieldset style="border: 0; width: 850px;">
-                  	
-                  	<c:if test='${requestScope.fk_seq eq ""}'>
-                        <legend>문의사항 입력</legend>
-                    </c:if>
-                    
-                    <c:if test='${requestScope.fk_seq ne ""}'>
-						<legend>답변 입력</legend>
-					</c:if>    
+                  		
+                  		<legend>공지사항 등록</legend>
+			
                         <p><strong>*</strong> 표시는 필수 입력 사항입니다.</p>
                         
                     <table class="ojh_table table--row">
@@ -124,51 +103,26 @@
                             <tr class="ojh_form-field">
                                 <th scope="row">아이디</th>
                                 <td>
-                                    <input class="ojh_form-input" type="text" name="user_id_fk" id="user_id_fk" value="${sessionScope.loginuser.user_id_pk}" readonly />
+                                    <input class="ojh_form-input" type="text" name="admin_id_fk" id="admin_id_fk" value="admin" readonly />
                                     <div class="form-field__feedback" data-field-feedback="product_name"></div>
                                 </td>
                             </tr>
                             <tr class="ojh_form-field">
-                                <th scope="row">문의제목 <strong>*</strong></th>
+                                <th scope="row">공지제목 <strong>*</strong></th>
                                 <td>
-                                <c:if test='${requestScope.fk_seq eq ""}'>
-                                    <input class="ojh_form-input" type="text" id="inquiry_title" name="inquiry_title" title="문의제목 입력" placeholder="문의하실 내용의 제목을 입력해주세요.">
+                                    <input class="ojh_form-input" type="text" id="notice_title" name="notice_title" title="공지제목 입력" placeholder="공지하실 내용의 제목을 입력해주세요.">
                                 	<div class="form-field__feedback" data-field-feedback="title"></div>
-                                </c:if>
-                                
-                                <c:if test='${requestScope.fk_seq ne ""}'>     
-                                	<input class="ojh_form-input" type="text" id="inquiry_title" name="inquiry_title" value="${requestScope.inquiry_title}" readonly />
-                                	<div class="form-field__feedback" data-field-feedback="title"></div>
-                                </c:if>
-                                
-                                	    
                                 </td>
                             </tr>
                             <tr class="ojh_form-field">
-                                <th scope="row">문의내용 <strong>*</strong></th>
+                                <th scope="row">공지내용 <strong>*</strong></th>
                                 <td>
-                                    <textarea class="ojh_form-input" rows="15" name="inquiry_content" id="inquiry_content" title="문의내용 입력" placeholder="하이픈에 궁금하신 점이 있으시다면 편하게 문의 내용 남겨주세요. 확인 후 영업일 기준 3일 내 연락드리겠습니다." > </textarea>
-                                    <div class="form-field__feedback" data-field-feedback="inquiry_content"></div>
+                                    <textarea class="ojh_form-input" rows="15" name="notice_content" id="notice_content" title="문의내용 입력" placeholder="하이픈에 궁금하신 점이 있으시다면 편하게 문의 내용 남겨주세요. 확인 후 영업일 기준 3일 내 연락드리겠습니다." > </textarea>
+                                    <div class="form-field__feedback" data-field-feedback="notice_content"></div>
                                 </td>
                             </tr>
                             <tr class="ojh_form-field">
-                                <th scope="row">첨부파일</th>
-                                <td>
-                                    <div class="ojh_form-attached-file" style="padding: 17px 0px 0px 10px;">
-                                        <div class="ojh_form-attached-file__wrap">
-                                            <label class="ojh_form-attached-file__trigger">
-                                                <input class="ojh_form-attached-file__trigger-file" name="attach" type="file" accept=".jpg, .jpeg, .png, .pdf, .xls,.xlsx" ><span class="ojh_form-attached-file__trigger-name"></span>
-                                            </label>
-                                        </div>
-                                        <div class="ojh_form-attached-file__wrap">
-                                            <p class="ojh_form-attached-file__info" ></p>
-                                            <ul class="ojh_form-attached-file__list">
-                                                
-                                            </ul>
-                                            <p class="ojh_form-attached-file__feedback" data-field-feedback="ojh_form-attached-file"></p>
-                                        </div>
-                                    </div>
-                                </td>
+                                
                              </tr>
                              <!-- <tr class="ojh_form-field"> 
                              	<th scope="row">비밀번호 <strong>*</strong></th>
@@ -180,11 +134,7 @@
                         </tbody>
                     </table>
                   </fieldset>
-                  
-                  <input type="hidden" name="fk_seq" value="${requestScope.fk_seq}" /> 
-				  <input type="hidden" name="groupno" value="${requestScope.groupno}" /> 
-			      <input type="hidden" name="depthno" value="${requestScope.depthno}" /> 
-				                  
+                                  
                   <ul id="ojh_form_ul">
 					<li style="padding: 0 15px;"><a class="ojh_button button--outline-point" onclick="javascript:history.back()" style="background: #fff;
                         color: #400099;">취소</a></li>

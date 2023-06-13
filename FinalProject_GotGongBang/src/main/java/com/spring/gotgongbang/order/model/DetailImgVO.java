@@ -9,7 +9,7 @@ public class DetailImgVO {
 	private String detail_img_new_name;
 	private int detail_img_size;
 	
-   private MultipartFile detail_attach;
+   private MultipartFile img_detail;
    /* form 태그에서 type="file" 인 파일을 받아서 저장되는 필드이다. 
            진짜파일 ==> WAS(톰캣) 디스크에 저장됨.
            조심할것은 MultipartFile attach 는 오라클 데이터베이스 tbl_board 테이블의 컬럼이 아니다.   
@@ -28,11 +28,11 @@ public class DetailImgVO {
 		this.detail_img_new_name = detail_img_new_name;
 	}
 
-	public MultipartFile getDetail_attach() {
-		return detail_attach;
+	public MultipartFile getImg_detail() {
+		return img_detail;
 	}
-	public void setDetail_attach(MultipartFile detail_attach) {
-		this.detail_attach = detail_attach;
+	public void setImg_detail(MultipartFile img_detail) {
+		this.img_detail = img_detail;
 	}
 	public void setDetail_img_size(int detail_img_size) {
 		this.detail_img_size = detail_img_size;

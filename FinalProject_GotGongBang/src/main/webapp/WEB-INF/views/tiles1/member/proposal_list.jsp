@@ -96,7 +96,12 @@
 						</td>
 	
 						<td>
+							<c:if test="${proposal.order_status eq 1}">
+							<div style="color: red;">결제 완료</div>
+							</c:if>
+							<c:if test="${proposal.order_status eq 0}">
 							<button class="btn-estimateDetail" onclick="location.href='<%= ctxPath%>/payment.got?estimate_num_pk=${proposal.estimate_num_pk}'">결제하기</button>
+							</c:if>
 						</td>
 						</tr>
 						</c:forEach>
