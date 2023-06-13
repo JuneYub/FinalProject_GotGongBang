@@ -81,12 +81,22 @@ public class BoardDAO implements InterBoardDAO {
 		return n;
 	}
 	
+	///////////////////////////////////////////////////////////////////////////
+	
 	// Faq 조회
 	@Override
 	public List<InquiryVO> getFaq() {
 		List<InquiryVO> iqvo = sqlsession.selectList("board.getFaq");
 		return iqvo;
 	}
+	// Faq admin 답글 조회
+		@Override
+		public List<InquiryVO> getFaqin() {
+		List<InquiryVO> iqvoin = sqlsession.selectList("board.getFaqin");
+		return iqvoin;
+	}
+	
+	///////////////////////////////////////////////////////////////////////////	
 	
 	// groupno 의 최대값 알아오기
 	@Override
@@ -95,6 +105,49 @@ public class BoardDAO implements InterBoardDAO {
 		return maxgroupno;
 	}
 	
+	
+	////////////////////////////////// 공지사항 /////////////////////////////////////////	
+	
+	// 공지사항 - 게시물 건 수 구하기
+	@Override
+	public int getnoTotalCount(Map<String, String> paraMap) {
+		int n = sqlsession.selectOne("board.getnoTotalCount", paraMap);
+		return n;
+	}
+	
+	// 공지사항 - 페이징 처리한 게시물
+	@Override
+	public List<NoticeVO> noiqListSearchWithPaging(Map<String, String> paraMap) {
+		List<NoticeVO> novo = sqlsession.selectList("board.noiqListSearchWithPaging", paraMap);
+		return novo;
+	}
+	// 공지사항 글쓰기 완료
+	@Override
+	public int add_notice(NoticeVO novo) {
+		int n = sqlsession.insert("board.add_notice", novo);
+		return n;
+	}
+	
+	// 공지사항 조회수 증가와 함께 게시글 조회
+	@Override
+	public NoticeVO getnotiView(Map<String, String> paraMap) {
+		
+		NoticeVO novo = sqlsession.selectOne("board.getnotiView",paraMap);
+		
+		return novo;
+		
+	}
+	
+	// 공지사항 수정 완료
+	@Override
+	public int notiedit(NoticeVO novo) {
+		int n = sqlsession.update("board.notiedit", novo);
+		return n;
+	}
+	
+	
+	
+//////////////////////////////////////////////////////////////////////////////////////	
 	
 	
 	

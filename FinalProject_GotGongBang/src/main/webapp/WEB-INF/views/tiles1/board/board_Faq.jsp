@@ -88,24 +88,33 @@ $(document).ready(function(){
                            
                             <dl class="ojh_accordion customer-faq__list aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
                                 
-                               <c:forEach var="inquiryvo" items="${requestScope.iqvo}">
-                                <div class="ojh_accordion__item accordion__item--show accordion__item--fade">
-                                    <dt class="ojh_accordion__header">
-                                        <button class="ojh_accordion__trigger more1 btn" type="button" data-seq="79" onclick="collapse(this);">
-                                                <strong>Q.</strong>${inquiryvo.inquiry_title}</button>
-                                    </dt>
-                                    <dd class="ojh_accordion__collapse dd1">
-                                        <div class="ojh_accordion__body div1 div_h1">
-                                            <strong>A.</strong>
-                                            <p><span>하이픈은 비대면 상담 서비스를 제공하고 있어 내방 상담은 별도로 지원하지 않고 있습니다.&nbsp;</span></p>
-                                            <p>&nbsp;</p>
-                                            <p><span>하이픈 고객센터는 채팅 및 이메일, 홈페이지 등 다양한 경로의 상담을 운영하고 있습니다. 편하신 방법으로 문의해 주시면 최대한 빠르게 안내해드립니다.&nbsp;</span></p>
-                                            <p><span>필요시 컨설턴트가 방문하여 상담을 진행하고 있으니, 상품 &gt; 상품신청 &gt; 컨설팅신청 을 이용하여 주시기 바랍니다.&nbsp;</span></p>
-                                            <p><span>하이픈 컨설턴트가 연락하여 방문일자 및 시간을 조율할 예정입니다.</span></p>
-                                        </div>
-                                    </dd>
+                              <table class="ojh_table table--row">
+    <tbody>
+        <tr>
+            <td>
+                <dl class="ojh_accordion customer-faq__list aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+                    <c:forEach var="inquiryvo" items="${requestScope.iqvo}">
+                        <div class="ojh_accordion__item accordion__item--show accordion__item--fade">
+                            <dt class="ojh_accordion__header">
+                                <button class="ojh_accordion__trigger more1 btn" type="button" data-seq="79" onclick="collapse(this);">
+                                    <strong>Q.</strong>${inquiryvo.inquiry_title}</button>
+                            </dt>
+                            <dd class="ojh_accordion__collapse dd1">
+                                <div class="ojh_accordion__body div1 div_h1">
+                                    <strong>A.</strong>
+                                    
+                                        <p><span>${inquiryvo.inquiry_content}</span></p>
+                                 
                                 </div>
-							   </c:forEach>
+                            </dd>
+                        </div>
+                    </c:forEach>
+                    
+                </dl>
+            </td>
+        </tr>
+    </tbody>
+</table>
                            	 </dl>
                         </div>
                     </table>
