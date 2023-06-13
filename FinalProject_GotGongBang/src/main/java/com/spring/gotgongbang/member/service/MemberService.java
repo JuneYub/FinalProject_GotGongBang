@@ -21,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.member.model.InterMemberDAO;
 import com.spring.gotgongbang.member.model.MemberVO;
+import com.spring.gotgongbang.order.model.DetailImgVO;
+import com.spring.gotgongbang.order.model.WholeImgVO;
 
 
 
@@ -351,6 +353,18 @@ public class MemberService implements InterMemberService {
 	public int getReviewCntByOrderNum(String orderNum) {
 		int n = dao.getReviewCntByOrderNum(orderNum);
 		return n;
+	}
+	
+	@Override
+	public List<WholeImgVO> getWholeImgListByOrderDetailNum(String orderDetailNum) {
+		List<WholeImgVO> wholeImgList = dao.getWholeImgListByOrderDetailNum(orderDetailNum);
+		return wholeImgList;
+	}
+
+	@Override
+	public List<DetailImgVO> getDetailImgListByOrderDetailNum(String orderDetailNum) {
+		List<DetailImgVO> detailImgList = dao.getDetailImgListByOrderDetailNum(orderDetailNum);
+		return detailImgList;
 	}
 
 
