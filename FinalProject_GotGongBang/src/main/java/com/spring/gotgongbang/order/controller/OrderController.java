@@ -203,9 +203,9 @@ public class OrderController {
 	    //String path_whole = root + "resources"+File.separator+"img\\orders";
 	    //C:\NCS\workspace(spring)\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\FinalProject_GotGongBang\resources\img\orders
 	    
-	    String path_whole = root + "resources"+File.separator+"orders";
-	    String path_detail = root + "resources"+File.separator+"orders_detail";
-		
+	    String path_whole = root + "resources"+File.separator+"img"+File.separator+"orders";
+	    String path_detail = root + "resources"+File.separator+"img"+File.separator+"orders_detail";
+		// 확인용 path_whole => C:\NCS\workspace(spring)\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\FinalProject_GotGongBang\resources\img\orders
 	    
 	    System.out.println("~~~~ 확인용 path_whole => " + path_whole);
 	    System.out.println("~~~~ 확인용 path_detail => " + path_detail);
@@ -356,6 +356,8 @@ public class OrderController {
 				whole_map.put("order_num_pk",order_num_pk );
 				detail_map.put("order_num_pk",order_num_pk);
 				
+				System.out.println("arr_img_whole_name.length"+arr_img_whole_name.length);
+				System.out.println("whole_num.length"+whole_num.length);
 				// 전체 사진
 				for(int i =0; i<arr_img_whole_name.length;i++) {
 					
@@ -387,7 +389,7 @@ public class OrderController {
 					
 					   
 					// 수선 요청사항 리스트에 넣기  
-					String[] arr_reqest_list = reqest_list_num.split("\\%"); 
+					String[] arr_reqest_list = reqest_list_num.split("\\,"); 
 					
 					Map<String,Integer> request_list_map = new HashMap<String, Integer>();
 					// 요청사항 목록들
