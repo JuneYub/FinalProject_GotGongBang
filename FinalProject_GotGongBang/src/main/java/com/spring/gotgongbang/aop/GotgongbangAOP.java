@@ -49,7 +49,7 @@ public class GotgongbangAOP {
 		HttpServletResponse response = (HttpServletResponse) joinpoint.getArgs()[1]; // 주업무 메소드의 두번째 파라미터를 얻어오는 것이다. 
 		
 		HttpSession session = request.getSession();
-		if(session.getAttribute("loginuser") == null) {
+		if(session.getAttribute("loginuser") == null && session.getAttribute("loginpartner") == null ) {
 			String message = "먼저 로그인 하세요.";
 			String loc = request.getContextPath()+"/login.got";
 			
@@ -61,7 +61,6 @@ public class GotgongbangAOP {
 			String url = MyUtil.getCurrentURL(request);
 		//	System.out.println("~~~ 확인용  url : " + url);
 			// ~~~ 확인용  url : /add.action
-			
 			session.setAttribute("goBackURL", url); // 세션에 url 정보를 저장시켜둔다.
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/msg.jsp"); 
