@@ -10,6 +10,40 @@
 
 <style type="text/css">
 	
+	div.ojh_accordion__body strong {
+		float: left;
+	    font-size: 26px;
+	    font-weight: 700;
+	    line-height: 1;
+	    margin-left: -60px;
+	}
+	
+	table.ojh_table td {
+		padding: 0px !important;
+		border-bottom: none !important;  
+	}
+	
+	div.ojh_accordion__body {
+		background: rgba(0,0,0,.04);
+	}
+	
+	div.ojh_accordion__body {
+		border-bottom: 1px solid rgba(0,0,0,.102);
+	    font-size: 16px;
+	    font-weight: 400;
+	    line-height: 1.625;
+	    padding: 40px 100px;
+	    text-align: left;
+	}
+	
+	button.ojh_accordion__trigger {
+		border-bottom: 1px solid rgba(0,0,0,.102);
+	    font-size: 16px;
+	    font-weight: 400;
+	    line-height: 1.625;
+	    padding: 40px 100px;
+	    text-align: left;
+	}
 </style>
 
 <script type="text/javascript">
@@ -84,39 +118,46 @@ $(document).ready(function(){
                         <p>갖공방에게 가장 궁금한 질문들을 여기서 확인하세요.</p>
                         
                     <table class="ojh_table table--row">
+                    
+                     <c:if test="${empty requestScope.iqvo}">
+                      		<td style="padding: 32px 0px 0px 252px";>게시글 데이터가 없습니다</td>
+                     </c:if>    	
+                    
+                     <c:if test="${not empty requestScope.iqvo}">  
                         <div class="ojh_list">
                            
                             <dl class="ojh_accordion customer-faq__list aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
                                 
                               <table class="ojh_table table--row">
-    <tbody>
-        <tr>
-            <td>
-                <dl class="ojh_accordion customer-faq__list aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
-                    <c:forEach var="inquiryvo" items="${requestScope.iqvo}">
-                        <div class="ojh_accordion__item accordion__item--show accordion__item--fade">
-                            <dt class="ojh_accordion__header">
-                                <button class="ojh_accordion__trigger more1 btn" type="button" data-seq="79" onclick="collapse(this);">
-                                    <strong>Q.</strong>${inquiryvo.inquiry_title}</button>
-                            </dt>
-                            <dd class="ojh_accordion__collapse dd1">
-                                <div class="ojh_accordion__body div1 div_h1">
-                                    <strong>A.</strong>
-                                    
-                                        <p><span>${inquiryvo.inquiry_content}</span></p>
-                                 
-                                </div>
-                            </dd>
-                        </div>
-                    </c:forEach>
-                    
-                </dl>
-            </td>
-        </tr>
-    </tbody>
-</table>
+							    <tbody>
+							        <tr>
+							            <td>
+							                <dl class="ojh_accordion customer-faq__list aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+							                    <c:forEach var="inquiryvo" items="${requestScope.iqvo}">
+							                        <div class="ojh_accordion__item accordion__item--show accordion__item--fade">
+							                            <dt class="ojh_accordion__header">
+							                                <button class="ojh_accordion__trigger more1 btn" type="button" data-seq="79" ">
+							                                    <strong>Q.</strong>${inquiryvo.inquiry_title}</button>
+							                            </dt>
+							                            <dd class="ojh_accordion__collapse dd1">
+							                                <div class="ojh_accordion__body div1 div_h1">
+							                                    <strong>A.</strong>
+							                                    
+							                                        <p><span>${inquiryvo.inquiry_content}</span></p>
+							                                 
+							                                </div>
+							                            </dd>
+							                        </div>
+							                    </c:forEach>
+							                    
+							                </dl>
+							            </td>
+							        </tr>
+							    </tbody>
+							</table>
                            	 </dl>
                         </div>
+                        </c:if>
                     </table>
                   </fieldset>
                  

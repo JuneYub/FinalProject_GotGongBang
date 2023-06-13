@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,7 +81,7 @@ public class BoardController {
 	
 	// 고객센터_온라인문의 페이지 불러오기
 	@RequestMapping(value="/board_inquiry.got")
-	public ModelAndView getBoardInquiry(HttpServletRequest request, HttpServletResponse response, ModelAndView mav, InquiryVO iqvo) {
+	public ModelAndView requiredLogin_getBoardInquiry(HttpServletRequest request, HttpServletResponse response, ModelAndView mav, InquiryVO iqvo) {
 	   
 		HttpSession session = request.getSession();
 
@@ -504,7 +505,7 @@ public class BoardController {
 		
 		// 게시글  수정 페이지 완료하기 
 		@RequestMapping(value="/editEnd.got", method= {RequestMethod.POST})
-		public ModelAndView requiredLogin_editEnd(ModelAndView mav, InquiryVO iqvo, HttpServletRequest request) {
+		public ModelAndView editEnd(ModelAndView mav, InquiryVO iqvo, HttpServletRequest request) {
 			
 			int n = service.edit(iqvo);
 			// n 이 1 이라면 정상적으로 변경됨.
@@ -523,7 +524,193 @@ public class BoardController {
 			
 			return mav;
 		}
-	
+		
+	/*	
+		// 글삭제  페이지 요청  
+		@RequestMapping(value="/board_del.got")
+		public ModelAndView del(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+
+			// 삭제해야 할 글번호 가져오기
+			String inquiry_num_pk = request.getParameter("inquiry_num_pk");
+			
+			// 삭제해야할 글1개 내용 가져와서 로그인한 사람이 쓴 글이라면 글삭제가 가능하지만
+			// 다른 사람이 쓴 글은 삭제가 불가하도록 해야 한다.
+			Map<String, String> paraMap = new HashMap<>();
+			paraMap.put("inquiry_num_pk", inquiry_num_pk);
+			
+			/////////////////////////////////
+			paraMap.put("searchType", "");
+			paraMap.put("searchWord", "");
+			/////////////////////////////////
+			
+			InquiryVO iqvo = service.getViewWithNoAddCount(paraMap);
+			// 글조회수(readCount) 증가 없이 단순히 글1개만 조회해주는 것이다.
+			
+			HttpSession session = request.getSession();
+			MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+			
+			if (!loginuser.getUser_id_pk().equals(iqvo.getUser_id_fk())) {
+				
+				String message = "다른 사용자의 글은 삭제가 불가합니다.";
+				String loc = "javascript:history.back()";
+				
+				mav.addObject("message", message);
+				mav.addObject("loc", loc);
+				mav.setViewName("msg");
+			}
+			else {
+				
+				mav.addObject("inquiry_num_pk", inquiry_num_pk);
+				mav.setViewName("board/board_del.tiles1");
+			}
+			
+			return mav;	
+			
+		}
+		
+		// 글삭제  페이지 완료하기 
+			@RequestMapping(value="/delEnd.got", method= {RequestMethod.POST}) 
+			public ModelAndView delEnd(ModelAndView mav, HttpServletRequest request) {
+				
+				String inquiry_num_pk = request.getParameter("inquiry_num_pk");
+				
+				Map<String, String> paraMap = new HashMap<>();
+				paraMap.put("inquiry_num_pk", inquiry_num_pk);
+				
+				
+				int n = service.del(paraMap);
+				
+				if(n==1) {
+					mav.addObject("message", "글 삭제 성공!!");
+					mav.addObject("loc", request.getContextPath()+"/board_question.got");
+				}
+				else {
+					mav.addObject("message", "글 삭제 실패!!");
+					mav.addObject("loc", "javascript:history.back()");
+				}
+				
+				mav.setViewName("msg");
+				
+				return mav;
+			}	
+		
+	*/
+		
+		// 게시글 삭제
+		@ResponseBody
+		@RequestMapping(value="/board/delEnd.got", method = {RequestMethod.POST})
+		public String delEnd(HttpServletRequest request) throws Throwable {
+			
+			String inquiry_num_pk = request.getParameter("inquiry_num_pk");
+			
+			Map<String, String> paraMap = new HashMap<>();
+			paraMap.put("inquiry_num_pk", inquiry_num_pk);
+			
+			int n = service.del(paraMap);
+			
+			JSONObject jsObj = new JSONObject();
+			jsObj.put("n", n);
+				
+			return jsObj.toString();
+		 }
+		
+			
+			//  첨부파일 다운로드 받기  //
+			@RequestMapping(value="/board_download.got")
+			public void requiredLogin_download(HttpServletRequest request, HttpServletResponse response) {
+				
+				String inquiry_num_pk = request.getParameter("inquiry_num_pk");
+				// 첨부파일이 있는 글번호 
+				
+				/*
+				      첨부파일이 있는 글번호에서
+				   20230522111434845240692872800.pdf 처럼
+				     이러한 fileName 값을 DB에서 가져와야 한다.
+				     또한 orgFilename 값도  DB에서 가져와야 한다.
+				*/
+				
+				Map<String, String> paraMap = new HashMap<>();
+				paraMap.put("searchType", "");
+				paraMap.put("searchWord", "");
+				paraMap.put("inquiry_num_pk", inquiry_num_pk);
+				
+				response.setContentType("text/html; charset=UTF-8");
+			    PrintWriter out = null;
+			    // out 은 웹브라우저에 기술하는 대상체라고 생각하자.
+				
+				try {
+				    Integer.parseInt(inquiry_num_pk);
+				    InquiryVO iqvo = service.getViewWithNoAddCount(paraMap);
+				
+					if( iqvo == null || (iqvo != null && iqvo.getInquiry_fileName() == null ) ) {
+						out = response.getWriter();
+						// out 은 웹브라우저에 기술하는 대상체라고 생각하자.
+						
+						out.println("<script type='text/javascript'>alert('존재하지 않는 글번호 이거나 첨부파일이 없으므로 파일다운로드가 불가합니다.'); history.back();</script>"); 
+						return; // 종료
+					}
+					else {
+						// 정상적으로 다운로드를 할 경우 
+						
+						String fileName = iqvo.getInquiry_fileName();
+						// 20230522111434845240692872800.pdf  이것인 바로 WAS(톰캣) 디스크에 저장된 파일명이다. 
+						
+						String orgFilename = iqvo.getInquiry_orgFilename();
+						// LG_싸이킹청소기_사용설명서.pdf   다운로드시 보여줄 파일명 
+						
+						
+						// 첨부파일이 저장되어 있는 WAS(톰캣)의 디스크 경로명을 알아와야만 다운로드를 해줄수 있다. 
+			            // 이 경로는 우리가 파일첨부를 위해서 /addEnd.action 에서 설정해두었던 경로와 똑같아야 한다.
+			            // WAS 의 webapp 의 절대경로를 알아와야 한다.
+						HttpSession session = request.getSession();
+						String root = session.getServletContext().getRealPath("/");
+						
+		            //	System.out.println("~~~~ 확인용 webapp 의 절대경로 => " + root); 
+					//	~~~~ 확인용 webapp 의 절대경로 => C:\NCS\workspace(spring)\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Board\
+							
+						String path = root+"resources"+File.separator+"files";
+						/* File.separator 는 운영체제에서 사용하는 폴더와 파일의 구분자이다.
+					             운영체제가 Windows 이라면 File.separator 는  "\" 이고,
+					             운영체제가 UNIX, Linux, 매킨토시(맥) 이라면  File.separator 는 "/" 이다. 
+					    */
+							
+					   // path 가 첨부파일이 저장될 WAS(톰캣)의 폴더가 된다.
+					// System.out.println("~~~~ 확인용 path => " + path);
+					   // ~~~~ 확인용 path => C:\NCS\workspace(spring)\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Board\resources\files 
+						
+					   
+						// **** file 다운로드 하기 **** //
+						boolean flag = false; // file 다운로드 성공, 실패를 알려주는 용도 
+						flag = fileManager.doFileDownload(fileName, orgFilename, path, response);
+						// file 다운로드 성공시 flag 는 true, 
+						// file 다운로드 실패시 flag 는 false 를 가진다. 
+						
+						if(!flag) {
+							// 다운로드가 실패할 경우 메시지를 띄워준다.
+							out = response.getWriter();
+							// out 은 웹브라우저에 기술하는 대상체라고 생각하자.
+							
+							out.println("<script type='text/javascript'>alert('파일다운로드가 실패되었습니다.'); history.back();</script>");
+						}
+						
+					}
+					
+				} catch(NumberFormatException | IOException e) {
+					try {
+						out = response.getWriter();
+						// out 은 웹브라우저에 기술하는 대상체라고 생각하자.
+						
+						out.println("<script type='text/javascript'>alert('파일다운로드가 불가합니다.'); history.back();</script>"); 
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					
+				}
+				
+				
+			}
+			
+		
 	// 공지사항 페이지 불러오기
 		@RequestMapping(value="/board_notice.got")
 	    public ModelAndView requiredLogin_getBoardNotice(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
@@ -532,9 +719,9 @@ public class BoardController {
 			
 			// 조회수 증가
 			HttpSession session = request.getSession();
-			session.setAttribute("readCountPermission", "yes");
-			/* session 에 readCountPermission 에 저장된 값  yes를 불러오려면
-			       반드시 /board_question.got을 입력해야 얻을 수 있다.
+			session.setAttribute("notireadCountPermission", "yes");
+			/* session 에 notireadCountPermission 에 저장된 값  yes를 불러오려면
+			       반드시 /board_notice.got을 입력해야 얻을 수 있다.
 			*/
 			//	System.out.println("확인용 readCountPermission " + session.getAttribute("readCountPermission"));
 			
@@ -682,23 +869,23 @@ public class BoardController {
 			    return mav;
 		}
 	
-	// 공지사항 글쓰기 완료
-	@RequestMapping(value="/board_noticeiqEnd.got", method={RequestMethod.POST})
-	public ModelAndView pointPlus_noticeEnd( ModelAndView mav, NoticeVO novo, AdminVO advo) {
+		// 공지사항 글쓰기 완료
+		@RequestMapping(value="/board_noticeiqEnd.got", method={RequestMethod.POST})
+		public ModelAndView pointPlus_noticeEnd( ModelAndView mav, NoticeVO novo, AdminVO advo) {
 	
-		
-		int n = 0;
-		
-		n = service.add_notice(novo);
-		
-		if(n==1) {
-			mav.setViewName("redirect:/board_notice.got");
 			
-		}
-		else {
-			mav.setViewName("/board/board_noticeiq.tiles1");
-		}
-		
+			int n = 0;
+			
+			n = service.add_notice(novo);
+			
+			if(n==1) {
+				mav.setViewName("redirect:/board_notice.got");
+				
+			}
+			else {
+				mav.setViewName("/board/board_noticeiq.tiles1");
+			}
+			
 		return mav;
 	}
 	
@@ -739,7 +926,7 @@ public class BoardController {
 				paraMap.put("login_userid", login_userid);
 				
 				NoticeVO novo = null;
-				if( "yes".equals(session.getAttribute("readCountPermission")) ) { 
+				if( "yes".equals(session.getAttribute("notireadCountPermission")) ) { 
 					// "yes" 와 "readCountPermission" 값을 비교
 					
 				//	System.out.println("확인용 readCountPermission " + session.getAttribute("readCountPermission"));
@@ -747,7 +934,7 @@ public class BoardController {
 					novo = service.getnotiView(paraMap);
 					// 조회수 증가와 함께 게시글 1개를 조회
 					
-					session.removeAttribute("readCountPermission");
+					session.removeAttribute("notireadCountPermission");
 					// 중요!!  session 에 저장된 readCountPermission 을 삭제한다.
 				}
 				else {
@@ -854,225 +1041,26 @@ public class BoardController {
 			return mav;
 		}
 		
-		// 글삭제  페이지 요청  
-		@RequestMapping(value="/board_notidel.got")
-		public ModelAndView requiredLogin_notidel(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
-
-			// 삭제해야 할 글번호 가져오기
+		
+		// 공지사항 삭제
+		@ResponseBody
+		@RequestMapping(value="/board/notidelEnd.got", method = {RequestMethod.POST})
+		public String notidelEnd(HttpServletRequest request) throws Throwable {
+			
 			String notice_num_pk = request.getParameter("notice_num_pk");
 			
-			// 삭제해야할 글1개 내용 가져와서 로그인한 사람이 쓴 글이라면 글삭제가 가능하지만
-			// 다른 사람이 쓴 글은 삭제가 불가하도록 해야 한다.
 			Map<String, String> paraMap = new HashMap<>();
 			paraMap.put("notice_num_pk", notice_num_pk);
 			
-			NoticeVO novo = service.getnotiViewWithNoAddCount(paraMap);
-			// 글조회수(readCount) 증가 없이 단순히 글1개만 조회해주는 것이다.
+			int n = service.notidel(paraMap);
 			
-			HttpSession session = request.getSession();
-			MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
-			
-			if( !loginuser.getUser_id_pk().equals(novo.getAdmin_id_fk()) ) {
+			JSONObject jsObj = new JSONObject();
+			jsObj.put("n", n);
 				
-				String message = "다른 사용자의 글은 삭제가 불가합니다.";
-				String loc = "javascript:history.back()";
-				
-				mav.addObject("message", message);
-				mav.addObject("loc", loc);
-				mav.setViewName("msg");
-			}
-			else {
-				
-				mav.addObject("notice_num_pk", notice_num_pk);
-				mav.setViewName("board/board_del.tiles1");
-			}
+			return jsObj.toString();
 			
-			return mav;	
-			
-		}
-	
-	// 글삭제  페이지 요청  
-	@RequestMapping(value="/board_del.got")
-	public ModelAndView requiredLogin_del(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
-
-		// 삭제해야 할 글번호 가져오기
-		String inquiry_num_pk = request.getParameter("inquiry_num_pk");
+		 }
 		
-		// 삭제해야할 글1개 내용 가져와서 로그인한 사람이 쓴 글이라면 글삭제가 가능하지만
-		// 다른 사람이 쓴 글은 삭제가 불가하도록 해야 한다.
-		Map<String, String> paraMap = new HashMap<>();
-		paraMap.put("inquiry_num_pk", inquiry_num_pk);
-		
-		/////////////////////////////////
-		paraMap.put("searchType", "");
-		paraMap.put("searchWord", "");
-		/////////////////////////////////
-		
-		InquiryVO iqvo = service.getViewWithNoAddCount(paraMap);
-		// 글조회수(readCount) 증가 없이 단순히 글1개만 조회해주는 것이다.
-		
-		HttpSession session = request.getSession();
-		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
-		
-		if( !loginuser.getUser_id_pk().equals(iqvo.getUser_id_fk()) ) {
-			
-			String message = "다른 사용자의 글은 삭제가 불가합니다.";
-			String loc = "javascript:history.back()";
-			
-			mav.addObject("message", message);
-			mav.addObject("loc", loc);
-			mav.setViewName("msg");
-		}
-		else {
-			
-			mav.addObject("inquiry_num_pk", inquiry_num_pk);
-			mav.setViewName("board/board_del.tiles1");
-		}
-		
-		return mav;	
-		
-	}
-	
-	// 글삭제  페이지 완료하기 
-		@RequestMapping(value="/delEnd.got", method= {RequestMethod.POST}) 
-		public ModelAndView requiredLogin_delEnd(ModelAndView mav, HttpServletRequest request) {
-			
-			String inquiry_num_pk = request.getParameter("inquiry_num_pk");
-			
-			Map<String, String> paraMap = new HashMap<>();
-			paraMap.put("inquiry_num_pk", inquiry_num_pk);
-			
-			////////////////////////////////////////////////////////////////////
-			// === #164. 파일첨부가 된 글이라면 글 삭제시 먼저 첨부파일을 삭제해주어야 한다. === //
-			paraMap.put("searchType", "");
-			paraMap.put("searchWord", "");
-			
-			InquiryVO iqvo = service.getViewWithNoAddCount(paraMap);
-			String inquiry_fileName = iqvo.getInquiry_fileName();
-			
-			if( inquiry_fileName !=null && !"".equals(inquiry_fileName) ) {
-				HttpSession session = request.getSession();
-				String root = session.getServletContext().getRealPath("/");
-				String path = root+"resources"+File.separator+"files";
-				
-				paraMap.put("path", path); 			// 삭제해야할 파일이 저장된 경로.
-				paraMap.put("inquiry_fileName",inquiry_fileName);	// 삭제해야할 파일명.
-			}
-			
-			int n = service.del(paraMap);
-			
-			if(n==1) {
-				mav.addObject("message", "글 삭제 성공!!");
-				mav.addObject("loc", request.getContextPath()+"/board_question.got");
-			}
-			else {
-				mav.addObject("message", "글 삭제 실패!!");
-				mav.addObject("loc", "javascript:history.back()");
-			}
-			
-			mav.setViewName("msg");
-			
-			return mav;
-		}	
-		
-		//  첨부파일 다운로드 받기  //
-		@RequestMapping(value="/board_download.got")
-		public void requiredLogin_download(HttpServletRequest request, HttpServletResponse response) {
-			
-			String inquiry_num_pk = request.getParameter("inquiry_num_pk");
-			// 첨부파일이 있는 글번호 
-			
-			/*
-			      첨부파일이 있는 글번호에서
-			   20230522111434845240692872800.pdf 처럼
-			     이러한 fileName 값을 DB에서 가져와야 한다.
-			     또한 orgFilename 값도  DB에서 가져와야 한다.
-			*/
-			
-			Map<String, String> paraMap = new HashMap<>();
-			paraMap.put("searchType", "");
-			paraMap.put("searchWord", "");
-			paraMap.put("inquiry_num_pk", inquiry_num_pk);
-			
-			response.setContentType("text/html; charset=UTF-8");
-		    PrintWriter out = null;
-		    // out 은 웹브라우저에 기술하는 대상체라고 생각하자.
-			
-			try {
-			    Integer.parseInt(inquiry_num_pk);
-			    InquiryVO iqvo = service.getViewWithNoAddCount(paraMap);
-			
-				if( iqvo == null || (iqvo != null && iqvo.getInquiry_fileName() == null ) ) {
-					out = response.getWriter();
-					// out 은 웹브라우저에 기술하는 대상체라고 생각하자.
-					
-					out.println("<script type='text/javascript'>alert('존재하지 않는 글번호 이거나 첨부파일이 없으므로 파일다운로드가 불가합니다.'); history.back();</script>"); 
-					return; // 종료
-				}
-				else {
-					// 정상적으로 다운로드를 할 경우 
-					
-					String fileName = iqvo.getInquiry_fileName();
-					// 20230522111434845240692872800.pdf  이것인 바로 WAS(톰캣) 디스크에 저장된 파일명이다. 
-					
-					String orgFilename = iqvo.getInquiry_orgFilename();
-					// LG_싸이킹청소기_사용설명서.pdf   다운로드시 보여줄 파일명 
-					
-					
-					// 첨부파일이 저장되어 있는 WAS(톰캣)의 디스크 경로명을 알아와야만 다운로드를 해줄수 있다. 
-		            // 이 경로는 우리가 파일첨부를 위해서 /addEnd.action 에서 설정해두었던 경로와 똑같아야 한다.
-		            // WAS 의 webapp 의 절대경로를 알아와야 한다.
-					HttpSession session = request.getSession();
-					String root = session.getServletContext().getRealPath("/");
-					
-	            //	System.out.println("~~~~ 확인용 webapp 의 절대경로 => " + root); 
-				//	~~~~ 확인용 webapp 의 절대경로 => C:\NCS\workspace(spring)\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Board\
-						
-					String path = root+"resources"+File.separator+"files";
-					/* File.separator 는 운영체제에서 사용하는 폴더와 파일의 구분자이다.
-				             운영체제가 Windows 이라면 File.separator 는  "\" 이고,
-				             운영체제가 UNIX, Linux, 매킨토시(맥) 이라면  File.separator 는 "/" 이다. 
-				    */
-						
-				   // path 가 첨부파일이 저장될 WAS(톰캣)의 폴더가 된다.
-				// System.out.println("~~~~ 확인용 path => " + path);
-				   // ~~~~ 확인용 path => C:\NCS\workspace(spring)\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Board\resources\files 
-					
-				   
-					// **** file 다운로드 하기 **** //
-					boolean flag = false; // file 다운로드 성공, 실패를 알려주는 용도 
-					flag = fileManager.doFileDownload(fileName, orgFilename, path, response);
-					// file 다운로드 성공시 flag 는 true, 
-					// file 다운로드 실패시 flag 는 false 를 가진다. 
-					
-					if(!flag) {
-						// 다운로드가 실패할 경우 메시지를 띄워준다.
-						out = response.getWriter();
-						// out 은 웹브라우저에 기술하는 대상체라고 생각하자.
-						
-						out.println("<script type='text/javascript'>alert('파일다운로드가 실패되었습니다.'); history.back();</script>");
-					}
-					
-				}
-				
-			} catch(NumberFormatException | IOException e) {
-				try {
-					out = response.getWriter();
-					// out 은 웹브라우저에 기술하는 대상체라고 생각하자.
-					
-					out.println("<script type='text/javascript'>alert('파일다운로드가 불가합니다.'); history.back();</script>"); 
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				
-			}
-			
-			
-		}
-		
-		
-		
-	
 		// 오준혁 끝
 		// ===========================================================================
 

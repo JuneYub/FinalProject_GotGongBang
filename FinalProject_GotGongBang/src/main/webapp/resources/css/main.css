@@ -2328,7 +2328,7 @@ width: 210px
 
 .ojh_form strong {
     color: #e6344a;
-    font-weight: 700;
+    
 }
 
 .ojh_form-input[type=text] {
@@ -2355,17 +2355,13 @@ width: 210px
 }
 .ojh_table {
     border-collapse: collapse;
-    border-top: 1px solid #000;
+    border-top: 1px solid #5411d2;
     width: 100%;
 }
 
-.ojh_table th, .ojh_table td{
-   
-    padding-top: 30px;
-}
 
 .ojh_table th {
-    padding: 30px 0px 0px 25px;
+    
     font-size: 20px;
     font-weight: 700;
     line-height: 3.0;
