@@ -62,12 +62,14 @@ public interface InterBoardDAO {
 	// 공지사항 조회수 증가와 함께 게시글 조회
 	NoticeVO getnotiView(Map<String, String> paraMap);
 	
+	// 공지사항 페이지 조회수 +1
+	void setnotiAddReadCount(String notice_num_pk);
+	
 	// 공지사항 수정 완료
 	int notiedit(NoticeVO novo);
 	
-	
-	
-	
+	// 공지사항 삭제 완료
+	int notidel(Map<String, String> paraMap);
 	
 	/////////////////////////////////////////////////////////////////////
 	
