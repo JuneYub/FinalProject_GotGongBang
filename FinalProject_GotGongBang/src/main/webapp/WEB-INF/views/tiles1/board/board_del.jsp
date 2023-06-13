@@ -24,14 +24,15 @@
 		  frm.method = "post";
 		  frm.action = "<%= ctxPath %>/delEnd.got";
 		  frm.submit();
-		  
-		  const frm = document.notidelFrm;
-		  frm.method = "post";
-		  frm.action = "<%= ctxPath %>/delEnd.got";
-		  frm.submit();
-		  
 	  });
 	  
+	  $("button#btn_notiDelete").click(function(){
+		  const frm = document.notidelFrm;
+		  frm.method = "post";
+		  frm.action = "<%= ctxPath %>/notidelEnd.got";
+		  frm.submit();
+	  });	  
+    
   });// end of $(document).ready(function(){})-------------------------------
 
 </script>
@@ -54,7 +55,7 @@
 
             </header>
             
-            <c:if test="${sessionScope.loginuser.user_id_pk != 'admin'}">
+            
 	            <form name="delFrm">
 	               <div class="ojh_delcheck">
 	               		<div class="ojh_delcheck_small">
@@ -65,34 +66,16 @@
 		               			</div>		
 		               			
 		               			<div class="ojh_buttbox">
-				               		<button type="button" class="ojh_delcheck_butt1" id="btnDelete">확인</button>
+				               		<button type="button" class="ojh_delcheck_butt1" id="btnDelete">확인1</button>
 				               		<button type="button" class="ojh_delcheck_butt2" onclick="javascript:history.back()">취소</button>
 		               			</div>
 	               			</div>	
 	               		</div>
 	 			   </div>
 	            </form>
-            </c:if>
             
-             <c:if test="${sessionScope.loginuser.user_id_pk == 'admin'}">
-	            <form name="notidelFrm">
-	               <div class="ojh_delcheck">
-	               		<div class="ojh_delcheck_small">
-	               			<div style="margin: 40px 0px 0px 40px;">
-		               			<div style=" font-size: 30px; font-weight: 700;">
-		               				<input type="hidden" name="inquiry_num_pk" value="${requestScope.inquiry_num_pk}" />
-		               				<div> 게시물을 삭제 하시겠습니까? </div>
-		               			</div>		
-		               			
-		               			<div class="ojh_buttbox">
-				               		<button type="button" class="ojh_delcheck_butt1" id="btnDelete">확인</button>
-				               		<button type="button" class="ojh_delcheck_butt2" onclick="javascript:history.back()">취소</button>
-		               			</div>
-	               			</div>	
-	               		</div>
-	 			   </div>
-	            </form>
-            </c:if>
+            
+            
             
             
         </section>
