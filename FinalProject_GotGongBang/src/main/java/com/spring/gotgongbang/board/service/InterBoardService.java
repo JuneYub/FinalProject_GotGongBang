@@ -6,6 +6,7 @@ import java.util.Map;
 
 
 import com.spring.gotgongbang.board.model.InquiryVO;
+import com.spring.gotgongbang.board.model.NoticeVO;
 
 public interface InterBoardService {
 
@@ -38,7 +39,7 @@ public interface InterBoardService {
 		// 페이징 처리한 글목록 가져오기
 		List<InquiryVO> iqListSearchWithPaging(Map<String, String> paraMap);
 		
-		// 조회수 증가 
+		// 조회수 증가 함께 게시글 조회
 		InquiryVO getView(Map<String, String> paraMap);
 		
 		// 조회수 증가 없이 게시글 조회
@@ -50,14 +51,26 @@ public interface InterBoardService {
 		// 게시글 삭제하기
 		int del(Map<String, String> paraMap);
 		
-		// Faq 조회
+		// Faq 질문자 제목 조회
 		List<InquiryVO> getFaq();
+		// Faq admin 답글 조회
+		List<InquiryVO> getFaqin();
 		
 		
-
 		
-		
-		
+		// 공지사항 - 게시물 건 수 구하기
+		int getnoTotalCount(Map<String, String> paraMap);
+		// 공지사항 - 페이징 처리한 게시물
+		List<NoticeVO> noiqListSearchWithPaging(Map<String, String> paraMap);
+		// 공지사항 글쓰기 완료
+		int add_notice(NoticeVO novo);
+		// 공지사항 조회수 증가와 함께 게시글 조회
+		NoticeVO getnotiView(Map<String, String> paraMap);
+		// 공지사항 조회수 증가 없음
+		NoticeVO getnotiViewWithNoAddCount(Map<String, String> paraMap);
+		// 공지사항 수정 완료
+		int notiedit(NoticeVO novo);
+				
 	
 		// 오준혁 끝 ===========================================================================
 		
