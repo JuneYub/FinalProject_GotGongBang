@@ -5,11 +5,11 @@
 <%
    String ctxPath = request.getContextPath();
 %>   
-<<style type="text/css">
+<style type="text/css">
 
 </style>
 
-<<script type="text/javascript">
+<script type="text/javascript">
  $(document).readty(function(){
 	 
  });	
