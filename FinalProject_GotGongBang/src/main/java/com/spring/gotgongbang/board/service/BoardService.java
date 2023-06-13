@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.gotgongbang.board.model.InquiryVO;
 import com.spring.gotgongbang.board.model.InterBoardDAO;
+import com.spring.gotgongbang.board.model.NoticeVO;
 import com.spring.gotgongbang.common.FileManager;
 
 @Service
@@ -152,7 +153,73 @@ public class BoardService implements InterBoardService {
 			List<InquiryVO> iqvo = dao.getFaq();
 			return iqvo;
 		}
+		// Faq admin 답글 조회
+		@Override
+		public List<InquiryVO> getFaqin() {
+			List<InquiryVO> iqvoin = dao.getFaqin();
+			return iqvoin;
+		}
 		
+		/////////////////////////////////////////////////////////////	
+		
+		// 공지사항 - 게시물 건 수 구하기
+		@Override
+		public int getnoTotalCount(Map<String, String> paraMap) {
+			int n =dao.getnoTotalCount(paraMap);
+			return n;
+		}
+		
+		// 공지사항 - 페이징 처리한 게시물
+		@Override
+		public List<NoticeVO> noiqListSearchWithPaging(Map<String, String> paraMap) {
+
+			List<NoticeVO> novo = dao.noiqListSearchWithPaging(paraMap);
+			
+			return novo;
+		}
+		// 공지사항 글쓰기 완료
+		@Override
+		public int add_notice(NoticeVO novo) {
+			int n = dao.add_notice(novo);
+			return n;
+		}
+		// 공지사항 조회수 증가와 함께 게시글 조회
+		@Override
+		public NoticeVO getnotiView(Map<String, String> paraMap) {
+			
+				NoticeVO novo = dao.getnotiView(paraMap); 
+			
+				String login_userid = paraMap.get("login_userid");
+				
+				
+				if(login_userid != null && novo != null &&
+				   !login_userid.equals(novo.getAdmin_id_fk()) ) { 
+				  
+				   dao.setAddReadCount(novo.getNotice_num_pk()); 
+				   novo = dao.getnotiView(paraMap);	
+				}
+				
+				return novo;
+		}
+		
+		// 공지사항 조회수 증가 없음
+		@Override
+		public NoticeVO getnotiViewWithNoAddCount(Map<String, String> paraMap) {
+			
+			NoticeVO novo = dao.getnotiView(paraMap);
+			
+			return novo;
+		}
+		
+		// 공지사항 수정 완료
+		@Override
+		public int notiedit(NoticeVO novo) {
+			int n = dao.notiedit(novo);
+			return n;
+		}
+
+		
+		/////////////////////////////////////////////////////////////	
 		
 		
 		// 오준혁 끝 ===========================================================================
