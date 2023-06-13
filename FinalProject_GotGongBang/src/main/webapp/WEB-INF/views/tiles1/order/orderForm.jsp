@@ -16,7 +16,7 @@ div#orderContent {
    padding: 50px;
    width: 1000px;
    margin: 30px auto;
-   border: 1px solid #400099;
+   border: 0px solid #400099;
    /* background-color:#cceeff; */
     border-radius:10px;
 	height:fit-content;

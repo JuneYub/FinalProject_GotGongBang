@@ -41,17 +41,18 @@
         and order_product_type=#{order_product_type}
 	 </select>
 	 
+	 
 	 <!-- 전체 사진 반복문으로 추가하기 -->
 	 <insert id="insert_whole_img" parameterType="HashMap">
-		insert into WHOLE_IMG(whole_img_num_pk, order_num_fk,whole_img_name )
-		values(SEQ_WHOLE_IMG.nextval, #{order_num_pk}, #{whole_img_name})
+		insert into WHOLE_IMG(whole_img_num_pk, order_num_fk,whole_img_name, whole_img_new_name )
+		values(SEQ_WHOLE_IMG.nextval, #{order_num_pk}, #{whole_img_name}, #{whole_img_new_name})
 	</insert>
 	
 	
 	 <!-- 상세 사진 반복문으로 추가하기 -->
 	 <insert id="insert_detail_img" parameterType="HashMap">
-		insert into DETAIL_IMG(detail_img_num_pk, order_num_fk,detail_img_name )
-		values(SEQ_DETAIL_IMG.nextval, #{order_num_pk}, #{detail_img_name})
+		insert into DETAIL_IMG(detail_img_num_pk, order_num_fk,detail_img_name, detail_img_new_name )
+		values(SEQ_DETAIL_IMG.nextval, #{order_num_pk}, #{detail_img_name}, #{detail_img_new_name})
 	</insert>	
 	
 	
