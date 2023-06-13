@@ -23,11 +23,6 @@ $(window).scroll(function() {
 
 
 
-function goCraftAction() {
-	location.href="<%= ctxPath%>/crafts_list_10bag.got";
-}
-
-
 </script>
 
 
@@ -59,11 +54,7 @@ function goCraftAction() {
         			</div>
         			<div class="master_detail_2">
         				<div class="sub1_1_1">
-		        			<span>전문품목 | 
-		        				<a href="javascript:goCraftAction()">
-		        					<c:out value="${craftvo.craft_specialty}" />
-		        				</a>
-		        			</span>
+		        			<span>전문품목 | ${craftvo.craft_specialty}</span>
 		        		</div>
         				<p>경력기간 | ${craftvo.craft_career }</p>
         				<p>공방평점   ★★★★★</p>

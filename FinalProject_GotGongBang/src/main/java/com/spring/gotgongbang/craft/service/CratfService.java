@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -169,7 +171,7 @@ public class CratfService implements InterCraftService {
 	@Override
 	public CraftVO craftDetail(int craft_num_pk) {
 		CraftVO craftvo = cdao.crafts_detail_select(craft_num_pk);
-		System.out.println(craftvo);
+	//	System.out.println(craftvo);
 		return craftvo;
 	}
 
@@ -180,11 +182,14 @@ public class CratfService implements InterCraftService {
 		return craftnewvo;
 	}
 
-	//수선사 정보 검색하기
+
 	@Override
-	public List<CraftVO> crafts_list_search(Map<String, String> paraMap) {
-		List<CraftVO> craftsearchvo = cdao.crafts_list_search(paraMap);
-		return craftsearchvo;
+	public List<CraftVO> wordSearchShow(Map<String, String> paraMap) {
+		
+		List<CraftVO> craftvo_list  = cdao.wordSearchShow(paraMap);
+		
+		
+		return craftvo_list;
 	}
 
 	
