@@ -51,7 +51,7 @@ public class MailSendService {
 						"<tbody>"+
 							"<tr><td style='padding:24px 24px 0 24px;'>"+
 								"<table width='100%' border='0' cellspacing='0' cellpadding='0' bgcolor='#fff'>"+
-									"<tbody><tr><td valign='top' style='padding:40px 0 0 20px; font-size:0;'><img src='https://hyphen.im/assets/images/email/logo_hyphen.png' alt='HYPHEN' loading='lazy'></td></tr>"+
+									"<tbody><tr><td valign='top' style='padding:40px 0 0 20px; font-size:0;'><img src='http://127.0.0.1:9090/gotgongbang/resources/img/main_got.png' alt='GOTGONGBANG' loading='lazy'></td></tr>"+
 									"</tbody>"+
 								"</table></td></tr>"+
 							"<tr><td style='padding: 0 24px;'>"+
@@ -100,7 +100,7 @@ public class MailSendService {
 							"<tbody>"+
 								"<tr><td style='padding:24px 24px 0 24px;'>"+
 									"<table width='100%' border='0' cellspacing='0' cellpadding='0' bgcolor='#fff'>"+
-										"<tbody><tr><td valign='top' style='padding:40px 0 0 20px; font-size:0;'><img src='https://hyphen.im/assets/images/email/logo_hyphen.png' alt='HYPHEN' loading='lazy'></td></tr>"+
+										"<tbody><tr><td valign='top' style='padding:40px 0 0 20px; font-size:0;'><img src='http://127.0.0.1:9090/gotgongbang/resources/img/main_got.png' alt='GOTGONGBANG' loading='lazy'></td></tr>"+
 										"</tbody>"+
 									"</table></td></tr>"+
 								"<tr><td style='padding: 0 24px;'>"+

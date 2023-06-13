@@ -269,6 +269,9 @@
     	where order_detail_id_fk = #{orderNum}
     </select>
     
+    <select id="getWholeImgListByOrderDetailNum" parameterType="String" resultType="com.spring.gotgongbang.order.model.WholeImgVO">
+    </select>
+    
     <!--==================== 박준엽 끝 ====================== -->
 
 </mapper>

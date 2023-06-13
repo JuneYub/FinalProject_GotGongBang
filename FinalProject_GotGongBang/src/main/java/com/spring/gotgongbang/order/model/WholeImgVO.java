@@ -9,7 +9,7 @@ public class WholeImgVO {
 	private String whole_img_new_name;
 	private int whole_img_size;
 	
-   private MultipartFile whole_attach;
+   private MultipartFile img_whole;
    /* form 태그에서 type="file" 인 파일을 받아서 저장되는 필드이다. 
            진짜파일 ==> WAS(톰캣) 디스크에 저장됨.
            조심할것은 MultipartFile attach 는 오라클 데이터베이스 tbl_board 테이블의 컬럼이 아니다.   
@@ -27,11 +27,12 @@ public class WholeImgVO {
 		this.whole_img_new_name = whole_img_new_name;
 	}
 
-	public MultipartFile getWhole_attach() {
-		return whole_attach;
+
+	public MultipartFile getImg_whole() {
+		return img_whole;
 	}
-	public void setWhole_attach(MultipartFile whole_attach) {
-		this.whole_attach = whole_attach;
+	public void setImg_whole(MultipartFile img_whole) {
+		this.img_whole = img_whole;
 	}
 	public void setWhole_img_size(int whole_img_size) {
 		this.whole_img_size = whole_img_size;
@@ -54,4 +55,5 @@ public class WholeImgVO {
 	public void setWhole_img_name(String whole_img_name) {
 		this.whole_img_name = whole_img_name;
 	}
+	
 }

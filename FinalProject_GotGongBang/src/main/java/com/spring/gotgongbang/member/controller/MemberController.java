@@ -29,6 +29,8 @@ import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.member.service.InterMemberService;
 import com.spring.gotgongbang.member.service.MailSendService;
+import com.spring.gotgongbang.order.model.DetailImgVO;
+import com.spring.gotgongbang.order.model.WholeImgVO;
 
 @Component
 @Controller
@@ -241,6 +243,9 @@ public class MemberController {
 		
 		@RequestMapping(value="/review.got")
 		public ModelAndView writeReview(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+			String orderDetailNum = request.getParameter("orderNum");
+			List<WholeImgVO> wholeImgList = service.getWholeImgListByOrderDetailNum(orderDetailNum);
+			List<DetailImgVO> detailImgList = service.getDetailImgListByOrderDetailNum(orderDetailNum);
 			mav.setViewName("member/review.tiles1");
 			return mav;
 			

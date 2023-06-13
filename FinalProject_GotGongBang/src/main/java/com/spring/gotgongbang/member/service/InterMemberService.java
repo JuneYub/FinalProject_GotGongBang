@@ -6,6 +6,8 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
 import com.spring.gotgongbang.member.model.MemberVO;
+import com.spring.gotgongbang.order.model.DetailImgVO;
+import com.spring.gotgongbang.order.model.WholeImgVO;
 
 public interface InterMemberService {
 	
@@ -66,6 +68,10 @@ public interface InterMemberService {
 	int getTotalCountProposalListByUserId(String userId);
 
 	int getReviewCntByOrderNum(String orderNum);
+
+	List<WholeImgVO> getWholeImgListByOrderDetailNum(String orderDetailNum);
+
+	List<DetailImgVO> getDetailImgListByOrderDetailNum(String orderDetailNum);
 	
 
 
