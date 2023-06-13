@@ -20,7 +20,7 @@
 
 <script type="text/javascript"> 
 
-$(document).readty(function(){
+$(document).ready(function(){
 	
 	 $("span.subject").bind("mouseover", function(e){
 		  $(e.target).addClass("subjectStyle");
@@ -140,7 +140,7 @@ $(document).readty(function(){
 					  
 					   <c:if test="${empty requestScope.iqvo}">
                       		<td style="padding: 32px 0px 0px 252px";>게시글 데이터가 없습니다</td>
-                      </c:if>    	
+                       </c:if>    	
                       
                     <c:if test="${not empty requestScope.iqvo}">  
                       <ul class="ojh_table2_notice">
