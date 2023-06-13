@@ -500,12 +500,22 @@ public class MemberController {
 		}
 		
 		
+		// 비밀번호 찾기
 		@RequestMapping(value="/find_pwd.got")
 		public ModelAndView find_pwd(ModelAndView mav) {
 			
 			mav.setViewName("member/find_pwd.tiles1");
 			return mav;
 		}
+		
+		// 비밀번호 찾기 end
+		@RequestMapping(value="/find_pwd_end.got")
+		public ModelAndView find_pwd_end(ModelAndView mav) {
+			
+			mav.setViewName("member/find_pwd_end.tiles1");
+			return mav;
+		}
+		
 		
 		// 로그아웃 처리
 		@RequestMapping(value="/logout.got")

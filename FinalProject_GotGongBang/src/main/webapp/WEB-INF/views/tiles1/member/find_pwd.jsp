@@ -11,7 +11,9 @@
 
 <script type="text/javascript">
 
+	//=== 회원정보 입력 체크 === //
 	let flag_input_id = false;
+	let flag_input_email = false;
 
 	$(document).ready(function(){
 		
@@ -33,9 +35,71 @@
 				
 				flag_input_id = true;
 			}
-		});// end of 
+		});// end of $("input#id").blur( (e) => -----------------------------
 		
-	});
+		
+		// 이메일주소 blur
+		$("input#email").blur( (e) => {
+			
+			const regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+	     	  
+	     	const bool = regExp.test($(e.target).val());
+			
+			// 공백일 때
+			if( $(e.target).val().trim() == "") {
+				$("input#email").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
+				$(".user_email_f2").hide();
+				$(".user_email_f1").show(); // 공백 경고 표시
+				
+				
+				flag_input_email = false;
+			}
+			// 형식에 맞지 않을 때
+			else if(!bool) {
+				$("input#email").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
+				$(".user_email_f1").hide();
+				$(".user_email_f2").show(); // 공백 경고 표시
+				
+				flag_input_email = false;
+			}
+			
+			else {
+				$("input#email").removeClass("form-input--invalid");
+				$(".user_email_f1").hide();
+				$(".user_email_f2").hide();
+				
+				flag_input_email = true;
+			}
+		});// end of $("input#email").blur( (e) => ---------------------------------
+			
+			
+		// 넘어가는 확인버튼 - 인증번호 비교 
+		$(".pwd_button").click(function() {						
+			
+			// == 이름 공백 입력시 == //
+			if( $("input#name").val().trim() == "" ) {
+				$("input#name").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
+				$(".user_name_f").show(); // 경고 표시
+				$("input#name").focus();
+				
+				return;
+			}
+			
+			// == 이메일 공백 입력시 == //
+			if( $("input#email").val().trim() == "" ) {
+				$("input#email").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
+				$(".user_email_f1").show(); // 경고 표시
+				$("input#email").focus();
+				
+				return;
+			}
+			else {
+				findIdEnd(memberId, partnerId);  // 다음 단계로 넘어가기
+			}
+			
+		});//end of $(".pwd_button").click(function() -----------------
+		
+	});// end of $(document).ready(function()
 
 
 </script>
@@ -57,12 +121,13 @@
 					</div>
 					<div class="form-field">
 
-						<input class="form-input" type="email" name="email" title="이메일 입력" placeholder="이메일 주소를 입력하세요.">
-						<div class="form-field__feedback" data-field-feedback="user_email"></div>
+						<input class="form-input" type="email" id="email" name="email" title="이메일 입력" placeholder="이메일 주소를 입력하세요.">
+						<div class="form-field__feedback user_email_f1" data-field-feedback="user_email"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;이메일을 입력해주세요.</div>
+						<div class="form-field__feedback user_email_f2" data-field-feedback="user_email"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;이메일 형식이 올바르지 않습니다.</div>						
 					</div>
 				</fieldset>
 				<div class="login-search__buttons"><a class="button button--outline login-search__button login-search__button--cancel" href="/login">취소</a>
-					<button class="button login-search__button login-search__button--confirm" type="submit">확인</button>
+					<button class="button login-search__button login-search__button--confirm pwd_button" type="submit">확인</button>
 				</div>
 			</form>
 		</section>
