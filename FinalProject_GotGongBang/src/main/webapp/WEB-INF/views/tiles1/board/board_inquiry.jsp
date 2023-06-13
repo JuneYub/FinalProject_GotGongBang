@@ -34,12 +34,7 @@
 				}
 			});
 			
-			// 문의제목 유효성 검사
-			const user_id_fk = $("input#user_id_fk").val().trim();
-			if(user_id_fk == "") {
-				alert("로그인을 해주세요~");
-				return;
-			}
+			// 문의아이디 유효성 검사
 			
 			// 문의제목 유효성 검사
 			const inquiry_title = $("input#inquiry_title").val().trim();
@@ -144,7 +139,9 @@
                                 <c:if test='${requestScope.fk_seq ne ""}'>     
                                 	<input class="ojh_form-input" type="text" id="inquiry_title" name="inquiry_title" value="${requestScope.inquiry_title}" readonly />
                                 	<div class="form-field__feedback" data-field-feedback="title"></div>
-                                </c:if>	    
+                                </c:if>
+                                
+                                	    
                                 </td>
                             </tr>
                             <tr class="ojh_form-field">
