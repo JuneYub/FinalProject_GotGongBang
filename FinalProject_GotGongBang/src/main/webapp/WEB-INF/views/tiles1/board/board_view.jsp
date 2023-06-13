@@ -5,16 +5,43 @@
 <%
    String ctxPath = request.getContextPath();
 %>   
-<style type="text/css">
 
+<!-- Optional JavaScript -->
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<style type="text/css">
+	ojh_table table--row
 </style>
 
+
+
 <script type="text/javascript">
- $(document).readty(function(){
-	 
- });	
-	
-	
+
+
+function View_del(inquiry_num_pk) {
+      	
+       var bool = confirm(inquiry_num_pk + "게시물을 삭제하시겠습니까?");
+       
+       if (bool) {
+           $.ajax({
+               url: "<%= ctxPath %>/board/delEnd.got",
+               type: "post",
+               data: {"inquiry_num_pk": inquiry_num_pk},
+               dataType: "json",
+               success: function(json) {
+                   if (json.n == 1) {
+                	   
+                	   alert(inquiry_num_pk + " 게시물을 삭제하였습니다.");
+                       location.href = "<%= ctxPath %>/board_inquiry.got"; // 페이지 새로고침
+                   }
+               },
+               error: function(request, status, error) {
+                   alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+               	   }
+            });
+       }
+}
+
 </script>
   <div id="ojh_content">
         <section class="ojh_page_content_inquire">
@@ -64,6 +91,7 @@
                   <c:if test="${not empty requestScope.iqvo}">  
                     <table class="ojh_table table--row">
                         <div class="ojh_qulist">
+                        
                             <div class="ojh_css-1dhg94g e1pwb5hv0">
                                 <div class="ojh_css-1xrh39a e1pwb5hv2">제목</div>
                                 <div class="ojh_css-8vgw34 e1pwb5hv1" name="inquiry_title" >${requestScope.iqvo.inquiry_title}</div>
@@ -90,6 +118,9 @@
 									</c:if>
                                 </div>
                             </div>
+                            <div class="ojh_css-1dhg94g e1pwb5hv0">
+                                <input type="hidden" class="ojh_css-8vgw34 e1pwb5hv1" value="${requestScope.iqvo.inquiry_num_pk}" readonly />
+                            </div>
                             
                         </div>
                         <div class="ojh_css-1xvp3jp ezf0ge90">
@@ -102,7 +133,7 @@
                                 <span class="ojh_css-ymwvow e4nu7ef1">수정</span>
                             </button>
 
-                            <button class="ojh_css-214ym5 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="javascript:location.href='<%= request.getContextPath()%>/board_del.got?inquiry_num_pk=${requestScope.iqvo.inquiry_num_pk}'">
+                            <button class="ojh_css-214ym5 e4nu7ef3" id="btn_del" type="button" width="150" height="42" radius="0" onclick="View_del('${requestScope.iqvo.inquiry_num_pk}')">
                                 <span class="ojh_css-ymwvow e4nu7ef1">삭제</span>
                             </button>
                             
