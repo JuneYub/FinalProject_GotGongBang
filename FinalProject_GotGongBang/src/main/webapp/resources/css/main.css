@@ -981,6 +981,7 @@ li.requests-cont {
 	padding: 50px;
     width: 1000px;
     margin: 30px auto;
+    margin-bottom: 70px;
     border: 1px solid #400099;
     border-radius: 10px;
     height: fit-content;
@@ -1065,6 +1066,11 @@ li.requests-cont {
 	background-size: 100px 100px;
 	background-position: center;
 	opacity: 30%;
+	margin: 15px;
+}
+
+.wrap-review-write {
+	margin-top: 80px;
 }
 
 .review-cont-text {
@@ -1080,7 +1086,67 @@ li.requests-cont {
     width: 640px;
     text-align: right;
     color: #565656;
+    margin-bottom: 5px;
 }
+
+.btn-write-cancle {
+	width: 150px;
+    height: 50px;
+    color: #400099;
+    background-color: white;
+    border: 1px solid #400099;
+    border-radius: 10px;
+}
+
+.btn-write-end {
+	width: 150px;
+    height: 50px;
+    color: white;
+    background-color: #400099;
+    border: 1px solid #400099;
+    border-radius: 10px;
+    margin-left: 50px;
+}
+
+.btn-write-cancle:hover {
+	font-size: 18px;
+	transition:.1s;
+}
+
+.btn-write-end:hover {
+	font-size: 18px;
+	transition:.1s;
+}
+
+.wrap-review-btn {
+	display: flex;
+	justify-content: center;
+	margin-top: 80px;
+	
+}
+
+.wrap-reset-photo {
+	margin: 8px auto;
+    width: 640px;
+    display: flex;
+    justify-content: right;
+}
+
+.btn-reset-photo {
+    width: 120px;
+    height: 30px;
+    color: #565656;
+    background-color: white;
+    border: 1px solid #d9dce1;
+    border-radius: 10px;
+}
+
+.btn-reset-photo:hover {
+	border: 1px solid #565656;
+	transition:.1s;
+}
+
+
 
 
 /* ======================== 애니메이션 모음 =========================================== */
