@@ -7,7 +7,14 @@
 %>   
 
 <<style type="text/css">
-
+	 table.ojh_table th, table.ojh_table td {
+  	  	border-bottom: none !important;
+  	 }
+  		
+  	 div.admin_btn {
+  	 	padding: 10px 0px 0px 0px;
+  	 }
+  	 		
 </style>
 
 <script type="text/javascript">
@@ -80,7 +87,7 @@
                       </div> 
                       
                       <c:if test="${empty requestScope.novo}">
-                      		<td style="padding: 32px 0px 0px 252px";>게시글 데이터가 없습니다</td>
+                      		<td style="padding: 32px 0px 35px 252px";>게시글 데이터가 없습니다</td>
                       </c:if>    	
                       
 						<c:if test="${not empty requestScope.novo}">  
@@ -103,16 +110,16 @@
 	                        </li>
 	                    </ul>
 					   </c:if>
-							
-						<c:if test="${sessionScope.loginuser.user_id_pk == 'admin'}"> 
-							<button class="ojh_css-214ym4 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="javascript:location.href='<%= request.getContextPath()%>/board_noticeiq.got'">
-	                                <span class="ojh_css-ymwvow e4nu7ef1">글쓰기</span>
-	                        </button>
-                        </c:if>
-                    </table>
+					</table>
 
                   </fieldset>
-                  
+                  <div class="admin_btn">
+	                  <c:if test="${sessionScope.loginuser.user_id_pk == 'admin'}"> 
+								<button class="ojh_css-214ym4 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="javascript:location.href='<%= request.getContextPath()%>/board_noticeiq.got'">
+		                                <span class="ojh_css-ymwvow e4nu7ef1">글쓰기</span>
+		                        </button>
+	                  </c:if>
+                  </div>
                    <div align="center" style="border: solid 0px gray; width: 70%; margin: 20px auto; ">
 					    	${requestScope.pageBar}
 				   </div> 

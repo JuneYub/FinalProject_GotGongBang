@@ -215,10 +215,22 @@
 		where V.notice_num_pk = #{notice_num_pk}
     </select>
 	
+	<!-- 공지사항 페이지 조회수 +1 --> 
+	<update id="setnotiAddReadCount">
+		update notice set notice_viewcount = notice_viewcount + 1
+		where notice_num_pk = #{notice_num_pk}
+	</update>
 	
 	<!-- 공지사항  수정 페이지 완료하기 -->
 	<update id="notiedit" parameterType="com.spring.gotgongbang.board.model.NoticeVO">
 	   update notice set notice_title = #{notice_title}, notice_content = #{notice_content}
-	    where notice_num_pk = #{notice_num_pk}
+	   where notice_num_pk = #{notice_num_pk}
 	</update>
+	
+	<!-- 게시글 삭제하기 -->
+	<delete id="notidel" parameterType="HashMap">
+		delete from notice
+		where notice_num_pk = #{notice_num_pk}
+	</delete>
+	
 </mapper>

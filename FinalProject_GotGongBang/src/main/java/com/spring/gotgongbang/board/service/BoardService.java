@@ -195,7 +195,7 @@ public class BoardService implements InterBoardService {
 				if(login_userid != null && novo != null &&
 				   !login_userid.equals(novo.getAdmin_id_fk()) ) { 
 				  
-				   dao.setAddReadCount(novo.getNotice_num_pk()); 
+				   dao.setnotiAddReadCount(novo.getNotice_num_pk()); 
 				   novo = dao.getnotiView(paraMap);	
 				}
 				
@@ -215,6 +215,12 @@ public class BoardService implements InterBoardService {
 		@Override
 		public int notiedit(NoticeVO novo) {
 			int n = dao.notiedit(novo);
+			return n;
+		}
+		// 공지사항 삭제 완료
+		@Override
+		public int notidel(Map<String, String> paraMap) {
+			int n =dao.notidel(paraMap);
 			return n;
 		}
 

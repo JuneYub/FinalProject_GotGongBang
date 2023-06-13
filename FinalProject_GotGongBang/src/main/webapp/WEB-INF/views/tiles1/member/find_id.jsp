@@ -137,7 +137,7 @@
 				
 				findIdEnd(memberId, partnerId);  // 다음 단계로 넘어가기
 			} 
-		});//end of $(".btn_next2").click(function()-----------------
+		});//end of $(".login-search__button").click(function() {-----------------
 				
 		// 이름 blur
 		$("input#name").blur( (e) => {
