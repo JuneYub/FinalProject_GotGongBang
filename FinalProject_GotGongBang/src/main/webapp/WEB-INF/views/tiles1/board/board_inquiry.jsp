@@ -7,9 +7,17 @@
 %>   
 
 <style type="text/css">
-  table.ojh_table th, table.ojh_table td {
-  	  border-bottom: none !important;
-  }
+ 
+ 	table.ojh_table td, table.ojh_table th {
+		
+		border-bottom: none !important;  
+	}
+ 	
+ 	.ojh_form-field th {
+ 		padding: 7px 0px 0px 14px;
+ 	}
+ 
+ 	padding: 9px 0px 0px 14px;
 </style>
 
 <script type="text/javascript">
