@@ -7,39 +7,7 @@
 
 
   <style>
-
-    .container {
-      margin: 20px;
-      width: 200px;
-      height: 200px;
-      perspective: 1000px;
-    }
-
-    .card {
-        position: relative;
-      transition: transform 1s;
-      transform-style: preserve-3d;
-      cursor: pointer;
-    }
-
-    .front, .back {
-      position: absolute;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      backface-visibility: hidden;
-    }
-
-    .front {
-      border: 2px solid black;
-    }
-
-    .back {
-      border: 2px solid black;
-      transform: rotateY(180deg);
-    }
-    /*  */
-    
+  
     .login-related__description {
 	    font-size: 20px;
 	    letter-spacing: -.4px;
@@ -54,7 +22,7 @@
     
   </style>
   
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <script>
 
 	let flag_input_passwd = false;
@@ -62,8 +30,7 @@
 
 
 	$(document).ready(function(){
-		let card = document.querySelector('.card');
-		card.addEventListener('click', click);
+		
 		
 		
 		
@@ -146,19 +113,6 @@
 			}
 		});
 	});
-	
-
-
-	function click(event) {
-	let elem = event.currentTarget;
-	if (elem.style.transform == "rotateY(180deg)") {
-	          elem.style.transform = "rotateY(0deg)";
-	      } else {
-	          elem.style.transform = "rotateY(180deg)";
-	      }
-	  }
-	
-
     
 </script>
 
@@ -198,19 +152,5 @@
     </a>
 </div>
 
-<div class = 'container'>
-    <div class = 'card'>
-        <div class = 'front'>
-        front
-        </div>
-        <div class= 'back'>
-        back
-        </div>
-    </div>
-</div>
-
-
-
 
 </body>
-
