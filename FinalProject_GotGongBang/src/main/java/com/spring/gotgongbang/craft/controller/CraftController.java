@@ -68,7 +68,7 @@ public class CraftController {
  		List<Map<String, Object>> paraMap = service.review_select(craft_num_pk);
  		//System.out.println(paraMap.get("review_content"));
  		
- 		System.out.println("efef = "+paraMap.get(0).get("fixed_photo_num_pk"));
+ 		
  		
  		
  		mav.setViewName("/craft/craft_detail.tiles1");
