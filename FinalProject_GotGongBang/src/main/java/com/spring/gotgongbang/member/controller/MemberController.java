@@ -516,6 +516,24 @@ public class MemberController {
 		
 		// 일반회원가입 post
 		@RequestMapping(value="/register.got", method=RequestMethod.POST)
+		public String register(MemberVO membervo) {
+			
+			System.out.println("들어옴");
+			service.encryptPassword(membervo);
+			
+			service.insertMember(membervo);
+			
+			return "redirect:/end_register_member.got";
+		}
+		
+		// 공방회원가입 get
+		@RequestMapping(value="/register_to_partner.got", method=RequestMethod.GET)
+		public void register_partner() {
+			
+		}
+		
+		// 공방회원가입 post
+		@RequestMapping(value="/register_to_partner.got", method=RequestMethod.POST)
 		public String register_partner(PartnerVO pvo, HttpServletRequest request) {
 			
 			String login_partner_id = pvo.getPartner_id_pk();
@@ -531,24 +549,6 @@ public class MemberController {
 			//service.encryptPassword(pvo);
 			
 			//service.insertPartner(pvo);
-			
-			return "redirect:/craft_application.got";
-		}
-		
-		// 공방회원가입 get
-		@RequestMapping(value="/register_to_partner.got", method=RequestMethod.GET)
-		public void register_partner() {
-			
-		}
-		
-		// 공방회원가입 post
-		@RequestMapping(value="/register_to_partner.got", method=RequestMethod.POST)
-		public String register_partner(MemberVO membervo) {
-			
-			System.out.println("공방 들어옴");
-			service.encryptPassword(membervo);
-			
-			service.insertPartner(membervo);
 			
 			return "redirect:/craft_application.got";
 		}
