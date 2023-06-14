@@ -39,7 +39,7 @@ div#detailContent {
     	<p class="listCenter">의뢰상세</p> 
     	<div class="detailDivBorder">
 			<div class="detailDivFlex imgCircle imgCircle2" >
-				<img src="<%=ctxPath%>/resources/img/main_test.jpg" class=" imgCircle2 imgCircle" >
+				<img src="<%=ctxPath%>/resources/img/orders/main_test.jpg" class=" imgCircle2 imgCircle" >
 			</div>
 			
 			<div style="width:fit-content;">
