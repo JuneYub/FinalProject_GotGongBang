@@ -169,7 +169,7 @@ create table REVIEW
 ,user_id_fk          VARCHAR2(20)            NOT NULL      -- 작성자 아이디
 ,order_detail_id_fk  VARCHAR2(20)            NOT NULL      -- 주문상세번호
 ,review_rating       NUMBER                  NOT NULL      -- 평점
-,review_content      NVARCHAR2(100)          NOT NULL      -- 후기내용
+,review_content      NVARCHAR2(500)          NOT NULL      -- 후기내용
 ,review_date         DATE DEFAULT SYSDATE    NOT NULL      -- 후기등록일
 ,CONSTRAINT PK_REVIEW_REVIEW_ID_PK PRIMARY KEY(review_id_pk)            
 ,CONSTRAINT FK_REVIEW_USER_ID_FK FOREIGN KEY(user_id_fk) REFERENCES MEMBER(user_id_pk)
@@ -198,6 +198,8 @@ create table ORDER_DETAIL
 ,order_extra_address    VARCHAR(200)    null     -- 부가주소
 ,product_status         NVARCHAR2(10) default '수거중'  not null -- 상품진행상태
 ,payment                NUMBER                      --결제 내역
+,ORDER_NAME            VARCHAR2(30)  NOT NULL   -- 배송받는 사람 이름
+,ORDER_NUM             VARCHAR2(20)  NOT NULL   -- 배송받는 사람 번호
 
 ,constraint PK_ORDER_DETAIL_order_detail_id_pk primary key(order_detail_id_pk)
 ,constraint PK_ORDER_DETAIL_estimate_num_fk foreign key(estimate_num_fk) references ESTIMATE(estimate_num_pk)

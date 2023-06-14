@@ -1,9 +1,13 @@
 package com.spring.gotgongbang.member.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,17 +17,24 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.HomeController;
+import com.spring.gotgongbang.common.FileManager;
 import com.spring.gotgongbang.common.MyUtil;
 import com.spring.gotgongbang.common.Sha256;
 import com.spring.gotgongbang.craft.model.PartnerVO;
@@ -242,26 +253,133 @@ public class MemberController {
 
 		}
 		
-		@RequestMapping(value="/review.got")
+		@RequestMapping(value="/review.got", method= {RequestMethod.POST})
 		public ModelAndView writeReview(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
 			String orderDetailNum = request.getParameter("orderNum");
 			List<WholeImgVO> wholeImgList = service.getWholeImgListByOrderDetailNum(orderDetailNum);
 			List<DetailImgVO> detailImgList = service.getDetailImgListByOrderDetailNum(orderDetailNum);
 			mav.setViewName("member/review.tiles1");
+			mav.addObject("orderDetailNum", orderDetailNum);
 			return mav;
 			
 		}
 		
+	   // === 이미 리뷰가 등록되었는 확인 === //
 	   @ResponseBody
 	   @RequestMapping(value="/check_review_count.got", method= {RequestMethod.POST})
 	   public String getReviewCntByOrderNum(HttpServletRequest request) {
 		   String orderNum = request.getParameter("orderNum");
-		   int cnt = service.getReviewCntByOrderNum(orderNum);
+		   int cnt = service.getReviewCntByOrderNum(orderNum);	   
 		   
 		   JSONObject jsonObj = new JSONObject();
 		   jsonObj.put("cnt", cnt);
 		   return jsonObj.toString();
 	   }
+	   
+	   @ResponseBody
+	   @RequestMapping(value="/review_end.got", method= {RequestMethod.POST})
+	   public String uplodaImgFileAndInsertReview(MultipartHttpServletRequest mrequest) {
+		   HttpSession session = mrequest.getSession();
+		   ServletContext context = session.getServletContext();
+
+		   MemberVO member = (MemberVO) session.getAttribute("loginuser");
+		   String userId = member.getUser_id_pk();
+		   String orderDetailNum = mrequest.getParameter("orderDetailNum");
+		   String reviewRating = mrequest.getParameter("reviewRating");
+		   String reviewContent = mrequest.getParameter("reviewContent");
+		   String fixPhotoName = mrequest.getParameter("fixPhotoName");
+
+		   HashMap<String, Object> paraMap = new HashMap<String, Object>();	
+		   paraMap.put("userId", userId);
+		   paraMap.put("orderDetailNum", orderDetailNum);
+		   paraMap.put("reviewRating", Integer.parseInt(reviewRating));
+		   paraMap.put("reviewContent", reviewContent);
+		   
+		   // 사진 업로드용
+		   List<MultipartFile> imgAfterFixedList = mrequest.getFiles("imgAfterFixed");
+		   
+		   // 사진의 원래 이름
+		   List<String> originReviewImg = new ArrayList<String>();
+			
+		   // 사진의 새로운 이름
+		   List<String> newReviewImg = new ArrayList<String>();
+			
+
+		   String resourcePath = context.getRealPath("/").substring(0, 3);
+		   resourcePath += "Users"+File.separator+"user"+File.separator+"git"+File.separator+"FinalProject_GotGongBang"+File.separator+"FinalProject_GotGongBang"+File.separator+"src"+File.separator+"main"+File.separator+"webapp"+File.separator+"resources"+File.separator+"img"+File.separator+"review";
+			
+		   String[] attachFilename = null;
+		   if(imgAfterFixedList != null && imgAfterFixedList.size() > 0) {
+			   attachFilename = new String[imgAfterFixedList.size()];
+				
+			   for(int i = 0; i < imgAfterFixedList.size(); i++) {
+					
+				   MultipartFile mtfileReview = imgAfterFixedList.get(i);
+				   String newFileName = "";
+				   byte[] bytes = null;
+				   int pkNum = service.getFixedPhotoNum();
+				   try {
+					   bytes = mtfileReview.getBytes();
+					   originReviewImg.add(i, mtfileReview.getOriginalFilename());
+					   newFileName = String.valueOf(pkNum);
+					   newReviewImg.add(newFileName);
+
+					   fileUpload(bytes, originReviewImg.get(i), newFileName, resourcePath);
+				   } catch (Exception e) {
+						e.printStackTrace();
+				   }
+			   }
+		   }
+		   int n = insertReview(paraMap, originReviewImg, newReviewImg);
+		   JSONObject jsonObject = new JSONObject();
+		   jsonObject.append("n", n);
+
+			return jsonObject.toString();
+	   }
+	   
+	   @Transactional(propagation=Propagation.REQUIRES_NEW, isolation=Isolation.READ_COMMITTED, rollbackFor= {Throwable.class})
+	   public int insertReview(HashMap<String, Object> paraMap, List<String> originReviewImg, List<String> newReviewImg) {
+		   int result = 0;
+		   service.insertReview(paraMap);
+		   int reviewId = service.getCurrReviewIdByOrderDetailNum((String) paraMap.get("orderDetailNum"));
+		 
+		   HashMap<String, Object> imgParaMap = new HashMap<String, Object>();
+		   for(int i = 0; i < originReviewImg.size(); i++) {	
+			   imgParaMap.put("fixedPhotoNum", Integer.parseInt(newReviewImg.get(i)));
+			   imgParaMap.put("reviewId", reviewId);
+			   imgParaMap.put("fileName", originReviewImg.get(i));
+			   
+			   service.insertFixedPhoto(imgParaMap);
+		   }
+		   
+		   
+		   return 1;
+	   }
+	   
+	   private void fileUpload(byte[] bytes, String originalFilename, String newFilename, String path) throws Exception {
+			if(bytes == null) {
+				return;
+			}
+			
+			String fileExt = originalFilename.substring(originalFilename.lastIndexOf(".")); 
+			if("".equals(originalFilename) || originalFilename == null) {
+				return;
+			}
+			
+			newFilename += fileExt;
+			
+			File dir = new File(path);
+			if(!dir.exists()) {
+				dir.mkdirs(); 
+			}
+			
+			String pathname = path + File.separator + newFilename;
+			FileOutputStream fos = new FileOutputStream(pathname);
+			fos.write(bytes);
+			fos.close();
+	   }
+	   
+	   
 		
 		
 		// 박준엽 끝
@@ -398,8 +516,9 @@ public class MemberController {
 		
 		// 일반회원가입 post
 		@RequestMapping(value="/register.got", method=RequestMethod.POST)
-		public String register(MemberVO membervo, HttpServletRequest request) {
+		public String register(MemberVO membervo) {
 			
+			System.out.println("들어옴");
 			service.encryptPassword(membervo);
 			
 			service.insertMember(membervo);
@@ -407,25 +526,20 @@ public class MemberController {
 			return "redirect:/end_register_member.got";
 		}
 		
-		
+		// 공방회원가입 get
+		@RequestMapping(value="/register_to_partner.got", method=RequestMethod.GET)
+		public void register_partner() {
+			
+		}
 		
 		// 공방회원가입 post
 		@RequestMapping(value="/register_to_partner.got", method=RequestMethod.POST)
-		public String register_partner(PartnerVO pvo, HttpServletRequest request) {
+		public String register_partner(MemberVO membervo) {
 			
-			String login_partner_id = pvo.getPartner_id_pk();
-			HttpSession session = request.getSession();
-			session.setAttribute("login_partner_id", login_partner_id);
-			
-			System.out.println("login_partner_id : " + login_partner_id);
-			
-			String partner_name = request.getParameter("partner_name");
-			System.out.println("partner_name" + partner_name);
 			System.out.println("공방 들어옴");
+			service.encryptPassword(membervo);
 			
-			//service.encryptPassword(pvo);
-			
-			//service.insertPartner(pvo);
+			service.insertPartner(membervo);
 			
 			return "redirect:/craft_application.got";
 		}

@@ -378,6 +378,28 @@ public class MemberService implements InterMemberService {
 		return detailImgList;
 	}
 
+	@Override
+	public int getFixedPhotoNum() {
+		int pkNum = dao.getFixedPhotoNum();
+		return pkNum;
+	}
+
+	@Override
+	public void insertReview(HashMap<String, Object> paraMap) {
+		dao.insertReview(paraMap);
+	}
+
+	@Override
+	public void insertFixedPhoto(HashMap<String, Object> imgParaMap) {
+		dao.insertFixedPhoto(imgParaMap);
+	}
+
+	@Override
+	public int getCurrReviewIdByOrderDetailNum(String orderDetailNum) {
+		int reviewId = dao.getCurrReviewIdByOrderDetailNum(orderDetailNum);
+		return reviewId;
+	}
+
 
 
 
