@@ -489,8 +489,17 @@ public class OrderController {
 		HashMap<String,String> paymentInfo = service.get_estimate_info(estimate_num_pk);
 		
 		int craftNum = Integer.parseInt(String.valueOf(paymentInfo.get("craft_num_fk")) );
+		
 		// 공방번호를 가지고 공방이름 가져오기
 		String craft_name = service.get_craft_name(craftNum );
+		
+		// 견적요청번호를 가지고 대표사진 이름 가져오기
+		String img_name = service.get_img_name(Integer.parseInt(String.valueOf(paymentInfo.get("order_num_pk")) ));
+		//String img_name = service.get_img_name(paymentInfo.get("order_num_pk"));
+		mav.addObject("img_name",img_name);
+		
+		// order_num_pk를 가지고 사진 하나 가져오기 
+		
 		
 		paymentInfo.put("craft_name", craft_name);
 		
@@ -596,6 +605,11 @@ public class OrderController {
 			mav.addObject("paymentInfo", paymentInfo);
 			
 			
+			// 견적요청번호를 가지고 대표사진 이름 가져오기
+			String img_name = service.get_img_name(Integer.parseInt(String.valueOf(paymentInfo.get("order_num_pk")) ));
+
+			mav.addObject("img_name",img_name);
+			
 			/////////////// 결제 정보 확인하기 ////////////////
 			// 견적서번호를 가지고 주문상세 정보 가져오기
 			OrderDetailVO orderDetailInfo = service.get_order_detail_info(estimate_num_fk);
@@ -612,7 +626,7 @@ public class OrderController {
 	@RequestMapping(value = "buyResult.got")
 	public ModelAndView requiredLogin_buyResult(HttpServletRequest request, HttpServletResponse response,ModelAndView mav) {
 		
-		
+
 		
 		mav.setViewName("order/buyResult.tiles1");
 		return mav;

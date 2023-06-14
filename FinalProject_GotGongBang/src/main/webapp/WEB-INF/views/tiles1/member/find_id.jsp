@@ -137,7 +137,7 @@
 				
 				findIdEnd(memberId, partnerId);  // 다음 단계로 넘어가기
 			} 
-		});//end of $(".btn_next2").click(function()-----------------
+		});//end of $(".login-search__button").click(function() {-----------------
 				
 		// 이름 blur
 		$("input#name").blur( (e) => {
@@ -194,8 +194,27 @@
 		
 	// 다음 단계로 넘어가기
 	function findIdEnd(memberId, partnerId) {
-        window.location.href = "<%= ctxPath%>/find_id_end.got?memberId=" + memberId + "&partnerId=" + partnerId;
-    }
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '<%= ctxPath%>/find_id_end.got';
+
+    // memberId 파라미터 설정
+    var memberIdInput = document.createElement('input');
+    memberIdInput.type = 'hidden';
+    memberIdInput.name = 'memberId';
+    memberIdInput.value = memberId;
+    form.appendChild(memberIdInput);
+
+    // partnerId 파라미터 설정
+    var partnerIdInput = document.createElement('input');
+    partnerIdInput.type = 'hidden';
+    partnerIdInput.name = 'partnerId';
+    partnerIdInput.value = partnerId;
+    form.appendChild(partnerIdInput);
+
+    document.body.appendChild(form);
+    form.submit();
+	}
 	
 </script>
 

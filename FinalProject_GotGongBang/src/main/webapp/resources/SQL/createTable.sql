@@ -87,8 +87,8 @@ CREATE TABLE ORDERS (
 CREATE TABLE WHOLE_IMG (
    whole_img_num_pk NUMBER(10)     NOT NULL, -- 전체이미지번호
    order_num_fk     NUMBER         NOT NULL, -- 견적요청번호
-   whole_img_name   NVARCHAR2(100) NOT NULL,  -- 파일명
-   whole_img_new_name   NVARCHAR2(100)         NOT NULL   -- 저장되는 파일명
+   whole_img_name   NVARCHAR2(1000) NOT NULL,  -- 파일명
+   whole_img_new_name   NVARCHAR2(1000)         NOT NULL   -- 저장되는 파일명
     ,constraint PK_WHOLE_IMG_whole_img_num_pk primary key(whole_img_num_pk)
     ,constraint FK_WHOLE_IMG_order_num_fk foreign key(order_num_fk)
                                   references ORDERS(order_num_pk)
@@ -99,8 +99,8 @@ CREATE TABLE WHOLE_IMG (
 CREATE TABLE DETAIL_IMG (
    detail_img_num_pk NUMBER         NOT NULL, -- 상세이미지번호
    order_num_fk      NUMBER         NOT NULL, -- 견적요청번호
-   detail_img_name   NVARCHAR2(100) NOT NULL,  -- 파일명
-   detail_img_new_name   NVARCHAR2(100)         NOT NULL   -- 저장되는 파일명
+   detail_img_name   NVARCHAR2(1000) NOT NULL,  -- 파일명
+   detail_img_new_name   NVARCHAR2(1000)         NOT NULL   -- 저장되는 파일명
     ,constraint PK_DETAIL_IMG_detail_img_num_pk primary key(detail_img_num_pk)
     ,constraint FK_DETAIL_IMG_order_num_fk foreign key(order_num_fk)
                                   references ORDERS(order_num_pk)
@@ -198,6 +198,8 @@ create table ORDER_DETAIL
 ,order_extra_address    VARCHAR(200)    null     -- 부가주소
 ,product_status         NVARCHAR2(10) default '수거중'  not null -- 상품진행상태
 ,payment                NUMBER                      --결제 내역
+,ORDER_NAME            VARCHAR2(30)  NOT NULL   -- 배송받는 사람 이름
+,ORDER_NUM             VARCHAR2(20)  NOT NULL   -- 배송받는 사람 번호
 
 ,constraint PK_ORDER_DETAIL_order_detail_id_pk primary key(order_detail_id_pk)
 ,constraint PK_ORDER_DETAIL_estimate_num_fk foreign key(estimate_num_fk) references ESTIMATE(estimate_num_pk)

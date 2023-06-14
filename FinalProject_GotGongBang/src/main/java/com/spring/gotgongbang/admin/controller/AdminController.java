@@ -133,8 +133,66 @@ public class AdminController {
 					}
 				}
 			    
+			    
+	}	    
 
+	   
+	//공방 한 개보기 (대표자이름, 연락처, 한줄소개, 경력기간) 수정 
+	@RequestMapping(value = "/craft_edit.got")
+	public ModelAndView craft_edit(ModelAndView mav, CraftVO cvo, HttpServletRequest request) {	 
+
+		String craft_num_pk = request.getParameter("craft_num_pk");
+		System.out.println("craft_num_pk" + craft_num_pk);
+		// 글 수정을 위해 글을 조회해옴
+		cvo = service.craft_edit_view(craft_num_pk);
+		
+		int n = service.craft_edit(cvo);
+
+	   if(n==0) {
+		   mav.addObject("message","공방 정보 수정 실패");	
+		   mav.addObject("loc","javascipt:history.back()");	
+	   }else {
+		   mav.addObject("message","공방 정보 수정 성공");	
+		   mav.addObject("loc", request.getContextPath()+"/craft_view.got");	
+	   }
+	   mav.setViewName("msg");
+	
+		return mav;
 	}
+		    
+			  
+
+	//공방 한 개보기 삭제 
+	@RequestMapping(value = "/craft_del.got")
+	public ModelAndView craft_del(ModelAndView mav, CraftVO cvo, HttpServletRequest request) {
+		String craft_num_pk = request.getParameter("craft_num_pk");
+		
+		cvo = service.craft_edit_view(craft_num_pk);
+		String fileName = cvo.getFileName();
+		HttpSession session = request.getSession();
+		String root = session.getServletContext().getRealPath("/");
+		String path = root+"resources"+File.separator+"files";
+		
+		Map<String, String> paraMap = new HashMap<String, String>();
+		paraMap.put("craft_num_pk",craft_num_pk);
+		paraMap.put("path", path);
+		paraMap.put("fileName", fileName);
+		
+		
+		int n = service.craft_del(paraMap);
+
+	   if(n==0) {
+		   mav.addObject("message","공방 정보 삭제 실패");	
+		   mav.addObject("loc","javascipt:history.back()");	
+	   }else {
+		   mav.addObject("message","공방 삭제 성공");	
+		   mav.addObject("loc", request.getContextPath()+"/craft_list.got");	
+	   }
+	   mav.setViewName("msg");
+
+		return mav;
+	}
+
 	
 	
 	

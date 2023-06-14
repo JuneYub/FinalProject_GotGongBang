@@ -145,6 +145,14 @@ public class OrderService implements InterOrderService {
 		return j;
 	}
 	
+	// 견적요청번호를 가지고 대표사진 이름 가져오기
+	@Override
+	public String get_img_name(int string) {
+		
+		String img_name = odao.get_img_name(string);
+		return img_name;
+	}
+	
 	
 	
 	// ================ 이지현 끝 ================== //

@@ -144,6 +144,18 @@ public class BoardDAO implements InterBoardDAO {
 		int n = sqlsession.update("board.notiedit", novo);
 		return n;
 	}
+	// 공지사항 페이지 조회수 +1
+	@Override
+	public void setnotiAddReadCount(String notice_num_pk) {
+		sqlsession.update("board.setnotiAddReadCount", notice_num_pk);
+	}
+	
+	// 공지사항 삭제 완료
+	@Override
+	public int notidel(Map<String, String> paraMap) {
+		int n = sqlsession.delete("board.notidel", paraMap);
+		return n;
+	}
 	
 	
 	

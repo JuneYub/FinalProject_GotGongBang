@@ -1251,12 +1251,12 @@ body #admin_container #admin_contents .fpmgBt2{
 /* 공방 신청 form */
 body #admin_container #admin_contents #craft_application{
     /* border: solid 1px rgb(230, 230, 230); */
-    height: 2200px;
+    height: 2350px;
 }
 
 body #admin_container #admin_contents #craft_application #application_left{
     width: 270px;
-    height: 2500px;
+    height: 2800px;
     float: left;    
 }
 
@@ -2328,7 +2328,7 @@ width: 210px
 
 .ojh_form strong {
     color: #e6344a;
-    font-weight: 700;
+    
 }
 
 .ojh_form-input[type=text] {
@@ -2355,17 +2355,13 @@ width: 210px
 }
 .ojh_table {
     border-collapse: collapse;
-    border-top: 1px solid #000;
+    border-top: 1px solid #5411d2;
     width: 100%;
 }
 
-.ojh_table th, .ojh_table td{
-   
-    padding-top: 30px;
-}
 
 .ojh_table th {
-    padding: 30px 0px 0px 25px;
+    
     font-size: 20px;
     font-weight: 700;
     line-height: 3.0;
@@ -4019,5 +4015,9 @@ table#reviewTbl td, th {
 		
 	}
 /* register_member_first 끝 */
+
+/* find_pwd_end 시작 */
+	
+/* find_pwd_end 끝 */
 
 /* =========================================================== 홍용훈 끝 =========================================================== */
