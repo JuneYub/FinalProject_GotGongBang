@@ -422,7 +422,7 @@ public class MemberController {
 			
 			service.insertPartner(membervo);
 			
-			return "redirect:/end_register_member.got";
+			return "redirect:/craft_application.got";
 		}
 		
 		
