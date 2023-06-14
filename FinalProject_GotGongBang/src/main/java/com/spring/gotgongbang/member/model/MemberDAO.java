@@ -23,10 +23,17 @@ public class MemberDAO implements InterMemberDAO {
 	
 	// ====== 홍용훈 시작 =========================================== //
 	
-	// 회원가입
+	// 일반회원가입
 	@Override
 	public void insertMember(MemberVO membervo) {
 		sqlsession.insert("member.insertMember", membervo);
+	}
+	
+	// 공방회원가입
+	@Override
+	public void insertPartner(PartnerVO partnervo) {
+		sqlsession.insert("member.insertPartner", partnervo);
+		
 	}
 
 	// 이메일 중복 확인 AJAX 요청 처리
@@ -137,7 +144,23 @@ public class MemberDAO implements InterMemberDAO {
 	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
 	
 	
+	// 비밀번호 변경 ( 일반회원 )
+	@Override
+	public int changeMemberPwd(HashMap<String, String> paraMap) {
+		int n = sqlsession.update("member.changeMemberPwd", paraMap);
+		return n;
+	}
 
+	// 비밀번호 변경 ( 공방회원 )
+	@Override
+	public int changePartnerPwd(HashMap<String, String> paraMap) {
+		int n = sqlsession.update("member.changePartnerPwd", paraMap);
+		return n;
+	}
+	
+	
+	
+	
 			
 	
 	
@@ -243,6 +266,10 @@ public class MemberDAO implements InterMemberDAO {
 		int n = sqlsession.selectOne("member.checkOriginPwd", encrpyInsertPwd);
 		return n;
 	}
+
+
+
+
 
 	
 	// ====== 박준엽 끝 =========================================== //

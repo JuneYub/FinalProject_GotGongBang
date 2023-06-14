@@ -17,7 +17,7 @@
 		    craft_Introduce, craft_career, craft_specialty, craft_post_code, craft_address,
 		    craft_detail_address, craft_extra_address, craft_latitude, craft_longitude, craft_status,
 		    orgFilename, fileName) 
-	values(seq_estimate_num_pk.nextval, #{partner_id_fk}, #{craft_name},#{craft_mobile}, #{craft_representative},
+	values(seq_estimate_num_pk.nextval, 'ptest', #{craft_name},#{craft_mobile}, #{craft_representative},
 			#{craft_Introduce},#{craft_career}, #{craft_specialty}, #{craft_post_code} , #{craft_address} ,
 			#{craft_detail_address}, #{craft_extra_address}, 1321.454, 56545.215, default,
 			#{orgFilename}, #{fileName})
@@ -29,7 +29,7 @@
 </insert>
 
 
-<delete id="del_partner" parameterType="com.spring.gotgongbang.member.model.MemberVO">
+<delete id="del_partner" parameterType="com.spring.gotgongbang.craft.model.PartnerVO">
 	 delete from partner
 	 where partner_id_pk = #{partner_id_pk}
 </delete>
@@ -86,6 +86,59 @@
 		</when>
 	</choose>
 
+</select>
+
+
+
+
+<!-- 공방 상세페이지 후기 정보 가져오기 -->
+	<resultMap type="HashMap" id="get_review">
+    	<result column="whole_img_new_name" property="whole_img_new_name"/>
+    	<result column="fixed_photo_num_pk" property="fixed_photo_num_pk"/>
+    	<result column="review_id_pk" property="review_id_pk"/>
+    	<result column="craft_num_fk" property="craft_num_fk"/>
+    	<result column="user_id_fk" property="user_id_fk"/>
+    	<result column="review_rating" property="review_rating"/>
+    	<result column="order_product_type" property="order_product_type"/>
+    	<result column="brand_name" property="brand_name"/>
+    	<result column="review_content" property="review_content"/>
+    	<result column="review_date" property="review_date"/>
+    </resultMap>
+
+<select id="review_select" parameterType="int" resultMap="get_review">
+	select final.whole_img_new_name AS whole_img_new_name, 
+	final.fixed_photo_num_pk AS fixed_photo_num_pk, 
+	final.review_id_pk AS review_id_pk,
+	final.craft_num_fk AS craft_num_fk,
+	final.user_id_fk AS user_id_fk,
+	final.review_rating AS review_rating,
+	final.order_product_type AS order_product_type,
+	final.brand_name AS brand_name,
+	final.review_content AS review_content,
+	final.review_date AS review_date
+	from
+	(
+	    SELECT w.whole_img_new_name as whole_img_new_name,
+	    f.fixed_photo_num_pk as fixed_photo_num_pk,
+	    r.review_id_pk as review_id_pk, 
+	    r.craft_num_fk as craft_num_fk,
+	    r.user_id_fk as user_id_fk, 
+	    r.review_rating as review_rating, 
+	    o.order_product_type as order_product_type, 
+	    o.brand_name as brand_name,
+	    r.review_content as review_content, 
+	    r.review_date as review_date  
+	    
+	    FROM review r
+	    INNER JOIN orders o
+	    ON r.order_num_fk = o.order_num_pk
+	    join whole_img w
+	    on w.order_num_fk = r.order_num_fk
+	    join fixed_photo f
+	    on f.review_id_fk = r.review_id_pk
+	    where r.craft_num_fk=#{craft_num_pk}
+	) final
+	WHERE ROWNUM = 1
 </select>
 
 <!--==================== 김나윤 끝 ====================== -->
