@@ -91,8 +91,15 @@ public interface InterMemberDAO {
 
 	List<DetailImgVO> getDetailImgListByOrderDetailNum(String orderDetailNum);
 
+	int getFixedPhotoNum();
 
+	void insertReview(HashMap<String, Object> paraMap);
 
+	void insertFixedPhoto(HashMap<String, Object> imgParaMap);
+
+	int getCurrReviewIdByOrderDetailNum(String orderDetailNum);
+
+	HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum);
 
 
 

@@ -27,11 +27,37 @@
 	});
 	
 	function writeReview() {
-		var reviewCont = '';
-		reviewCont = $("textarea#reviewText").val();
-		
 		var rating = 0;
 		var checkboxes = $("input[name='rating']");
+		for(var i = 0; i < checkboxes.length; i++) {
+			if(checkboxes[i].checked) {
+				rating = i+1;
+			}
+		}
+		
+		if(rating == 0) {
+			alert("별점을 남겨주세요");
+			var offset = $("#ratingDiv").offset();
+			var offsetVal = offset.top-300; 
+			$("html").animate({scrollTop:offsetVal}, 400);
+			return;
+		}
+		
+		var photoboxes = $("input[type='file']");
+		photoboxes = photoboxes.toArray();
+		for(var i = 0; i < photoboxes.length; i++) {
+			if(photoboxes[i].value == "") {
+				alert("후기 사진은 꼭 세장을 넣어주셔야 합니다.");
+				var offset = $("div.wrap-photo-review").offset();
+				var offsetVal = offset.top-300; 
+				$("html").animate({scrollTop:offsetVal}, 400);
+				return;
+			}
+		}
+		
+		
+		var reviewCont = '';
+		reviewCont = $("textarea#reviewText").val();
 		
 		if(reviewCont.trim().length < 50) {
 			alert("후기는 50 글자 이상으로 작성하셔야 합니다");
@@ -41,23 +67,45 @@
 			return;
 		}
 		
-		else {
-			var rating = 0;
-			var checkboxes = $("input[name='rating']");
-			
-			for(var i = 0; i < checkboxes.length; i++) {
-				if(checkboxes[i].checked) {
-					rating = i+1;
+		var imgArr = ["","",""];
+		for(var i = 0; i < imgArr.length; i++) {
+			imgArr[i] = photoboxes[i].value;
+		} 
+		
+		var imgJoin = imgArr.join(',');
+		
+		$("input[name='reviewRating']").val(rating)
+		$("input[name='fixPhotoName']").val(imgJoin);
+		$("input[name='orderDetailNum']").val(${requestScope.orderDetailNum});
+		$("input[name='orderNum']").val(${requestScope.orderNum});
+		$("input[name='craftNum']").val(${requestScope.craftNum});
+		
+		const frm = $("form[name='reviewFrm']");
+		var formData = new FormData(frm[0]);
+		
+		$.ajax({
+			url:"<%= ctxPath%>/review_end.got",
+		    processData: false,
+		    contentType: false,
+			type:"POST",
+ 			async:true,
+ 			data: formData,
+ 			dataType:"JSON",
+			success:function(json) {
+				if(json.n == 1) {
+					alert("정상적으로 후기를 작성했습니다");
+					window.location.href = '<%=ctxPath%>/order_list.got';
+					
 				}
+				else {
+					alert("후기를 작성할 수 없습니다");
+					return;
+				}
+			},
+			error: function(request, status, error){
+				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 			}
-			
-			if(rating == 0) {
-				alert("별점을 남겨주세요");
-				var offset = $("#ratingDiv").offset();
-				var offsetVal = offset.top-300; 
-				$("html").animate({scrollTop:offsetVal}, 400);
-			}
-		}
+		})
 	};
 	
 	function resetPhoto() {
@@ -78,7 +126,14 @@
 	<div class="review-img-list" id="detailImg"></div>
 	</div>
 	<p class="review-title">배송된 물건의 수선 결과가 마음에 드시나요?</p>
-	<form name="reviewFrm" onsubmit="return false;">
+	<form name="reviewFrm" enctype="multipart/form-data">
+		
+		<input type="hidden" name="orderDetailNum" value="" />
+		<input type="hidden" name="reviewRating" value="" />
+		<input type="hidden" name="fixPhotoName" value="" />
+		<input type="hidden" name="orderNum" value="" />
+		<input type="hidden" name="craftNum" value="" />
+		
 		<div class="wrap-rating" id="ratingDiv">
 			<div class="rating">
 				  <input type="radio" id="star5" class="rating-radio" name="rating" value="5">
@@ -98,9 +153,9 @@
 			<p class="review-title">후기 사진을 등록해주세요</p>
 			<div class="wrap-cont-center">
 				
-				<input type="file" class="box-photo img_file" />
-				<input type="file" class="box-photo img_file" />
-				<input type="file" class="box-photo img_file" />
+				<input type="file" class="box-photo img_file" name="imgAfterFixed" accept="image/*"/>
+				<input type="file" class="box-photo img_file" name="imgAfterFixed" accept="image/*"/>
+				<input type="file" class="box-photo img_file" name="imgAfterFixed" accept="image/*"/>
 			</div>		
 			<div class="wrap-reset-photo">
 				<button type="button" class="btn-reset-photo" onclick="resetPhoto()">다시 첨부하기</button>
@@ -111,10 +166,10 @@
 		<div class="wrap-review-write">
 			<p class="review-title">상세한 후기를 작성해주세요</p>
 			<div class="review-info">
-				<p>✔ &nbsp;&nbsp; 50자 이상</p>
+				<p>✔ &nbsp;&nbsp; 50자 이상, 500자 이하 </p>
 			</div>
 			<div class="wrap-cont-center">
-			<textarea id="reviewText" class="review-cont-text"></textarea>
+			<textarea id="reviewText" name="reviewContent" class="review-cont-text"></textarea>
 			</div>
 		</div>
 	</form>

@@ -98,3 +98,12 @@ nominvalue
 cycle
 nocache;
 
+-- 수선 후기 이미지 id 시퀀스
+create sequence seq_fixed_photo_num_pk
+start with 1
+increment by 1
+nomaxvalue
+nominvalue
+nocycle
+nocache;
+

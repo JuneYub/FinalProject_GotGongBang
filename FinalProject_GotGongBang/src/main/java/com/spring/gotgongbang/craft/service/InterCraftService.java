@@ -8,6 +8,7 @@ import com.spring.gotgongbang.craft.model.ImageVO;
 import java.util.Map;
 
 import com.spring.gotgongbang.craft.model.PartnerVO;
+import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.OrderVO;
 
 public interface InterCraftService {
@@ -84,6 +85,9 @@ public interface InterCraftService {
 
 	// 검색정보를 가지고 공방정보 가져오기
 	List<CraftVO> wordSearchShow(Map<String, String> paraMap);
+
+	// 공방 정보를 등록하지 않으면 공방회원가입 불가
+	int del_partner(MemberVO membervo);
 	
 	// ==== ==================================== 김나윤 끝 ======================================================= // 
 

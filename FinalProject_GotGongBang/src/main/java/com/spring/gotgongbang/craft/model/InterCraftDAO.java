@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.OrderVO;
 
 public interface InterCraftDAO {
@@ -25,6 +26,8 @@ public interface InterCraftDAO {
 	//공방 추가 이미지 파일 insert
 	int imgAddFile(ImageVO imgvo);
 
+	// 공방 정보를 등록하지 않으면 공방회원가입 불가
+	int del_partner(MemberVO membervo);
 	
 	// =============== 김진솔 끝 =================//
 	
@@ -82,6 +85,7 @@ public interface InterCraftDAO {
 
 	// 검색정보를 가지고 공방정보 가져오기
 	List<CraftVO> wordSearchShow(Map<String, String> paraMap);
+	
 	
 	// =============== 김나윤 끝 =================//
 }

@@ -46,7 +46,7 @@ p.detailPName {
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-		var request = "수선 요청사항설명 : ${requestScope.paymentInfo.request_explain}".replaceAll("%", " ,");
+		var request = "수선 요청사항 목록 : ${requestScope.paymentInfo.requests}".replaceAll("%", " ,");
 		$("p#requests").text(request);
 	});
 	
@@ -61,7 +61,7 @@ p.detailPName {
 		<div class="resultDivNoBorder">
 			<div>
 				<div class="detailDivFlex imgCircle imgCircle2" >
-					<img src="<%=ctxPath%>/resources/img/main_test.jpg" class=" imgCircle2 imgCircle" >
+					<img src="<%=ctxPath%>/resources/img/orders/${requestScope.img_name}" class=" imgCircle2 imgCircle" >
 				</div>
 				
 			</div>
@@ -80,12 +80,12 @@ p.detailPName {
 				
 				<div class="detailDiv ">
 					<i class="fa-solid fa-check"></i>
-					<p class="paddingLeft">수선 요청사항 목록 : ${requestScope.paymentInfo.requests}</p>
+					<p class="paddingLeft" id="requests"></p>
 				</div>
 				
 				<div class="detailDiv ">
 					<i class="fa-solid fa-check"></i>
-					<p id="requests" class="paddingLeft"></p>
+					<p  class="paddingLeft">수선 요청사항설명 : ${requestScope.paymentInfo.request_explain}</p>
 				</div>
 				
 				<div class="detailDiv ">

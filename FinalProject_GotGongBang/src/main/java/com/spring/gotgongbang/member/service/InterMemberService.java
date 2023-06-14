@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
+import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.DetailImgVO;
 import com.spring.gotgongbang.order.model.WholeImgVO;
@@ -81,14 +82,16 @@ public interface InterMemberService {
 
 	List<DetailImgVO> getDetailImgListByOrderDetailNum(String orderDetailNum);
 
+	// 리뷰 이미지에 줄 번호 가져오기
+	int getFixedPhotoNum();
+
+	void insertReview(HashMap<String, Object> paraMap);
 
 
+	int getCurrReviewIdByOrderDetailNum(String orderDetailNum);
 
-
-
-	
-
-
+	// 리뷰 작성에 넣을 견적 요청 번호와 공방 번호 가져오기
+	HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum);
 	
 	// ====== 박준엽 끝 =========================================== //
 }
