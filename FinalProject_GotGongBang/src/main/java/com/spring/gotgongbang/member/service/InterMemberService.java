@@ -43,6 +43,12 @@ public interface InterMemberService {
 	// 이메일 중복 확인 AJAX 요청 처리 ( 공방회원 )
 	boolean isEmailDuplicate_partner(String email);
 	
+	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
+	String confirmThroughMemberIdEmail(Map<String, String> paraMap);
+	
+	String confirmThroughPartnerIdEmail(Map<String, String> paraMap);
+	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
+	
 	
 	
 	// ======== 홍용훈 끝 ========================================== //
@@ -72,6 +78,10 @@ public interface InterMemberService {
 	List<WholeImgVO> getWholeImgListByOrderDetailNum(String orderDetailNum);
 
 	List<DetailImgVO> getDetailImgListByOrderDetailNum(String orderDetailNum);
+
+
+
+
 	
 
 
