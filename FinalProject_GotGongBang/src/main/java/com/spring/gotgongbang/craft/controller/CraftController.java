@@ -326,17 +326,19 @@ public class CraftController {
     	  cvo.setCraft_mobile(craft_mobile);
     	  //===================================//
     	  
+    	  PartnerVO login_partner_id = (PartnerVO)session.getAttribute("login_partner_id");
+    	  String partner_id_pk = (String)login_partner_id.getPartner_id_pk();
+    	  
+    	  cvo.setPartner_id_fk(partner_id_pk);
     	  cvo.setFileName(newFileName_ss);
     	  cvo.setOrgFilename(originalFilename_ss);
 
           n = service.add_withFile(cvo);
           if(n==1) {
         	  mav.addObject("message","공방 정보 등록 성공");	
-        	  mav.addObject("loc", request.getContextPath()+"/end_register_member.got");
+        	  mav.addObject("loc", request.getContextPath()+"/end_register_partner.got");
               
           }else {
-        	  int m = service.del_partner(membervo);
-        	  System.out.println("m : "+m);
         	  mav.addObject("message","공방 정보 등록 실패");	
         	  mav.addObject("loc","javascipt:history.back()");	
    		   }
@@ -347,7 +349,23 @@ public class CraftController {
        return mav;
    }
    
-   
+   @RequestMapping(value = "/craft_reset.got")      //'이전' 누르면  완료 페이지
+   public ModelAndView craft_reset(ModelAndView mav, MemberVO membervo, HttpServletRequest request) {
+ 	  int m = service.del_partner(membervo);
+ 	  System.out.println("m : "+m);
+		 if(m==1) {
+		  mav.addObject("message","공방 정보 등록 취소");	
+		  mav.addObject("loc", request.getContextPath()+"/register_member_first.got");
+		     
+		 }else {
+		  mav.addObject("message","오류입니다.");	
+		  mav.addObject("loc","javascipt:history.back()");	
+			   }
+		     
+		  mav.setViewName("msg");
+			
+	  return mav;
+   }
    
    // 김진솔 끝
    // ===========================================================================

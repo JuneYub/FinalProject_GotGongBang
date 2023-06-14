@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
+import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.DetailImgVO;
 import com.spring.gotgongbang.order.model.WholeImgVO;
@@ -87,6 +88,7 @@ public interface InterMemberService {
 	void insertFixedPhoto(HashMap<String, Object> imgParaMap);
 
 	int getCurrReviewIdByOrderDetailNum(String orderDetailNum);
+
 
 	
 
