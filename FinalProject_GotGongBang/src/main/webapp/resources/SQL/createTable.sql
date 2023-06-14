@@ -169,7 +169,7 @@ create table REVIEW
 ,user_id_fk          VARCHAR2(20)            NOT NULL      -- 작성자 아이디
 ,order_detail_id_fk  VARCHAR2(20)            NOT NULL      -- 주문상세번호
 ,review_rating       NUMBER                  NOT NULL      -- 평점
-,review_content      NVARCHAR2(100)          NOT NULL      -- 후기내용
+,review_content      NVARCHAR2(500)          NOT NULL      -- 후기내용
 ,review_date         DATE DEFAULT SYSDATE    NOT NULL      -- 후기등록일
 ,CONSTRAINT PK_REVIEW_REVIEW_ID_PK PRIMARY KEY(review_id_pk)            
 ,CONSTRAINT FK_REVIEW_USER_ID_FK FOREIGN KEY(user_id_fk) REFERENCES MEMBER(user_id_pk)

@@ -287,6 +287,24 @@
     <select id="getWholeImgListByOrderDetailNum" parameterType="String" resultType="com.spring.gotgongbang.order.model.WholeImgVO">
     </select>
     
+    <select id="getFixedPhotoNum" resultType="int">
+    	select seq_fixed_photo_num_pk.nextval as fixed_photo_num_pk from dual
+    </select>
+    
+    <insert id="insertReview" parameterType="HashMap">
+    	insert into REVIEW values(seq_review_id_pk.nextval, #{userId}, #{orderDetailNum}, #{reviewRating}, #{reviewContent}, sysdate)
+    </insert>
+    
+    <insert id="insertFixedPhoto" parameterType="HashMap">
+    	insert into FIXED_PHOTO values(#{fixedPhotoNum}, #{reviewId}, #{fileName})
+    </insert>
+    
+    <select id="getCurrReviewIdByOrderDetailNum" parameterType="String" resultType="int">
+    	select review_id_pk
+    	from REVIEW
+    	where order_detail_id_fk = #{orderDetailNum}
+    </select>
+    
     <!--==================== 박준엽 끝 ====================== -->
 
 </mapper>

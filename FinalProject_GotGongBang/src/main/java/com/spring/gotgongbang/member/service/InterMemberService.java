@@ -79,8 +79,14 @@ public interface InterMemberService {
 
 	List<DetailImgVO> getDetailImgListByOrderDetailNum(String orderDetailNum);
 
+	// 리뷰 이미지에 줄 번호 가져오기
+	int getFixedPhotoNum();
 
+	void insertReview(HashMap<String, Object> paraMap);
 
+	void insertFixedPhoto(HashMap<String, Object> imgParaMap);
+
+	int getCurrReviewIdByOrderDetailNum(String orderDetailNum);
 
 	
 
