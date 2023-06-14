@@ -61,6 +61,8 @@
 		card.addEventListener('click', click);
 		
 		
+		$(".form-field__feedback").hide();
+		
 		// 비밀번호 blur
 		$("input#pwd").blur( (e) => {
 			
