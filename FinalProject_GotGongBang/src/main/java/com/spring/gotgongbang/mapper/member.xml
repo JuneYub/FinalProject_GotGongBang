@@ -328,6 +328,12 @@
 		on A.estimate_num_pk = B.estimate_num_fk
     </select>
     
+    <select id="checkOriginPwd" parameterType="String" resultType="int">
+    	select count(*)
+    	from member
+    	where pwd = #{encrpyInsertPwd}
+    </select>
+    
     <!--==================== 박준엽 끝 ====================== -->
 
 </mapper>

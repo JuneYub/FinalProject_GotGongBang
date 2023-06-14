@@ -175,7 +175,7 @@
 	</form>
 
 	<div class="wrap-review-btn">
-		<button type="button" class="btn-write-cancle">취소하기</button>
+		<button type="button" class="btn-write-cancle" onclick="location.href='<%=ctxPath%>/order_list.got';">취소하기</button>
 		<button type="button" class="btn-write-end" onclick="writeReview();">작성하기</button>
 	</div>
 	

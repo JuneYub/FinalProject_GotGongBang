@@ -126,14 +126,31 @@ public class MemberController {
 		      return mav;
 		}
 		
-		@RequestMapping(value="/edit_user_info_end.got")
+		@ResponseBody
+		@RequestMapping(value="/checkOriginPwd.got", method = {RequestMethod.POST})
+		public String checkOriginPwd(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+			String insertPwd = request.getParameter("insertPWD");
+			String encrpyInsertPwd = Sha256.encrypt(insertPwd);
+			int n = service.checkOriginPwd(encrpyInsertPwd);
+			if(n > 0) {	n = 1; };
+			JSONObject jsonObj = new JSONObject();
+			jsonObj.put("n", n);
+			return jsonObj.toString();
+		}
+		
+		@RequestMapping(value="/edit_user_info_end.got", method= {RequestMethod.POST})
 		public ModelAndView editUserInfoEnd(ModelAndView mav, HttpServletRequest request, MemberVO mvo) {
 			int n = 0;
+			System.out.println(mvo.getName());
+			System.out.println(mvo.getUser_id_pk());
+			System.out.println(mvo.getAddress());
+			System.out.println(mvo.getBirthday());
+			System.out.println(mvo.getMobile());
 		    n = service.updateMemberInfoByMVO(mvo);
 
 		    String message = "";
 		    String loc = "";
-		      
+		    System.out.println("n " + n);
 		    if (n == 1) {
 		       message = "정상적으로 변경되었습니다.";
 		       loc = request.getContextPath()+"/index.got";
