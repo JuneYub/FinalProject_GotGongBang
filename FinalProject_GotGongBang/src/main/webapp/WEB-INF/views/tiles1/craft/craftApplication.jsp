@@ -444,7 +444,11 @@
     //////////////////////////////
 	
     
-    
+    function goReset() {
+		alert("공방 신청을 취소하시면 회원가입이 초기화됩니다. 취소하시겠습니까?");
+		location.href="<%= ctxPath%>/craft_reset.got";
+
+	}
     
     
     
@@ -647,7 +651,7 @@
                 </div>
                 <div class="application_right">
                     <div class="submit_box">
-                        <button class="submit_back" type="button" onclick="javaScript:history.back();">이전</button>
+                        <button class="submit_back" type="button" onclick="goReset()">취소</button>
 		    			<button class="submit_go" type="button" onclick="goComplete(); return false;">신청</button>
                     </div>
                 </div>

@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.OrderVO;
 import com.sun.mail.handlers.image_gif;
 
@@ -56,6 +57,13 @@ public class CarftDAO implements InterCraftDAO {
 	}
 
 
+	// 공방 정보를 등록하지 않으면 공방회원가입 불가
+	@Override
+	public int del_partner(MemberVO membervo) {
+		int m = sqlsession.delete("craft.del_partner", membervo);
+		return m;
+	}
+	
 	// ================ 김진솔 끝 ==================//
 
 	
@@ -178,6 +186,7 @@ public class CarftDAO implements InterCraftDAO {
 		List<CraftVO> craftvo_list = sqlsession.selectList("craft.wordSearchShow", paraMap);
 		return craftvo_list;
 	}
+
 
 
 	// ================ 김나윤 끝 ==================//

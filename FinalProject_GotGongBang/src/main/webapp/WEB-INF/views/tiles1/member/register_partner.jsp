@@ -986,17 +986,17 @@
 					<div class="sign-up__step-body">
 						<div class="form-field">
 							<h4 class="form-field__title">이름 <strong class="sign-up__terms-required"><span class="sign-up__terms-required-text"></span> *</strong></h4>
-								<input class="form-input" type="text" name="name" id="name" placeholder="이름을 입력하세요." title="이름 입력">
+								<input class="form-input" type="text" name="partner_name" id="name" placeholder="이름을 입력하세요." title="이름 입력">
 							<div class="form-field__feedback user_name_f" data-field-feedback="user_name"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;이름을 입력하세요.</div>
 						</div>
 						<div class="form-field">
 							<h4 class="form-field__title">휴대전화번호 <strong class="sign-up__terms-required"><span class="sign-up__terms-required-text"></span> *</strong></h4>
-							<input class="form-input" type="tel" name="mobile" id="mobile" maxlength="11" placeholder="휴대전화번호를 입력하세요." title="휴대전화번호 입력" >
+							<input class="form-input" type="tel" name="partner_mobile" id="mobile" maxlength="11" placeholder="휴대전화번호를 입력하세요." title="휴대전화번호 입력" >
 							<div class="form-field__feedback user_phone_f" data-field-feedback="user_phone"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;휴대전화번호 형식이 올바르지 않습니다.</div>
 						</div>
 						<div class="form-field">
 							<h4 class="form-field__title">이메일 주소 <strong class="sign-up__terms-required"><span class="sign-up__terms-required-text"></span> *</strong></h4>
-							<input class="form-input" type="email" name="email" id="email" title="이메일" readonly>
+							<input class="form-input" type="email" name="partner_email" id="email" title="이메일" readonly>
 							<div class="form-field__info form-field__info--point">*등록된 정보를 이용하여 아이디, 비밀번호를 찾을 수 있으며, GOTGONGBANG으로부터 알림을 받습니다.</div>
 							<div class="form-field__feedback user_email_f1" data-field-feedback="user_email"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;이메일을 입력해주세요.</div>
 							<div class="form-field__feedback user_email_f2" data-field-feedback="user_email"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;이메일 형식이 올바르지 않습니다.</div>
@@ -1004,7 +1004,7 @@
 						<div class="form-field">
 							<h4 class="form-field__title">아이디 <strong class="sign-up__terms-required"><span class="sign-up__terms-required-text"></span> *</strong></h4>
 							<div class="form-field__group form-field__group--input-button">
-								<input class="form-input" type="text" name="user_id_pk" id="user_id_pk" minlength="6" maxlength="20" placeholder="아이디를 입력하세요. (중복확인)" title="아이디 입력">
+								<input class="form-input" type="text" name="partner_id_pk" id="user_id_pk" minlength="6" maxlength="20" placeholder="아이디를 입력하세요. (중복확인)" title="아이디 입력">
 								<button class="button btn btn_userid" type="button">중복확인하기</button>
 							</div>
 							<div class="form-field__feedback user_id_f" data-field-feedback="user_id"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;아이디 중복확인이 필요합니다.</div>
@@ -1012,7 +1012,7 @@
 						</div>
 						<div class="form-field">
 							<h4 class="form-field__title">비밀번호 <strong class="sign-up__terms-required"><span class="sign-up__terms-required-text"></span> *</strong></h4>
-							<input class="form-input" type="password" name="pwd" id="pwd" minlength="8" maxlength="20" placeholder="비밀번호를 입력하세요." title="비밀번호 입력">
+							<input class="form-input" type="password" name="partner_pwd" id="pwd" minlength="8" maxlength="20" placeholder="비밀번호를 입력하세요." title="비밀번호 입력">
 							<div class="form-field__info">비밀번호는 8자~15자의 영문, 숫자, 특수문자(@$!%?&)를 2가지 이상을 조합하여 설정해주세요.</div>
 							<div class="form-field__feedback user_passwd_f1" data-field-feedback="user_passwd"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;비밀번호를 입력하세요.</div>
 							<div class="form-field__feedback user_passwd_f2" data-field-feedback="user_passwd"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;비밀번호 형식이 올바르지 않습니다.</div>
@@ -1024,27 +1024,27 @@
 						</div>
 						<div class="form-field">
 							<h4 class="form-field__title">생년월일</h4>
-							<input style="width: 40%" class="form-input" type="text" name="birthday" id="birthday" maxlength="8" placeholder="예시)20230101 입력하세요." title="생년월일 입력">
+							<input style="width: 40%" class="form-input" type="text" name="partner_birthday" id="birthday" maxlength="8" placeholder="예시)20230101 입력하세요." title="생년월일 입력">
 							<div class="form-field__feedback user_birth_f" data-field-feedback="user_birth"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;생년월일 형식이 올바르지 않습니다.</div>
 						</div>
 						<div class="form-field">
 							<h4 class="form-field__title">성 별</h4>
 							<div class="sign-up__form-radio-group">
-								<input class="sign-up__form-radio-input" id="gender" type="radio" name="gender" value="1" checked>
+								<input class="sign-up__form-radio-input" id="gender" type="radio" name="partner_gender" value="1" checked>
 								<label class="sign-up__form-radio-text" for="male">남 자&nbsp;&nbsp;&nbsp;</label>
-								<input class="sign-up__form-radio-input" id="gender" type="radio" name="gender" value="2">
+								<input class="sign-up__form-radio-input" id="gender" type="radio" name="partner_gender" value="2">
 								<label class="sign-up__form-radio-text" for="female">여 자</label>								
 							</div>
 						</div>
 						<div class="form-field">
 							<h4 class="form-field__title">우편번호</h4>
-							<input style="width: 20%" class="form-input" type="text" id ="post_code" name="post_code" placeholder="우편번호찾기" title="우편번호 입력" readonly/>
+							<input style="width: 20%" class="form-input" type="text" id ="post_code" name="partner_post_code" placeholder="우편번호찾기" title="우편번호 입력" readonly/>
 							<img id="zipcodeSearch" src="<%=ctxPath%>/resources/img/b_zipcode.gif" style="vertical-align: middle;" />
 							<div class="form-field__feedback postcode_f" data-field-feedback="postcode"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;우편번호를 입력하세요.</div>
 							<h4 class="form-field__title">주소</h4>
 					         <td style="width: 80%; text-align: left;">
-					            <input type="text" id="address" name="address" class="form-input" placeholder="주소" readonly/><br/>
-					            <input type="text" id="detail_address" name="detail_address" class="form-input" style="width: 350px;" placeholder="상세주소" />&nbsp;<input type="text" id="extra_address" name="extra_address" class="form-input" style="width: 350px;" placeholder="참고항목" /> 
+					            <input type="text" id="address" name="partner_address" class="form-input" placeholder="주소" readonly/><br/>
+					            <input type="text" id="detail_address" name="partner_detail_address" class="form-input" style="width: 350px;" placeholder="상세주소" />&nbsp;<input type="text" id="extra_address" name="partner_extra_address" class="form-input" style="width: 350px;" placeholder="참고항목" /> 
 					            <div class="form-field__feedback" data-field-feedback="promotional_code"></div>
          					</td>
 						</div>
