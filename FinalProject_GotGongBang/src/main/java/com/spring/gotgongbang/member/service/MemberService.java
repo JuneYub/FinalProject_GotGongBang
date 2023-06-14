@@ -305,6 +305,17 @@ public class MemberService implements InterMemberService {
 	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
 	
 	
+	// 비밀번호 변경
+	@Override
+	public int change_pwd(HashMap<String, String> paraMap) {
+		int n = dao.changeMemberPwd(paraMap);
+		int n1 = dao.changePartnerPwd(paraMap);
+		return (n+n1);
+	}
+	
+	
+	
+	
 	
 	// =========== 홍용훈 끝 =========================================== //
 	
@@ -377,6 +388,8 @@ public class MemberService implements InterMemberService {
 		List<DetailImgVO> detailImgList = dao.getDetailImgListByOrderDetailNum(orderDetailNum);
 		return detailImgList;
 	}
+
+
 
 
 

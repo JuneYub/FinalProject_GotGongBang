@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.HomeController;
+import com.spring.gotgongbang.common.AES256;
 import com.spring.gotgongbang.common.MyUtil;
 import com.spring.gotgongbang.common.Sha256;
 import com.spring.gotgongbang.craft.model.PartnerVO;
@@ -600,7 +601,41 @@ public class MemberController {
 			mav.setViewName("member/find_pwd_change.tiles1");
 			return mav;
 		}
-						
+		
+		
+		// 비밀번호 찾기 이후 비밀번호 변경하기
+		@ResponseBody
+		@RequestMapping(value="/change_pwd.got", method=RequestMethod.POST)
+		public ModelAndView change_pwd(ModelAndView mav, HttpServletRequest request) {
+			
+			String id = request.getParameter("id");
+			String pwd = request.getParameter("pwd");
+			
+			HashMap<String, String> paraMap = new HashMap<String, String>();
+			paraMap.put("id", id);
+			paraMap.put("pwd", Sha256.encrypt(pwd));
+			System.out.println(pwd);
+			
+			
+			int n = service.change_pwd(paraMap);
+			if(n == 1) {
+				mav.addObject("message","성공적으로 변경되었습니다.");   
+		        mav.addObject("loc", request.getContextPath()+"/index.got");
+			}
+			else {
+				String message = "오류가 발생했습니다.";
+				String loc ="javascript:history.back();";
+			    
+			    mav.addObject("message",message);
+			    mav.addObject("loc",loc);			    
+			    
+			}
+			mav.setViewName("msg");	
+			
+		
+			return mav;
+		}
+		
 		
 		// 로그아웃 처리
 		@RequestMapping(value="/logout.got")
