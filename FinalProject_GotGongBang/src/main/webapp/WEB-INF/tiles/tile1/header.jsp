@@ -37,7 +37,22 @@
                     </li>
                 </ul>
              </c:if>
-            <c:if test="${sessionScope.loginuser.user_id_pk ne 'admin'}">
+             
+             <c:if test="${sessionScope.loginuser == null and sessionScope.loginpartner != null }">
+           	 	<ul>
+                   <li>
+                       <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/service_info.got'">서비스 소개</a>
+                   </li>
+                   <li>
+                       <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/crafts_list.got'">수선사 찾기</a>
+                   </li>
+                   <li>
+                       <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/board_inquiry.got'">고객센터</a>
+                   </li>
+               </ul>
+            </c:if> 
+             
+            <c:if test="${sessionScope.loginuser.user_id_pk ne 'admin' and sessionScope.loginpartner == null}">
             	 <ul>
                     <li>
                         <a class="header-nav-button" style="cursor: pointer;" onclick="location.href='<%= ctxPath%>/service_info.got'">서비스 소개</a>
@@ -88,7 +103,7 @@
 	                
 	                <c:if test="${not empty sessionScope.loginpartner}">
 	                	<li>
-	                        <a onclick="location.href='<%= ctxPath%>/proposal_list.got'">
+	                        <a onclick="location.href='<%= ctxPath%>/estimate_inquiry_list.got'">
 	                          	  공방회원 | ${(sessionScope.loginpartner).partner_name}님
 	                        </a>
 	                        <span class="txt_bar"></span>
