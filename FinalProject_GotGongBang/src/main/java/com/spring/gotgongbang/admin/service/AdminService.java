@@ -1,7 +1,6 @@
 package com.spring.gotgongbang.admin.service;
 
-import java.io.UnsupportedEncodingException;
-import java.security.GeneralSecurityException;
+
 import java.util.List;
 import java.util.Map;
 
@@ -137,7 +136,7 @@ public class AdminService implements InterAdminService{
 
 
 
-	
+
 	
 	// ==== ==================================== 김진솔 끝 ======================================================= // 
 

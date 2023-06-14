@@ -30,6 +30,7 @@ import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.craft.model.ImageVO;
 import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.craft.service.InterCraftService;
+import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.OrderVO;
 
 @Controller
@@ -257,7 +258,7 @@ public class CraftController {
 
    //공방 신청정보를(첨부파일 포함)DB에 insert해주는 기능
    @RequestMapping(value = "/craft_application_end.got", method = {RequestMethod.POST})
-   public String craft_application_end(CraftVO cvo, ImageVO imgvo, MultipartHttpServletRequest mrequest, HttpServletRequest request , HttpServletResponse response) { 
+   public ModelAndView craft_application_end(ModelAndView mav, CraftVO cvo, ImageVO imgvo,  MemberVO membervo, MultipartHttpServletRequest mrequest, HttpServletRequest request , HttpServletResponse response) { 
 
 	  // 이미지 파일들 가져오기
       List<MultipartFile> fileList = new ArrayList<MultipartFile>();
@@ -325,35 +326,46 @@ public class CraftController {
     	  cvo.setCraft_mobile(craft_mobile);
     	  //===================================//
     	  
+    	  PartnerVO login_partner_id = (PartnerVO)session.getAttribute("login_partner_id");
+    	  String partner_id_pk = (String)login_partner_id.getPartner_id_pk();
+    	  
+    	  cvo.setPartner_id_fk(partner_id_pk);
     	  cvo.setFileName(newFileName_ss);
     	  cvo.setOrgFilename(originalFilename_ss);
 
           n = service.add_withFile(cvo);
           if(n==1) {
-        	  return "redirect:/craft_complete.got";
+        	  mav.addObject("message","공방 정보 등록 성공");	
+        	  mav.addObject("loc", request.getContextPath()+"/end_register_partner.got");
+              
           }else {
-        	  return "javascript:history.go(0)";
-          }
-          
-          
-          
-          
-         
-          
-          
-          
-          
-          
-          
-          
+        	  mav.addObject("message","공방 정보 등록 실패");	
+        	  mav.addObject("loc","javascipt:history.back()");	
+   		   }
           
        } //end of if(!fileList.isEmpty())---------------------------
-       
-       return "javascript:history.go(0)";
-       
+       mav.setViewName("msg");
+   	
+       return mav;
    }
    
-   
+   @RequestMapping(value = "/craft_reset.got")      //'이전' 누르면  완료 페이지
+   public ModelAndView craft_reset(ModelAndView mav, MemberVO membervo, HttpServletRequest request) {
+ 	  int m = service.del_partner(membervo);
+ 	  System.out.println("m : "+m);
+		 if(m==1) {
+		  mav.addObject("message","공방 정보 등록 취소");	
+		  mav.addObject("loc", request.getContextPath()+"/register_member_first.got");
+		     
+		 }else {
+		  mav.addObject("message","오류입니다.");	
+		  mav.addObject("loc","javascipt:history.back()");	
+			   }
+		     
+		  mav.setViewName("msg");
+			
+	  return mav;
+   }
    
    // 김진솔 끝
    // ===========================================================================

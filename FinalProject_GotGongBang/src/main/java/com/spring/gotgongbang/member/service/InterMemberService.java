@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
+import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.DetailImgVO;
 import com.spring.gotgongbang.order.model.WholeImgVO;
@@ -90,12 +91,8 @@ public interface InterMemberService {
 
 	// 리뷰 작성에 넣을 견적 요청 번호와 공방 번호 가져오기
 	HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum);
-
-	int checkOriginPwd(String encrpyInsertPwd);
-
 	
-
-
+    int checkOriginPwd(String encrpyInsertPwd);
 	
 	// ====== 박준엽 끝 =========================================== //
 }
