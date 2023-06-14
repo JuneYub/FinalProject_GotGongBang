@@ -59,8 +59,8 @@ public class CarftDAO implements InterCraftDAO {
 
 	// 공방 정보를 등록하지 않으면 공방회원가입 불가
 	@Override
-	public int del_partner(MemberVO membervo) {
-		int m = sqlsession.delete("craft.del_partner", membervo);
+	public int del_partner(PartnerVO pvo) {
+		int m = sqlsession.delete("craft.del_partner", pvo);
 		return m;
 	}
 	

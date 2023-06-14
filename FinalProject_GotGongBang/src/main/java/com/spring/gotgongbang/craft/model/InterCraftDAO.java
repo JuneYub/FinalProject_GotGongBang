@@ -27,7 +27,7 @@ public interface InterCraftDAO {
 	int imgAddFile(ImageVO imgvo);
 
 	// 공방 정보를 등록하지 않으면 공방회원가입 불가
-	int del_partner(MemberVO membervo);
+	int del_partner(PartnerVO pvo);
 	
 	// =============== 김진솔 끝 =================//
 	

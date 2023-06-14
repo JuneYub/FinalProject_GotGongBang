@@ -87,7 +87,7 @@ public interface InterCraftService {
 	List<CraftVO> wordSearchShow(Map<String, String> paraMap);
 
 	// 공방 정보를 등록하지 않으면 공방회원가입 불가
-	int del_partner(MemberVO membervo);
+	int del_partner(PartnerVO pvo);
 	
 	// ==== ==================================== 김나윤 끝 ======================================================= // 
 

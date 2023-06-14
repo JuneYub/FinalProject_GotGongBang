@@ -148,8 +148,8 @@ public class CratfService implements InterCraftService {
 
 	// 공방 정보를 등록하지 않으면 공방회원가입 불가
 	@Override
-	public int del_partner(MemberVO membervo) {
-		int m = cdao.del_partner(membervo);
+	public int del_partner(PartnerVO pvo) {
+		int m = cdao.del_partner(pvo);
 		return m;
 	}
 
@@ -195,6 +195,7 @@ public class CratfService implements InterCraftService {
 		List<CraftVO> craftvo_list  = cdao.wordSearchShow(paraMap);
 		return craftvo_list;
 	}
+
 	
 	
 	// ================ 김나윤 끝 ================== //
