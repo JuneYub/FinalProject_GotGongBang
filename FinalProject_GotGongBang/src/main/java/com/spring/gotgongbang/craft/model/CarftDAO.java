@@ -172,8 +172,6 @@ public class CarftDAO implements InterCraftDAO {
 		return craftvo;
 	}
 
-
-
 	// 검색정보를 가지고 공방정보 가져오기
 	@Override
 	public List<CraftVO> wordSearchShow(Map<String, String> paraMap) {

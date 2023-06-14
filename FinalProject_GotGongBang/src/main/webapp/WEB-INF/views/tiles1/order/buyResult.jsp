@@ -19,7 +19,7 @@ div#resultContent{
     width: 1200px;
     margin: 20px auto;
     border: 0px solid blue;
-    background-color:#f2f2f2; 
+    /* background-color:#f2f2f2;  */
     border-radius:10px;
 	height:fit-content;
 	
@@ -27,13 +27,27 @@ div#resultContent{
 	width:100%; 
 	height:150px;  */
 	
+
+	
+}
+
+p.paddingLeft{
+padding-left: 10px;
+}
+
+p.detailPName {
+    /* margin-left: 30px; */
+    font-weight: bold;
+    margin-top: -3px;
+    font-size: 15pt;
 }
 </style>
 
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-
+		var request = "수선 요청사항설명 : ${requestScope.paymentInfo.request_explain}".replaceAll("%", " ,");
+		$("p#requests").text(request);
 	});
 	
 </script>
@@ -56,32 +70,32 @@ div#resultContent{
 				<p class="orderMargin detailPName">${requestScope.paymentInfo.brand_name} ${requestScope.paymentInfo.order_product_type} 수선 의뢰</p>
 				<div class="detailDiv detailMargin" >
 					<i class="fa-solid fa-check"></i>
-					<p>품목 : ${requestScope.paymentInfo.order_product_type}</p>
+					<p class="paddingLeft">품목 : ${requestScope.paymentInfo.order_product_type}</p>
 				</div>
 				
 				<div class="detailDiv ">
 					<i class="fa-solid fa-check"></i>
-					<p>브랜드 : ${requestScope.paymentInfo.brand_name}</p>
+					<p class="paddingLeft">브랜드 : ${requestScope.paymentInfo.brand_name}</p>
 				</div>
 				
 				<div class="detailDiv ">
 					<i class="fa-solid fa-check"></i>
-					<p>수선 요청사항 목록 : ${requestScope.paymentInfo.requests}</p>
+					<p class="paddingLeft">수선 요청사항 목록 : ${requestScope.paymentInfo.requests}</p>
 				</div>
 				
 				<div class="detailDiv ">
 					<i class="fa-solid fa-check"></i>
-					<p>수선 요청사항설명 : ${requestScope.paymentInfo.request_explain}</p>
+					<p id="requests" class="paddingLeft"></p>
 				</div>
 				
 				<div class="detailDiv ">
 					<i class="fa-solid fa-check"></i>
-					<p> 선정된 공방 : 선정된 공방 : ${requestScope.paymentInfo.craft_name}</p>
+					<p class="paddingLeft">선정된 공방 : ${requestScope.paymentInfo.craft_name}</p>
 				</div>
 				
 				<div class="detailDiv ">
 					<i class="fa-solid fa-check" style="padding-right:5px;"></i>
-					<p> 예상작업기간 : ${requestScope.paymentInfo.estimate_period}개월</p>
+					<p class="paddingLeft"> 예상작업기간 : ${requestScope.paymentInfo.estimate_period}개월</p>
 				</div>
 			</div>
 			

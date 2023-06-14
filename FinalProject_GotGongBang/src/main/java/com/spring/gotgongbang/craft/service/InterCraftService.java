@@ -82,16 +82,9 @@ public interface InterCraftService {
 	//수선사 찾기 페이지에서 상단 최근입점공방을 알아오기
 	List<CraftVO> crafts_new_select();
 
-
 	// 검색정보를 가지고 공방정보 가져오기
 	List<CraftVO> wordSearchShow(Map<String, String> paraMap);
-
-
-
-
-
 	
-//	ModelAndView crafts_list_select(ModelAndView mav);
 	// ==== ==================================== 김나윤 끝 ======================================================= // 
 
 }

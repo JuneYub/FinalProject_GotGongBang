@@ -30,6 +30,17 @@ public interface InterAdminDAO {
 	// 공방 한 개마다 공방사진, 대표자사진, 자격증사진 select하기
 	List<Map<String, String>> selectImgList(String craft_num_pk);
 
+	//공방 정보 수정을 위해 공방 정보 조회해오기
+	CraftVO craft_edit_view(String craft_num_pk);
+	
+	//공방 한 개 보기  (대표자이름, 연락처, 한줄소개, 경력기간) 수정 
+	int craft_edit(CraftVO cvo);
+
+	//공방 한 개 삭제
+	int craft_del(Map<String, String> paraMap);
+
+
+
 	// ==== ==================================== 김진솔 끝 ======================================================= // 
 
 }
