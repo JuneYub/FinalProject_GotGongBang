@@ -85,6 +85,9 @@ public interface InterCraftDAO {
 
 	// 검색정보를 가지고 공방정보 가져오기
 	List<CraftVO> wordSearchShow(Map<String, String> paraMap);
+
+	//공방상세페이지 후기정보 가져오기
+	List<Map<String, Object>> review_select(int craft_num_pk);
 	
 	
 	// =============== 김나윤 끝 =================//

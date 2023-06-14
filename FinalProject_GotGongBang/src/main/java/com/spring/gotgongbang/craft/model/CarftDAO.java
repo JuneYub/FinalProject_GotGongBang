@@ -187,6 +187,13 @@ public class CarftDAO implements InterCraftDAO {
 		return craftvo_list;
 	}
 
+	//공방상세페이지 후기정보 가져오기
+	@Override
+	public List<Map<String, Object>> review_select(int craft_num_pk) {
+		List<Map<String, Object>> paraMap = sqlsession.selectList("craft.review_select", craft_num_pk);
+		return paraMap;
+	}
+
 
 
 	// ================ 김나윤 끝 ==================//
