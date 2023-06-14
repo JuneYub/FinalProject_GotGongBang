@@ -489,8 +489,12 @@ public class OrderController {
 		HashMap<String,String> paymentInfo = service.get_estimate_info(estimate_num_pk);
 		
 		int craftNum = Integer.parseInt(String.valueOf(paymentInfo.get("craft_num_fk")) );
+		
 		// 공방번호를 가지고 공방이름 가져오기
 		String craft_name = service.get_craft_name(craftNum );
+		
+		// order_num_pk를 가지고 사진 하나 가져오기 
+		
 		
 		paymentInfo.put("craft_name", craft_name);
 		
