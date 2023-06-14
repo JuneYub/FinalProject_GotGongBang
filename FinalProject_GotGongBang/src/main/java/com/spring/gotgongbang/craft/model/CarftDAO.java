@@ -59,8 +59,8 @@ public class CarftDAO implements InterCraftDAO {
 
 	// 공방 정보를 등록하지 않으면 공방회원가입 불가
 	@Override
-	public int del_partner(MemberVO membervo) {
-		int m = sqlsession.delete("craft.del_partner", membervo);
+	public int del_partner(PartnerVO pvo) {
+		int m = sqlsession.delete("craft.del_partner", pvo);
 		return m;
 	}
 	
@@ -185,6 +185,13 @@ public class CarftDAO implements InterCraftDAO {
 	public List<CraftVO> wordSearchShow(Map<String, String> paraMap) {
 		List<CraftVO> craftvo_list = sqlsession.selectList("craft.wordSearchShow", paraMap);
 		return craftvo_list;
+	}
+
+	//공방상세페이지 후기정보 가져오기
+	@Override
+	public List<Map<String, Object>> review_select(int craft_num_pk) {
+		List<Map<String, Object>> paraMap = sqlsession.selectList("craft.review_select", craft_num_pk);
+		return paraMap;
 	}
 
 

@@ -25,8 +25,7 @@
 		$("span.error_4").hide();
 
  		$("input#nickname").focus();
- 		
- 		
+
  		
  		// 공방이름 필수 입력
 		$("input#nickname").blur( (e) => {
@@ -36,69 +35,65 @@
 				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
 				$(e.target).prop("disabled", false);
 				
-				
+
 				$(e.target).parent().find("span.error").show();
 				$(e.target).focus();	//다른곳을 클릭 못하게 함 e.target에 포커스 머무름
-				
 			}
 			else{
 				//공백이 아닌 글자를 입력했을 경우
-
-				const regExp = /^[가-힣]*$/;
+				/*const regExp = /^[가-힣]*$/;
 				const bool = regExp.test($(e.target).val());
-				
+				*/
 				$(e.target).parent().find("span.error_2").hide();
 
-				if(bool){	//정규표현식에 만족한 경우
-					// 이미 존재하는 '공방 이름'인지 알아오기 (Ajax)
-					$("input#check_button").click(function(){
-						$("span.error_4").hide();
-						b_flag_nickname_click = true;
-						const nickname = $("input#nickname").val();
-						console.log("확인용 nickname : " +nickname);
-							   	$.ajax({
-						    	url:"<%= ctxPath%>/craft_check_name.got",
-						    	data:{"nickname":$("input#nickname").val()},
-						    	type:"post",
-						    	success:function(text){ 
-						    		const json = JSON.parse(text); // 객체로 파싱 
-
-						    		console.log("확인용 json : "+ json);
-						    		//확인용 json : {"n":0}  확인용 json : {"n":1} 
-
-						  			 if(json.n) {	//사용 불가능한 공방이름인 경우
-						 				$("form :input").prop("disabled", true);	
-						 				$("input#nickname").prop("disabled", false);
-										$("input#nickname").parent().find("span.available").hide();
-						 				$("input#nickname").parent().find("span.error_3").show();	//"이미 존재하는 공방입니다"
-						    			$("input#nickname").val("");
-						  			 }
-						  			 else if(!json.n && $("input#nickname").val().trim() !="" ){	//사용 가능한 공방이름일 경우
-										$("input#nickname").parent().find("span.error_3").hide();
-										$("input#nickname").parent().find("span.available").show();
-
-						  				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
-						  			 }
-						  			 
-						    	},
-						    	error: function(request, status, error){
-						            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-						          }
-							}); // end of  $.ajax({ -----------------------		
-								
-								
-						});// end of $("input#check_button").click(function()-----------------
-				}
-				else{	//정규표현식 만족하지 못 한 경우 (!bool)
-					$(e.target).parent().find("span.error_2").show();	//한글로만 입력 가능합니다 출력
-					$(e.target).focus();
-				}
-			
+					$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
 				
-			}
+					$("input#nickname").parent().find("span.error_3").hide();
+				}
 			
-	});
+			$("input#nickname").parent().find("span.error_3").hide();	//"이미 존재하는 공방입니다"
 
+	});
+ 		
+ 		
+		// 이미 존재하는 '공방 이름'인지 알아오기 (Ajax)
+		$("input#check_button").click(function(){
+			$("span.error_4").hide();
+			b_flag_nickname_click = true;
+			const nickname = $("input#nickname").val();
+			console.log("확인용 nickname : " +nickname);
+				   	$.ajax({
+			    	url:"<%= ctxPath%>/craft_check_name.got",
+			    	data:{"nickname":$("input#nickname").val()},
+			    	type:"post",
+			    	success:function(text){ 
+			    		const json = JSON.parse(text); // 객체로 파싱 
+
+			    		console.log("확인용 json : "+ json);
+			    		//확인용 json : {"n":0}  확인용 json : {"n":1} 
+
+			  			 if(json.n) {	//사용 불가능한 공방이름인 경우
+			 				$("form :input").prop("disabled", true);	
+			 				$("input#nickname").prop("disabled", false);
+							$("input#nickname").parent().find("span.available").hide();
+			 				$("input#nickname").parent().find("span.error_3").show();	//"이미 존재하는 공방입니다"
+			    			$("input#nickname").val("");
+			  			 }
+			  			 else if(!json.n && $("input#nickname").val().trim() !="" ){				  			 
+							$("input#nickname").parent().find("span.error_3").hide();
+							$("input#nickname").parent().find("span.available").show();
+
+			  				$("form :input").prop("disabled", false);		// 모든 input 태그를 다 살린다
+			  			 }
+
+			    	},
+			    	error: function(request, status, error){
+			            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			          }
+				}); // end of  $.ajax({ -----------------------		
+					
+					
+			});// end of $("input#check_button").click(function()-----------------
 		// 공방 대표 이름 필수입력
 		$("input#craft_representative").blur( (e) => {
 			if($(e.target).val().trim() == ""){	
@@ -443,11 +438,13 @@
     }
     //////////////////////////////
 	
-    
+    // '취소'버튼 클릭시
     function goReset() {
 		alert("공방 신청을 취소하시면 회원가입이 초기화됩니다. 취소하시겠습니까?");
-		location.href="<%= ctxPath%>/craft_reset.got";
-
+		const frm = document.craft_application_frm;
+		frm.method = "post";
+		frm.action = "<%= ctxPath%>/craft_reset.got";
+		frm.submit();
 	}
     
     
