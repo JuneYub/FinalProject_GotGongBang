@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.common.FileManager;
 import com.spring.gotgongbang.common.MyUtil;
+import com.spring.gotgongbang.common.Sha256;
 import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.craft.model.ImageVO;
 import com.spring.gotgongbang.craft.model.PartnerVO;
@@ -376,7 +377,7 @@ public class CraftController {
    @RequestMapping(value="/estimate_inquiry_list.got")
    public ModelAndView requiredLogin_getEstimateInquiryList(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
 	  HttpSession session = request.getSession();
-	  PartnerVO loginuser = (PartnerVO) session.getAttribute("loginuser");
+	  PartnerVO loginuser = (PartnerVO) session.getAttribute("loginpartner");
 	  if(loginuser == null) {
 		  return mav;
 	  }
@@ -534,9 +535,10 @@ public class CraftController {
    }
    
    @RequestMapping(value="/edit_craft_user_info.got")
-   public ModelAndView editCraftInfo(ModelAndView mav) {
-      
-      String userid = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+   public ModelAndView requiredLogin_editCraftInfo(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+	  HttpSession session = request.getSession();
+	  PartnerVO loginpartner = (PartnerVO) session.getAttribute("loginpartner");
+	  String userid = loginpartner.getPartner_id_pk(); 	   
       
       PartnerVO pvo = new PartnerVO();
       pvo = service.getPartnerInfoByUserId(userid);
@@ -547,7 +549,7 @@ public class CraftController {
    
    @RequestMapping(value="/edit_craft_user_info_end.got")
    public ModelAndView editCraftInfoEnd(ModelAndView mav, HttpServletRequest request, PartnerVO pvo) {
-      
+
       int n = 0;
       n = service.updatePartnerInfo(pvo);
       
@@ -596,13 +598,15 @@ public class CraftController {
    @ResponseBody
    @RequestMapping(value="/check_insert_craftPwd.got", method = {RequestMethod.POST})
    public String checkInsertCraftPw(HttpServletRequest request) {
-		String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것 
+		HttpSession session = request.getSession();
+		PartnerVO loginpartner = (PartnerVO) session.getAttribute("loginpartner");
+		String partnerId = loginpartner.getPartner_id_pk(); 	   
 		String editPw = request.getParameter("editPw");
-
+		String encryptEditPw = Sha256.encrypt(editPw);
 		PartnerVO pvo = new PartnerVO();
       	pvo = service.getPartnerInfoByUserId(partnerId);
 	    int n = 0;
-	    if(editPw.equals(pvo.getPartner_pwd())) {
+	    if(encryptEditPw.equals(pvo.getPartner_pwd())) {
 	    	n = 2;
 	    }
 		else {
@@ -613,6 +617,28 @@ public class CraftController {
 	    jsonObj.put("n", n);
 	    return jsonObj.toString();
    }
+   
+	@ResponseBody
+	@RequestMapping(value="/check_origin_partner_pwd.got", method = {RequestMethod.POST})
+	public String checkOriginPartnerPwd(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+		HttpSession session = request.getSession();
+		PartnerVO loginpartner = (PartnerVO) session.getAttribute("loginpartner");
+		String partnerId = loginpartner.getPartner_id_pk();
+		
+		PartnerVO pvo = new PartnerVO();
+	    pvo = service.getPartnerInfoByUserId(partnerId);
+		
+		String insertPwd = request.getParameter("insertPWD");
+		String encrytInsertPwd = Sha256.encrypt(insertPwd);
+		
+		int n = 0;
+		if(encrytInsertPwd.equals(pvo.getPartner_pwd())) {
+			n = 1; 
+		}
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("n", n);
+		return jsonObj.toString();
+	}
    
    @ResponseBody
    @RequestMapping(value="/update_state.got", method= {RequestMethod.POST})
