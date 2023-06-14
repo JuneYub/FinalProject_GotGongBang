@@ -28,6 +28,12 @@
 	values(seq_estimate_num_pk.nextval, #{craft_num_fk}, #{add_file_name}, #{add_origin_file_name})
 </insert>
 
+
+<delete id="del_partner" parameterType="com.spring.gotgongbang.member.model.MemberVO">
+	 delete from partner
+	 where partner_id_pk = #{partner_id_pk}
+</delete>
+
  <!--==================== 김진솔 끝 ====================== -->
 
 
