@@ -142,30 +142,20 @@ public class MemberController {
 		@RequestMapping(value="/edit_user_info_end.got", method= {RequestMethod.POST})
 		public ModelAndView editUserInfoEnd(ModelAndView mav, HttpServletRequest request, MemberVO mvo) {
 			int n = 0;
-			System.out.println(mvo.getName());
-			System.out.println(mvo.getUser_id_pk());
-			System.out.println(mvo.getAddress());
-			System.out.println(mvo.getBirthday());
-			System.out.println(mvo.getMobile());
 		    n = service.updateMemberInfoByMVO(mvo);
-
 		    String message = "";
 		    String loc = "";
-		    System.out.println("n " + n);
 		    if (n == 1) {
 		       message = "정상적으로 변경되었습니다.";
 		       loc = request.getContextPath()+"/index.got";
 		    }
-		      
 		    else {
 		       message = "오류가 발생했습니다";
 		       loc ="javascript:history.back();";
 		    }
-
 		    request.setAttribute("message", message);
 	     	request.setAttribute("loc", loc);
 		    mav.setViewName("msg");
-			
 			
 			return mav;
 		}

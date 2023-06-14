@@ -91,8 +91,12 @@ public interface InterMemberService {
 
 	// 리뷰 작성에 넣을 견적 요청 번호와 공방 번호 가져오기
 	HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum);
+
+	int checkOriginPwd(String encrpyInsertPwd);
+
 	
-    int checkOriginPwd(String encrpyInsertPwd);
+
+
 	
 	// ====== 박준엽 끝 =========================================== //
 }
