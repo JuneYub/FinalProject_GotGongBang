@@ -90,6 +90,8 @@ public interface InterMemberService {
 
 	void insertReview(HashMap<String, Object> paraMap);
 
+	// 후기 이미지 테이블에 추가
+	void insertFixedPhoto(HashMap<String, Object> imgParaMap);
 
 	int getCurrReviewIdByOrderDetailNum(String orderDetailNum);
 

@@ -294,6 +294,7 @@ where rno between #{startRno} and #{endRno}
 	UPDATE ORDER_DETAIL set product_status = #{state} where order_detail_id_pk = #{orderNum} 
 </update>
 
+
 <!--==================== 박준엽 끝 ====================== -->
 
 </mapper>

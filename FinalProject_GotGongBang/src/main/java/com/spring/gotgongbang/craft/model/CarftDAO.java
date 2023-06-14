@@ -144,6 +144,7 @@ public class CarftDAO implements InterCraftDAO {
 		List<HashMap<String, String>> paraMapList = sqlsession.selectList("craft.getRepariListBycraftNum", paraMap);
 		return paraMapList;
 	}
+	
 
 	
 	
