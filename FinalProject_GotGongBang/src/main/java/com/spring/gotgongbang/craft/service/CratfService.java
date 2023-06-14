@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.gotgongbang.board.model.InterBoardDAO;
 import com.spring.gotgongbang.craft.model.InterCraftDAO;
 import com.spring.gotgongbang.craft.model.PartnerVO;
+import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.OrderVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,7 +146,13 @@ public class CratfService implements InterCraftService {
 		return m;
 	}
 
-	
+	// 공방 정보를 등록하지 않으면 공방회원가입 불가
+	@Override
+	public int del_partner(MemberVO membervo) {
+		int m = cdao.del_partner(membervo);
+		return m;
+	}
+
 	// ================ 김진솔 끝 ================== //
 	
 	
@@ -188,7 +195,7 @@ public class CratfService implements InterCraftService {
 		List<CraftVO> craftvo_list  = cdao.wordSearchShow(paraMap);
 		return craftvo_list;
 	}
-
+	
 	
 	// ================ 김나윤 끝 ================== //
 }

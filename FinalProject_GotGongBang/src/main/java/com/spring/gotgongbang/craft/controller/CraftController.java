@@ -30,6 +30,7 @@ import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.craft.model.ImageVO;
 import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.craft.service.InterCraftService;
+import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.OrderVO;
 
 @Controller
@@ -257,7 +258,7 @@ public class CraftController {
 
    //공방 신청정보를(첨부파일 포함)DB에 insert해주는 기능
    @RequestMapping(value = "/craft_application_end.got", method = {RequestMethod.POST})
-   public String craft_application_end(CraftVO cvo, ImageVO imgvo, MultipartHttpServletRequest mrequest, HttpServletRequest request , HttpServletResponse response) { 
+   public ModelAndView craft_application_end(ModelAndView mav, CraftVO cvo, ImageVO imgvo,  MemberVO membervo, MultipartHttpServletRequest mrequest, HttpServletRequest request , HttpServletResponse response) { 
 
 	  // 이미지 파일들 가져오기
       List<MultipartFile> fileList = new ArrayList<MultipartFile>();
@@ -330,27 +331,20 @@ public class CraftController {
 
           n = service.add_withFile(cvo);
           if(n==1) {
-        	  return "redirect:/craft_complete.got";
+        	  mav.addObject("message","공방 정보 등록 성공");	
+        	  mav.addObject("loc", request.getContextPath()+"/end_register_member.got");
+              
           }else {
-        	  return "javascript:history.go(0)";
-          }
-          
-          
-          
-          
-         
-          
-          
-          
-          
-          
-          
-          
+        	  int m = service.del_partner(membervo);
+        	  System.out.println("m : "+m);
+        	  mav.addObject("message","공방 정보 등록 실패");	
+        	  mav.addObject("loc","javascipt:history.back()");	
+   		   }
           
        } //end of if(!fileList.isEmpty())---------------------------
-       
-       return "javascript:history.go(0)";
-       
+       mav.setViewName("msg");
+   	
+       return mav;
    }
    
    
