@@ -15,6 +15,9 @@ public interface InterMemberDAO {
 	
 	// 일반회원가입
 	void insertMember(MemberVO membervo);
+	
+	// 공방회원가입
+	void insertPartner(PartnerVO partnervo);
 
 	// 이메일 중복 확인 AJAX 요청 처리
 	int isEmailDuplicate(String email);
@@ -102,6 +105,8 @@ public interface InterMemberDAO {
 	HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum);
 
 	int checkOriginPwd(String encrpyInsertPwd);
+
+
 
 
 

@@ -82,7 +82,7 @@
     </select>
     
     <!-- 공방회원가입 -->
-	<insert id="insertPartner" parameterType="com.spring.gotgongbang.member.model.MemberVO">
+	<insert id="insertPartner" parameterType="com.spring.gotgongbang.craft.model.PartnerVO">
 		insert into PARTNER (partner_id_pk, partner_name, partner_pwd, partner_email, partner_mobile, partner_post_code, partner_address, partner_detail_address, partner_extra_address, partner_gender, partner_birthday, partner_registerday, partner_lastPwdChange, partner_idle, partner_pwd_change_required, partner_status, partner_gradelevel)
 		values(#{user_id_pk},#{name},#{pwd},#{email},#{mobile},#{post_code},#{address},#{detail_address},#{extra_address},#{gender},#{birthday},default,default,default,default,default,default)
 	</insert>

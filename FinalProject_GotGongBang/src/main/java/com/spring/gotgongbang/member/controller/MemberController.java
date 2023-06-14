@@ -1,5 +1,7 @@
 package com.spring.gotgongbang.member.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -548,12 +550,15 @@ public class MemberController {
 		
 		// 공방회원가입 post
 		@RequestMapping(value="/register_to_partner.got", method=RequestMethod.POST)
-		public String register_partner(MemberVO membervo) {
+		public String register_partner(PartnerVO partnervo) {
 			
 			System.out.println("공방 들어옴");
-			service.encryptPassword(membervo);
 			
-			service.insertPartner(membervo);
+			String password = Sha256.encrypt(partnervo.getPartner_pwd());
+	        // 비밀번호 암호화
+			partnervo.setPartner_pwd(password);
+			
+			service.insertPartner(partnervo);
 			
 			return "redirect:/craft_application.got";
 		}

@@ -16,6 +16,9 @@ public interface InterMemberService {
 
 	// 일반회원가입 Service
 	void insertMember(MemberVO membervo);
+	
+	// 공방회원가입 Service
+	void insertPartner(PartnerVO partnervo);
 
 	// 비밀번호 암호화
 	void encryptPassword(MemberVO membervo);
@@ -94,6 +97,8 @@ public interface InterMemberService {
 	HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum);
 
 	int checkOriginPwd(String encrpyInsertPwd);
+
+
 
 	
 

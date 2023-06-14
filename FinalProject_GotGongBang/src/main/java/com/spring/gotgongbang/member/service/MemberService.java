@@ -63,10 +63,17 @@ public class MemberService implements InterMemberService {
         memberVO.setPwd(encryptedPassword);
     }
 	
-	// 회원가입 Service
+	// 일반회원가입 Service
 	@Override
 	public void insertMember(MemberVO membervo) {
 		dao.insertMember(membervo);
+	}
+	
+	// 공방회원가입 Service
+	@Override
+	public void insertPartner(PartnerVO partnervo) {
+		dao.insertPartner(partnervo);
+		
 	}
 
 	// 이메일 중복 확인 AJAX 요청 처리
@@ -422,6 +429,8 @@ public class MemberService implements InterMemberService {
 		int n = dao.checkOriginPwd(encrpyInsertPwd);
 		return n;
 	}
+
+
 
 
 
