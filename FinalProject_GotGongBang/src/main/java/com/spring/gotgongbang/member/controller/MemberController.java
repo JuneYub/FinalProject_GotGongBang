@@ -425,13 +425,21 @@ public class MemberController {
 			return "redirect:/craft_application.got";
 		}
 		
-		
+		// 가입완료 ( 일반회원 )
 		@RequestMapping(value="/end_register_member.got")
 		public ModelAndView end_register_member(ModelAndView mav) {
 			
 			mav.setViewName("member/end_register_member.tiles1");
 			return mav;
 		}
+		
+		@RequestMapping(value="/end_register_partner.got")
+        public ModelAndView end_register_partner(ModelAndView mav) {
+         
+            mav.setViewName("member/end_register_partner.tiles1");
+            return mav;
+        }
+	      
 		
 		// 아이디 찾기
 		@RequestMapping(value="/find_id.got")
