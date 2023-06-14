@@ -101,6 +101,8 @@ public interface InterMemberDAO {
 
 	HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum);
 
+	int checkOriginPwd(String encrpyInsertPwd);
+
 
 
 
