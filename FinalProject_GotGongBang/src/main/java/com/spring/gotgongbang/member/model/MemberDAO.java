@@ -197,6 +197,29 @@ public class MemberDAO implements InterMemberDAO {
 		return null;
 	}
 
+	@Override
+	public int getFixedPhotoNum() {
+		int pkNum = sqlsession.selectOne("member.getFixedPhotoNum");
+		return pkNum;
+	}
+
+	@Override
+	public void insertReview(HashMap<String, Object> paraMap) {
+		sqlsession.insert("member.insertReview", paraMap);
+	}
+
+	@Override
+	public void insertFixedPhoto(HashMap<String, Object> imgParaMap) {
+		sqlsession.insert("member.insertFixedPhoto", imgParaMap);
+		
+	}
+
+	@Override
+	public int getCurrReviewIdByOrderDetailNum(String orderDetailNum) {
+		int reviewId = sqlsession.selectOne("member.getCurrReviewIdByOrderDetailNum", orderDetailNum);
+		return reviewId;
+	}
+
 
 
 
