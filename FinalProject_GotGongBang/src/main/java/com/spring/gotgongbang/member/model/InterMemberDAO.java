@@ -59,6 +59,12 @@ public interface InterMemberDAO {
 	
 	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
 	
+	// 비밀번호 변경 ( 일반회원 )
+	int changeMemberPwd(HashMap<String, String> paraMap);
+	
+	// 비밀번호 변경 ( 공방회원)
+	int changePartnerPwd(HashMap<String, String> paraMap);
+	
 	
 	
 	// ====== 홍용훈 끝 =========================================== //
@@ -94,6 +100,10 @@ public interface InterMemberDAO {
 	int getCurrReviewIdByOrderDetailNum(String orderDetailNum);
 
 	HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum);
+
+
+
+
 
 
 	

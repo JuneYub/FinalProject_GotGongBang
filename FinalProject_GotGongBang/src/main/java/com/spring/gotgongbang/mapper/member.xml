@@ -140,6 +140,19 @@
     </select>
     
     
+    <update id="changeMemberPwd" parameterType="com.spring.gotgongbang.member.model.MemberVO">
+    	UPDATE MEMBER SET pwd = #{pwd}, last_pwd_change = sysdate
+		WHERE user_id_pk = #{id}
+    </update>
+    
+    
+    
+    <update id="changePartnerPwd" parameterType="com.spring.gotgongbang.craft.model.PartnerVO">
+    	UPDATE PARTNER SET partner_pwd = #{pwd}, partner_lastPwdChange = sysdate
+		WHERE partner_id_pk = #{id}
+    </update>
+    
+    
     
     <!--==================== 홍용훈 끝 ====================== -->
     

@@ -1,8 +1,5 @@
 package com.spring.gotgongbang.member.controller;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -544,21 +541,12 @@ public class MemberController {
 		
 		// 공방회원가입 post
 		@RequestMapping(value="/register_to_partner.got", method=RequestMethod.POST)
-		public String register_partner(PartnerVO pvo, HttpServletRequest request) {
+		public String register_partner(MemberVO membervo) {
 			
-			String login_partner_id = pvo.getPartner_id_pk();
-			HttpSession session = request.getSession();
-			session.setAttribute("login_partner_id", login_partner_id);
-			
-			System.out.println("login_partner_id : " + login_partner_id);
-			
-			String partner_name = request.getParameter("partner_name");
-			System.out.println("partner_name" + partner_name);
 			System.out.println("공방 들어옴");
+			service.encryptPassword(membervo);
 			
-			//service.encryptPassword(pvo);
-			
-			//service.insertPartner(pvo);
+			service.insertPartner(membervo);
 			
 			return "redirect:/craft_application.got";
 		}
@@ -738,7 +726,41 @@ public class MemberController {
 			mav.setViewName("member/find_pwd_change.tiles1");
 			return mav;
 		}
-						
+		
+		
+		// 비밀번호 찾기 이후 비밀번호 변경하기
+		@ResponseBody
+		@RequestMapping(value="/change_pwd.got", method=RequestMethod.POST)
+		public ModelAndView change_pwd(ModelAndView mav, HttpServletRequest request) {
+			
+			String id = request.getParameter("id");
+			String pwd = request.getParameter("pwd");
+			
+			HashMap<String, String> paraMap = new HashMap<String, String>();
+			paraMap.put("id", id);
+			paraMap.put("pwd", Sha256.encrypt(pwd));
+			System.out.println(pwd);
+			
+			
+			int n = service.change_pwd(paraMap);
+			if(n == 1) {
+				mav.addObject("message","성공적으로 변경되었습니다.");   
+		        mav.addObject("loc", request.getContextPath()+"/index.got");
+			}
+			else {
+				String message = "오류가 발생했습니다.";
+				String loc ="javascript:history.back();";
+			    
+			    mav.addObject("message",message);
+			    mav.addObject("loc",loc);			    
+			    
+			}
+			mav.setViewName("msg");	
+			
+		
+			return mav;
+		}
+		
 		
 		// 로그아웃 처리
 		@RequestMapping(value="/logout.got")

@@ -51,6 +51,8 @@ public interface InterMemberService {
 	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
 	
 	
+	// 비밀번호 변경
+	int change_pwd(HashMap<String, String> paraMap);
 	
 	// ======== 홍용훈 끝 ========================================== //
 	
@@ -85,7 +87,6 @@ public interface InterMemberService {
 
 	void insertReview(HashMap<String, Object> paraMap);
 
-	void insertFixedPhoto(HashMap<String, Object> imgParaMap);
 
 	int getCurrReviewIdByOrderDetailNum(String orderDetailNum);
 
