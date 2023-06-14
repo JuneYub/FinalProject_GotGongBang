@@ -93,6 +93,8 @@ public interface InterMemberDAO {
 
 	int getCurrReviewIdByOrderDetailNum(String orderDetailNum);
 
+	HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum);
+
 
 	
 

@@ -232,6 +232,12 @@ public class MemberDAO implements InterMemberDAO {
 		return reviewId;
 	}
 
+	@Override
+	public HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum) {
+		HashMap<String, String> paraMap = sqlsession.selectOne("member.getOrderNumAndCraftNumByOrderDetailNum", orderDetailNum);
+		return paraMap;
+	}
+
 
 
 
