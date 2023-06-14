@@ -142,7 +142,8 @@
 							</c:if>
 							
 							<c:if test="${orderList.review_cnt ne 0}">
-							</c:if>>
+							작성 완료 
+							</c:if>
 						</td>
 
 						</tr>
