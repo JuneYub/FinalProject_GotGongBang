@@ -186,7 +186,7 @@ div#payContent {
 		<div class="resultDivNoBorder">
 		<table style="border: 1px solid lightgray; border-right: 1px solid white; border-left: 1px solid white; width: 100%;">
 			<tr>
-				<td rowspan='5' style="width: 300px;  height: 300px; object-fit: cover; border-right: 1px solid lightgray;"><img src="<%=ctxPath%>/resources/img/main_test.jpg" class=" imgCircle2 imgCircle" ></td>
+				<td rowspan='5' style="width: 300px;  height: 300px; object-fit: cover; border-right: 1px solid lightgray;"><img src="<%=ctxPath%>/resources/img/orders/${requestScope.img_name}" class=" imgCircle2 imgCircle" ></td>
 				<td style="width: 140px;  background: #cce0ff; text-align: center;">품목</td>
 				<td>${requestScope.paymentInfo.order_product_type}</td>
 				<td style="width: 150px; background: #cce0ff; text-align: center;">브랜드</td>

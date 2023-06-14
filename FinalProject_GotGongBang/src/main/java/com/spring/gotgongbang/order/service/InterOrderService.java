@@ -51,6 +51,9 @@ public interface InterOrderService {
 	// order_status가 0이면서 order_num_fk가 해당 번호인 얘들 전부 삭제하기
 	int deleteEstimate(String order_num_fk);
 
+	// 견적요청번호를 가지고 대표사진 이름 가져오기
+	String get_img_name(int string);
+
 
 	
 	
