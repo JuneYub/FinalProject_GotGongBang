@@ -258,6 +258,12 @@ public class MemberController {
 			String orderDetailNum = request.getParameter("orderNum");
 			List<WholeImgVO> wholeImgList = service.getWholeImgListByOrderDetailNum(orderDetailNum);
 			List<DetailImgVO> detailImgList = service.getDetailImgListByOrderDetailNum(orderDetailNum);
+			
+			// 리뷰 작성에 넣을 견적 요청 번호와 공방 번호 가져오기
+			HashMap<String, String> paraMap = service.getOrderNumAndCraftNumByOrderDetailNum(orderDetailNum);
+			
+			mav.addObject("orderNum", paraMap.get("orderNum"));
+			mav.addObject("craftNum", paraMap.get("craftNum"));
 			mav.setViewName("member/review.tiles1");
 			mav.addObject("orderDetailNum", orderDetailNum);
 			return mav;
@@ -288,12 +294,16 @@ public class MemberController {
 		   String reviewRating = mrequest.getParameter("reviewRating");
 		   String reviewContent = mrequest.getParameter("reviewContent");
 		   String fixPhotoName = mrequest.getParameter("fixPhotoName");
+		   String orderNum = mrequest.getParameter("orderNum");
+		   String craftNum = mrequest.getParameter("craftNum");
 
 		   HashMap<String, Object> paraMap = new HashMap<String, Object>();	
 		   paraMap.put("userId", userId);
 		   paraMap.put("orderDetailNum", orderDetailNum);
 		   paraMap.put("reviewRating", Integer.parseInt(reviewRating));
 		   paraMap.put("reviewContent", reviewContent);
+		   paraMap.put("orderNum", orderNum);
+		   paraMap.put("craftNum", craftNum);
 		   
 		   // 사진 업로드용
 		   List<MultipartFile> imgAfterFixedList = mrequest.getFiles("imgAfterFixed");
@@ -331,10 +341,10 @@ public class MemberController {
 			   }
 		   }
 		   int n = insertReview(paraMap, originReviewImg, newReviewImg);
-		   JSONObject jsonObject = new JSONObject();
-		   jsonObject.append("n", n);
-
-			return jsonObject.toString();
+		   
+		   JSONObject jsonObj = new JSONObject();
+		   jsonObj.put("n", n);
+		   return jsonObj.toString();
 	   }
 	   
 	   @Transactional(propagation=Propagation.REQUIRES_NEW, isolation=Isolation.READ_COMMITTED, rollbackFor= {Throwable.class})

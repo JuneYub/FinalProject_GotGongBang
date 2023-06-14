@@ -400,6 +400,12 @@ public class MemberService implements InterMemberService {
 		return reviewId;
 	}
 
+	@Override
+	public HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum) {
+		HashMap<String, String> paraMap = dao.getOrderNumAndCraftNumByOrderDetailNum(orderDetailNum);
+		return paraMap;
+	}
+
 
 
 
