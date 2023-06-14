@@ -29,7 +29,7 @@ public interface InterMemberDAO {
 	int updateIdle(String string);
 
 	// 로그인 기록
-	void recordLoginDate(String id, int grade, Timestamp loginDate);
+	void recordLoginDate(String id, int grade);
 	
 	// 이름과 이메일 값으로 아이디 유무 체크
 	List<MemberVO> compareNameEmail(String name, String email);
@@ -52,8 +52,12 @@ public interface InterMemberDAO {
 	// 로그인 처리 ( 공방회원 )
 	PartnerVO getLoginPartner(Map<String, String> paraMap);
 	
+	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
+	String confirmThroughMemberIdEmail(Map<String, String> paraMap);
 	
+	String confirmThroughPartnerIdEmail(Map<String, String> paraMap);
 	
+	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
 	
 	
 	
@@ -80,6 +84,10 @@ public interface InterMemberDAO {
 	List<WholeImgVO> getWholeImgListByOrderDetailNum(String orderDetailNum);
 
 	List<DetailImgVO> getDetailImgListByOrderDetailNum(String orderDetailNum);
+
+
+
+
 
 	
 

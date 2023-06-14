@@ -56,7 +56,7 @@
 	<!-- 로그인 기록 -->
 	<insert id="recordLoginDate" parameterType="HashMap">
         insert into LOGIN_HISTORY (user_id_pk_pk, grade, login_date)
-        values (#{userid}, #{grade}, #{loginDate})
+        values (#{userid}, #{grade}, default)
     </insert>
     
     <!-- 이름과 이메일 값으로 아이디 유무 체크 및 ID 값 가져오기 -->
@@ -123,6 +123,21 @@
 		update PARTNER set partner_idle = 1
 		where partner_id_pk = #{userid}
 	</update>
+	
+	
+	<!-- id과 email 값으로 아이디 유무 체크 및 ID 값 가져오기 ( 비밀번호 찾기 ) -->
+    <select id="confirmThroughMemberIdEmail" parameterType="HashMap" resultType="String">
+    	SELECT user_id_pk
+		FROM member
+		WHERE user_id_pk = #{id} and email = #{email}
+    </select>
+    
+    <!-- id과 email 값으로 아이디 유무 체크 및 ID 값 가져오기 ( 비밀번호 찾기 ) -->
+    <select id="confirmThroughPartnerIdEmail" parameterType="HashMap" resultType="String">
+    	SELECT partner_id_pk AS user_id_pk
+		FROM partner
+		WHERE partner_id_pk = #{id} and partner_email = #{email}
+    </select>
     
     
     

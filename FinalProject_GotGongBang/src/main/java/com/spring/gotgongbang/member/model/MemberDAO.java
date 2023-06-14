@@ -59,11 +59,10 @@ public class MemberDAO implements InterMemberDAO {
 
 	// 로그인 기록
 	@Override
-	public void recordLoginDate(String userid, int grade, Timestamp loginDate) {
+	public void recordLoginDate(String userid, int grade) {
 		Map<String, Object> paraMap = new HashMap<String, Object>();
 		paraMap.put("userid", userid);
 		paraMap.put("grade", grade);
-		paraMap.put("loginDate", loginDate);
         sqlsession.insert("member.recordLoginDate", paraMap);
 	}
 	
@@ -121,8 +120,21 @@ public class MemberDAO implements InterMemberDAO {
 		return loginuser2;
 	}
 	
+	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
+	@Override
+	public String confirmThroughMemberIdEmail(Map<String, String> paraMap) {
+		String memberId = sqlsession.selectOne("member.confirmThroughMemberIdEmail", paraMap);
+		return memberId;
+	}
 	
 	
+	@Override
+	public String confirmThroughPartnerIdEmail(Map<String, String> paraMap) {
+		String partnerId = sqlsession.selectOne("member.confirmThroughPartnerIdEmail", paraMap);
+		return partnerId;
+	}
+	
+	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
 	
 	
 
@@ -196,6 +208,10 @@ public class MemberDAO implements InterMemberDAO {
 		//return detailImgList;
 		return null;
 	}
+
+
+
+
 
 
 

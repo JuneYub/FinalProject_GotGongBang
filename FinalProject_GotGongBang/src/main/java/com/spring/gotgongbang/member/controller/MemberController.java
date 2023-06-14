@@ -487,8 +487,22 @@ public class MemberController {
 		}
 		
 		
+		// 아이디 찾기 end (get 방식은 접근불가)
+		@RequestMapping(value="/find_id_end.got", method=RequestMethod.GET)
+		public ModelAndView find_id_end(ModelAndView mav) {
+			
+			String message = "오류가 발생했습니다.";
+			String loc ="javascript:history.back();";
+		    
+		    mav.addObject("message",message);
+		    mav.addObject("loc",loc);
+		    
+		    mav.setViewName("msg");		
+			return mav;
+		}
+		
 		// 아이디 찾기 end
-		@RequestMapping(value="/find_id_end.got")
+		@RequestMapping(value="/find_id_end.got", method=RequestMethod.POST)
 		public ModelAndView find_id_end(ModelAndView mav, @RequestParam("memberId") String memberId, @RequestParam("partnerId") String partnerId ) {
 			
 			mav.addObject("memberId",memberId);
@@ -512,10 +526,73 @@ public class MemberController {
 		@RequestMapping(value="/find_pwd_end.got")
 		public ModelAndView find_pwd_end(ModelAndView mav) {
 			
+			
+			
 			mav.setViewName("member/find_pwd_end.tiles1");
 			return mav;
 		}
 		
+		// 아이디, 이메일 값을 통해서 회원 유무 확인 ( 비밀번호 찾기 )
+		@ResponseBody
+		@GetMapping("/confirm_through_id_email.got")	    
+	    public String confirm_through_id_email(@RequestParam("id") String id, @RequestParam("email") String email) {
+			Map<String, String> paraMap = new HashMap<String, String>();
+			paraMap.put("id", id);
+			paraMap.put("email", email);			
+			
+			String findId = "";
+			
+			String memberId = service.confirmThroughMemberIdEmail(paraMap);
+			String partnerId = service.confirmThroughPartnerIdEmail(paraMap);
+			
+			if(memberId != null) {
+				findId = memberId;
+	        }
+	        if(partnerId != null) {
+	        	findId = partnerId;	   
+	        }
+	        
+	        System.out.println(findId);
+	        
+			// JSON 형태로 결과를 반환
+		    JSONObject jsonObj = new JSONObject();
+		    jsonObj.put("findId", findId);
+			
+			if(findId != "") {
+				mailService.changePwdEmail(id, email);				
+			}		    
+
+		    return jsonObj.toString();
+	    }	
+		
+		
+		// 비밀번호 찾기 end 이후 버튼 클릭한 비밀번호 변경 페이지
+		@RequestMapping(value="/find_pwd_change.got", method=RequestMethod.GET)
+		public ModelAndView find_pwd_change(ModelAndView mav) {						
+			
+			String message = "오류가 발생했습니다.";
+			String loc ="javascript:history.back();";
+		    
+		    mav.addObject("message",message);
+		    mav.addObject("loc",loc);
+		    
+		    mav.setViewName("msg");		
+			return mav;
+		}
+		
+		
+		// 비밀번호 찾기 end 이후 버튼 클릭한 비밀번호 변경 페이지
+		@RequestMapping(value="/find_pwd_change.got", method=RequestMethod.POST)
+		public ModelAndView find_pwd_change(ModelAndView mav, HttpServletRequest request) {						
+			
+			String id = request.getParameter("id");
+			
+			mav.addObject("id", id);
+			
+			mav.setViewName("member/find_pwd_change.tiles1");
+			return mav;
+		}
+						
 		
 		// 로그아웃 처리
 		@RequestMapping(value="/logout.got")
@@ -535,6 +612,8 @@ public class MemberController {
 			
 			return mav;
 		}
+		
+		
 		
 		
 		
