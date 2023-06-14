@@ -47,7 +47,8 @@
 						<strong class="sign-up__step-title--point">메일로 발송된 보안키</strong>로 상품이용이 가능합니다.
 					</h3>
 					<br>
-					<h4 style="font-size: 11pt;">회원님은 GOTGONGBANG의 모든 기능을 사용하실 수 있습니다.</h4>
+					<h4 style="font-size: 13pt; color:red;">※ 자격요건 심사 후 GOT GongBang과의 전화 협의 통해 정식 공방 자격을 인정 받으실 수 있습니다. (2~3일 소요)
+					</h4>
 				</div>
 				<div class="sign-up__step-buttons"><a class="sign-up__step-button button" href="<%= ctxPath%>/login.got">로그인하기</a></div>
 			</div>

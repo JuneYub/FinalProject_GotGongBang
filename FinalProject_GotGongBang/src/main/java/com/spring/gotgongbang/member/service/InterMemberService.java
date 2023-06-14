@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
+import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.DetailImgVO;
 import com.spring.gotgongbang.order.model.WholeImgVO;
@@ -78,6 +79,7 @@ public interface InterMemberService {
 	List<WholeImgVO> getWholeImgListByOrderDetailNum(String orderDetailNum);
 
 	List<DetailImgVO> getDetailImgListByOrderDetailNum(String orderDetailNum);
+
 
 
 
