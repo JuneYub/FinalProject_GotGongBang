@@ -198,6 +198,8 @@ create table ORDER_DETAIL
 ,order_extra_address    VARCHAR(200)    null     -- 부가주소
 ,product_status         NVARCHAR2(10) default '수거중'  not null -- 상품진행상태
 ,payment                NUMBER                      --결제 내역
+,ORDER_NAME            VARCHAR2(30)  NOT NULL   -- 배송받는 사람 이름
+,ORDER_NUM             VARCHAR2(20)  NOT NULL   -- 배송받는 사람 번호
 
 ,constraint PK_ORDER_DETAIL_order_detail_id_pk primary key(order_detail_id_pk)
 ,constraint PK_ORDER_DETAIL_estimate_num_fk foreign key(estimate_num_fk) references ESTIMATE(estimate_num_pk)
