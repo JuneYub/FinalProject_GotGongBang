@@ -534,12 +534,21 @@ public class MemberController {
 		
 		// 공방회원가입 post
 		@RequestMapping(value="/register_to_partner.got", method=RequestMethod.POST)
-		public String register_partner(MemberVO membervo) {
+		public String register_partner(PartnerVO pvo, HttpServletRequest request) {
 			
+			String login_partner_id = pvo.getPartner_id_pk();
+			HttpSession session = request.getSession();
+			session.setAttribute("login_partner_id", login_partner_id);
+			
+			System.out.println("login_partner_id : " + login_partner_id);
+			
+			String partner_name = request.getParameter("partner_name");
+			System.out.println("partner_name" + partner_name);
 			System.out.println("공방 들어옴");
-			service.encryptPassword(membervo);
 			
-			service.insertPartner(membervo);
+			//service.encryptPassword(pvo);
+			
+			//service.insertPartner(pvo);
 			
 			return "redirect:/craft_application.got";
 		}
