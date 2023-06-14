@@ -26,23 +26,40 @@
 		});
 		
 		$("button#btnModalClose").bind("click", function() {
+			$("#insertPWD").val("");
 			$("#checkOriginPWD").modal("hide");
 		});
 	});
 		
 		
 	function updateUserInfo(){
-		const originPWD = '${mvo.pwd}';
-		var inserPWD = $("input#insertPWD").val();
+		var insertPWD = $("input#insertPWD").val();
 		
-		if(inserPWD != originPWD) {
-			alert("비밀번호가 올바르지 않습니다");
-		}
-		else {
-			const frm = document.editMyInfo;
-			frm.action = "<%= ctxPath%>/edit_craft_user_info_end.got"
-			frm.submit();
-		}
+		$.ajax({
+			url: '<%= ctxPath%>/checkOriginPwd.got',
+			method: 'POST',
+			dataType: 'json',
+			data: {
+				insertPWD: insertPWD
+			},
+			success : function(json) {
+				if(json.n == 1) {
+					const frm = document.getElementsById("editMyInfo");
+					frm.action = "<%= ctxPath%>/edit_user_info_end.got"
+					frm.method = "POST";
+					frm.submit();
+				}
+				
+				else {
+					alert("비밀번호가 올바르지 않습니다");
+					return;
+				}
+			},
+			error: function(request, status, error){
+				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		     }
+		})
+		
 	}
 		
 	
@@ -274,7 +291,7 @@
 		
 		<div class="myPage-cont">
 			<h4>회원 정보 설정</h4>
-				<form name="editMyInfo">
+				<form id="editMyInfo" name="editMyInfo">
 				<table class="tbl-edit-myInfo">
 					<tbody>
 						<tr>
