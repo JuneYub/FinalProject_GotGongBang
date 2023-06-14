@@ -77,10 +77,10 @@
 		$(".pwd_button").click(function() {						
 			
 			// == 이름 공백 입력시 == //
-			if( $("input#name").val().trim() == "" ) {
-				$("input#name").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
-				$(".user_name_f").show(); // 경고 표시
-				$("input#name").focus();
+			if( $("input#id").val().trim() == "" ) {
+				$("input#id").addClass("form-input--invalid"); // 유효성 검사 불합격 시 input 붉은색 표시
+				$(".user_id_f").show(); // 경고 표시
+				$("input#id").focus();
 				
 				return;
 			}
@@ -94,13 +94,37 @@
 				return;
 			}
 			else {
-				findIdEnd(memberId, partnerId);  // 다음 단계로 넘어가기
+				$.ajax({
+					url:"<%= request.getContextPath()%>/confirm_through_id_email.got",
+					data:{"id" : $("#id").val(),
+						  "email" : $("#email").val()},
+					type : "GET",
+					success: function(json) {
+						var result = JSON.parse(json);
+						findId = result.findId; 	// 받은 아이디							
+				        
+				        if(findId == "") {
+				        	alert("일치하는 정보가 없습니다.");
+				        }
+				        else {				     
+				        	findPwdEnd();
+				        }				        					
+					},
+					error: function(request, status, error){
+			            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			        }
+			}); // end of ajax--------------
+				
 			}
 			
 		});//end of $(".pwd_button").click(function() -----------------
 		
 	});// end of $(document).ready(function()
-
+			
+	// 다음 단계로 넘어가기
+	function findPwdEnd() {
+		window.location.href = "<%= ctxPath%>/find_pwd_end.got";
+    }
 
 </script>
 
@@ -111,7 +135,7 @@
 				<p class="login-search__description">GOTGONGBANG에 등록된 이메일로 비밀번호를 찾을 수 있습니다.</p>
 			</header>
 			<form class="login-search__form" method="post" action="/user/search-pw-ajax">
-				<input type="hidden" name="_csrf" value="29fe7da9-4dea-47a5-a8d5-13c191f69ebf">
+				
 				<fieldset class="login-search__filedset">
 
 					<div class="form-field">
@@ -126,8 +150,8 @@
 						<div class="form-field__feedback user_email_f2" data-field-feedback="user_email"><i class="fa-solid fa-circle-exclamation" style="color: #f20707;"></i>&nbsp;&nbsp;이메일 형식이 올바르지 않습니다.</div>						
 					</div>
 				</fieldset>
-				<div class="login-search__buttons"><a class="button button--outline login-search__button login-search__button--cancel" href="/login">취소</a>
-					<button class="button login-search__button login-search__button--confirm pwd_button" type="submit">확인</button>
+				<div class="login-search__buttons"><a class="button button--outline login-search__button login-search__button--cancel" onclick="location.href='<%= ctxPath%>/login.got'">취소</a>
+					<button class="button login-search__button login-search__button--confirm pwd_button" type="button">확인</button>
 				</div>
 			</form>
 		</section>
