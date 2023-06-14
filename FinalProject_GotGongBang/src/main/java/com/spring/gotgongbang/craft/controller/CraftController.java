@@ -325,11 +325,13 @@ public class CraftController {
     	  String craft_mobile = hp1 + hp2 + hp3;
     	  cvo.setCraft_mobile(craft_mobile);
     	  //===================================//
-    	  
+    	  /* 세션에 저장된 partnert_id 가져오기
     	  PartnerVO login_partner_id = (PartnerVO)session.getAttribute("login_partner_id");
-    	  String partner_id_pk = (String)login_partner_id.getPartner_id_pk();
+    	  String partner_id_pk = login_partner_id.getPartner_id_pk();
+    	  System.out.println("partner_id_pk" + partner_id_pk);
     	  
     	  cvo.setPartner_id_fk(partner_id_pk);
+    	  */
     	  cvo.setFileName(newFileName_ss);
     	  cvo.setOrgFilename(originalFilename_ss);
 
@@ -349,9 +351,11 @@ public class CraftController {
        return mav;
    }
    
-   @RequestMapping(value = "/craft_reset.got")      //'이전' 누르면  완료 페이지
-   public ModelAndView craft_reset(ModelAndView mav, MemberVO membervo, HttpServletRequest request) {
- 	  int m = service.del_partner(membervo);
+   
+   //'이전' 누르면  공방회원정보를 db에서 삭제하고 회원가입으로 이동
+   @RequestMapping(value = "/craft_reset.got")     
+   public ModelAndView craft_reset(ModelAndView mav, PartnerVO pvo, HttpServletRequest request) {
+ 	  int m = service.del_partner(pvo);
  	  System.out.println("m : "+m);
 		 if(m==1) {
 		  mav.addObject("message","공방 정보 등록 취소");	
