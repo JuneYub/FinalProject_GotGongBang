@@ -86,8 +86,13 @@ public interface InterCraftService {
 	// 검색정보를 가지고 공방정보 가져오기
 	List<CraftVO> wordSearchShow(Map<String, String> paraMap);
 
+
+	//공방상세페이지 후기정보 가져오기
+	List<Map<String, Object>> review_select(int craft_num_pk);
+
 	// 공방 정보를 등록하지 않으면 공방회원가입 불가
 	int del_partner(PartnerVO pvo);
+
 	
 	// ==== ==================================== 김나윤 끝 ======================================================= // 
 
