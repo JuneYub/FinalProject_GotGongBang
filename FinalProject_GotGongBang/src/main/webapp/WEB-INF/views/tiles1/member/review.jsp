@@ -77,6 +77,8 @@
 		$("input[name='reviewRating']").val(rating)
 		$("input[name='fixPhotoName']").val(imgJoin);
 		$("input[name='orderDetailNum']").val(${requestScope.orderDetailNum});
+		$("input[name='orderNum']").val(${requestScope.orderNum});
+		$("input[name='craftNum']").val(${requestScope.craftNum});
 		
 		const frm = $("form[name='reviewFrm']");
 		var formData = new FormData(frm[0]);
@@ -88,6 +90,7 @@
 			type:"POST",
  			async:true,
  			data: formData,
+ 			dataType:"JSON",
 			success:function(json) {
 				if(json.n == 1) {
 					alert("정상적으로 후기를 작성했습니다");
@@ -103,9 +106,6 @@
 				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 			}
 		})
-		
-		
-		
 	};
 	
 	function resetPhoto() {
@@ -131,6 +131,8 @@
 		<input type="hidden" name="orderDetailNum" value="" />
 		<input type="hidden" name="reviewRating" value="" />
 		<input type="hidden" name="fixPhotoName" value="" />
+		<input type="hidden" name="orderNum" value="" />
+		<input type="hidden" name="craftNum" value="" />
 		
 		<div class="wrap-rating" id="ratingDiv">
 			<div class="rating">
@@ -164,7 +166,7 @@
 		<div class="wrap-review-write">
 			<p class="review-title">상세한 후기를 작성해주세요</p>
 			<div class="review-info">
-				<p>✔ &nbsp;&nbsp; 50자 이상</p>
+				<p>✔ &nbsp;&nbsp; 50자 이상, 500자 이하 </p>
 			</div>
 			<div class="wrap-cont-center">
 			<textarea id="reviewText" name="reviewContent" class="review-cont-text"></textarea>
@@ -173,7 +175,7 @@
 	</form>
 
 	<div class="wrap-review-btn">
-		<button type="button" class="btn-write-cancle">취소하기</button>
+		<button type="button" class="btn-write-cancle" onclick="location.href='<%=ctxPath%>/order_list.got';">취소하기</button>
 		<button type="button" class="btn-write-end" onclick="writeReview();">작성하기</button>
 	</div>
 	

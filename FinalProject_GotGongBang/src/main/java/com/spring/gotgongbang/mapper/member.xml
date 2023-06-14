@@ -140,6 +140,19 @@
     </select>
     
     
+    <update id="changeMemberPwd" parameterType="com.spring.gotgongbang.member.model.MemberVO">
+    	UPDATE MEMBER SET pwd = #{pwd}, last_pwd_change = sysdate
+		WHERE user_id_pk = #{id}
+    </update>
+    
+    
+    
+    <update id="changePartnerPwd" parameterType="com.spring.gotgongbang.craft.model.PartnerVO">
+    	UPDATE PARTNER SET partner_pwd = #{pwd}, partner_lastPwdChange = sysdate
+		WHERE partner_id_pk = #{id}
+    </update>
+    
+    
     
     <!--==================== 홍용훈 끝 ====================== -->
     
@@ -181,6 +194,12 @@
     	<result column="craft_mobile" property="craft_mobile" />
     	<result column="estimate_price" property="estimate_price" />
     	<result column="product_status" property="product_status" />
+    	<result column="review_cnt" property="review_cnt" />
+    </resultMap>
+    
+    <resultMap type="HashMap" id="orderNumAndCraftNumMap">
+    	<result column="order_num_fk" property="orderNum" />
+    	<result column="craft_num_fk" property="craftNum" />
     </resultMap>
     
     <select id="getProposalListByUserId" parameterType="HashMap" resultMap="getProposalListByUserIdMap">
@@ -226,6 +245,7 @@
     
     <select id="getOrderListByUserId" parameterType="HashMap" resultMap="getOrderListByUserIdMap">
 		select order_detail_id_pk, payment_date, craft_name, craft_mobile, estimate_price, product_status
+		, (select count(*) from review where order_detail_id_pk = order_detail_id_fk) as review_cnt
 		from 
 		(
 		    select row_number() over(order by payment_date desc) as rno, order_detail_id_pk, to_char(payment_date, 'yyyy-mm-dd') as payment_date, craft_name, craft_mobile, estimate_price, product_status
@@ -292,7 +312,7 @@
     </select>
     
     <insert id="insertReview" parameterType="HashMap">
-    	insert into REVIEW values(seq_review_id_pk.nextval, #{userId}, #{orderDetailNum}, #{reviewRating}, #{reviewContent}, sysdate)
+    	insert into REVIEW values(seq_review_id_pk.nextval, #{userId}, #{orderDetailNum}, #{reviewRating}, #{reviewContent}, sysdate, #{orderNum}, #{craftNum})
     </insert>
     
     <insert id="insertFixedPhoto" parameterType="HashMap">
@@ -303,6 +323,28 @@
     	select review_id_pk
     	from REVIEW
     	where order_detail_id_fk = #{orderDetailNum}
+    </select>
+    
+    <select id="getOrderNumAndCraftNumByOrderDetailNum" parameterType="String" resultMap="orderNumAndCraftNumMap">
+    	select order_num_fk, craft_num_fk
+		from 
+		(
+		select order_num_fk, estimate_num_pk, craft_num_fk
+		from ESTIMATE
+		) A
+		join 
+		(
+		select estimate_num_fk
+		from ORDER_DETAIL
+		where order_detail_id_pk = #{orderDetailNum}
+		) B
+		on A.estimate_num_pk = B.estimate_num_fk
+    </select>
+    
+    <select id="checkOriginPwd" parameterType="String" resultType="int">
+    	select count(*)
+    	from member
+    	where pwd = #{encrpyInsertPwd}
     </select>
     
     <!--==================== 박준엽 끝 ====================== -->

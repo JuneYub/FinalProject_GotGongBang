@@ -26,23 +26,40 @@
 		});
 		
 		$("button#btnModalClose").bind("click", function() {
+			$("#insertPWD").val("");
 			$("#checkOriginPWD").modal("hide");
 		});
 	});
 		
 		
 	function updateUserInfo(){
-		const originPWD = '${mvo.pwd}';
-		var inserPWD = $("input#insertPWD").val();
+		var insertPWD = $("input#insertPWD").val();
 		
-		if(inserPWD != originPWD) {
-			alert("비밀번호가 올바르지 않습니다");
-		}
-		else {
-			const frm = document.editMyInfo;
-			frm.action = "<%= ctxPath%>/edit_craft_user_info_end.got"
-			frm.submit();
-		}
+		$.ajax({
+			url: '<%= ctxPath%>/checkOriginPwd.got',
+			method: 'POST',
+			dataType: 'json',
+			data: {
+				insertPWD: insertPWD
+			},
+			success : function(json) {
+				if(json.n == 1) {
+					const frm = document.getElementById("editMyInfo");
+					frm.action = "<%= ctxPath%>/edit_user_info_end.got"
+					frm.method = "POST";
+					frm.submit();
+				}
+				
+				else {
+					alert("비밀번호가 올바르지 않습니다");
+					return;
+				}
+			},
+			error: function(request, status, error){
+				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		     }
+		})
+		
 	}
 		
 	
@@ -274,17 +291,17 @@
 		
 		<div class="myPage-cont">
 			<h4>회원 정보 설정</h4>
-				<form name="editMyInfo">
+				<form id="editMyInfo" name="editMyInfo">
 				<table class="tbl-edit-myInfo">
 					<tbody>
 						<tr>
 						<th>이름</th> 
-						<td><input type="text" name="partner_name" value="${mvo.name}" id="editName" autocomplete="off" /> </td>
+						<td><input type="text" name="name" value="${mvo.name}" id="editName" autocomplete="off" /> </td>
 						</tr>
 						
 						<tr>
 						<th>사용자ID</th>
-						<td><input type="text" name="partner_id_pk" value="${mvo.user_id_pk}" readonly="readonly"/></td>
+						<td><input type="text" name="user_id_pk" value="${mvo.user_id_pk}" readonly="readonly"/></td>
 						</tr>
 						
 						<tr>
@@ -301,14 +318,14 @@
 						
 						<tr><th>생년월일</th> 
 						<td>
-						<input type="text" id="editBirthDay" name="partner_birthday" value="${mvo.birthday}" autocomplete="off" readonly="readonly">
+						<input type="text" id="editBirthDay" name="birthday" value="${mvo.birthday}" autocomplete="off" readonly="readonly">
 						</td>
 						</tr>
 						
 						<tr>
 						<th>E-mail</th> 
 						<td>
-						<input id="editEmail" name="partner_email" value="${mvo.email}"/>
+						<input id="editEmail" name="email" value="${mvo.email}"/>
                         <select id="emailDomain" name="emailDomain_select" class="emailDomain_select">
 	                        <option value="직접입력">직접입력</option>
 	                        <option value="naver.com">naver.com</option>
@@ -323,20 +340,20 @@
 						
 						</tr>
 						<tr><th>휴대폰번호</th> 
-						<td><input type="text" id="editMobile" name="partner_mobile" value="${mvo.mobile}" autocomplete="off" placeholder="'-' 없이 번호만 적어주세요"/></td>
+						<td><input type="text" id="editMobile" name="mobile" value="${mvo.mobile}" autocomplete="off" placeholder="'-' 없이 번호만 적어주세요"/></td>
 						</tr>
 						
 						<tr>
 						<th>주소</th>
 					 	<td>
 						<div class="address_postcode">
-							<input type="text" id="postcode" name="partner_post_code" value="${mvo.post_code}" placeholder="우편번호">
+							<input type="text" id="postcode" name="post_code" value="${mvo.post_code}" placeholder="우편번호">
 							<input type="button" id="zipcodeSearch" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
 						</div>
 						<div class="address_input">
-							<input type="text" id="address" name="partner_address" value="${mvo.address}" placeholder="주소" readonly="readonly"><br>
-							<input type="text" id="detailAddress"  name="partner_detail_address"  value="${mvo.detail_address}" placeholder="상세주소" >
-							<input type="text" id="extraAddress" name="partner_extra_address"  value="${mvo.extra_address}" placeholder="참고항목" readonly="readonly">
+							<input type="text" id="address" name="address" value="${mvo.address}" placeholder="주소" readonly="readonly"><br>
+							<input type="text" id="detailAddress"  name="detail_address"  value="${mvo.detail_address}" placeholder="상세주소" >
+							<input type="text" id="extraAddress" name="extra_address"  value="${mvo.extra_address}" placeholder="참고항목" readonly="readonly">
 						</div>                  	
                         </td>
 						</tr>

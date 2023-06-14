@@ -62,8 +62,9 @@
  			data: {
  				orderNum:orderNum
  			},
+ 			dataType:"JSON",
 			success:function(json) {
-				if(json.cnt >= 1) {
+				if(json.cnt == 1) {
 					alert("이미 후기를 작성하셨습니다.");
 					return;
 				}
@@ -136,7 +137,13 @@
 							<form name="writeReviewForm">
 							<input type="hidden" name="orderNum" value="${orderList.order_detail_id_pk}">
 							</form>	
+							<c:if test="${orderList.review_cnt eq 0}">
 							<button type="button" class="btn-estimateDetail btn-font15" onclick="writeReview(${orderList.order_detail_id_pk})">후기 작성하기</button>
+							</c:if>
+							
+							<c:if test="${orderList.review_cnt ne 0}">
+							작성 완료 
+							</c:if>
 						</td>
 
 						</tr>

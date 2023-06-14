@@ -305,6 +305,17 @@ public class MemberService implements InterMemberService {
 	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
 	
 	
+	// 비밀번호 변경
+	@Override
+	public int change_pwd(HashMap<String, String> paraMap) {
+		int n = dao.changeMemberPwd(paraMap);
+		int n1 = dao.changePartnerPwd(paraMap);
+		return (n+n1);
+	}
+	
+	
+	
+	
 	
 	// =========== 홍용훈 끝 =========================================== //
 	
@@ -399,6 +410,20 @@ public class MemberService implements InterMemberService {
 		int reviewId = dao.getCurrReviewIdByOrderDetailNum(orderDetailNum);
 		return reviewId;
 	}
+
+	@Override
+	public HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum) {
+		HashMap<String, String> paraMap = dao.getOrderNumAndCraftNumByOrderDetailNum(orderDetailNum);
+		return paraMap;
+	}
+
+	@Override
+	public int checkOriginPwd(String encrpyInsertPwd) {
+		int n = dao.checkOriginPwd(encrpyInsertPwd);
+		return n;
+	}
+
+
 
 
 
