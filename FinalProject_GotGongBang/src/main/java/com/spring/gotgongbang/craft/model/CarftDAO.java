@@ -165,6 +165,13 @@ public class CarftDAO implements InterCraftDAO {
 		return craftvo;
 	}
 
+	//수선사 찾기 페이지에서 간략히 수선사 목록 보여주기
+	@Override
+	public List<CraftVO> crafts_sum_select() {
+		List<CraftVO> craftvo = sqlsession.selectList("craft.crafts_sum");
+		return craftvo;
+	}
+	
 	//수선사 상세페이지를 보여주기 위해 공방정보 조회해오기
 	@Override
 	public CraftVO crafts_detail_select(int craft_num_pk) {
@@ -193,7 +200,6 @@ public class CarftDAO implements InterCraftDAO {
 		List<Map<String, Object>> paraMap = sqlsession.selectList("craft.review_select", craft_num_pk);
 		return paraMap;
 	}
-
 
 
 	// ================ 김나윤 끝 ==================//

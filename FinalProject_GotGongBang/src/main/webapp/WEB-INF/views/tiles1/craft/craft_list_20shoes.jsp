@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
     
 <%
    String ctxPath = request.getContextPath();
@@ -24,30 +25,32 @@
 		
 		<section class="recommend-card">
 			<div class="grid--large">
-				<div class="catalog-wrapper">
+				<div class="catalog-wrapper" style="margin-left: 100px;">
 					<h2 class="catalog-title">신발</h2>
-						<c:forEach var="craftvo" items="${requestScope.craftsList}" varStatus="status">
-							<c:choose>	
-								<c:when test="${craftvo.craft_specialty eq '신발'}">
-									<ul class="grid">
-										<li class="grid-column__item">
-											<figure class="card responsive-card">
-												<a class="card__link" href="/products/insight-hirenze">
-													<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75 2x" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75" style="color: transparent;">
-													<figcaption class="card__caption">
-													<ul class="card__labels" data-badge-label="" data-badge-color="RED" data-badge-display="비즈니스">
-														<li class="caption">${craftvo.craft_name}</li>
-													</ul>
-													<strong class="card__title">${craftvo.craft_Introduce}</strong>
-													<i class="card__note">${craftvo.craft_representative}</i>
-													</figcaption>
-												</a>
-											</figure>
-										</li>
-									</ul>
-								</c:when>
-							</c:choose>
-						</c:forEach>
+
+						<ul class="grid">
+						
+							<c:forEach var="craftvo" items="${requestScope.craftsList}" varStatus="status">
+							<c:if test="${fn:contains(craftvo.craft_specialty, '신발')}">
+							<li class="grid-column__item card-list">
+								<figure class="card responsive-card">
+									<a class="card__link" href="<%= ctxPath%>/crafts_detail.got?craft_num_pk=${craftvo.craft_num_pk}">
+										<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75 2x" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75" style="color: transparent;">
+										<figcaption class="card__caption">
+										<ul class="card__labels" data-badge-label="" data-badge-color="RED" data-badge-display="비즈니스">
+											<li class="caption">${craftvo.craft_name}</li>
+										</ul>
+										<strong class="card__title">${craftvo.craft_Introduce}</strong>
+										<i class="card__note">${craftvo.craft_representative}</i>
+										</figcaption>
+									</a>
+								</figure>
+							</li>
+							</c:if>
+							</c:forEach>
+							
+						</ul>
+
 				</div>
 			</div>
 		</section>		

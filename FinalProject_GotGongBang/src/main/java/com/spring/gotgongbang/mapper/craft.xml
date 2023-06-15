@@ -47,6 +47,20 @@
 </select>
 
 
+<!-- 수선사 찾기 페이지에서 간략히 수선사 목록 보여주기 -->
+<select id="crafts_sum" resultType="com.spring.gotgongbang.craft.model.CraftVO">
+	<![CDATA[
+	SELECT *
+	FROM
+	(
+	    SELECT *
+	    FROM CRAFT
+	    WHERE CRAFT_SPECIALTY like '%' || #{craft_specialty, jdbcType=VARCHAR} || '%'
+	)
+	Where Rownum <= 6
+	]]> 
+</select>
+
 <!-- 수선사 상세페이지를 보여주기 위해 공방정보 조회해오기 -->
 <select id="craft_detail" parameterType="int" resultType="com.spring.gotgongbang.craft.model.CraftVO">
 	SELECT *
