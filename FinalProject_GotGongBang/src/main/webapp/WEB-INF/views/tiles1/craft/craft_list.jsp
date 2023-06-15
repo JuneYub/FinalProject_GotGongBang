@@ -192,7 +192,7 @@ function goSearch(){
 										<li class="grid-column__item" id="cardContent"> 
 											<figure class="card responsive-card">
 												<a class="card__link" href="<%= ctxPath%>/crafts_detail.got?craft_num_pk=${craftvo.craft_num_pk}">
-													<img alt="이미지없음" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" src="<%=ctxPath%>/resources/img/main_test.jpg" style="color: transparent;">
+													<img alt="이미지없음" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" src="<%= ctxPath%>/resources/img/craft/${craftvo.img_name}" style="color: transparent;">
 													<figcaption class="card__caption">
 													<ul class="card__labels" data-badge-label="" data-badge-color="RED" data-badge-display="비즈니스">
 														<li class="caption">${craftvo.craft_name}</li>

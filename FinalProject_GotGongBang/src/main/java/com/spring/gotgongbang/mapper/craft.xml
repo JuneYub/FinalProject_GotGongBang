@@ -70,9 +70,10 @@
 <select id="craft_new" resultType="com.spring.gotgongbang.craft.model.CraftVO">
 	<![CDATA[
 	select craft_num_pk, craft_name, craft_introduce, craft_representative
+	      ,substr(filename, 1, instr(filename,',',1)-1 ) AS img_name
 	  from 
 	  (
-	   select craft_num_pk, craft_name, craft_introduce, craft_representative
+	   select craft_num_pk, craft_name, craft_introduce, craft_representative, filename
 	   from craft 
 	   where craft_status = 1
 	   order by craft_num_pk desc
@@ -81,7 +82,8 @@
 	  ]]>
 </select>
 
-<!-- 수선사 찾기 페이지에서 공방 이미지 정보 불러오기 -->
+
+<!-- 수선사 찾기 페이지에서 공방 이미지 정보 불러오기 --> 
 <select id="crafts_img" resultType="com.spring.gotgongbang.craft.model.CraftVO">
 	select craft_num_pk, craft_name, craft_representative, craft_introduce, craft_specialty
 	    ,substr(filename, 1, instr(filename,',',1)-1 ) AS craft_image
