@@ -12,9 +12,7 @@
 
 	$(document).ready(function() {
 		Fancybox.bind("[data-fancybox]", {
-			 
 		});
-		
 	});
 	
 	function openBidPage(order_num) { // 파라미터로 공방 아이디랑 견적 아이디를 받을 예정
