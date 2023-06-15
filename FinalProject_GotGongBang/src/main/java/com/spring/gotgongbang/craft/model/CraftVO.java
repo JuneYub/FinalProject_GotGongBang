@@ -28,11 +28,13 @@ public class CraftVO {
 	private String craft_rating;				//별점
 	
 	// * select용 *
-	private ImageVO imgvo;
 	private String img_name;  //수선사 찾기 페이지에서 
 
 	////////////////////////////////////////////////////////
 		   
+	
+
+
 	// 먼저, 댓글쓰기에 파일첨부까지 한 것을 위해서 오라클에서 tbl_comment 테이블에 fileName, orgFilename, fileSize 컬럼을 추가해주어야 한다. 
 	/* form 태그에서 type="file" 인 파일을 받아서 저장되는 필드이다. 
 	진짜파일 ==> WAS(톰캣) 디스크에 저장됨.
@@ -241,18 +243,6 @@ public class CraftVO {
 		this.fileSize = fileSize;
 	}
 
-
-
-	public ImageVO getImgvo() {
-		return imgvo;
-	}
-
-
-	public void setImgvo(ImageVO imgvo) {
-		this.imgvo = imgvo;
-	}	
-	
-	
 	public String getImg_name() {
 		return img_name;
 	}
@@ -261,29 +251,7 @@ public class CraftVO {
 	public void setImg_name(String img_name) {
 		this.img_name = img_name;
 	}
-	
-	
 
-	public ImageVO getImgvo() {
-		return imgvo;
-	}
-
-
-	public void setImgvo(ImageVO imgvo) {
-		this.imgvo = imgvo;
-	}	
-	
-	
-	public String getImg_name() {
-		return img_name;
-	}
-
-
-	public void setImg_name(String img_name) {
-		this.img_name = img_name;
-	}
-	
-	
 	
 	
 	/////////////////// ====== 김진솔 끝 ===== ///////////////////////

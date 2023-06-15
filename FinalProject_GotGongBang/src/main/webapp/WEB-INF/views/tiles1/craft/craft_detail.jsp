@@ -189,7 +189,9 @@ $(window).scroll(function() {
 			<h2 style="font-size: 30px; font-weight: bold; margin-left: 100px; margin-bottom: 10px;">후기가 증명합니다.</h2>
 		</div>
 		<c:if test="${empty requestScope.reviews}">
-			후기가 없습니다.
+			<div>
+				<p style="font-size:14pt;">아직 작성된 후기가 없습니다.</p>
+			</div>
 		</c:if>
 		<c:if test="${not empty requestScope.reviews}">
 		<table id="reviewTbl" class="table table--col customer-notice-list__table aos-init aos-animate" data-aos="fade-up" data-aos-delay="300" style="margin-bottom:50px;">
