@@ -378,11 +378,8 @@ public class CraftController {
    public ModelAndView requiredLogin_getEstimateInquiryList(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
 	  HttpSession session = request.getSession();
 	  PartnerVO loginuser = (PartnerVO) session.getAttribute("loginpartner");
-	  if(loginuser == null) {
-		  return mav;
-	  }
-	  else {
       String partnerId = loginuser.getPartner_id_pk();
+      
       String craftNum = service.getCraftNumByPartnerId(partnerId);
       String str_currentShowPageNo = request.getParameter("currentShowPageNo");
       int totalCountForEstimate = 0;
@@ -429,7 +426,7 @@ public class CraftController {
       mav.addObject("ovoList", ovoList);
       mav.setViewName("/craft/estimateInquiryList.tiles1");
       return mav;
-	  }
+	  
    }
    
    @RequestMapping(value="/estimate_inquiry_list/bid.got")
@@ -486,8 +483,10 @@ public class CraftController {
    }
    
    @RequestMapping(value="/repair_history_list.got")
-   public ModelAndView repairHistoryList(ModelAndView mav, HttpServletRequest request) {
-	  String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+   public ModelAndView requiredLogin_repairHistoryList(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+	  HttpSession session = request.getSession();
+	  PartnerVO loginuser = (PartnerVO) session.getAttribute("loginpartner");
+      String partnerId = loginuser.getPartner_id_pk();
 	  String craftNum = service.getCraftNumByPartnerId(partnerId);
 	  String str_currentShowPageNo = request.getParameter("currentShowPageNo");
       int totalCountForRepariList = 0;
