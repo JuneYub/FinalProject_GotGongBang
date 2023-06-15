@@ -143,7 +143,6 @@ public class BoardController {
 		@RequestMapping(value="/board_inquiryEnd.got", method={RequestMethod.POST})
 		public ModelAndView pointPlus_iqEnd(ModelAndView mav, InquiryVO iqvo, MultipartHttpServletRequest mrequest, HttpServletRequest request) {
 			
-			String partner_chk = request.getParameter("partner_chk");
 			
 			MultipartFile attach = iqvo.getAttach();
 			
@@ -214,7 +213,6 @@ public class BoardController {
 			
 			
 			if(n==1) {
-				
 				mav.setViewName("redirect:/board_question.got");
 				
 			}
@@ -250,6 +248,7 @@ public class BoardController {
 		String searchType = request.getParameter("searchType");
 		String searchWord = request.getParameter("searchWord");
 		String str_currentShowPageNo = request.getParameter("currentShowPageNo");
+		String partner_chk = request.getParameter("partner_chk");
 		
 		if(searchType == null || (!"inquiry_title".equals(searchType) && !"user_id_fk".equals(searchType) )) {
 			searchType = "";
@@ -298,6 +297,7 @@ public class BoardController {
 		
 		paraMap.put("startRno", String.valueOf(startRno));
 		paraMap.put("endRno", String.valueOf(endRno));
+		
 		
 		iqvo = service.iqListSearchWithPaging(paraMap);
 		// 페이징 처리한 글목록 가져오기(검색이 있든지, 검색이 없든지 모두 다 포함한 것)
@@ -366,8 +366,9 @@ public class BoardController {
 		/* iqList = service.BoardQuestionList(); */
 		
 		mav.addObject("gobackURL", gobackURL.replaceAll("&", " "));
-		
+		mav.addObject("partner_chk", partner_chk);
 		mav.addObject("iqvo", iqvo);
+		
 		mav.setViewName("/board/board_BoardQuestion.tiles1");
 		
 		return mav;
@@ -413,12 +414,15 @@ public class BoardController {
 			
 			HttpSession session = request.getSession();
 			MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
-			
+			PartnerVO loginpartner = (PartnerVO) session.getAttribute("loginpartner");
 			String login_userid = null;
 			
 			if(loginuser != null) {
 				login_userid = loginuser.getUser_id_pk();
 				// login_userid 는 로그인 되어진 사용자의 userid 이다.
+			}
+			else if(loginpartner !=null) {
+				login_userid = loginpartner.getPartner_id_pk();
 			}
 			
 			paraMap.put("login_userid", login_userid);
@@ -498,42 +502,52 @@ public class BoardController {
 	
 	// 게시글 수정 페이지 요청.
 		@RequestMapping(value="/board_edit.got")
-		public ModelAndView requiredLogin_board_edit(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
-			
-			String inquiry_num_pk = request.getParameter("inquiry_num_pk");
-			
-			// 수정해야할 게시글 1개 가져오기
-			Map<String, String> paraMap = new HashMap<>();
-			paraMap.put("inquiry_num_pk", inquiry_num_pk);
-			
-			//////////////////////////////
-			paraMap.put("searchType", "");
-			paraMap.put("searchWord", "");
-			//////////////////////////////
-			
-			InquiryVO iqvo = service.getViewWithNoAddCount(paraMap);
-			// 조회수 증가 없이 단순히 글1개만 조회
-			
-			HttpSession session = request.getSession();
-			MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
-			
-			if( !loginuser.getUser_id_pk().equals(iqvo.getUser_id_fk()) ) {
-				
-				String message = "다른 사용자의 글은 삭제가 불가합니다.";
-				String loc = "javascript:history.back()";
-				
-				mav.addObject("message", message);
-				mav.addObject("loc", loc);
-				mav.setViewName("msg");
-			}
-			else {
-				// 자신의 글을 수정할 경우
-				// 가져온 1개글을 글수정할 폼이 있는 view 단으로 보내준다.
-				mav.addObject("iqvo", iqvo);
-				mav.setViewName("/board/board_edit.tiles1");
-			}
-			
-			return mav;
+		public ModelAndView board_edit(HttpServletRequest request, HttpServletResponse response, ModelAndView mav, PartnerVO ptvo) {
+		    String inquiry_num_pk = request.getParameter("inquiry_num_pk");
+
+		    // 수정해야할 게시글 1개 가져오기
+		    Map<String, String> paraMap = new HashMap<>();
+		    paraMap.put("inquiry_num_pk", inquiry_num_pk);
+
+		    //////////////////////////////
+		    paraMap.put("searchType", "");
+		    paraMap.put("searchWord", "");
+		    //////////////////////////////
+
+		    InquiryVO iqvo = service.getViewWithNoAddCount(paraMap);
+
+		    // 조회수 증가 없이 단순히 글1개만 조회
+
+		    HttpSession session = request.getSession();
+		    MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+		    PartnerVO loginpartner = (PartnerVO)session.getAttribute("loginpartner");
+
+		    // 로그인한 사용자가 작성자 또는 로그인한 파트너의 partner_id_pk와 일치하는 경우
+		    if (loginuser != null && loginuser.getUser_id_pk().equals(iqvo.getUser_id_fk())) {
+		        // 자신의 글을 수정할 경우
+		        // 가져온 1개글을 글수정할 폼이 있는 view 단으로 보내준다.
+		        mav.addObject("iqvo", iqvo);
+		        mav.setViewName("/board/board_edit.tiles1");
+		    } else if (loginpartner != null && loginpartner.getPartner_id_pk().equals(iqvo.getUser_id_fk())) {
+		        // 로그인한 파트너의 partner_id_pk와 작성자가 일치하는 경우
+		        // 가져온 1개글을 글수정할 폼이 있는 view 단으로 보내준다.
+		        mav.addObject("iqvo", iqvo);
+		        mav.setViewName("/board/board_edit.tiles1");
+		    } else if (loginuser.getUser_id_pk() == "admin") {
+		    	mav.addObject("iqvo", iqvo);
+			    mav.setViewName("/board/board_edit.tiles1");
+		    } else {
+		        String message = "다른 사용자의 글은 수정이 불가합니다.";
+		        String loc = "javascript:history.back()";
+
+		        mav.addObject("message", message);
+		        mav.addObject("loc", loc);
+		        mav.setViewName("msg");
+		    }
+		    
+		    
+
+		    return mav;
 		}
 		
 		// 게시글  수정 페이지 완료하기 
@@ -652,17 +666,10 @@ public class BoardController {
 			
 			//  첨부파일 다운로드 받기  //
 			@RequestMapping(value="/board_download.got")
-			public void requiredLogin_download(HttpServletRequest request, HttpServletResponse response) {
+			public void download(HttpServletRequest request, HttpServletResponse response) {
 				
 				String inquiry_num_pk = request.getParameter("inquiry_num_pk");
 				// 첨부파일이 있는 글번호 
-				
-				/*
-				      첨부파일이 있는 글번호에서
-				   20230522111434845240692872800.pdf 처럼
-				     이러한 fileName 값을 DB에서 가져와야 한다.
-				     또한 orgFilename 값도  DB에서 가져와야 한다.
-				*/
 				
 				Map<String, String> paraMap = new HashMap<>();
 				paraMap.put("searchType", "");
@@ -688,15 +695,11 @@ public class BoardController {
 						// 정상적으로 다운로드를 할 경우 
 						
 						String fileName = iqvo.getInquiry_fileName();
-						// 20230522111434845240692872800.pdf  이것인 바로 WAS(톰캣) 디스크에 저장된 파일명이다. 
 						
 						String orgFilename = iqvo.getInquiry_orgFilename();
-						// LG_싸이킹청소기_사용설명서.pdf   다운로드시 보여줄 파일명 
 						
 						
-						// 첨부파일이 저장되어 있는 WAS(톰캣)의 디스크 경로명을 알아와야만 다운로드를 해줄수 있다. 
-			            // 이 경로는 우리가 파일첨부를 위해서 /addEnd.action 에서 설정해두었던 경로와 똑같아야 한다.
-			            // WAS 의 webapp 의 절대경로를 알아와야 한다.
+						
 						HttpSession session = request.getSession();
 						String root = session.getServletContext().getRealPath("/");
 						
@@ -704,26 +707,18 @@ public class BoardController {
 					//	~~~~ 확인용 webapp 의 절대경로 => C:\NCS\workspace(spring)\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Board\
 							
 						String path = root+"resources"+File.separator+"files";
-						/* File.separator 는 운영체제에서 사용하는 폴더와 파일의 구분자이다.
-					             운영체제가 Windows 이라면 File.separator 는  "\" 이고,
-					             운영체제가 UNIX, Linux, 매킨토시(맥) 이라면  File.separator 는 "/" 이다. 
-					    */
-							
-					   // path 가 첨부파일이 저장될 WAS(톰캣)의 폴더가 된다.
-					// System.out.println("~~~~ 확인용 path => " + path);
-					   // ~~~~ 확인용 path => C:\NCS\workspace(spring)\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Board\resources\files 
-						
+					
 					   
-						// **** file 다운로드 하기 **** //
-						boolean flag = false; // file 다운로드 성공, 실패를 알려주는 용도 
+						
+						boolean flag = false; 
 						flag = fileManager.doFileDownload(fileName, orgFilename, path, response);
 						// file 다운로드 성공시 flag 는 true, 
 						// file 다운로드 실패시 flag 는 false 를 가진다. 
 						
 						if(!flag) {
-							// 다운로드가 실패할 경우 메시지를 띄워준다.
+							
 							out = response.getWriter();
-							// out 은 웹브라우저에 기술하는 대상체라고 생각하자.
+							
 							
 							out.println("<script type='text/javascript'>alert('파일다운로드가 실패되었습니다.'); history.back();</script>");
 						}
@@ -733,7 +728,7 @@ public class BoardController {
 				} catch(NumberFormatException | IOException e) {
 					try {
 						out = response.getWriter();
-						// out 은 웹브라우저에 기술하는 대상체라고 생각하자.
+						
 						
 						out.println("<script type='text/javascript'>alert('파일다운로드가 불가합니다.'); history.back();</script>"); 
 					} catch (IOException e1) {
@@ -763,6 +758,7 @@ public class BoardController {
 			String searchType = request.getParameter("searchType");
 			String searchWord = request.getParameter("searchWord");
 			String str_currentShowPageNo = request.getParameter("currentShowPageNo");
+			
 			
 			if(searchType == null || (!"notice_title".equals(searchType) && !"admin_id_fk".equals(searchType) )) {
 				searchType = "";
@@ -879,8 +875,8 @@ public class BoardController {
 			/* iqList = service.BoardQuestionList(); */
 			
 			mav.addObject("gobackURL", gobackURL.replaceAll("&", " "));
-			
 			mav.addObject("novo", novo);
+			
 			mav.setViewName("/board/board_notice.tiles1");
 			
 			return mav;
