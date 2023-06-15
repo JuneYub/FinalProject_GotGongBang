@@ -198,6 +198,11 @@ div#mainIllur {
 }
 
 
+.card-craft-intro {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 
 
 .circle-white {

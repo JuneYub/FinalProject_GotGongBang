@@ -112,7 +112,7 @@
 							<div class="swiper-slide-card">
 								<div class="swiper-card-img">
 									<span class="swiper-img-span"> 
-									<img src="<%=ctxPath%>/resources/img/main_test.jpg">
+									<img src="<%=ctxPath%>/resources/img/craft/${cvo.filename}">
 									</span>
 								</div>
 								<div class="swiper-card-info">
@@ -197,63 +197,7 @@
 						</div>
 						<%-- 후기 카드 끝 --%>
 						
-						<%-- 후기 카드 시작 --%>
-						<div class="swiper-slide">
-							<div class="swiper-slide-card slide-review-card">
-								<div class="reviewSwiper-">
-									<div class="review-img">
-										<div class="review-before-img">
-											<span class="review-img-span"> <img src="<%=ctxPath%>/resources/img/main_test.jpg">
-											</span>
-										</div>
-
-										<div class="review-after-img">
-											<span class="review-img-span"> <img src="<%=ctxPath%>/resources/img/main_test.jpg">
-											</span>
-										</div>
-									</div>
-								</div>
-
-								<div class="card-review">
-									<p class="card-review-craft">하늘공방</p>
-									<p class="card-review-content">리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용</p>
-									<div class="card-review-info">
-										<span>testID</span>
-										<span>YY/MM/DD</span>									
-									</div>
-								</div>
-							</div>
-						</div>
-						<%-- 후기 카드 끝 --%>
-
-						<%-- 후기 카드 시작 --%>
-						<div class="swiper-slide">
-							<div class="swiper-slide-card slide-review-card">
-								<div class="reviewSwiper-">
-									<div class="review-img">
-										<div class="review-before-img">
-											<span class="review-img-span"> <img src="<%=ctxPath%>/resources/img/main_test.jpg">
-											</span>
-										</div>
-
-										<div class="review-after-img">
-											<span class="review-img-span"> <img src="<%=ctxPath%>/resources/img/main_test.jpg">
-											</span>
-										</div>
-									</div>
-								</div>
-
-								<div class="card-review">
-									<p class="card-review-craft">하늘공방</p>
-									<p class="card-review-content">리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용</p>
-									<div class="card-review-info">
-										<span>testID</span>
-										<span>YY/MM/DD</span>									
-									</div>
-								</div>
-							</div>
-						</div>
-						<%-- 후기 카드 끝 --%>
+						
 						
 						
 					</div>
