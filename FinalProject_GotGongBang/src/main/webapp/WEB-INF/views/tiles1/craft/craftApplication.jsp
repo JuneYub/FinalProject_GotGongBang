@@ -508,7 +508,7 @@
                             <span class="error" style="display: inline-block; color:#400099; margin-left:20px;">※ 공방 대표자 이름은 필수 입력 사항입니다.</span>
                         </span>
                     </div>
-                    <div class="image" style="height: 175px;">
+                    <div class="image" style="height: 115px;">
                         <span> <p> * 공방 사진</p>
                             <div class="filebox" >
                                 <!-- <input class="upload-name" id="craft_img" style="margin-bottom: 10px;" readonly="readonly" placeholder="파일첨부" value=""/> -->
@@ -517,13 +517,14 @@
                                 <span class="error" style="display: inline-block;color:#400099;">※ 공방 사진은 필수 입력 사항입니다.</span>
                             </div>
                         </span>
-                        <span> <p>&nbsp;&nbsp;&nbsp;추가 사진(선택)</p>
+                      <!--   <span> <p>&nbsp;&nbsp;&nbsp;추가 사진(선택)</p>
                             <div class="filebox" >
-                                <!-- <input class="upload-name" id="craft_add_img" style="margin-bottom: 10px;" readonly="readonly" placeholder="파일첨부"  value=""/> -->
+                                <input class="upload-name" id="craft_add_img" style="margin-bottom: 10px;" readonly="readonly" placeholder="파일첨부"  value=""/> 
                                 <label for="craft_add_file_name"></label> 
                                 <input type="file" class="add_img_file" id="craft_add_file_name" name="craft_add_file_name" accept='image/*' style="padding: 6px; margin-left: 20px;" />
                             </div>
                         </span>
+						-->
                         <span> <p> * 공방 대표자 사진</p>
                             <div class="filebox" >
                                 <!-- <input class="upload-name" id="craft_rep_img" style="margin-bottom: 10px;" readonly="readonly" placeholder="파일첨부"  value=""/> -->
@@ -574,7 +575,7 @@
                     <div class="frm_border_2"  style="height: 100px;">
                         <span> <p> * 한 줄 공방소개 </p>
                             <textarea id="self_introduce" name="craft_Introduce" style="height: 80px; margin-left: 18px;"></textarea>
-                            <span class="error" style="display: inline-block; margin-top:50px;  color:#400099;">※ 자기소개는 필수입력 사항입니다.</span>
+                            <span class="error" style="display: inline-block; margin-top:10px;  color:#400099;">※ 공방 한줄소개는 필수입력 사항입니다.</span>
                         </span>
                     </div>
                     <div class="frm_border">

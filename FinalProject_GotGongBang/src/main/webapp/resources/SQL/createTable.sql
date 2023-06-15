@@ -143,7 +143,7 @@ CREATE TABLE REQUEST_LIST (
 -- 관리자 테이블
 create table ADMIN
 (admin_id_pk  VARCHAR2(20)  NOT NULL  -- 관리자 아이디
-,admin_pwd    VARCHAR(20)   NOT NULL     -- 관리자 비밀번호
+,admin_pwd    VARCHAR(200)   NOT NULL     -- 관리자 비밀번호
 ,CONSTRAINT PK_ADMIN PRIMARY KEY(admin_id_pk)
 );
 -- Table ADMIN이(가) 생성되었습니다.
@@ -232,15 +232,15 @@ create table INQUIRY
 
 
 ----- 공방정보 table ------
-
 CREATE TABLE CRAFT (
+
 craft_num_pk               NUMBER          NOT NULL,            -- 공방번호
 partner_id_fk              VARCHAR2(20)    NOT NULL,            -- 파트너 아이디
 craft_name                 VARCHAR2(30)    NOT NULL,            -- 공방이름
 craft_mobile               VARCHAR2(200)   NOT NULL,            -- 공방연락처
-craft_representative       VARCHAR2(30)    NOT NULL,            -- 대표이름
+craft_representative       VARCHAR2(100)   NOT NULL,            -- 대표이름
 craft_Introduce            NVARCHAR2(2000) NOT NULL,            -- 자기소개
-craft_career               VARCHAR2(10)    NOT NULL,            -- 경력기간
+craft_career               VARCHAR2(100)   NOT NULL,            -- 경력기간
 craft_specialty            VARCHAR2(200)   NOT NULL,            -- 전문 품목
 craft_post_code            VARCHAR2(20)    NOT NULL,            -- 공방우편번호
 craft_address              VARCHAR2(200)   NOT NULL,            -- 공방주소
@@ -252,25 +252,13 @@ craft_status               NUMBER(1)       default 0 NOT NULL,  -- 공방 상태
 craft_rating               NUMBER(1)       NULL                 -- 공방평점
 ,fileName                  VARCHAR2(2000)  NOT NULL             -- WAS(톰캣)에 저장될 이미지 파일명                                       
 ,orgFilename               VARCHAR2(500)   NOT NULL             -- 진짜 파일명
-,fileSize                  NUMBER                               -- 파일크기  
 
-constraint PK_CRAFT_craft_num_pk primary key(craft_num_pk),
-constraint FK_CRAFT_partner_id_fk foreign key(partner_id_fk) references PARTNER(partner_id_pk),
-constraint UQ_CRAFT_craft_name  unique(craft_name),
-constraint CK_CRAFT_craft_status check( craft_status in(0,1) )
+,constraint PK_CRAFT_craft_num_pk primary key(craft_num_pk)
+,constraint FK_CRAFT_partner_id_fk foreign key(partner_id_fk) references PARTNER(partner_id_pk)
+,constraint UQ_CRAFT_craft_name  unique(craft_name)
+,constraint CK_CRAFT_craft_status check( craft_status in(0,1) )
 );
 
-
--- 공방 추가이미지 테이블 --
-
-CREATE TABLE CRAFT_IMG (
-craft_add_img_pk       NUMBER     NOT NULL, -- 공방 추가 사진 번호
-craft_num_fk           NUMBER     NOT NULL, -- 공방번호
-add_file_name    VARCHAR2(1000) NOT NULL,      -- 추가 이미지 파일명
-add_origin_file_name VARCHAR2(1000) NOT NULL,     --추가 이미지 원래 파일명
-constraint PK_CRAFT_IMG_craft_add_img_pk primary key(craft_add_img_pk),
-constraint FK_CRAFT_craft_num_fk foreign key(craft_num_fk) references CRAFT(craft_num_pk)
-);
 
 --- *** 로그인이 성공되어지면 자동적으로 로그인 기록을 남기려고 insert 되어질 테이블
 CREATE TABLE LOGIN_HISTORY 

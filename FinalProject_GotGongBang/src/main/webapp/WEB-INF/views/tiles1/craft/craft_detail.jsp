@@ -186,24 +186,24 @@ $(window).scroll(function() {
 		<div style="height:50px;">
 		</div>	
 		<div class="table table--col customer-notice-list__table aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
-			<h2 style="font-size: 30px; font-weight: bold; margin-left:155px; margin-bottom: 10px;">후기가 증명합니다.</h2>
+			<h2 style="font-size: 30px; font-weight: bold; margin-left: 100px; margin-bottom: 10px;">후기가 증명합니다.</h2>
 		</div>
 		<c:if test="${empty requestScope.reviews}">
 			후기가 없습니다.
 		</c:if>
 		<c:if test="${not empty requestScope.reviews}">
-		<table id="reviewTbl" style="width:80%; margin: 0 auto; padding-bottom: 100px;" class="table table--col customer-notice-list__table aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+		<table id="reviewTbl" class="table table--col customer-notice-list__table aos-init aos-animate" data-aos="fade-up" data-aos-delay="300" style="margin-bottom:50px;">
             <thead>
             <tr>
-                <th scope="col">번호</th>   <!-- 후기번호 : review_id_pk -->
-                <th scope="col">작성자</th>  <!-- 아이디  : user_id_fk -->
-                <th scope="col">평점</th>   <!-- 평점 : review_rating -->
-                <th scope="col">품목</th>
-                <th scope="col">브랜드</th>  
-                <th scope="col">후기내용</th>   <!-- 후기내용 : review_content -->
-                <th scope="col">수선전</th>
-                <th scope="col">수선후</th>  
-                <th scope="col">작성일</th>  <!-- 작성일 : review_date -->
+                <th scope="col" class="tblNumber" style="width: 5%; text-align:center;">번호</th>   <!-- 후기번호 : review_id_pk -->
+                <th scope="col" class="tblWriter" style="width: 8%; text-align:center;">작성자</th>  <!-- 아이디  : user_id_fk -->
+                <th scope="col" class="tblRating" style="width: 8%; text-align: center;">평점</th>   <!-- 평점 : review_rating -->
+                <th scope="col" class="tblCategory" style="width: 9%; text-align:center;">품목</th>
+                <th scope="col" class="tblBrand" style="text-align: center;">브랜드</th>  
+                <th scope="col" class="tbl">후기내용</th>   <!-- 후기내용 : review_content -->
+                <th scope="col" class="fixBefore" style="width:10%;">수선전</th>
+                <th scope="col" class="fixAfter" style="width:10%;">수선후</th>  
+                <th scope="col" style="text-align: center;">작성일</th>  <!-- 작성일 : review_date -->
                 
             </tr>
             </thead>
@@ -211,11 +211,11 @@ $(window).scroll(function() {
 				
 					<c:forEach var="review_one" items="${requestScope.reviews}" varStatus="status">
 						<tr class="review_row" >
-						    <td id="${review_one.review_id_pk}" class="review_code" >${review_one.review_id_pk}</td>
-						    <td>${review_one.user_id_fk}</td>
-						    <td>${review_one.review_rating}</td>
-						    <td>${review_one.order_product_type}</td>  <!-- 품목 -->
-						    <td>${review_one.brand_name}</td> <!-- 브랜드 -->
+						    <td id="${review_one.review_id_pk}" class="review_code" style="text-align: center;">${review_one.review_id_pk}</td>
+						    <td style="text-align: center;">${review_one.user_id_fk}</td>
+						    <td style="text-align: center;">${review_one.review_rating}</td>
+						    <td style="text-align: center;">${review_one.order_product_type}</td>  <!-- 품목 -->
+						    <td style="text-align: center;">${review_one.brand_name}</td> <!-- 브랜드 -->
 						    <td class="customer-notice-list__table-title">
 						    	${review_one.review_content}
 						    </td>
@@ -223,9 +223,9 @@ $(window).scroll(function() {
 						    	<img src="<%=ctxPath%>/resources/img/orders/${review_one.whole_img_new_name}">
 						    </td>
 						    <td> <!-- 수선후 사진 -->
-						    	<img src="<%=ctxPath%>/resources/img/review/${review_one.fixed_photo_num_pk}.png">
+						    	<img src="<%=ctxPath%>/resources/img/review/${review_one.fixed_photo_num_pk}.png" style="width:100px; height:100px;">
 						    </td> 
-						    <td>${review_one.review_date}</td> 
+						    <td style="text-align: center;">${review_one.review_date}</td> 
 						</tr> 
 					</c:forEach>
 				</tbody>

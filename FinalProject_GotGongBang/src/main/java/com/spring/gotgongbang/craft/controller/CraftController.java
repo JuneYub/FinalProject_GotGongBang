@@ -61,16 +61,13 @@ public class CraftController {
 // 	    System.out.println("craft_num_pk = "+craft_num_pk);
 // 	    List<String> : 공방명만 여러개 
 // 	    List<CraftVO> : 여러개의 공방정보 데리고
- 	   
- 		CraftVO craftvo = service.craftDetail(craft_num_pk);
- 		//where절에서 필요한 데이터만 골라오기 위해 craft_num_pk 파라미터로 넣어준다.
-
+ 		
+        
+ 		CraftVO craftvo = service.craftDetail(craft_num_pk);   //where절에서 필요한 데이터만 골라오기 위해 craft_num_pk 파라미터로 넣어준다.
+ 		
  		//공방상세페이지 후기정보 가져오기
  		List<Map<String, Object>> paraMap = service.review_select(craft_num_pk);
  		//System.out.println(paraMap.get("review_content"));
- 		
- 		
- 		
  		
  		mav.setViewName("/craft/craft_detail.tiles1");
  		mav.addObject("craftvo", craftvo);  //mav 안에 craftvo 넣어주기
@@ -148,9 +145,11 @@ public class CraftController {
        
  		List<CraftVO> craftsList = null;  //수선사 정보 DB 받아오기용
  		List<CraftVO> craftsNewList = null;  //신규입점수선사 띄우기용
+ 		List<CraftVO> craftsSumList = null;  //수선품목별 간단히 보기 목록 띄우기용
        
  		craftsList = service.crafts_list_select();  //수선사 정보 DB 받아오기
  		craftsNewList = service.crafts_new_select();  //신규입점수선사 띄우기
+ 		craftsSumList = service.crafts_sum_select();  //수선품목별 간단히 보기 목록 띄우기용
        
        
        /*
@@ -165,12 +164,14 @@ public class CraftController {
        
  		mav.addObject("craftsList", craftsList);
  		mav.addObject("craftsNewList", craftsNewList);
+ 		mav.addObject("craftsSumList", craftsSumList);
  		mav.setViewName("/craft/craft_list.tiles1");   //뷰단 지정
        
  		return mav;  //craft_list.jsp 로 List가 전달된다.
        
  	}
-    
+ 	
+ 	
  	
  	// 수선사찾기 페이지에서 공방명/품목으로 공방정보 검색하기
  	@ResponseBody
@@ -282,12 +283,11 @@ public class CraftController {
        
        if(!fileList.isEmpty()) {
          HttpSession session = mrequest.getSession();
-         String root = session.getServletContext().getRealPath("/"); 
-         //   System.out.println("~~~~ 확인용 webapp 의 절대경로 => " + root); 
+ 	     String root = session.getServletContext().getRealPath("/").substring(0, 3);
+         //System.out.println("~~~~ 확인용 webapp 의 절대경로 => " + root); 
 
-         String path = root+"resources"+File.separator+"files";
-         
-         System.out.println("~~~~ 확인용 path => " + path);
+ 	     String path_whole = root + "Users"+File.separator+"user"+File.separator+"git"+File.separator+"FinalProject_GotGongBang"+File.separator+"FinalProject_GotGongBang"+File.separator+"src"+File.separator+"main"+File.separator+"webapp"+File.separator+"resources"+File.separator+"img"+File.separator+"craft";
+ 	     //System.out.println("~~~~ 확인용 path => " + path_whole);
          
          String newFileName = "";
          // WAS(톰캣)의 디스크에 저장될 파일명
@@ -305,7 +305,7 @@ public class CraftController {
                   
                   originalFilename += ("," + mf.getOriginalFilename());
                   
-                  newFileName += ("," + fileManager.doFileUpload(bytes, originalFilename, path));
+                  newFileName += ("," + fileManager.doFileUpload(bytes, originalFilename, path_whole));
 
              } catch (Exception e) {
                    e.printStackTrace();
@@ -334,13 +334,13 @@ public class CraftController {
     	  String craft_mobile = hp1 + hp2 + hp3;
     	  cvo.setCraft_mobile(craft_mobile);
     	  //===================================//
-    	  /* 세션에 저장된 partnert_id 가져오기
-    	  PartnerVO login_partner_id = (PartnerVO)session.getAttribute("login_partner_id");
-    	  String partner_id_pk = login_partner_id.getPartner_id_pk();
-    	  System.out.println("partner_id_pk" + partner_id_pk);
+    	  
+    	  String partner_id_pk = (String) session.getAttribute("partner_id_pk");
     	  
     	  cvo.setPartner_id_fk(partner_id_pk);
-    	  */
+    	  
+    	  
+    	  
     	  cvo.setFileName(newFileName_ss);
     	  cvo.setOrgFilename(originalFilename_ss);
 
@@ -361,11 +361,19 @@ public class CraftController {
    }
    
    
-   //'이전' 누르면  공방회원정보를 db에서 삭제하고 회원가입으로 이동
+   //공방 신청시 '취소' 누르면  공방회원정보를 db에서 삭제하고 회원가입으로 이동
    @RequestMapping(value = "/craft_reset.got")     
    public ModelAndView craft_reset(ModelAndView mav, PartnerVO pvo, HttpServletRequest request) {
+
+ 	  HttpSession session = request.getSession();
+	  String partner_id_pk = (String) session.getAttribute("partner_id_pk");
+	  //System.out.println("partner_id_pk" + partner_id_pk);
+	  
+	  pvo.setPartner_id_pk(partner_id_pk);
+	  
  	  int m = service.del_partner(pvo);
- 	  System.out.println("m : "+m);
+	  
+ 	  //System.out.println("m : "+m);
 		 if(m==1) {
 		  mav.addObject("message","공방 정보 등록 취소");	
 		  mav.addObject("loc", request.getContextPath()+"/register_member_first.got");
@@ -391,8 +399,17 @@ public class CraftController {
 	  HttpSession session = request.getSession();
 	  PartnerVO loginuser = (PartnerVO) session.getAttribute("loginpartner");
       String partnerId = loginuser.getPartner_id_pk();
-      
       String craftNum = service.getCraftNumByPartnerId(partnerId);
+      
+      if(craftNum == null) {
+		  String message = "올바르지 않은 경로 입니다";
+		  String loc = "/logout.got";
+		  mav.addObject("message", message);
+		  mav.addObject("loc", loc);
+    	  mav.setViewName("msg");
+    	  return mav;
+      }
+      
       String str_currentShowPageNo = request.getParameter("currentShowPageNo");
       int totalCountForEstimate = 0;
       int sizePerPageForEstimate = 5;
@@ -442,8 +459,11 @@ public class CraftController {
    }
    
    @RequestMapping(value="/estimate_inquiry_list/bid.got")
-   public ModelAndView bid(ModelAndView mav, HttpServletRequest request) {
-	  String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+   public ModelAndView requiredLogin_bid(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+	  HttpSession session = request.getSession();
+	  PartnerVO loginuser = (PartnerVO) session.getAttribute("loginpartner");
+	  String partnerId = loginuser.getPartner_id_pk();
+	   
 	  String craftNum = service.getCraftNumByPartnerId(partnerId);
 	  String orderNum = request.getParameter("order_num");
 	  HashMap<String, String> paraMap = new HashMap<String, String>();
@@ -464,7 +484,10 @@ public class CraftController {
    
    @RequestMapping(value="/estimate_inquiry_list/bid_end.got", method = RequestMethod.POST)
    public ModelAndView bidEnd(ModelAndView mav, HttpServletRequest request) {
-	  String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+	  HttpSession session = request.getSession();
+      PartnerVO loginuser = (PartnerVO) session.getAttribute("loginpartner");
+	  String partnerId = loginuser.getPartner_id_pk();
+	   
 	  String craftNum = service.getCraftNumByPartnerId(partnerId);
 	  HashMap<String, String> paraMap = new HashMap<String, String>();
 	  String proposalDuration = request.getParameter("proposalDuration");
@@ -500,6 +523,17 @@ public class CraftController {
 	  PartnerVO loginuser = (PartnerVO) session.getAttribute("loginpartner");
       String partnerId = loginuser.getPartner_id_pk();
 	  String craftNum = service.getCraftNumByPartnerId(partnerId);
+
+      if(craftNum == null) {
+		  String message = "올바르지 않은 경로 입니다";
+		  String loc = "/logout.got";
+		  mav.addObject("message", message);
+		  mav.addObject("loc", loc);
+    	  mav.setViewName("msg");
+    	  return mav;
+      }
+	  
+	  
 	  String str_currentShowPageNo = request.getParameter("currentShowPageNo");
       int totalCountForRepariList = 0;
       int sizePerPageRepariList = 5;
@@ -551,6 +585,16 @@ public class CraftController {
 	  PartnerVO loginpartner = (PartnerVO) session.getAttribute("loginpartner");
 	  String userid = loginpartner.getPartner_id_pk(); 	   
       
+	  String craftNum = service.getCraftNumByPartnerId(userid);
+      if(craftNum == null) {
+		  String message = "올바르지 않은 경로 입니다";
+		  String loc = "/logout.got";
+		  mav.addObject("message", message);
+		  mav.addObject("loc", loc);
+    	  mav.setViewName("msg");
+    	  return mav;
+      }
+	  
       PartnerVO pvo = new PartnerVO();
       pvo = service.getPartnerInfoByUserId(userid);
       mav.addObject("pvo", pvo);
@@ -586,18 +630,22 @@ public class CraftController {
    @ResponseBody
    @RequestMapping(value="/update_craft_user_pwd.got", method = {RequestMethod.POST})
    public String updateCraftUserPwd(HttpServletRequest request) {
-	  String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것 
+      HttpSession session = request.getSession();
+	  PartnerVO loginpartner = (PartnerVO) session.getAttribute("loginpartner");
+      String partnerId = loginpartner.getPartner_id_pk(); 	  
 	  String editPw = request.getParameter("editPw"); 
-	  
+	  System.out.println("editPw : " + editPw);
+	  String encryptEditPw = Sha256.encrypt(editPw);
+	  System.out.println("encryptEditPw : " + encryptEditPw);
 	  PartnerVO pvo = new PartnerVO();
       pvo = service.getPartnerInfoByUserId(partnerId);
       int n = 0;
 
-      if(editPw.equals(pvo.getPartner_pwd())) {
+      if(encryptEditPw.equals(pvo.getPartner_pwd())) {
     	  n = 2;
-    	  
       }
       else {
+    	  pvo.setPartner_pwd(encryptEditPw);
           n = service.updatePartnerPwd(pvo);
       }
       
@@ -621,7 +669,7 @@ public class CraftController {
 	    	n = 2;
 	    }
 		else {
-			pvo.setPartner_pwd(editPw);
+			pvo.setPartner_pwd(encryptEditPw);
 			n = service.updatePartnerPwd(pvo);
 		}
 	    JSONObject jsonObj = new JSONObject();

@@ -27,7 +27,7 @@ public interface InterAdminService {
 	
 	// ==== ==================================== 김진솔 시작 ======================================================= // 
 	// 공방 목록 가져오기
-	List<CraftVO> selectCraftList();
+	//List<CraftVO> selectCraftList();
 
 	// 공방 한 개 보기 페이지
 	CraftVO craftOneView(String craft_num_pk);
@@ -43,6 +43,12 @@ public interface InterAdminService {
 
 	//공방 한 개 정보 삭제
 	int craft_del(Map<String, String> paraMap);
+
+	//공방 목록 페이징처리
+	int getTotalCraftCount();
+
+	//공방 목록 페이징처리2
+	List<CraftVO> getCraftListWithPaging(Map<String, String> paraMap);
 
 	// ==== ==================================== 김진솔 끝 ======================================================= // 
 

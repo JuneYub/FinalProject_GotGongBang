@@ -98,5 +98,22 @@ public interface InterMemberService {
 	// 리뷰 작성에 넣을 견적 요청 번호와 공방 번호 가져오기
 	HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum);
 
+	int deleteReviewByOrderNum(String orderNum);
+
 	// ====== 박준엽 끝 =========================================== //
+	
+	
+	
+	// ====== 이지현 시작 =========================================== //
+	boolean delete_user_end(Map<String, String> paraMap);
+
+	boolean delete_partner_end(Map<String, String> paraMap);
+
+	int delete_user_info(String user_id_pk);
+
+	int delete_partner_info(String partner_id_pk);
+
+	
+	// ====== 이지현 끝 =========================================== //
+	
 }

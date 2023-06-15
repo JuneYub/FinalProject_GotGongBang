@@ -69,8 +69,8 @@
 					return;
 				}
 				else {
-					alert("후기를 작성할 수 있습니다");
-					const frm = document.forms["writeReviewForm"]
+					$("input#sendOrderNum").val(orderNum);
+					const frm = document.forms["writeReviewForm"];
 					frm.action = "<%= ctxPath%>/review.got";
 					frm.method ="post";
 					frm.submit();
@@ -83,6 +83,52 @@
  			
  		})
  	}
+ 	
+ 	function deleteReview(orderNum) {
+ 		$("#checkOriginPWD").modal("show");
+ 		
+ 		$("button#btnDeleteReview").bind("click", function() {
+ 			var insertPWD = $("#insertPWD").val();
+ 			
+ 			$.ajax({
+ 				url:"<%= ctxPath%>/delete_review.got",
+ 				type:"POST",
+ 				async:true,
+ 				data: {
+ 					orderNum : orderNum,
+ 					insertPWD : insertPWD
+ 				},
+ 				dataType:"JSON",
+ 				success:function(json) {
+ 					if(json.n == 1) {
+ 						alert("정상적으로 삭제되었습니다.");
+ 						location.reload();
+ 					}
+ 					
+ 					else if(json.n == 2) {
+ 						alert("비밀번호가 틀렸습니다");
+ 					}
+ 					else {
+ 						alert("문제가 발생하여 삭제할 수 없습니다");
+ 					}
+ 				},
+ 				error: function(request, status, error){
+ 					alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+ 				}
+ 					
+ 			});
+ 			
+ 		})
+ 		
+ 		$("button#btnModalClose").bind("click", function() {
+ 			$("#insertPWD").val("");
+ 			$("#checkOriginPWD").modal("hide");
+ 		});
+ 	};
+ 	
+
+	
+
 	 
 </script>
 
@@ -95,6 +141,7 @@
 				<li class=""><a class="" href="<%= ctxPath%>/proposal_list.got">견적 제안서 목록</a></li>
 				<li class="menu-list-selected"><a class="menu-list-selected" href="<%= ctxPath%>/order_list.got">주문 내역</a></li>
 				<li><a class="" href="<%= ctxPath%>/edit_user_info.got">개인 정보 변경</a></li>
+				<li><a class="" href="<%= ctxPath%>/edit_user_info.got">회원 탈퇴</a></li>
 			</ul>
 		</div>
 		
@@ -135,14 +182,15 @@
 	
 						<td>
 							<form name="writeReviewForm">
-							<input type="hidden" name="orderNum" value="${orderList.order_detail_id_pk}">
+							<input type="hidden" id="sendOrderNum" name="orderNum" value="">
 							</form>	
 							<c:if test="${orderList.review_cnt eq 0}">
-							<button type="button" class="btn-estimateDetail btn-font15" onclick="writeReview(${orderList.order_detail_id_pk})">후기 작성하기</button>
+							<button type="button" class="btn-estimateDetail btn-font15" onclick="writeReview(${orderList.order_detail_id_pk})">후기 작성</button>
 							</c:if>
 							
 							<c:if test="${orderList.review_cnt ne 0}">
 							작성 완료 
+							<button type="button" class="btn-delete-review btn-font15" onclick="deleteReview(${orderList.order_detail_id_pk})">후기 삭제</button>
 							</c:if>
 						</td>
 
@@ -158,4 +206,22 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="checkOriginPWD" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">후기 삭제를 위해서 비밀번호를 입력해주세요</h5>
+      </div>
+      <div class="modal-body">
+                  비밀번호 확인 &nbsp; <input type="password" id="insertPWD" name="originPWD" />
+      </div>
+      <div class="modal-footer">
+        <button id="btnModalClose" type="button" class="btn btn-light" data-bs-dismiss="modal">닫기</button>
+        <button id="btnDeleteReview" type="button" class="btn btn-secondary" >후기 삭제하기</button>
+      </div>
+    </div>
+  </div>
 </div>

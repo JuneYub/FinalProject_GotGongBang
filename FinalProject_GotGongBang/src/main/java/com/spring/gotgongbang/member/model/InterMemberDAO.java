@@ -107,6 +107,8 @@ public interface InterMemberDAO {
 
 	HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum);
 
+	int deleteReviewByOrderNum(String orderNum);
+
 
 
 
@@ -119,5 +121,22 @@ public interface InterMemberDAO {
 	// ====== 박준엽 끝 =========================================== //
 
 
+	
+	// ====== 이지현 시작 =========================================== //
+	
+	int delete_user_end(Map<String, String> paraMap);
+	
+	int delete_partner_end(Map<String, String> paraMap);
+	
+	int delete_user_info(String user_id_pk);
+	
+	int delete_partner_info(String partner_id_pk);
+	// ====== 이지현 끝 =========================================== //
+
+	
+
+	
+
+	
 	
 }
