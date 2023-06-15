@@ -255,7 +255,7 @@
 </select>
 
 <select id="getDetailImagesByOrderNum" parameterType="int" resultType="com.spring.gotgongbang.order.model.DetailImgVO">
-	select detail_img_num_pk, order_num_fk, detail_img_name 
+	select detail_img_num_pk, order_num_fk, detail_img_name, detail_img_new_name 
 	from DETAIL_IMG
 	where order_num_fk = #{order_num_pk}
 </select>
