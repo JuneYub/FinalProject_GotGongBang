@@ -10,48 +10,13 @@
 	.button_div {
 		text-align: center;
 	}
-	/* 플립 시작 */
-	
-	.container {
-      margin: 20px;
-      width: 200px;
-      height: 200px;
-      perspective: 1000px;
-    }
-
-    .card {
-        position: relative;
-      transition: transform 1s;
-      transform-style: preserve-3d;
-      cursor: pointer;
-    }
-
-    .front, .back {
-      position: absolute;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      backface-visibility: hidden;
-    }
-
-    .front {
-      border: 2px solid black;
-    }
-
-    .back {
-      border: 2px solid black;
-      transform: rotateY(180deg);
-    }
 	    
 
 </style>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		let card = document.querySelector('.card');
-		card.addEventListener('click', click);
-		
 		
 		$("button#yh_loginSubmit").click(function(){
 			func_Login();
@@ -91,16 +56,7 @@
 	    frm.submit();
 		
 	}// end of function func_Login()---------------------------
-	
-	function click(event) {
-		let elem = event.currentTarget;
-		if (elem.style.transform == "rotateY(180deg)") {
-	          elem.style.transform = "rotateY(0deg)";
-	    } 
-		else {
-	          elem.style.transform = "rotateY(180deg)";
-	    }
-	}
+
 </script>
 
 
@@ -108,8 +64,6 @@
 <body class="yh1_body">
 <div class="yh_login_cont" style="width: 1200px; height: 550px; letter-spacing: -.5px;">
 	<div class="button_div" style="width: 1200px;">
-	<button>힝힝</button>
-	<button>힝힝</button>
 	</div>
 	<div class="yh_login_in">
 		<h1><a href='<%= ctxPath%>/index.got'><img src="<%= ctxPath%>/resources/img/login_got.png" alt="패피스 로고" class="svg_logo"></a></h1>
@@ -139,16 +93,6 @@
 	</a>
 </div>
 <!-- 로그인폼 끝 -->
-<div class = 'container'>
-    <div class = 'card'>
-        <div class = 'front'>
-        front
-        </div>
-        <div class= 'back'>
-        back
-        </div>
-    </div>
-</div>
 
 
 </body>
