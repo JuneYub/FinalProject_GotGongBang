@@ -48,12 +48,12 @@ $(document).ready(function(){
 
 
  <!-- (어드민) 공방 목록 보기(craft_list) 본문시작 -->
- <div id="admin_container">
-     <div id="admin_contents">
+ <div id="admin_container"  style="height: 1000px;">
+     <div id="admin_contents" >
 
          <div id="introduce"></div>
 
-         <div id="craft_application">
+         <div id="craft_application"  style="height: 1000px;">
              <div id="application_left">
                  <div class="left_list">
                      <div style="font-size: 15pt; color: #400099; font-weight: 600; border-bottom: solid 1px rgb(152, 152, 152); padding-bottom: 13px;">
@@ -108,7 +108,12 @@ $(document).ready(function(){
                      </table>
 
                  </div>
-
+			
+			    <%-- === #122. 페이지바 보여주기 === --%>  
+			    <div align="center" style="border: solid 0px gray; width: 70%; margin: 20px auto; ">
+			    	${requestScope.pageBar}
+			    </div>
+			 
 
              </form>    
          </div>

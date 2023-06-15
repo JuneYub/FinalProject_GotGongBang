@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.gotgongbang.common.MyUtil;
 import com.spring.gotgongbang.admin.service.InterAdminService;
 import com.spring.gotgongbang.common.FileManager;
 import com.spring.gotgongbang.common.Sha256;
@@ -38,11 +39,113 @@ public class AdminController {
 	
 	// 공방 목록 보기 페이지 요청
 	@RequestMapping(value = "/craft_list.got")
-	public ModelAndView craftList(ModelAndView mav) {
-        List<CraftVO> craftList = null;
+	public ModelAndView craftList(ModelAndView mav, HttpServletRequest request) {
+       List<CraftVO> craftList = null;
 
-        craftList = service.selectCraftList();
-
+       String str_currentShowPageNo = request.getParameter("currentShowPageNo");
+     
+               int totalCount = 0;        // 총 게시물 건수
+        int sizePerPage = 10;      // 한 페이지당 보여줄 게시물 건수 
+        int currentShowPageNo = 0; // 현재 보여주는 페이지번호로서, 초기치로는 1페이지로 설정함.
+        int totalPage = 0;         // 총 페이지수(웹브라우저상에서 보여줄 총 페이지 개수, 페이지바)
+        
+        int startRno = 0; // 시작 행번호
+        int endRno = 0;   // 끝 행번호
+       
+        //총 게시물 건수(totalCount)
+        totalCount = service.getTotalCraftCount();
+        System.out.println("확인용~ totalCount: " + totalCount);
+       
+        //만약에 총 게시물 건수가 127개라면 총 페이지수는 13개가 되어야 한다(n/10+1)
+        totalPage = (int)Math.ceil((double)totalCount/sizePerPage);      
+       
+        if(str_currentShowPageNo == null) {
+           currentShowPageNo = 1;
+        }else {
+           try {
+              currentShowPageNo = Integer.parseInt(str_currentShowPageNo);
+              if(currentShowPageNo < 1 || currentShowPageNo > totalPage ) {
+                 currentShowPageNo = 1;
+              }
+              
+           } catch(NumberFormatException e){
+              currentShowPageNo = 1;
+           }
+        }
+       
+        startRno = ((currentShowPageNo - 1) * sizePerPage) + 1;
+        endRno = startRno + sizePerPage - 1;
+        
+        Map<String, String> paraMap = new HashMap<String, String>();
+        
+        paraMap.put("startRno", String.valueOf(startRno));
+        paraMap.put("endRno", String.valueOf(endRno));
+        
+        craftList = service.getCraftListWithPaging(paraMap);
+        // 페이징처리한 글목록 가져오기
+        
+        int blockSize = 10;
+        
+        
+        int loop = 1;
+        
+        int pageNo = ((currentShowPageNo - 1)/blockSize) * blockSize + 1;
+     
+        
+        String pageBar = "<ul style='list-style: none;'>";
+        String url = "craft_list.got";
+        
+        // === [맨처음][이전] 만들기 === //
+        if(pageNo != 1) {
+           pageBar += "<li style='display:inline-block; width:70px; font-size:12pt;'><a href='"+url+"?currentShowPageNo=1'>[맨처음]</a></li>";
+           pageBar += "<li style='display:inline-block; width:50px; font-size:12pt;'><a href='"+url+"?currentShowPageNo="+(pageNo-1)+"'>[이전]</a></li>";
+        }
+        
+        while( !(loop > blockSize || pageNo > totalPage) ) {
+           
+           if(pageNo == currentShowPageNo) {
+              pageBar += "<li style='display:inline-block; width:30px; font-size:12pt; border:solid 1px gray; color:red; padding:2px 4px;'>"+pageNo+"</li>";  
+           }
+           else {
+              pageBar += "<li style='display:inline-block; width:30px; font-size:12pt;'><a href='"+url+"?currentShowPageNo="+pageNo+"'>"+pageNo+"</a></li>"; 
+           }
+           
+           loop++;
+           pageNo++;
+           
+        }// end of while-----------------------
+        
+        
+        // === [다음][마지막] 만들기 === //
+        if( pageNo <= totalPage ) {
+           pageBar += "<li style='display:inline-block; width:50px; font-size:12pt;'><a href='"+url+"?currentShowPageNo="+pageNo+"'>[다음]</a></li>";
+           pageBar += "<li style='display:inline-block; width:70px; font-size:12pt;'><a href='"+url+"?currentShowPageNo="+totalPage+"'>[마지막]</a></li>"; 
+        }
+        
+        pageBar += "</ul>";
+        
+        mav.addObject("pageBar", pageBar);
+      
+        
+        // === #123. 페이징 처리되어진 후 특정 글제목을 클릭하여 상세내용을 본 이후
+        //           사용자가 "검색된결과목록보기" 버튼을 클릭했을때 돌아갈 페이지를 알려주기 위해
+        //           현재 페이지 주소를 뷰단으로 넘겨준다.
+        String gobackURL = MyUtil.getCurrentURL(request);
+        //System.out.println("~확인용: " + gobackURL);
+        //~확인용: /list.action
+        //~확인용: /list.action?searchType=&searchWord=&currentShowPageNo=2
+        //~확인용: /list.action?searchType=subject&searchWord=jaVa
+        //~확인용: /list.action?searchType=subject&searchWord=%EC%9D%B4%EC%88%9C%EC%8B%A0   (이순신)
+        
+        mav.addObject("gobackURL",gobackURL.replaceAll("&", " "));
+        ///list.action
+        ///list.action searchType= searchWord= currentShowPageNo=2
+        ///list.action searchType=subject&searchWord=jaVa
+        ///list.action searchType=subject searchWord=%EC%9D%B4%EC%88%9C%EC%8B%A0   (이순신)
+        
+        // === 페이징 처리를 한 검색어가 있는 전체 글목록 보여주기 끝 ===
+        
+        
         mav.addObject("craftList", craftList);
 		mav.setViewName("admin/craftList.tiles1");
 		

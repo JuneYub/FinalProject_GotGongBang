@@ -92,11 +92,13 @@ public class AdminService implements InterAdminService{
 	// ==== ==================================== 김진솔 시작 ======================================================= // 
 	
 	// 공방 목록 보기
+	/*
 	@Override
 	public List<CraftVO> selectCraftList() {
 		List<CraftVO> craftList = dao.selectCraftList();
 		return craftList;
 	}
+	*/
 
 	// 공방 한 개 보기 페이지
 	@Override
@@ -133,6 +135,21 @@ public class AdminService implements InterAdminService{
 		int n = dao.craft_del(paraMap);
 		return n;
 	}
+
+	//공방목록 페이징처리
+	@Override
+	public int getTotalCraftCount() {
+		int totalCount = dao.getTotalCraftCount();
+		return totalCount;
+	}
+
+	//공방 목록 페이징처리2
+	@Override
+	public List<CraftVO> getCraftListWithPaging(Map<String, String> paraMap) {
+		List<CraftVO> craftList = dao.getCraftListWithPaging(paraMap);
+		return craftList;
+	}
+
 
 
 
