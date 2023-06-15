@@ -7,6 +7,7 @@ public class AdminVO {
 	private String admin_id_pk;
 	private String admin_pwd;
 	private String name = "관리자";
+	private String user_id_pk = "admin";
 	 
 	//이 부분은 select 용도!
 	private boolean requirePwdChange = false;
@@ -42,6 +43,13 @@ public class AdminVO {
 		this.name = name;
 	}
 	
+	public String getUser_id_pk() {
+		return user_id_pk;
+	}
+	
+	public void setUser_id_pk(String user_id_pk) {
+		this.user_id_pk = user_id_pk;
+	}
 	
 	
 	
