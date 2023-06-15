@@ -37,7 +37,7 @@ function View_del(inquiry_num_pk) {
 	                   if (json.n == 1) {
 	                	   
 	                	   alert(inquiry_num_pk + " 게시물을 삭제하였습니다.");
-	                       location.href = "<%= ctxPath %>/board_inquiry.got"; // 페이지 새로고침
+	                       location.href = "<%= ctxPath %>/board_question.got"; // 페이지 새로고침
 	                   }
 	               },
 	               error: function(request, status, error) {
@@ -118,7 +118,7 @@ function View_del(inquiry_num_pk) {
                                 <div class="ojh_css-1xrh39a e1pwb5hv2">첨부파일</div>
                                 <div class="ojh_css-8vgw34 e1pwb5hv1">
                                 	<a href="<%= request.getContextPath()%>/board_download.got?inquiry_num_pk=${requestScope.iqvo.inquiry_num_pk}">${requestScope.iqvo.inquiry_orgFilename}</a>
-								</div>
+                                </div>`
                             </div>
                             <div class="ojh_css-1dhg94g e1pwb5hv0">
                                 <input type="hidden" class="ojh_css-8vgw34 e1pwb5hv1" value="${requestScope.iqvo.inquiry_num_pk}" readonly />

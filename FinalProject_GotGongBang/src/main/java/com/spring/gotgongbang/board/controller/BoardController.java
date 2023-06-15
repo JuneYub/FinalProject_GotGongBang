@@ -91,6 +91,7 @@ public class BoardController {
 			MemberVO loginuser = null;
 			PartnerVO loginpartner = null;
 			String partner_chk = "0";
+			String partner_id_pk = "";
 			
 			try {
 				loginuser = (MemberVO)session.getAttribute("loginuser");
@@ -99,15 +100,17 @@ public class BoardController {
 			catch (Exception e) {
 				
 			}
-			if(loginuser != null) {
-				partner_chk = "0";
+			if (loginpartner != null) {
+			    partner_chk = "1";
 			}
-			if(loginuser == null) {
-				partner_chk = "1";
+			else {
+			    partner_chk = "0";
 			}
 			
-		//	System.out.println("~~~~~~~~~~테스트 중" + partner_chk);
 			
+		//	System.out.println("확인용 partner_chk 22 = " + partner_chk);
+		//	System.out.println("확인용 loginuser 22 = " + loginuser);
+		//	System.out.println("확인용 loginpartner 22 = " + loginpartner);
 		
 		    String fk_seq = request.getParameter("fk_seq");
 			String groupno = request.getParameter("groupno");
@@ -155,7 +158,7 @@ public class BoardController {
 				
 				String path = root+"resources"+File.separator+"files";
 				
-				 String newFileName = "";
+				String newFileName = "";
 				   // WAS(톰캣)의 디스크에 저장될 파일명 
 				   
 				   byte[] bytes = null;
@@ -196,14 +199,14 @@ public class BoardController {
 			
 			// 파일 첨부가 있는 온라인문의
 			
-			
+			String partner_chk = request.getParameter("partner_chk");
 			
 			int n = 0;
 			
 			if( attach.isEmpty() ) {
 				// 파일첨부가 없는 경우
 				n = service.add(iqvo);
-			//	System.out.println("확인용11" + partner_chk);
+				
 			}
 			
 			else {

@@ -157,15 +157,19 @@ $(document).ready(function(){
 	                                    	<span class="subject t15" name="inquiry_title" style="cursor:pointer;" onclick="goView('${inquiryvo.inquiry_num_pk}')"><span style="color: red; font-style: italic; padding-left: ${boardvo.depthno * 20}px;">└Re&nbsp; </span> ${inquiryvo.inquiry_title} </span>
                                     </c:if> 
                                     
-                                    	<input type="text" id="partner_chk" name="partner_chk" value="${inquiryvo.partner_chk}" readonly />
+                                    	<input type="hidden" id="partner_chk" name="partner_chk" value="${inquiryvo.partner_chk}" readonly />
                                     	<div class="ojh_table2_notice4 t16">
                                     	
-                                    	<c:if test="${inquiryvo.partner_chk == 0}">
-                                    		<span class="ojh_table2_notice4_1">일반사용자</span>
+                                    	<c:if test="${inquiryvo.partner_chk == '0' && inquiryvo.user_id_fk != 'admin'}">
+                                    		<span class="ojh_table2_notice4_1" style="color: #66a3ff">일반사용자</span>
                                     	</c:if>
                                     	
-                                    	<c:if test="${inquiryvo.partner_chk == 1}">
-                                    		<span class="ojh_table2_notice4_1">파트너사용자</span>
+                                    	<c:if test="${inquiryvo.partner_chk == '1'}">
+                                    		<span class="ojh_table2_notice4_1" style="color: #ff00ff">파트너사용자</span>
+                                    	</c:if>
+                                    	
+                                    	<c:if test="${inquiryvo.partner_chk == '2'}">
+                                    		<span class="ojh_table2_notice4_1" style="color: #ff00ff">관리자</span>
                                     	</c:if>
                                     	
                                     	${inquiryvo.user_id_fk}
