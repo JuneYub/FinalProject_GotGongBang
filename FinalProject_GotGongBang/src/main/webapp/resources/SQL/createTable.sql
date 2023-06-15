@@ -16,7 +16,7 @@ CREATE TABLE PARTNER (
     partner_idle NUMBER(1)                   DEFAULT 0 not null,                         -- 파트너 휴먼회원 여부  0
     partner_pwd_change_required NUMBER(1)    DEFAULT 0 not null,                         -- 파트너 비밀번호 갱신 필요 여부 0
     partner_status NUMBER(1)                 DEFAULT 1 not null,                         -- 파트너 회원 탈퇴 여부 1
-    partner_gradelevel number   default 1                                                -- 회원등급
+    partner_gradelevel number   default 2                                                -- 회원등급
     , CONSTRAINT PK_PARTNER_partner_id_pk primary key(partner_id_pk)
     ,constraint UQ_PARTNER_partner_email  unique(partner_email)
     ,constraint CK_PARTNER_partner_gender check( partner_gender in('1','2') )
