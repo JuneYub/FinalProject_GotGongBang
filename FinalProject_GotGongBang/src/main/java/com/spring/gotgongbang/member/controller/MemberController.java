@@ -281,6 +281,8 @@ public class MemberController {
 			// 리뷰 작성에 넣을 견적 요청 번호와 공방 번호 가져오기
 			HashMap<String, String> paraMap = service.getOrderNumAndCraftNumByOrderDetailNum(orderDetailNum);
 			
+			mav.addObject("wholeImgList", wholeImgList);
+			mav.addObject("detailImgList", detailImgList);
 			mav.addObject("orderNum", paraMap.get("orderNum"));
 			mav.addObject("craftNum", paraMap.get("craftNum"));
 			mav.setViewName("member/review.tiles1");

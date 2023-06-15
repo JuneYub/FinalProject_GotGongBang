@@ -309,6 +309,37 @@
     </select>
     
     <select id="getWholeImgListByOrderDetailNum" parameterType="String" resultType="com.spring.gotgongbang.order.model.WholeImgVO">
+    	select whole_img_num_pk, order_num_fk, whole_img_name, whole_img_new_name
+		from whole_img
+		where order_num_fk = 
+		(
+			select order_num_fk
+			from
+			estimate
+			where estimate_num_pk = 
+			    (
+			    select estimate_num_fk
+			    from order_detail
+			    where order_detail_id_pk = #{orderDetailNum}
+			    )
+		)
+    </select>
+    
+    <select id="getDetailImgListByOrderDetailNum" parameterType="String" resultType="com.spring.gotgongbang.order.model.DetailImgVO">
+        select detail_img_num_pk, order_num_fk, detail_img_name, detail_img_new_name
+		from detail_img
+		where order_num_fk = 
+		(
+			select order_num_fk
+			from
+			estimate
+			where estimate_num_pk = 
+			    (
+			    select estimate_num_fk
+			    from order_detail
+			    where order_detail_id_pk = #{orderDetailNum}
+			    )
+		)
     </select>
     
     <select id="getFixedPhotoNum" resultType="int">
