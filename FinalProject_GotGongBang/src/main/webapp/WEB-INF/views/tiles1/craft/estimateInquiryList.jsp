@@ -39,6 +39,7 @@
 				<li class="menu-list-selected"><a class="menu-list-selected" href="<%= ctxPath%>/estimate_inquiry_list.got">견적 목록</a></li>
 				<li><a class="" href="<%= ctxPath%>/repair_history_list.got">수선 내역 관리</a></li>
 				<li><a class="" href="<%= ctxPath%>/edit_craft_user_info.got">개인 정보 변경</a></li>
+				<li><a class="" href="<%= ctxPath%>/delete_partner.got">회원 탈퇴</a></li>
 			</ul>
 		</div>
 		
@@ -85,7 +86,7 @@
 								<li class="requests-cont"><div class="estimate-info-tit">수선 유형 :</div>
 									<c:if test="${not empty ovo.requests and ovo.requests ne ' '}">
 									  <ul>
-									    <c:forTokens var="requests" items="${ovo.requests}" delims=",">
+									    <c:forTokens var="requests" items="${ovo.requests}" delims="%">
 									      <li class="requests-item">${requests}</li>
 									    </c:forTokens>
 									  </ul>

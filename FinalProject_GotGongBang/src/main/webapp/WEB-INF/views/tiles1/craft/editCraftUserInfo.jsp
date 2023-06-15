@@ -321,6 +321,7 @@
 				<li class=""><a class="" href="<%= ctxPath%>/estimate_inquiry_list.got">견적 목록</a></li>
 				<li class=""><a class="" href="<%= ctxPath%>/repair_history_list.got">수선 내역 관리</a></li>
 				<li class="menu-list-selected"><a class="menu-list-selected" href="<%= ctxPath%>/edit_craft_user_info.got">개인 정보 변경</a></li>
+				<li><a class="" href="<%= ctxPath%>/delete_partner.got">회원 탈퇴</a></li>
 			</ul>
 		</div>
 		

@@ -892,8 +892,7 @@ public class MemberController {
 			// 비밀번호 틀리면
 			else {
 				String message = "암호가 틀립니다.";
-				String loc = request.getContextPath()+"/index.got";
-				
+				String loc ="javascript:history.back();";
 				mav.addObject("message", message);
 				mav.addObject("loc", loc);
 				
