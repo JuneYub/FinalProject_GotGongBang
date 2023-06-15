@@ -7,8 +7,9 @@
 <%
    String ctxPath = request.getContextPath();
 %>   
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9a09d03e3f703da8ee523eb3e3c17431&libraries=services"></script> 
 
-<script>
+<script type="text/javascript">
 
 	$(document).ready(function() {
 		
@@ -35,7 +36,11 @@
 
 		});
 		
+	
 	});
+
+
+
 	
 	function go_edit() {
 		const frm = document.craft_view_frm;
@@ -44,6 +49,9 @@
 		frm.submit();
 	};
 
+
+		
+		 
 </script>
 
 
@@ -69,6 +77,8 @@
 
             <form name="craft_view_frm">
                     <input type="hidden" id="num_hidden" name="craft_num_pk" value="${requestScope.craftvo.craft_num_pk}"/>
+                    <input type="hidden" id="lat_hidden" name="craft_latitude" value="${requestScope.craftvo.craft_latitude}"/>
+                    <input type="hidden" id="lng_hidden" name="craft_longitude" value="${requestScope.craftvo.craft_longitude}"/>
                 <div class="application_right">
                 	                    <p style="display: inline; magin:0; float: right; width: 210px; height: 10px; font-size: 12pt;"> * 표시는 수정 가능합니다.</p>
                
@@ -175,7 +185,8 @@
 					    <button class="update" type="button" onclick="go_edit()">수정</button>
                     </div>
                 </div>
-
+				
+				
             </form>    
         </div>
     </div>

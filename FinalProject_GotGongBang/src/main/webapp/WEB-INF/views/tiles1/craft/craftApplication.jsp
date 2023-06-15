@@ -8,7 +8,9 @@
    String ctxPath = request.getContextPath();
 %>   
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9a09d03e3f703da8ee523eb3e3c17431&libraries=services"></script> 
+
+<script type="text/javascript">
 
 	let b_flag_nickname_click = false;
 	// "공방이름 중복확인"을 클릭했는지 안했는지 여부를 알아오기위한 변수
@@ -348,11 +350,8 @@
 	             
 	     }); 
 	    
-	    
-	    
-	    
-		
-		
+
+
 	}); // end of $(document).ready(function() ----------------------------
 				
 	
@@ -361,12 +360,15 @@
 	
 	// === '신청' 버튼을 눌렀을 때  ===
 	function goComplete() {
-		 
+		func_geocoder($("input#address").val()); 
+
 		// 공방 사진 첨부 안했을때 submit 막아주기 및 에러 띄워주기
 		if( $(".img_file").val()=="" ){
 			$(".img_file").parent().find("span.error").show();
 			return;
 		}
+		
+		
 		
 		
 		// 전문 품목 체크박스 배열로 저장
@@ -413,8 +415,6 @@
 			
 		}
 		
-			
-
 		  const frm = document.craft_application_frm;
 		  frm.submit();
 		  
@@ -438,6 +438,26 @@
     }
     //////////////////////////////
 	
+   
+  	 function func_geocoder(address) {
+	   // 주소-좌표 변환 객체를 생성합니다
+	   var geocoder = new kakao.maps.services.Geocoder();
+
+	   geocoder.addressSearch(address, function(result, status) {
+
+		   if (status === kakao.maps.services.Status.OK) {
+			    // 주소가 정상적으로 검색이 완료됐으면
+		    	$("span#lat").text(result[0].y); // result[0].y ==> 위도
+		    	$("span#lng").text(result[0].x); // result[0].x ==> 경도
+		    	
+		    	$("input#lat_hidden").val(result[0].y);
+		    	$("input#lng_hidden").val(result[0].x);
+		   } 
+		}); 
+   	}
+    
+    
+    
     // '취소'버튼 클릭시
     function goReset() {
 		alert("공방 신청을 취소하시면 회원가입이 초기화됩니다. 취소하시겠습니까?");
@@ -483,7 +503,8 @@
             </div>
 
             <form name="craft_application_frm" method="POST" action="<%= request.getContextPath()%>/craft_application_end.got" enctype="multipart/form-data">
-                
+                <input type="text" id="lat_hidden" name="craft_latitude" value=""/>
+                <input type="text" id="lng_hidden" name="craft_longitude" value=""/>
                 <input type="hidden" name="specialized_value" value=""/>
 
                 <div class="application_right">

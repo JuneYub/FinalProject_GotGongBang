@@ -268,7 +268,7 @@ public class CraftController {
    //공방 신청정보를(첨부파일 포함)DB에 insert해주는 기능
    @RequestMapping(value = "/craft_application_end.got", method = {RequestMethod.POST})
    public ModelAndView craft_application_end(ModelAndView mav, CraftVO cvo, MemberVO membervo, MultipartHttpServletRequest mrequest, HttpServletRequest request , HttpServletResponse response) { 
-
+	 
 	  // 이미지 파일들 가져오기
       List<MultipartFile> fileList = new ArrayList<MultipartFile>();
       fileList.add(cvo.getCraft_image());
