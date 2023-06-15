@@ -205,4 +205,24 @@ public class CarftDAO implements InterCraftDAO {
 
 	// ================ 김나윤 끝 ==================//
 	
+	
+	
+	// ====== 이지현 시작 =========================================== //
+	
+	
+	@Override
+	public int delete_partner_end(Map<String, String> paraMap) {
+		int i = sqlsession.selectOne("craft.delete_partner_end", paraMap);
+		return i;
+	}
+
+	@Override
+	public int delete_partner_info(String user_id_pk) {
+		int i = sqlsession.update("craft.delete_partner_info", user_id_pk);
+		return i;
+	}
+
+	
+	// ====== 이지현 끝 =========================================== //
+	
 }

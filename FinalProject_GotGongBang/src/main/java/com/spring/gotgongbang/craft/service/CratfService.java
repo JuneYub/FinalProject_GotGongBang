@@ -224,4 +224,29 @@ public class CratfService implements InterCraftService {
 	
 	
 	// ================ 김나윤 끝 ================== //
+	
+	
+	
+	
+	// =========== 이지현 시작 =========================================== //
+
+	@Override
+	public boolean delete_partner_end(Map<String, String> paraMap) {
+		
+		int img_name = cdao.delete_partner_end(paraMap);
+		return img_name > 0;
+	}
+
+
+
+
+	@Override
+	public int delete_partner_info(String user_id_pk) {
+		int user_int = cdao.delete_partner_info(user_id_pk);
+		return user_int;
+	}
+
+
+	
+	// =========== 이지현 끝 =========================================== //
 }

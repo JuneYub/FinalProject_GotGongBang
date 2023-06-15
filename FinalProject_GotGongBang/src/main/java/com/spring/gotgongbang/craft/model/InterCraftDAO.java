@@ -94,4 +94,13 @@ public interface InterCraftDAO {
 	
 	
 	// =============== 김나윤 끝 =================//
+	
+	
+	
+	// ====== 이지현 시작 =========================================== //
+	
+	int delete_partner_end(Map<String, String> paraMap);
+	
+	int delete_partner_info(String user_id_pk);
+	// ====== 이지현 끝 =========================================== //
 }
