@@ -143,7 +143,7 @@ CREATE TABLE REQUEST_LIST (
 -- 관리자 테이블
 create table ADMIN
 (admin_id_pk  VARCHAR2(20)  NOT NULL  -- 관리자 아이디
-,admin_pwd    VARCHAR(20)   NOT NULL     -- 관리자 비밀번호
+,admin_pwd    VARCHAR(200)   NOT NULL     -- 관리자 비밀번호
 ,CONSTRAINT PK_ADMIN PRIMARY KEY(admin_id_pk)
 );
 -- Table ADMIN이(가) 생성되었습니다.
