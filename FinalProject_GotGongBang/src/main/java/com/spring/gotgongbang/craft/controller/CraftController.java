@@ -60,10 +60,10 @@ public class CraftController {
 // 	    System.out.println("craft_num_pk = "+craft_num_pk);
 // 	    List<String> : 공방명만 여러개 
 // 	    List<CraftVO> : 여러개의 공방정보 데리고
- 	   
- 		CraftVO craftvo = service.craftDetail(craft_num_pk);
- 		//where절에서 필요한 데이터만 골라오기 위해 craft_num_pk 파라미터로 넣어준다.
-
+ 		
+        
+ 		CraftVO craftvo = service.craftDetail(craft_num_pk);   //where절에서 필요한 데이터만 골라오기 위해 craft_num_pk 파라미터로 넣어준다.
+ 		
  		//공방상세페이지 후기정보 가져오기
  		List<Map<String, Object>> paraMap = service.review_select(craft_num_pk);
  		//System.out.println(paraMap.get("review_content"));
@@ -458,8 +458,11 @@ public class CraftController {
    }
    
    @RequestMapping(value="/estimate_inquiry_list/bid.got")
-   public ModelAndView bid(ModelAndView mav, HttpServletRequest request) {
-	  String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+   public ModelAndView requiredLogin_bid(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+	  HttpSession session = request.getSession();
+	  PartnerVO loginuser = (PartnerVO) session.getAttribute("loginpartner");
+	  String partnerId = loginuser.getPartner_id_pk();
+	   
 	  String craftNum = service.getCraftNumByPartnerId(partnerId);
 	  String orderNum = request.getParameter("order_num");
 	  HashMap<String, String> paraMap = new HashMap<String, String>();
@@ -480,7 +483,10 @@ public class CraftController {
    
    @RequestMapping(value="/estimate_inquiry_list/bid_end.got", method = RequestMethod.POST)
    public ModelAndView bidEnd(ModelAndView mav, HttpServletRequest request) {
-	  String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것
+	  HttpSession session = request.getSession();
+      PartnerVO loginuser = (PartnerVO) session.getAttribute("loginpartner");
+	  String partnerId = loginuser.getPartner_id_pk();
+	   
 	  String craftNum = service.getCraftNumByPartnerId(partnerId);
 	  HashMap<String, String> paraMap = new HashMap<String, String>();
 	  String proposalDuration = request.getParameter("proposalDuration");

@@ -143,7 +143,7 @@ CREATE TABLE REQUEST_LIST (
 -- 관리자 테이블
 create table ADMIN
 (admin_id_pk  VARCHAR2(20)  NOT NULL  -- 관리자 아이디
-,admin_pwd    VARCHAR(20)   NOT NULL     -- 관리자 비밀번호
+,admin_pwd    VARCHAR(200)   NOT NULL     -- 관리자 비밀번호
 ,CONSTRAINT PK_ADMIN PRIMARY KEY(admin_id_pk)
 );
 -- Table ADMIN이(가) 생성되었습니다.
@@ -208,55 +208,55 @@ create table ORDER_DETAIL
 
 -- 문의 테이블
 create table INQUIRY
-(inquiry_num_pk         NUMBER(5)               not null    -- 문의번호
-,user_id_fk             VARCHAR2(20)            not null    -- 아이디
-,inquiry_title          VARCHAR(100)            not null    -- 문의제목
-,inquiry_content        VARCHAR(4000)           not null    -- 문의내용
+(inquiry_num_pk     NUMBER(5)                   not null  -- 문의번호
+,user_id_fk         VARCHAR2(20)                not null  -- 아이디
+,inquiry_title      VARCHAR(100)                not null  -- 문의제목
+,inquiry_content    VARCHAR(4000)               not null  -- 문의내용
 
 -- 추가 및 수정
-,inquiry_date           date default sysdate    not null    -- 작성날짜
-,inquiry_viewcount      number default 0        not null    -- 조회수
+,inquiry_date          date default sysdate    not null   -- 작성날짜
+,inquiry_viewcount     number default 0        not null   -- 조회수
 
-,inquiry_status         number(1) default 1     not null    -- 글삭제여부   1:사용가능한 글,  0:삭제된글
-,inquiry_fileName       varchar2(255)                       -- WAS(톰캣)에 저장될 파일명(2023051909271535243254235235234.png)                                       
-,inquiry_orgFilename    varchar2(255)                       -- 진짜 파일명(강아지.png)  // 사용자가 파일을 업로드 하거나 파일을 다운로드 할때 사용되어지는 파일명 
-,inquiry_fileSize       number                              -- 파일크기 
-,groupno                number default 0        not null    -- (답변글쓰기) 그룹번호
-,fk_seq                 number default 0        not null    -- (답변글쓰기) 원글인 경우 0, 답변글일 경우  inquiry_num_pk 값을 가짐.
-,depthno                number default 0        not null    -- (답변글쓰기) 깊이번호 
-,partner_chk            number(1) default 0     not null    -- 일반사용자, 파트너사용자 구분
+,inquiry_status        number(1) default 1     not null   -- 글삭제여부   1:사용가능한 글,  0:삭제된글
+,inquiry_fileName      varchar2(255)                      -- WAS(톰캣)에 저장될 파일명(2023051909271535243254235235234.png)                                       
+,inquiry_orgFilename   varchar2(255)                      -- 진짜 파일명(강아지.png)  // 사용자가 파일을 업로드 하거나 파일을 다운로드 할때 사용되어지는 파일명 
+,inquiry_fileSize      number                             -- 파일크기 
+,groupno               number default 0        not null   -- (답변글쓰기) 그룹번호
+,fk_seq                number default 0        not null   -- (답변글쓰기) 원글인 경우 0, 답변글일 경우  inquiry_num_pk 값을 가짐.
+,depthno               number default 0        not null   -- (답변글쓰기) 깊이번호   
+,partner_chk           number(1) default 0     not null   -- 일반사용자, 파트너사용자 구분
+
 
 ,constraint PK_INQUIRY_inquiry_num_pk primary key(inquiry_num_pk)
 );
 
-drop table INQUIRY;
 
 ----- 공방정보 table ------
 CREATE TABLE CRAFT (
-craft_num_pk               NUMBER          NOT NULL, -- 공방번호
-partner_id_fk              VARCHAR2(20)    NOT NULL, -- 파트너 아이디
-craft_name                 VARCHAR2(30)    NOT NULL, -- 공방이름
-craft_mobile               VARCHAR2(200)   NOT NULL, -- 공방연락처
-craft_representative       VARCHAR2(100)   NOT NULL, -- 대표이름
-craft_Introduce            NVARCHAR2(2000) NOT NULL, -- 자기소개
-craft_career               VARCHAR2(100)   NOT NULL, -- 경력기간
-craft_specialty            VARCHAR2(200)   NOT NULL, -- 전문 품목
-craft_post_code            VARCHAR2(20)    NOT NULL, -- 공방우편번호
-craft_address              VARCHAR2(200)   NOT NULL, -- 공방주소
-craft_detail_address       VARCHAR2(200)   NOT NULL, -- 공방상세주소
-craft_extra_address        VARCHAR2(200)   NULL,     -- 공방부가주소
-craft_latitude             NUMBER          NOT NULL, -- 위도
-craft_longitude            NUMBER          NOT NULL, -- 경도
-craft_status               NUMBER(1)       default 1 NOT NULL,     -- 공방 상태(업데이트 방식)   1: 정식(가입중) / 0:임시(사용불가) 
-craft_rating               NUMBER(1)       NULL      -- 공방평점
-,fileName                  VARCHAR2(2000)  NOT NULL     -- WAS(톰캣)에 저장될 이미지 파일명                                       
-,orgFilename               VARCHAR2(500)   NOT NULL     -- 진짜 파일명
-,fileSize                  NUMBER                     -- 파일크기  
 
-constraint PK_CRAFT_craft_num_pk primary key(craft_num_pk),
-constraint FK_CRAFT_partner_id_fk foreign key(partner_id_fk) references PARTNER(partner_id_pk),
-constraint UQ_CRAFT_craft_name  unique(craft_name),
-constraint CK_CRAFT_craft_status check( craft_status in(0,1) )
+craft_num_pk               NUMBER          NOT NULL,            -- 공방번호
+partner_id_fk              VARCHAR2(20)    NOT NULL,            -- 파트너 아이디
+craft_name                 VARCHAR2(30)    NOT NULL,            -- 공방이름
+craft_mobile               VARCHAR2(200)   NOT NULL,            -- 공방연락처
+craft_representative       VARCHAR2(100)   NOT NULL,            -- 대표이름
+craft_Introduce            NVARCHAR2(2000) NOT NULL,            -- 자기소개
+craft_career               VARCHAR2(100)   NOT NULL,            -- 경력기간
+craft_specialty            VARCHAR2(200)   NOT NULL,            -- 전문 품목
+craft_post_code            VARCHAR2(20)    NOT NULL,            -- 공방우편번호
+craft_address              VARCHAR2(200)   NOT NULL,            -- 공방주소
+craft_detail_address       VARCHAR2(200)   NOT NULL,            -- 공방상세주소
+craft_extra_address        VARCHAR2(200)   NULL,                -- 공방부가주소
+craft_latitude             NUMBER          NOT NULL,            -- 위도
+craft_longitude            NUMBER          NOT NULL,            -- 경도
+craft_status               NUMBER(1)       default 0 NOT NULL,  -- 공방 상태(업데이트 방식)   1: 정식(가입중) / 0:임시(사용불가) 
+craft_rating               NUMBER(1)       NULL                 -- 공방평점
+,fileName                  VARCHAR2(2000)  NOT NULL             -- WAS(톰캣)에 저장될 이미지 파일명                                       
+,orgFilename               VARCHAR2(500)   NOT NULL             -- 진짜 파일명
+
+,constraint PK_CRAFT_craft_num_pk primary key(craft_num_pk)
+,constraint FK_CRAFT_partner_id_fk foreign key(partner_id_fk) references PARTNER(partner_id_pk)
+,constraint UQ_CRAFT_craft_name  unique(craft_name)
+,constraint CK_CRAFT_craft_status check( craft_status in(0,1) )
 );
 
 
