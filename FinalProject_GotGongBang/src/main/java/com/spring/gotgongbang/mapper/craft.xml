@@ -232,7 +232,7 @@
 	select order_num_pk, user_id_fk, order_date, brand_name, requests, order_product_type,
 	(select count(*) 
 	from estimate 
-	where order_num_fk = S.order_num_pk and craft_num_fk = 2) as proposal_stat
+	where order_num_fk = S.order_num_pk and craft_num_fk = #{craftNum}) as proposal_stat
 	from
 	(
 		select row_number() over(order by order_num_pk desc) as rno, 
@@ -244,7 +244,7 @@
 </select>
 
 <select id="getWholeImagesByOrderNum" parameterType="int" resultType="com.spring.gotgongbang.order.model.WholeImgVO">
-	select whole_img_num_pk, order_num_fk, whole_img_name 
+	select whole_img_num_pk, order_num_fk, whole_img_name, whole_img_new_name
 	from whole_img
 	where order_num_fk = #{order_num_pk}
 </select>
