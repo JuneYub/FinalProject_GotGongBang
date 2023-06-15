@@ -892,7 +892,7 @@ public class MemberController {
 			// 비밀번호 틀리면
 			else {
 				String message = "암호가 틀립니다.";
-				String loc ="javascript:history.back();";
+				String loc ="javascript:history.back()";
 				mav.addObject("message", message);
 				mav.addObject("loc", loc);
 				
@@ -904,7 +904,7 @@ public class MemberController {
 				
 				session.invalidate();
 				
-				String message = "탈퇴완료되었습니다.";
+				String message = "탈퇴 완료 되었습니다.";
 				String loc = request.getContextPath()+"/index.got";
 				
 				mav.addObject("message", message);

@@ -237,6 +237,8 @@ div.orderSelect{
         
 	   $("#modal_requestInput").click(function(){
 		   
+		   
+		   
 		   // == 라디오의 체크된 개수 (checked 속성이용) == //
 		   const radio_cnt = $("input:radio[class='req_class']:checked").length;
 		   //console.log("radio_cnt : "+radio_cnt);
@@ -305,6 +307,16 @@ div.orderSelect{
 	
 	// 품목 선택이 바뀔때마다 모달창에 넘겨주는 품목번호 바꿔서 전달
 	function changeFn(){
+		
+		$("a.btn-modal").show();
+	   //$("input#inputSelectList").val();
+	   req_name_list_join='';
+	   req_name_list = [];
+	   $("input#inputSelectList").text();
+	   $("input#inputSelectList").attr("value", "");
+	   $("input#inputSelectList").attr("type","hidden");
+	  
+		   
 		let type_code_pk  = document.getElementById("type_code_pk");
 		value = (type_code_pk.options[type_code_pk.selectedIndex].value);
 		
