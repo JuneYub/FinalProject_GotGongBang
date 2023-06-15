@@ -282,12 +282,11 @@ public class CraftController {
        
        if(!fileList.isEmpty()) {
          HttpSession session = mrequest.getSession();
-         String root = session.getServletContext().getRealPath("/"); 
-         //   System.out.println("~~~~ 확인용 webapp 의 절대경로 => " + root); 
+ 	     String root = session.getServletContext().getRealPath("/").substring(0, 3);
+         //System.out.println("~~~~ 확인용 webapp 의 절대경로 => " + root); 
 
-         String path = root+"resources"+File.separator+"files";
-         
-         System.out.println("~~~~ 확인용 path => " + path);
+ 	     String path_whole = root + "Users"+File.separator+"user"+File.separator+"git"+File.separator+"FinalProject_GotGongBang"+File.separator+"FinalProject_GotGongBang"+File.separator+"src"+File.separator+"main"+File.separator+"webapp"+File.separator+"resources"+File.separator+"img"+File.separator+"craft";
+ 	     //System.out.println("~~~~ 확인용 path => " + path_whole);
          
          String newFileName = "";
          // WAS(톰캣)의 디스크에 저장될 파일명
@@ -305,7 +304,7 @@ public class CraftController {
                   
                   originalFilename += ("," + mf.getOriginalFilename());
                   
-                  newFileName += ("," + fileManager.doFileUpload(bytes, originalFilename, path));
+                  newFileName += ("," + fileManager.doFileUpload(bytes, originalFilename, path_whole));
 
              } catch (Exception e) {
                    e.printStackTrace();
@@ -334,13 +333,14 @@ public class CraftController {
     	  String craft_mobile = hp1 + hp2 + hp3;
     	  cvo.setCraft_mobile(craft_mobile);
     	  //===================================//
-    	  /* 세션에 저장된 partnert_id 가져오기
-    	  PartnerVO login_partner_id = (PartnerVO)session.getAttribute("login_partner_id");
-    	  String partner_id_pk = login_partner_id.getPartner_id_pk();
-    	  System.out.println("partner_id_pk" + partner_id_pk);
     	  
-    	  cvo.setPartner_id_fk(partner_id_pk);
-    	  */
+    	 // String partner_id_pk = session.getAttribute("partner_id_pk");
+    	 // System.out.println("partner_id_pk" + partner_id_pk);
+    	  
+    	 // cvo.setPartner_id_fk(partner_id_pk);
+    	  
+    	  
+    	  
     	  cvo.setFileName(newFileName_ss);
     	  cvo.setOrgFilename(originalFilename_ss);
 
