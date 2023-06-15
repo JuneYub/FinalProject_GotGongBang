@@ -407,6 +407,34 @@ public class MemberController {
 			fos.close();
 	   }
 	   
+	   @ResponseBody
+	   @RequestMapping(value="delete_review.got", method= {RequestMethod.POST})
+	   public String deleteReviewByOrderNum(HttpServletRequest request) {
+		   HttpSession session = request.getSession();
+		   MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
+		   
+		   String userid = loginuser.getUser_id_pk();
+		   String orderNum = request.getParameter("orderNum");
+		   String insertPWD = request.getParameter("insertPWD");
+		   insertPWD = Sha256.encrypt(insertPWD);
+		   
+		   MemberVO mvo = new MemberVO();
+		   mvo = service.getUserInfoByUserId(userid);
+		   int n = 0;
+		   
+		   if(!insertPWD.equals(mvo.getPwd())) {
+			   n = 2;
+		   }
+		   else {
+			   n = service.deleteReviewByOrderNum(orderNum);
+		   }
+		   JSONObject jsonObj = new JSONObject();
+		   jsonObj.put("n", n);
+		   return jsonObj.toString();
+		   
+		   
+	   }
+	   
 	   
 		
 		

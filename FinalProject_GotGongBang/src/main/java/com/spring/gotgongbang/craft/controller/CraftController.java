@@ -399,8 +399,17 @@ public class CraftController {
 	  HttpSession session = request.getSession();
 	  PartnerVO loginuser = (PartnerVO) session.getAttribute("loginpartner");
       String partnerId = loginuser.getPartner_id_pk();
-      
       String craftNum = service.getCraftNumByPartnerId(partnerId);
+      
+      if(craftNum == null) {
+		  String message = "올바르지 않은 경로 입니다";
+		  String loc = "/logout.got";
+		  mav.addObject("message", message);
+		  mav.addObject("loc", loc);
+    	  mav.setViewName("msg");
+    	  return mav;
+      }
+      
       String str_currentShowPageNo = request.getParameter("currentShowPageNo");
       int totalCountForEstimate = 0;
       int sizePerPageForEstimate = 5;
@@ -508,6 +517,17 @@ public class CraftController {
 	  PartnerVO loginuser = (PartnerVO) session.getAttribute("loginpartner");
       String partnerId = loginuser.getPartner_id_pk();
 	  String craftNum = service.getCraftNumByPartnerId(partnerId);
+
+      if(craftNum == null) {
+		  String message = "올바르지 않은 경로 입니다";
+		  String loc = "/logout.got";
+		  mav.addObject("message", message);
+		  mav.addObject("loc", loc);
+    	  mav.setViewName("msg");
+    	  return mav;
+      }
+	  
+	  
 	  String str_currentShowPageNo = request.getParameter("currentShowPageNo");
       int totalCountForRepariList = 0;
       int sizePerPageRepariList = 5;
@@ -559,6 +579,16 @@ public class CraftController {
 	  PartnerVO loginpartner = (PartnerVO) session.getAttribute("loginpartner");
 	  String userid = loginpartner.getPartner_id_pk(); 	   
       
+	  String craftNum = service.getCraftNumByPartnerId(userid);
+      if(craftNum == null) {
+		  String message = "올바르지 않은 경로 입니다";
+		  String loc = "/logout.got";
+		  mav.addObject("message", message);
+		  mav.addObject("loc", loc);
+    	  mav.setViewName("msg");
+    	  return mav;
+      }
+	  
       PartnerVO pvo = new PartnerVO();
       pvo = service.getPartnerInfoByUserId(userid);
       mav.addObject("pvo", pvo);
@@ -594,18 +624,22 @@ public class CraftController {
    @ResponseBody
    @RequestMapping(value="/update_craft_user_pwd.got", method = {RequestMethod.POST})
    public String updateCraftUserPwd(HttpServletRequest request) {
-	  String partnerId = "test1234"; // 현재는 테스트 계정으로 로그인 이후에 세션 값으로 수정할 것 
+      HttpSession session = request.getSession();
+	  PartnerVO loginpartner = (PartnerVO) session.getAttribute("loginpartner");
+      String partnerId = loginpartner.getPartner_id_pk(); 	  
 	  String editPw = request.getParameter("editPw"); 
-	  
+	  System.out.println("editPw : " + editPw);
+	  String encryptEditPw = Sha256.encrypt(editPw);
+	  System.out.println("encryptEditPw : " + encryptEditPw);
 	  PartnerVO pvo = new PartnerVO();
       pvo = service.getPartnerInfoByUserId(partnerId);
       int n = 0;
 
-      if(editPw.equals(pvo.getPartner_pwd())) {
+      if(encryptEditPw.equals(pvo.getPartner_pwd())) {
     	  n = 2;
-    	  
       }
       else {
+    	  pvo.setPartner_pwd(encryptEditPw);
           n = service.updatePartnerPwd(pvo);
       }
       
@@ -629,7 +663,7 @@ public class CraftController {
 	    	n = 2;
 	    }
 		else {
-			pvo.setPartner_pwd(editPw);
+			pvo.setPartner_pwd(encryptEditPw);
 			n = service.updatePartnerPwd(pvo);
 		}
 	    JSONObject jsonObj = new JSONObject();

@@ -425,6 +425,12 @@ public class MemberService implements InterMemberService {
 		return paraMap;
 	}
 
+	@Override
+	public int deleteReviewByOrderNum(String orderNum) {
+		int n = dao.deleteReviewByOrderNum(orderNum);
+		return n;
+	}
+
 
 
 

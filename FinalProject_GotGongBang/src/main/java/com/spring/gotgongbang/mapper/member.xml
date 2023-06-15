@@ -344,6 +344,10 @@
 		) B
 		on A.estimate_num_pk = B.estimate_num_fk
     </select>
+    
+    <delete id="deleteReviewByOrderNum" parameterType="String">
+    	delete from REVIEW where order_detail_id_fk = #{orderNum}
+    </delete>
 
     
     <!--==================== 박준엽 끝 ====================== -->

@@ -1152,6 +1152,21 @@ li.requests-cont {
 	display: inline-block;
 }
 
+.btn-delete-review {
+	border: 1px solid #ea006d;
+    width: 100px;
+    border-radius: 13px;
+    background-color: white;
+    color: #ea006d;
+    padding: 4px;
+    box-shadow: 1px 1px 1px #000000;
+    margin-bottom: 5px;
+}
+
+.btn-delete-review:hover {
+	font-weight: bold;
+	transition: 0.1s ease;
+}
 
 
 

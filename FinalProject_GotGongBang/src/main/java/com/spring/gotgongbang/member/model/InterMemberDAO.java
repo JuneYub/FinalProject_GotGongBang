@@ -107,6 +107,8 @@ public interface InterMemberDAO {
 
 	HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum);
 
+	int deleteReviewByOrderNum(String orderNum);
+
 
 
 
