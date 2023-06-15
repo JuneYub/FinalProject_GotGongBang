@@ -334,10 +334,10 @@ public class CraftController {
     	  cvo.setCraft_mobile(craft_mobile);
     	  //===================================//
     	  
-    	 // String partner_id_pk = session.getAttribute("partner_id_pk");
-    	 // System.out.println("partner_id_pk" + partner_id_pk);
+    	  String partner_id_pk = (String) session.getAttribute("partner_id_pk");
+    	  System.out.println("partner_id_pk" + partner_id_pk);
     	  
-    	 // cvo.setPartner_id_fk(partner_id_pk);
+    	  cvo.setPartner_id_fk(partner_id_pk);
     	  
     	  
     	  

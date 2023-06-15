@@ -142,10 +142,10 @@ public class AdminController {
 	public ModelAndView craft_edit(ModelAndView mav, CraftVO cvo, HttpServletRequest request) {	 
 		String craft_num_pk = request.getParameter("craft_num_pk");
 		System.out.println("craft_num_pk:" + craft_num_pk);
-		// 글 수정을 위해 글을 조회해옴
+		// 공방정보 수정을 위해 글을 조회해옴
 		cvo = service.craft_edit_view(craft_num_pk);
 		
-		//진짜 당최 왜 안되는지 모르겠음
+		// 공방 정보 수정하기
 		int n = service.craft_edit(cvo);
 		/*
 		 심각: 경로 [/gotgongbang]의 컨텍스트 내의 서블릿 [appServlet]을(를) 위한 Servlet.service() 호출이, 
@@ -158,12 +158,13 @@ public class AdminController {
 		  부적합한 열 유형: 1111]을(를) 발생시켰습니다.
 
 		 */
+		System.out.println("n :" + n);
 	   if(n==0) {
 		   mav.addObject("message","공방 정보 수정 실패");	
 		   mav.addObject("loc","javascipt:history.back()");	
 	   }else {
 		   mav.addObject("message","공방 정보 수정 성공");	
-		   mav.addObject("loc", request.getContextPath()+"/craft_view.got");	
+		   mav.addObject("loc", request.getContextPath()+"/index.got");	
 	   }
 	   mav.setViewName("msg");
 	
