@@ -238,12 +238,6 @@ public class MemberDAO implements InterMemberDAO {
 		return paraMap;
 	}
 
-	@Override
-	public int checkOriginPwd(String encrpyInsertPwd) {
-		int n = sqlsession.selectOne("member.checkOriginPwd", encrpyInsertPwd);
-		return n;
-	}
-
 	
 	// ====== 박준엽 끝 =========================================== //
 
