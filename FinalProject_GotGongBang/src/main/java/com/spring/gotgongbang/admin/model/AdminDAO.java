@@ -38,12 +38,14 @@ public class AdminDAO implements InterAdminDAO{
 	// ==== ==================================== 김진솔 시작 ======================================================= // 
 
 	// 공방 목록
+	/*
 	@Override
-	public List<CraftVO> selectCraftList() {
+	 public List<CraftVO> selectCraftList() {
 		List<CraftVO> craftList = sqlsession.selectList("admin.selectCraftList");
 		return craftList;
 	}
-
+	*/
+	
 	//공방 한 개 보기
 	@Override
 	public CraftVO craftOneView(String craft_num_pk) {
@@ -78,6 +80,21 @@ public class AdminDAO implements InterAdminDAO{
 	public int craft_del(Map<String, String> paraMap) {
 		int n = sqlsession.delete("admin.craft_del", paraMap);
 		return n;
+	}
+
+	//공방 목록 페이징처리
+	@Override
+	public int getTotalCraftCount() {
+		int totalCount = sqlsession.selectOne("admin.getTotalCraftCount");
+		return totalCount;
+	}
+	
+	//공방 목록 페이징처리2
+	@Override
+	public List<CraftVO> getCraftListWithPaging(Map<String, String> paraMap) {
+		List<CraftVO> craftList = sqlsession.selectList("admin.getCraftListWithPaging",paraMap);
+		return craftList;
+
 	}
 
 

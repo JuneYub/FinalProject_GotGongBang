@@ -62,6 +62,22 @@
 	 where craft_num_pk = #{craft_num_pk}
 </delete>
 
+<select id="getTotalCraftCount" resultType="int">
+	select count (*)
+	from craft
+</select>
+
+<select id="getCraftListWithPaging" resultType="com.spring.gotgongbang.craft.model.CraftVO"  parameterType="HashMap">
+	select craft_num_pk, craft_name, partner_id_fk, craft_status
+			from 
+			(
+			  select row_number() over(order by craft_num_pk desc) AS rno,
+			         craft_num_pk, craft_name, partner_id_fk, craft_status
+			  from craft
+			) V 
+	where rno between #{startRno} and #{endRno}
+</select>
+
  <!--==================== 김진솔 끝 ====================== -->
 
 
