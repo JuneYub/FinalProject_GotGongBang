@@ -435,6 +435,7 @@ div.contents-review-promotional {
 }
 
 .review-img-span img {
+	border: 1px solid #c3c3c3;
     min-width: 100%;
     max-width: 100%;
     min-height: 100%;

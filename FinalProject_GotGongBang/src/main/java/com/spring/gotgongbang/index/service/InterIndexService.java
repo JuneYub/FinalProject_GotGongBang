@@ -1,8 +1,10 @@
 package com.spring.gotgongbang.index.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.spring.gotgongbang.craft.model.CraftVO;
+import com.spring.gotgongbang.member.model.ReviewVO;
 
 public interface InterIndexService {
 	// 김나윤 시작 ===========================================================================
@@ -13,7 +15,11 @@ public interface InterIndexService {
 	
 	// 박준엽 시작 ===========================================================================
 	List<CraftVO> getlatestCraftList();
+	
+	List<HashMap<String, Object>> getReviewList();
 	// 박준엽 끝 ===========================================================================
+
+
 
 	
 	

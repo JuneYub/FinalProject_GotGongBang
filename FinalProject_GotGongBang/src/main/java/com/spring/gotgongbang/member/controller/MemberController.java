@@ -333,6 +333,7 @@ public class MemberController {
 		   List<String> originReviewImg = new ArrayList<String>();
 			
 		   // 사진의 새로운 이름
+		   List<String> newReviewPk = new ArrayList<String>();
 		   List<String> newReviewImg = new ArrayList<String>();
 			
 
@@ -351,17 +352,20 @@ public class MemberController {
 				   int pkNum = service.getFixedPhotoNum();
 				   try {
 					   bytes = mtfileReview.getBytes();
+					   String originName = mtfileReview.getOriginalFilename();
+					   String fileFormat = originName.substring(originName.lastIndexOf("."), originName.length()); 
+					   newFileName = String.valueOf(pkNum) + fileFormat;
 					   originReviewImg.add(i, mtfileReview.getOriginalFilename());
-					   newFileName = String.valueOf(pkNum);
+					   newReviewPk.add(i, String.valueOf(pkNum));
 					   newReviewImg.add(newFileName);
 
-					   fileUpload(bytes, originReviewImg.get(i), newFileName, resourcePath);
+					   fileUpload(bytes, originReviewImg.get(i), newReviewPk.get(i), resourcePath);
 				   } catch (Exception e) {
 						e.printStackTrace();
 				   }
 			   }
 		   }
-		   int n = insertReview(paraMap, originReviewImg, newReviewImg);
+		   int n = insertReview(paraMap, newReviewImg, newReviewPk);
 		   
 		   JSONObject jsonObj = new JSONObject();
 		   jsonObj.put("n", n);
@@ -369,16 +373,16 @@ public class MemberController {
 	   }
 	   
 	   @Transactional(propagation=Propagation.REQUIRES_NEW, isolation=Isolation.READ_COMMITTED, rollbackFor= {Throwable.class})
-	   public int insertReview(HashMap<String, Object> paraMap, List<String> originReviewImg, List<String> newReviewImg) {
+	   public int insertReview(HashMap<String, Object> paraMap, List<String> newReviewImg, List<String> newReviewPk) {
 		   int result = 0;
 		   service.insertReview(paraMap);
 		   int reviewId = service.getCurrReviewIdByOrderDetailNum((String) paraMap.get("orderDetailNum"));
 		 
 		   HashMap<String, Object> imgParaMap = new HashMap<String, Object>();
-		   for(int i = 0; i < originReviewImg.size(); i++) {	
-			   imgParaMap.put("fixedPhotoNum", Integer.parseInt(newReviewImg.get(i)));
+		   for(int i = 0; i < newReviewImg.size(); i++) {	
+			   imgParaMap.put("fixedPhotoNum", Integer.parseInt(newReviewPk.get(i)));
 			   imgParaMap.put("reviewId", reviewId);
-			   imgParaMap.put("fileName", originReviewImg.get(i));
+			   imgParaMap.put("fileName", newReviewImg.get(i));
 			   
 			   service.insertFixedPhoto(imgParaMap);
 		   }

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.index.service.InterIndexService;
+import com.spring.gotgongbang.member.model.ReviewVO;
 
 @Component
 @Controller
@@ -40,7 +41,9 @@ public class IndexController {
 	@RequestMapping(value = "/index.got")
 	public ModelAndView index(ModelAndView mav) {
 		List<CraftVO> craftList = service.getlatestCraftList();
+		List<HashMap<String, Object>> reviewList = service.getReviewList();
 		mav.addObject("craftList", craftList);
+		mav.addObject("reviewList", reviewList);
 		mav.setViewName("index/home.tiles1");
 		return mav;
 	}
