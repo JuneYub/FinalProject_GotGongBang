@@ -49,13 +49,6 @@ public class CarftDAO implements InterCraftDAO {
 		return n;
 	}
 	
-	//공방 추가 이미지 파일 insert
-	@Override
-	public int imgAddFile(ImageVO imgvo) {
-		int m = sqlsession.insert("craft.imgAddFile", imgvo);
-		return m;
-	}
-
 
 	// 공방 정보를 등록하지 않으면 공방회원가입 불가
 	@Override

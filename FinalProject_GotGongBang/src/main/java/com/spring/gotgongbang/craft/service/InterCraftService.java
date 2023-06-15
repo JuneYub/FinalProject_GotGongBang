@@ -3,12 +3,10 @@ package com.spring.gotgongbang.craft.service;
 import java.util.HashMap;
 import java.util.List;
 import com.spring.gotgongbang.craft.model.CraftVO;
-import com.spring.gotgongbang.craft.model.ImageVO;
 
 import java.util.Map;
 
 import com.spring.gotgongbang.craft.model.PartnerVO;
-import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.OrderVO;
 
 public interface InterCraftService {
@@ -18,14 +16,8 @@ public interface InterCraftService {
 	//이미 존재하는 '공방이름'인지 알아오기 위한 것
 	int craft_check_name(String craft_name);
 
-	//공방 신청시 추가이미지 파일이 존재할때 select해오는 용도
-	//List<CraftVO> craft_add_image();
-	
 	//공방 신청정보를 DB에 insert해주는 기능
 	int add_withFile(CraftVO cvo);
-
-	// 추가이미지 파일 insert
-	int imgAddFile(ImageVO imgvo);
 
 	
 	// ==== ==================================== 김진솔 끝 ======================================================= // 

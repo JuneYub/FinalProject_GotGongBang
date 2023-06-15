@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.gotgongbang.craft.model.CraftVO;
-import com.spring.gotgongbang.craft.model.ImageVO;
 import com.spring.gotgongbang.craft.model.InterCraftDAO;
 
 
@@ -140,12 +139,7 @@ public class CratfService implements InterCraftService {
 		return n;
 	}
 
-	// 추가이미지 파일 insert
-	@Override
-	public int imgAddFile(ImageVO imgvo) {
-		int m = cdao.imgAddFile(imgvo);
-		return m;
-	}
+	
 
 	// 공방 정보를 등록하지 않으면 공방회원가입 불가
 	@Override

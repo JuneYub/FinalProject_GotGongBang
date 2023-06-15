@@ -19,7 +19,7 @@
 		    orgFilename, fileName) 
 	values(seq_estimate_num_pk.nextval, #{partner_id_fk}, #{craft_name},#{craft_mobile}, #{craft_representative},
 			#{craft_Introduce},#{craft_career}, #{craft_specialty}, #{craft_post_code} , #{craft_address} ,
-			#{craft_detail_address}, #{craft_extra_address}, 1321.454, 56545.215, default,
+			#{craft_detail_address}, #{craft_extra_address}, #{craft_latitude}, #{craft_longitude}, default,
 			#{orgFilename}, #{fileName})
 </insert>
 

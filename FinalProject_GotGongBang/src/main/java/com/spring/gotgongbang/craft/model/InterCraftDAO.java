@@ -23,9 +23,6 @@ public interface InterCraftDAO {
 	//공방 신청정보를 DB에 insert해주는 기능
 	int add_withFile(CraftVO cvo);
 
-	//공방 추가 이미지 파일 insert
-	int imgAddFile(ImageVO imgvo);
-
 	// 공방 정보를 등록하지 않으면 공방회원가입 불가
 	int del_partner(PartnerVO pvo);
 	
