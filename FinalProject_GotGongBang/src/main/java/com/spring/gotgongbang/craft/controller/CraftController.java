@@ -146,11 +146,12 @@ public class CraftController {
  		List<CraftVO> craftsList = null;  //수선사 정보 DB 받아오기용
  		List<CraftVO> craftsNewList = null;  //신규입점수선사 띄우기용
  		List<CraftVO> craftsSumList = null;  //수선품목별 간단히 보기 목록 띄우기용
+ 		List<CraftVO> craftsImg = null;   //filename에서 공방 사진 1개만 잘라서 가지고 오기
        
  		craftsList = service.crafts_list_select();  //수선사 정보 DB 받아오기
  		craftsNewList = service.crafts_new_select();  //신규입점수선사 띄우기
  		craftsSumList = service.crafts_sum_select();  //수선품목별 간단히 보기 목록 띄우기용
-       
+        craftsImg = service.crafts_img_select();   //filename에서 공방 사진 1개만 잘라서 가지고 오기
        
        /*
  		for(int i = 0; i< craftsNewList.size(); i++) {
@@ -165,6 +166,7 @@ public class CraftController {
  		mav.addObject("craftsList", craftsList);
  		mav.addObject("craftsNewList", craftsNewList);
  		mav.addObject("craftsSumList", craftsSumList);
+ 		mav.addObject("craftsImg", craftsImg);
  		mav.setViewName("/craft/craft_list.tiles1");   //뷰단 지정
        
  		return mav;  //craft_list.jsp 로 List가 전달된다.

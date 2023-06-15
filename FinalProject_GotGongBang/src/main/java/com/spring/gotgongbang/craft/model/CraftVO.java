@@ -29,6 +29,7 @@ public class CraftVO {
 	
 	// * select용 *
 	private ImageVO imgvo;
+	private String img_name;  //수선사 찾기 페이지에서 
 
 	////////////////////////////////////////////////////////
 		   
@@ -250,6 +251,15 @@ public class CraftVO {
 		this.imgvo = imgvo;
 	}	
 	
+	
+	public String getImg_name() {
+		return img_name;
+	}
+
+
+	public void setImg_name(String img_name) {
+		this.img_name = img_name;
+	}
 	
 	
 	
