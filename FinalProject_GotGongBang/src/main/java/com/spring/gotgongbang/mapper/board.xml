@@ -4,31 +4,65 @@
 
 <mapper namespace="board">
 
-<insert id="add" parameterType="com.spring.gotgongbang.board.model.InquiryVO">
- 	<if test='fk_seq.equals("")'>
- 	    insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount)
-		values(seq_inquiry_num_pk.nextval, #{user_id_fk}, #{inquiry_title}, #{inquiry_content}, #{groupno}, default, default, default, default)
+	<insert parameterType="com.spring.gotgongbang.board.model.InquiryVO" id="add">
+
+	<if test="fk_seq.equals('') and partner_chk == 0">
+		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount)
+		values(seq_inquiry_num_pk.nextval, #{user_id_fk}, #{inquiry_title}, #{inquiry_content}, #{groupno}, default, default, default, default) 
 	</if>
 	
-	<if test='!fk_seq.equals("")'>
+	<if test="!fk_seq.equals('') and partner_chk == 0">
 		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount)
-		values(seq_inquiry_num_pk.nextval, #{user_id_fk}, #{inquiry_title}, #{inquiry_content}, #{groupno}, #{fk_seq}, #{depthno}+1, default, default)
+		values(seq_inquiry_num_pk.nextval, #{user_id_fk}, #{inquiry_title}, #{inquiry_content}, #{groupno}, #{fk_seq}, #{depthno}+1, default, default) 
 	</if>
-</insert>
+	
+	
+	<if test="fk_seq.equals('') and partner_chk == 1">
+		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status)
+		values( seq_inquiry_num_pk.nextval, (select partner_id_pk  
+											 from partner  	
+											 where partner_id_pk = #{partner_id_pk} ), #{inquiry_title} , #{inquiry_content} , #{groupno} , default , default , default , default , default)
+	</if>
+	
+	<if test="!fk_seq.equals('') and partner_chk == 1">
+		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status)
+		values( seq_inquiry_num_pk.nextval, (select partner_id_pk  
+											 from partner  
+											 where partner_id_pk = #{partner_id_pk}) , #{inquiry_title} , #{inquiry_content} , #{groupno} , #{fk_seq} , #{depthno}+1 , default , default , default)
+	</if>
+	
+	</insert>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 
 
 <!-- 파일 첨부 기능이 있는 온라인 문의 -->
-	<insert id="add_withFile" parameterType="com.spring.gotgongbang.board.model.InquiryVO">
-		<if test='fk_seq.equals("")'>
-			insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize)
-			values(seq_inquiry_num_pk.nextval, #{user_id_fk}, #{inquiry_title}, #{inquiry_content}, #{groupno}, default, default, default, default, default, #{inquiry_fileName}, #{inquiry_orgFilename}, #{inquiry_fileSize} )
-		</if>
-		
-		<if test='!fk_seq.equals("")'>
-			insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize)
-			values(seq_inquiry_num_pk.nextval, #{user_id_fk}, #{inquiry_title}, #{inquiry_content}, #{groupno}, #{fk_seq}, #{depthno}+1, default, default, default, #{inquiry_fileName}, #{inquiry_orgFilename}, #{inquiry_fileSize} )
-		</if>
-	</insert>
+	
+<insert parameterType="com.spring.gotgongbang.board.model.InquiryVO" id="add_withFile">
+
+	<if test="fk_seq.equals('') and partner_chk == 0">
+		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize)
+		values(seq_inquiry_num_pk.nextval, #{user_id_fk}, #{inquiry_title}, #{inquiry_content}, #{groupno}, default, default, default, default, default, #{inquiry_fileName}, #{inquiry_orgFilename}, #{inquiry_fileSize}) 
+	</if>
+
+	<if test="!fk_seq.equals('') and partner_chk == 0">
+		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize)
+		values(seq_inquiry_num_pk.nextval, #{user_id_fk}, #{inquiry_title}, #{inquiry_content}, #{groupno}, #{fk_seq}, #{depthno}+1, default, default, default, #{inquiry_fileName}, #{inquiry_orgFilename}, #{inquiry_fileSize} ) 
+	</if>
+	
+	<if test="fk_seq.equals('') and partner_chk == 1">
+		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize )
+		values(seq_inquiry_num_pk.nextval, (select partner_id_pk  
+											from partner  
+											where partner_id_pk =#{partner_id_pk}), #{inquiry_title}, #{inquiry_content}, #{groupno}, default, default, default, default, default, #{inquiry_fileName}, #{inquiry_orgFilename}, #{inquiry_fileSize}) 
+	</if>
+	
+	<if test="!fk_seq.equals('') and partner_chk == 1">
+		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize)
+		values(seq_inquiry_num_pk.nextval, (select partner_id_pk  
+											from partner  
+											where partner_id_pk =#{partner_id_pk}), #{inquiry_title}, #{inquiry_content}, #{groupno}, #{fk_seq}, #{depthno}+1, default, default, default, #{inquiry_fileName}, #{inquiry_orgFilename}, #{inquiry_fileSize}) 
+	</if>
+	
+</insert>
 	
 <!-- 질문게시판 글 목록 가져오기 -->	
 
