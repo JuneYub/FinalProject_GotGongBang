@@ -87,18 +87,18 @@
 <!-- 페이징 처리한 글목록 가져오기 -->
 	<select id="iqListSearchWithPaging" parameterType="HashMap" resultType="com.spring.gotgongbang.board.model.InquiryVO">
 		select inquiry_num_pk, user_id_fk, inquiry_title, inquiry_viewcount, inquiry_date, 
-		       groupno, fk_seq, depthno,
+		       groupno, fk_seq, depthno, partner_chk,
 		       inquiry_fileName
 		from 
 		(
          select rownum AS rno, inquiry_num_pk, user_id_fk, inquiry_title, inquiry_viewcount, inquiry_date
-               , groupno, fk_seq, depthno
+               , groupno, fk_seq, depthno, partner_chk
                , inquiry_fileName
 		    from 
                 ( 
                 select inquiry_num_pk, user_id_fk, inquiry_title, inquiry_viewcount,
                       to_char(inquiry_date, 'yyyy-mm-dd hh24:mi:ss') AS inquiry_date, 
-                      groupno, fk_seq, depthno,
+                      groupno, fk_seq, depthno, partner_chk,
                       inquiry_fileName 
                 from INQUIRY
                 where inquiry_status = 1
