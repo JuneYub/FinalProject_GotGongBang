@@ -8,6 +8,7 @@ import java.util.Map;
 import com.spring.gotgongbang.board.model.InquiryVO;
 import com.spring.gotgongbang.board.model.NoticeVO;
 
+
 public interface InterBoardService {
 
 	
@@ -72,6 +73,8 @@ public interface InterBoardService {
 		int notiedit(NoticeVO novo);
 		// 공지사항 삭제 완료
 		int notidel(Map<String, String> paraMap);
+
+		
 				
 	
 		// 오준혁 끝 ===========================================================================

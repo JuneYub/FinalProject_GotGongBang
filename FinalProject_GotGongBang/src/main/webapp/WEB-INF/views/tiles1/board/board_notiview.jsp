@@ -16,6 +16,37 @@
 </style>
 
 <script type="text/javascript">
+$(document).ready(function(){
+	
+function Noticedel(notice_num_pk) {
+	
+    var bool = confirm(notice_num_pk + "공지사항을 삭제하시겠습니까?");
+    
+    if (bool) {
+        $.ajax({
+            url: "<%= ctxPath %>/board/notidelEnd.got",
+            type: "post",
+            data: {"notice_num_pk": notice_num_pk},
+            dataType: "json",
+            success: function(json) {
+                if (json.n == 1) {
+                	
+                    alert(notice_num_pk + " 공지사항을 삭제하였습니다.");
+                    location.href = "<%= ctxPath %>/board_notice.got"; 
+                    
+                	}	
+            	},
+            error: function(request, status, error) {
+                alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+            	}
+        	});
+        }
+}
+	
+	
+});
+	
+	
 	
 function Noticedel(notice_num_pk) {
 	
@@ -115,7 +146,8 @@ function Noticedel(notice_num_pk) {
                         </div>
                         
                         <div class="ojh_css-d7qwpj e1p3kiis0">
-
+						
+						<c:if test="${sessionScope.loginuser.user_id_pk == 'admin'}"> 
                             <button class="ojh_css-214ym5 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="javascript:location.href='<%= request.getContextPath()%>/board_notiedit.got?notice_num_pk=${requestScope.novo.notice_num_pk}'">
                                 <span class="ojh_css-ymwvow e4nu7ef1">수정</span>
                             </button>
@@ -123,7 +155,7 @@ function Noticedel(notice_num_pk) {
                             <button class="ojh_css-214ym5 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="Noticedel('${requestScope.novo.notice_num_pk}')">
                                 <span class="ojh_css-ymwvow e4nu7ef1">삭제</span>
                             </button>
-                           
+                        </c:if>  
 							
                             <button class="ojh_css-214ym4 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="javascript:location.href='<%= request.getContextPath()%>${requestScope.gobackURL}'">
                                 <span class="ojh_css-ymwvow e4nu7ef1">목록</span>
