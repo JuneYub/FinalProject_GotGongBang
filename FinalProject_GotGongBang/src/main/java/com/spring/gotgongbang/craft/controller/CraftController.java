@@ -69,9 +69,6 @@ public class CraftController {
  		List<Map<String, Object>> paraMap = service.review_select(craft_num_pk);
  		//System.out.println(paraMap.get("review_content"));
  		
- 		
- 		
- 		
  		mav.setViewName("/craft/craft_detail.tiles1");
  		mav.addObject("craftvo", craftvo);  //mav 안에 craftvo 넣어주기
  		mav.addObject("reviews",paraMap);	//paraMap이라는 데이터를 jsp에 넘겨서 사용할 때 review라고 부르겠다.
@@ -148,9 +145,11 @@ public class CraftController {
        
  		List<CraftVO> craftsList = null;  //수선사 정보 DB 받아오기용
  		List<CraftVO> craftsNewList = null;  //신규입점수선사 띄우기용
+ 		List<CraftVO> craftsSumList = null;  //수선품목별 간단히 보기 목록 띄우기용
        
  		craftsList = service.crafts_list_select();  //수선사 정보 DB 받아오기
  		craftsNewList = service.crafts_new_select();  //신규입점수선사 띄우기
+ 		craftsSumList = service.crafts_sum_select();  //수선품목별 간단히 보기 목록 띄우기용
        
        
        /*
@@ -165,12 +164,14 @@ public class CraftController {
        
  		mav.addObject("craftsList", craftsList);
  		mav.addObject("craftsNewList", craftsNewList);
+ 		mav.addObject("craftsSumList", craftsSumList);
  		mav.setViewName("/craft/craft_list.tiles1");   //뷰단 지정
        
  		return mav;  //craft_list.jsp 로 List가 전달된다.
        
  	}
-    
+ 	
+ 	
  	
  	// 수선사찾기 페이지에서 공방명/품목으로 공방정보 검색하기
  	@ResponseBody
