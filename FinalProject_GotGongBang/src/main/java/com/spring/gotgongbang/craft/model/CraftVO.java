@@ -32,6 +32,9 @@ public class CraftVO {
 
 	////////////////////////////////////////////////////////
 		   
+	
+
+
 	// 먼저, 댓글쓰기에 파일첨부까지 한 것을 위해서 오라클에서 tbl_comment 테이블에 fileName, orgFilename, fileSize 컬럼을 추가해주어야 한다. 
 	/* form 태그에서 type="file" 인 파일을 받아서 저장되는 필드이다. 
 	진짜파일 ==> WAS(톰캣) 디스크에 저장됨.
@@ -239,7 +242,7 @@ public class CraftVO {
 	public void setFileSize(String fileSize) {
 		this.fileSize = fileSize;
 	}
-	
+
 	public String getImg_name() {
 		return img_name;
 	}
@@ -249,8 +252,7 @@ public class CraftVO {
 		this.img_name = img_name;
 	}
 
-	
-	
+
 	
 	
 	/////////////////// ====== 김진솔 끝 ===== ///////////////////////

@@ -170,6 +170,28 @@
 </select>
 
 
+<!-- 공방상세페이지에서 후기테이블에 사진 묶어서 데려오기 -->
+<resultMap type="com.spring.gotgongbanb.member.model.ReviewVO" id="getAllReviewMap">
+	<result column="review_id_pk" property="" />
+	<result column="user_id_fk" property="" />
+	<result column="order_detail_id_fk" property="" />
+	<result column="review_rating" property="" />
+	<result column="review_content" property="" />
+	<result column="review_date" property="" />
+	<result column="order_num_fk" property="" />
+	<result column="craft_num_fk" property="" />
+	
+	<collection column="order_num_fk" property="wholeImgList" javaType="java.util.List"
+	ofType="com.spring.gotgongbang.order.model.WholeImgVO" select="getWholeImagesByOrderNum"></collection>
+	
+	<collection column="order_num_fk" property="detailImgList" javaType="java.util.List"
+	ofType="com.spring.gotgongbang.order.model.DetailImgVO" select="getWholeImagesByOrderNum"></collection>
+	
+	<collection column="review_id_pk" property="fixedPhotoList" javaType="java.util.List"
+	ofType="com.spring.gotgongbang.order.model.FixedPhotoVO" select="getWholeImagesByOrderNum"></collection>
+</resultMap>
+
+
 
 <!--==================== 김나윤 끝 ====================== -->
 

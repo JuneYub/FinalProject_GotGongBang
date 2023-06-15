@@ -1,5 +1,10 @@
 package com.spring.gotgongbang.member.model;
 
+import java.util.List;
+
+import com.spring.gotgongbang.order.model.DetailImgVO;
+import com.spring.gotgongbang.order.model.WholeImgVO;
+
 public class ReviewVO {
 	private int review_id_pk;
 	private String user_id_fk;
@@ -7,6 +12,11 @@ public class ReviewVO {
 	private int review_rating;
 	private String review_content;
 	private String review_date;
+	
+	//craft.xml에서 수선사진을 불러오기 위한 collection 사용을 위해!
+	private List<WholeImgVO> wholeImgList;		//전체이미지
+	private List<DetailImgVO> detailImgList;	//상세이미지
+	private List<FixedPhotoVO> fixedPhotoList;  //수선후 사진
 	
 	public ReviewVO() {}
 
@@ -56,5 +66,13 @@ public class ReviewVO {
 
 	public void setReview_date(String review_date) {
 		this.review_date = review_date;
+	}
+
+	public List<WholeImgVO> getWholeImgList() {
+		return wholeImgList;
+	}
+
+	public void setWholeImgList(List<WholeImgVO> wholeImgList) {
+		this.wholeImgList = wholeImgList;
 	}
 }
