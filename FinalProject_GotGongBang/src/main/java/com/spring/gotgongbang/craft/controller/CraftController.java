@@ -335,7 +335,6 @@ public class CraftController {
     	  //===================================//
     	  
     	  String partner_id_pk = (String) session.getAttribute("partner_id_pk");
-    	  System.out.println("partner_id_pk" + partner_id_pk);
     	  
     	  cvo.setPartner_id_fk(partner_id_pk);
     	  
@@ -361,7 +360,7 @@ public class CraftController {
    }
    
    
-   //'이전' 누르면  공방회원정보를 db에서 삭제하고 회원가입으로 이동
+   //공방 신청시 '취소' 누르면  공방회원정보를 db에서 삭제하고 회원가입으로 이동
    @RequestMapping(value = "/craft_reset.got")     
    public ModelAndView craft_reset(ModelAndView mav, PartnerVO pvo, HttpServletRequest request) {
 
