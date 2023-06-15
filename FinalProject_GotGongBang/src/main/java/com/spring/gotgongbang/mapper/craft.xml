@@ -272,6 +272,13 @@
 		order_num_pk, user_id_fk, to_char(order_date, 'yyyy-mm-dd') as order_date,
 		brand_name, requests, order_product_type
 		from orders
+		join
+        (
+        select order_num_fk
+        from estimate
+        where order_status = 0
+        )
+        on order_num_fk = order_num_pk
 	) S
 	where rno between #{startRno} and #{endRno}
 </select>
@@ -283,8 +290,15 @@
 </select>
 
 <select id="getTotalCountForEstimate" resultType="int">
-	select count(*)
+	select count(order_num_pk)
 	from ORDERS
+	join
+	(
+	select order_num_fk
+	from estimate
+	where order_status = 0
+	)
+	on order_num_pk = order_num_fk
 </select>
 
 <select id="getDetailImagesByOrderNum" parameterType="int" resultType="com.spring.gotgongbang.order.model.DetailImgVO">
