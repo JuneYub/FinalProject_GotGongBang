@@ -864,9 +864,8 @@ public class MemberController {
 		@RequestMapping(value="/delete_user_end.got")
 		public ModelAndView requiredLogin_delete_user_end(HttpServletRequest request, HttpServletResponse response,ModelAndView mav) {
 			
-			// 지금 들어온 사람이 파트너인지 유저인지 확인
+		
 			HttpSession session = request.getSession();
-			PartnerVO loginpartner = (PartnerVO) session.getAttribute("loginpartner");
 			MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 			
 			String passwd = request.getParameter("passwd");
@@ -874,43 +873,22 @@ public class MemberController {
 
 			
 			boolean bool_user = false;
-			boolean bool_partner =false;
+
 			
-			// 회원으로 로그인
-			if(loginuser!=null) {
-				
-				String loginuser_id = loginuser.getUser_id_pk();
-				Map<String,String> paraMap = new HashMap<>();
-				
-				paraMap.put("user_id_pk", loginuser_id);
-				paraMap.put("pwd",Sha256.encrypt(passwd));
-				
-				bool_user = service.delete_user_end(paraMap);
-			}
-			//파트너로 로그인
-			else if(loginpartner!=null) {
-				
-				
-				String loginpartner_id = loginpartner.getPartner_id_pk();
-				
-				Map<String,String> paraMap = new HashMap<>();
-				paraMap.put("partner_id_pk", loginpartner_id);
-				paraMap.put("partner_pwd",Sha256.encrypt(passwd));
-				
-				bool_partner = service.delete_partner_end(paraMap);
-			}
-			 
+			String loginuser_id = loginuser.getUser_id_pk();
+			Map<String,String> paraMap = new HashMap<>();
 			
+			paraMap.put("user_id_pk", loginuser_id);
+			paraMap.put("pwd",Sha256.encrypt(passwd));
+			
+			bool_user = service.delete_user_end(paraMap);
+
 			int user_end =0;
-			int partner_end = 0;
-			
-			// 진짜 데이터 삭제하러 간다
+	
 			if(bool_user == true) {
 				user_end = service.delete_user_info(loginuser.getUser_id_pk());
 			}
-			else if(bool_partner == true) {
-				partner_end = service.delete_partner_info(loginpartner.getPartner_id_pk());
-			}
+
 			// 비밀번호 틀리면
 			else {
 				String message = "암호가 틀립니다.";
@@ -923,7 +901,7 @@ public class MemberController {
 			}
 			
 			// 탈퇴완료
-			if(user_end == 1 || partner_end == 1) {
+			if(user_end == 1 ) {
 				
 				session.invalidate();
 				
