@@ -31,17 +31,17 @@
     <!-- 로그인 처리 -->
     <select id="getLoginMember" parameterType="HashMap" resultType="com.spring.gotgongbang.member.model.MemberVO">
     	select user_id_pk, name, email, mobile, post_code, address, detail_address, extra_address, gender,
-		    birthday, mileage, registerday, idle, gradelevel,
+		    birthday, mileage, registerday, idle, gradelevel, status,
 		    pwdchangegap,
 		    NVL(lastlogingap, trunc( months_between(sysdate, registerday) ) ) AS lastlogingap
 		from 
 		( 
 		select user_id_pk, name, email, mobile, post_code, address, detail_address, extra_address, gender 
 		     , birthday
-		     , mileage, to_char(registerday, 'yy/mm/dd') AS registerday, idle, gradelevel
+		     , mileage, to_char(registerday, 'yy/mm/dd') AS registerday, idle, gradelevel, status
 		     , trunc( months_between(sysdate, last_pwd_change) ) AS pwdchangegap 
 		 from MEMBER 
-		 where status = 1 and user_id_pk = #{userid} and pwd = #{pwd} 
+		 where user_id_pk = #{userid} and pwd = #{pwd} 
 		 ) M 
 		 CROSS JOIN 
 		 ( 
@@ -101,17 +101,17 @@
     <!-- 로그인 처리 ( 공방 )-->
     <select id="getLoginPartner" parameterType="HashMap" resultType="com.spring.gotgongbang.craft.model.PartnerVO">
     	select partner_id_pk, partner_name, partner_email, partner_mobile, partner_post_code, partner_address, partner_detail_address, partner_extra_address, partner_gender,
-		    partner_birthday, partner_registerday, partner_idle, partner_gradelevel,
+		    partner_birthday, partner_registerday, partner_idle, partner_gradelevel, partner_status,
 		    pwdchangegap,
 		    NVL(lastlogingap, trunc( months_between(sysdate, partner_registerday) ) ) AS lastlogingap
 		from 
 		( 
 		select partner_id_pk, partner_name, partner_email, partner_mobile, partner_post_code, partner_address, partner_detail_address, partner_extra_address, partner_gender 
 		     , partner_birthday
-		     , to_char(partner_registerday, 'yy/mm/dd') AS partner_registerday, partner_idle, partner_gradelevel
+		     , to_char(partner_registerday, 'yy/mm/dd') AS partner_registerday, partner_idle, partner_gradelevel, partner_status
 		     , trunc( months_between(sysdate, partner_lastPwdChange) ) AS pwdchangegap 
 		 from PARTNER 
-		 where partner_status = 1 and partner_id_pk = #{userid} and partner_pwd = #{pwd} 
+		 where partner_id_pk = #{userid} and partner_pwd = #{pwd} 
 		 ) M 
 		 CROSS JOIN 
 		 ( 
