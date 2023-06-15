@@ -189,7 +189,8 @@ public class AdminController {
 				    Integer.parseInt(craft_num_pk);
 
 				    List<Map<String, String>> imgList = service.selectImgList(craft_num_pk);
-				   
+				    
+				    System.out.println("list : " + imgList);
 					if( craftvo == null ) {
 						out = response.getWriter();
 						out.println("<script type='text/javascript'>alert('존재하지 않는 글번호 이거나 첨부파일이 없으므로 파일다운로드가 불가합니다.'); history.back();</script>"); 
@@ -206,16 +207,18 @@ public class AdminController {
 						String craft_certificate_orgFilename = imgList.get(0).get("craft_certificate_orgFilename").toString();
 
 						HttpSession session = request.getSession();
-						String root = session.getServletContext().getRealPath("/");
 						
-						String path = root+"resources"+File.separator+"files";
-						
-					   
+						String root = session.getServletContext().getRealPath("/").substring(0, 3);
+				         //System.out.println("~~~~ 확인용 webapp 의 절대경로 => " + root); 
+
+				 	    String path_whole = root + "Users"+File.separator+"user"+File.separator+"git"+File.separator+"FinalProject_GotGongBang"+File.separator+"FinalProject_GotGongBang"+File.separator+"src"+File.separator+"main"+File.separator+"webapp"+File.separator+"resources"+File.separator+"img"+File.separator+"craft";
+				 	     //System.out.println("~~~~ 확인용 path => " + path_whole);
+				 	     
 						// **** file 다운로드 하기 **** //
 						boolean flag = false; // file 다운로드 성공, 실패를 알려주는 용도 
-						flag = fileManager.doFileDownload(craft_image_fileName, craft_image_orgFilename, path, response);
-						flag = fileManager.doFileDownload(craft_representative_image_fileName, craft_representative_image_orgFilename, path, response);
-						flag = fileManager.doFileDownload(craft_certificate_fileName, craft_certificate_orgFilename, path, response);
+						flag = fileManager.doFileDownload(craft_image_fileName, craft_image_orgFilename, path_whole, response);
+						flag = fileManager.doFileDownload(craft_representative_image_fileName, craft_representative_image_orgFilename, path_whole, response);
+						flag = fileManager.doFileDownload(craft_certificate_fileName, craft_certificate_orgFilename, path_whole, response);
 
 						if(!flag) {	//다운로드 실패시
 							out = response.getWriter();					
