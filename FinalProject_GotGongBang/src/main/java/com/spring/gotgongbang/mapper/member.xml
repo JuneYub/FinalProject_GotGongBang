@@ -351,5 +351,34 @@
 
     
     <!--==================== 박준엽 끝 ====================== -->
+    
+    
+    
+    <!--==================== 이지현 시작 ====================== -->
+    <select id="delete_user_end" parameterType="HashMap" resultType="int">
+    	select count(*)
+		from member
+		where user_id_pk=#{user_id_pk} and pwd =#{pwd}
+    </select>
+    
+    <select id="delete_partner_end" parameterType="HashMap" resultType="int">
+    	select count(*)
+		from partner
+		where partner_id_pk=#{partner_id_pk} and partner_pwd =#{partner_pwd}
+    </select>
+    
+    
+			 
+	<update id="delete_user_info" parameterType="String">
+    	update member
+		set status=0 where user_id_pk = #{user_id_pk}
+    </update>
+    
+    <update id="delete_partner_info" parameterType="String" >
+    	update member
+		set partner_status=0 where partner_id_pk = #{partner_id_pk}
+    </update>
+    
+    <!--==================== 이지현 끝 ====================== -->
 
 </mapper>

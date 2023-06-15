@@ -280,9 +280,41 @@ public class MemberDAO implements InterMemberDAO {
 
 	
 	// ====== 박준엽 끝 =========================================== //
-
 	
+	
+	
+	
+	
+	// ====== 이지현 시작 =========================================== //
+	
+	
+	@Override
+	public int delete_user_end(Map<String, String> paraMap) {
+		int i = sqlsession.selectOne("member.delete_user_end", paraMap);
+		return i;
+	}
 
+	@Override
+	public int delete_partner_end(Map<String, String> paraMap) {
+		int i = sqlsession.selectOne("member.delete_partner_end", paraMap);
+		return i;
+	}
+
+	@Override
+	public int delete_user_info(String user_id_pk) {
+		int i = sqlsession.update("member.delete_user_info", user_id_pk);
+		return i;
+	}
+
+	@Override
+	public int delete_partner_info(String partner_id_pk) {
+		int i = sqlsession.update("member.delete_partner_info", partner_id_pk);
+		return i;
+	}
+	
+	// ====== 이지현 끝 =========================================== //
+	
+	
 	
 	
 }
