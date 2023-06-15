@@ -113,6 +113,7 @@ public class BoardController {
 			String groupno = request.getParameter("groupno");
 			String depthno = request.getParameter("depthno");
 			
+			
 			String inquiry_title = "[답변] " + request.getParameter("inquiry_title");
 			
 			
@@ -121,9 +122,6 @@ public class BoardController {
 		    	fk_seq = "";
 		    }
 		    
-		    if (partner_chk == null) {
-		    	partner_chk = "0";
-		    }
 		    
 		    
 		    mav.addObject("fk_seq", fk_seq);
@@ -145,7 +143,7 @@ public class BoardController {
 		@RequestMapping(value="/board_inquiryEnd.got", method={RequestMethod.POST})
 		public ModelAndView pointPlus_iqEnd(ModelAndView mav, InquiryVO iqvo, MultipartHttpServletRequest mrequest, HttpServletRequest request) {
 			
-			
+			String partner_chk = request.getParameter("partner_chk");
 			
 			MultipartFile attach = iqvo.getAttach();
 			
@@ -206,6 +204,7 @@ public class BoardController {
 			if( attach.isEmpty() ) {
 				// 파일첨부가 없는 경우
 				n = service.add(iqvo);
+			//	System.out.println("확인용11" + partner_chk);
 			}
 			
 			else {
