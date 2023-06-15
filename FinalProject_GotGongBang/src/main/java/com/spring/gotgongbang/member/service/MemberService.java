@@ -86,8 +86,9 @@ public class MemberService implements InterMemberService {
 	// 아이디 중복 확인 AJAX 요청 처리
 	@Override
 	public boolean isIdDuplicate(String id) {
-		int n = dao.isIdDuplicate(id);
-		return n > 0;
+		int n = dao.isIdDuplicateMember(id);
+		int n1 = dao.isIdDuplicatePartner(id);
+		return (n+n1) > 0;
 	}
 
 	@Override

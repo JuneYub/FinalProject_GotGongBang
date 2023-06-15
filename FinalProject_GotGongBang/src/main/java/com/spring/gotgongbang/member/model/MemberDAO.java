@@ -43,10 +43,17 @@ public class MemberDAO implements InterMemberDAO {
 		return n;
 	}
 
-	// 아이디 중복 확인 AJAX 요청 처리
+	// 아이디 중복 확인 AJAX 요청 처리 (member 에서)
 	@Override
-	public int isIdDuplicate(String id) {
-		int n = sqlsession.selectOne("member.isIdDuplicate", id);
+	public int isIdDuplicateMember(String id) {
+		int n = sqlsession.selectOne("member.isIdDuplicateMember", id);
+		return n;
+	}
+	
+	// 아이디 중복 확인 AJAX 요청 처리 (member 에서)
+	@Override
+	public int isIdDuplicatePartner(String id) {
+		int n = sqlsession.selectOne("member.isIdDuplicatePartner", id);
 		return n;
 	}
 	
