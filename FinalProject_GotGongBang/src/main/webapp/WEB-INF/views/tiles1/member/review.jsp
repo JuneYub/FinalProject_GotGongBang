@@ -9,6 +9,8 @@
 
 <script>
 	$(document).ready(function() {
+		Fancybox.bind("[data-fancybox]", {	 
+		});
 		
 		<%-- 이미지 미리보기 기능 
 		// (중요!!) 스크립트 내에 태그를 선택하고 싶을 때
@@ -122,8 +124,36 @@
 
 <div class="reviewContent">
 	<div class="review-head-imgList">
-	<div class="review-img-list" id="wholeImg"></div>
-	<div class="review-img-list" id="detailImg"></div>
+	<div class="review-img-list" id="wholeImg">
+	<c:forEach var="wholeImg" items="${requestScope.wholeImgList}" varStatus="wholeIdx">
+		<c:if test="${wholeIdx.index eq 0}">
+		<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" data-fancybox="gallery" >
+			<img src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" style="width: 100%", height="100%"/>
+		</a>
+		</c:if>
+
+		<c:if test="${wholeIdx.index ne 0}">
+		<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" data-fancybox="gallery" >
+			<img style="display: none" src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" />
+		</a>
+		</c:if>
+	</c:forEach>
+	</div>
+	<div class="review-img-list" id="detailImg">
+	<c:forEach var="detailImg" items="${requestScope.detailImgList}" varStatus="detailIdx">
+		<c:if test="${detailIdx.index eq 0}">
+		<a href="<%= ctxPath%>/resources/img/orders_detail/${detailImg.detail_img_new_name}" data-fancybox="galleryDetail" >
+			<img src="<%= ctxPath%>/resources/img/orders_detail/${detailImg.detail_img_new_name}" style="width: 100%", height="100%"/>
+		</a>
+		</c:if>
+
+		<c:if test="${detailIdx.index ne 0}">
+		<a href="<%= ctxPath%>/resources/img/orders_detail/${detailImg.detail_img_new_name}" data-fancybox="galleryDetail" >
+			<img style="display: none" src="<%= ctxPath%>/resources/img/orders_detail/${detailImg.detail_img_new_name}" />
+		</a>
+		</c:if>
+	</c:forEach>
+	</div>
 	</div>
 	<p class="review-title">배송된 물건의 수선 결과가 마음에 드시나요?</p>
 	<form name="reviewFrm" enctype="multipart/form-data">

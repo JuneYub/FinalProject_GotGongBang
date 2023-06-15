@@ -184,7 +184,7 @@ public class MemberService implements InterMemberService {
 					if(loginuser.isRequirePwdChange() == true) { // 암호를 마지막으로 변경한 것이 3개월이 경과한 경우
 						
 						String message = "비밀번호를 변경하신지 3개월이 지났습니다. \\n암호를 변경하는 것을 추천합니다.";
-						String loc = request.getContextPath()+"/index.got";
+						String loc = request.getContextPath()+"/edit_user_info.got";
 						// 원래는 위와 같이가 아니라 사용자의 암호를 변경해주는 페이지로 잡아주어야 한다.
 						
 						mav.addObject("message", message);
@@ -251,7 +251,7 @@ public class MemberService implements InterMemberService {
 					if(loginpartner.isRequirePwdChange() == true) { // 암호를 마지막으로 변경한 것이 3개월이 경과한 경우
 						
 						String message = "비밀번호를 변경하신지 3개월이 지났습니다. \\n암호를 변경하는 것을 추천합니다.";
-						String loc = request.getContextPath()+"/index.got";
+						String loc = request.getContextPath()+"/edit_craft_user_info.got";
 						// 원래는 위와 같이가 아니라 사용자의 암호를 변경해주는 페이지로 잡아주어야 한다.
 						
 						mav.addObject("message", message);

@@ -252,6 +252,7 @@ public class CraftVO {
 		this.img_name = img_name;
 	}
 
+
 	
 	
 	/////////////////// ====== 김진솔 끝 ===== ///////////////////////

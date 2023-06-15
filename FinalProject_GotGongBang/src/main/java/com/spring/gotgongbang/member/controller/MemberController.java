@@ -281,6 +281,8 @@ public class MemberController {
 			// 리뷰 작성에 넣을 견적 요청 번호와 공방 번호 가져오기
 			HashMap<String, String> paraMap = service.getOrderNumAndCraftNumByOrderDetailNum(orderDetailNum);
 			
+			mav.addObject("wholeImgList", wholeImgList);
+			mav.addObject("detailImgList", detailImgList);
 			mav.addObject("orderNum", paraMap.get("orderNum"));
 			mav.addObject("craftNum", paraMap.get("craftNum"));
 			mav.setViewName("member/review.tiles1");
@@ -892,7 +894,7 @@ public class MemberController {
 			// 비밀번호 틀리면
 			else {
 				String message = "암호가 틀립니다.";
-				String loc ="javascript:history.back();";
+				String loc ="javascript:history.back()";
 				mav.addObject("message", message);
 				mav.addObject("loc", loc);
 				
@@ -904,7 +906,7 @@ public class MemberController {
 				
 				session.invalidate();
 				
-				String message = "탈퇴완료되었습니다.";
+				String message = "탈퇴 완료 되었습니다.";
 				String loc = request.getContextPath()+"/index.got";
 				
 				mav.addObject("message", message);
