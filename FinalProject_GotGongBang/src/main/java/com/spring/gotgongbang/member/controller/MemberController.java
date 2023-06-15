@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import javax.mail.Session;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -550,15 +551,18 @@ public class MemberController {
 		
 		// 공방회원가입 post
 		@RequestMapping(value="/register_to_partner.got", method=RequestMethod.POST)
-		public String register_partner(PartnerVO partnervo) {
+		public String register_partner(PartnerVO partnervo, HttpServletRequest request) {
 			
 			System.out.println("공방 들어옴");
 			
 			String password = Sha256.encrypt(partnervo.getPartner_pwd());
 	        // 비밀번호 암호화
-			partnervo.setPartner_pwd(password);
-			
+			partnervo.setPartner_pwd(password);			
 			service.insertPartner(partnervo);
+			
+			HttpSession session = request.getSession();
+			
+			session.setAttribute("partner_id_pk", partnervo.getPartner_id_pk());
 			
 			return "redirect:/craft_application.got";
 		}
