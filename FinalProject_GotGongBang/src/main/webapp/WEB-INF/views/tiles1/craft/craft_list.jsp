@@ -232,13 +232,13 @@ function goSearch(){
 				<div class="catalog-wrapper" id="contentCategory">
 					<h2 class="catalog-title" id="bag">가방/핸드백 </h2>
 						
-							<ul class="grid">
+						<ul class="grid">
 							
 							<c:forEach var="craftvo" items="${requestScope.craftsSumList}" varStatus="status">
 								<li class="grid-column__item" id="cardContent">
 									<figure class="card responsive-card">
 										<a class="card__link" href="<%= ctxPath%>/crafts_detail.got?craft_num_pk=${craftvo.craft_num_pk}">
-											<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75" style="color: transparent;">
+											<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" src="<%= ctxPath%>/resources/img/craft/${craftvo.img_name}" style="color: transparent;">
 											<figcaption class="card__caption">
 												<ul class="card__labels" data-badge-label="" data-badge-color="RED" data-badge-display="비즈니스">
 													<li class="caption">${craftvo.craft_name}</li>
@@ -251,7 +251,7 @@ function goSearch(){
 								</li>
 							</c:forEach>	
 								
-							</ul>
+						</ul>
 						
 					
 				</div>
@@ -280,7 +280,7 @@ function goSearch(){
 								<li class="grid-column__item" id="cardContent"">
 									<figure class="card responsive-card">
 										<a class="card__link" href="<%= ctxPath%>/crafts_detail.got?craft_num_pk=${craftvo.craft_num_pk}">
-											<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75 2x" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75" style="color: transparent;">
+											<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" src="<%= ctxPath%>/resources/img/craft/${craftvo.img_name}" style="color: transparent;">
 											<figcaption class="card__caption">
 												<ul class="card__labels" data-badge-label="" data-badge-color="RED" data-badge-display="비즈니스">
 													<li class="caption">${craftvo.craft_name}</li>
@@ -322,7 +322,7 @@ function goSearch(){
 								<li class="grid-column__item" id="cardContent">
 									<figure class="card responsive-card">
 										<a class="card__link" href="<%= ctxPath%>/crafts_detail.got?craft_num_pk=${craftvo.craft_num_pk}">
-											<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75 2x" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75" style="color: transparent;">
+											<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" src="<%= ctxPath%>/resources/img/craft/${craftvo.img_name}" style="color: transparent;">
 											<figcaption class="card__caption">
 												<ul class="card__labels" data-badge-label="" data-badge-color="RED" data-badge-display="비즈니스">
 													<li class="caption">${craftvo.craft_name}</li>
@@ -363,7 +363,7 @@ function goSearch(){
 								<li class="grid-column__item" id="cardContent">
 									<figure class="card responsive-card">
 										<a class="card__link" href="<%= ctxPath%>/crafts_detail.got?craft_num_pk=${craftvo.craft_num_pk}">
-											<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75 2x" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75" style="color: transparent;">
+											<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" src="<%= ctxPath%>/resources/img/craft/${craftvo.img_name}" style="color: transparent;">
 											<figcaption class="card__caption">
 												<ul class="card__labels" data-badge-label="" data-badge-color="RED" data-badge-display="비즈니스">
 													<li class="caption">${craftvo.craft_name}</li>

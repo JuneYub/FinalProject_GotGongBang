@@ -27,6 +27,9 @@ public class CraftVO {
 	private String craft_salary;				//희망급여
 	private String craft_rating;				//별점
 	
+	// * select용 *
+	private ImageVO imgvo;
+	private String img_name;  //수선사 찾기 페이지에서 
 
 	////////////////////////////////////////////////////////
 		   
@@ -238,6 +241,49 @@ public class CraftVO {
 		this.fileSize = fileSize;
 	}
 
+
+
+	public ImageVO getImgvo() {
+		return imgvo;
+	}
+
+
+	public void setImgvo(ImageVO imgvo) {
+		this.imgvo = imgvo;
+	}	
+	
+	
+	public String getImg_name() {
+		return img_name;
+	}
+
+
+	public void setImg_name(String img_name) {
+		this.img_name = img_name;
+	}
+	
+	
+
+	public ImageVO getImgvo() {
+		return imgvo;
+	}
+
+
+	public void setImgvo(ImageVO imgvo) {
+		this.imgvo = imgvo;
+	}	
+	
+	
+	public String getImg_name() {
+		return img_name;
+	}
+
+
+	public void setImg_name(String img_name) {
+		this.img_name = img_name;
+	}
+	
+	
 	
 	
 	/////////////////// ====== 김진솔 끝 ===== ///////////////////////

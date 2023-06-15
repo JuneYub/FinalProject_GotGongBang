@@ -88,6 +88,9 @@ public interface InterCraftDAO {
 
 	//공방상세페이지 후기정보 가져오기
 	List<Map<String, Object>> review_select(int craft_num_pk);
+
+	//filename에서 공방 사진 1개만 잘라서 가지고 오기
+	List<CraftVO> crafts_img_select();
 	
 	
 	// =============== 김나윤 끝 =================//

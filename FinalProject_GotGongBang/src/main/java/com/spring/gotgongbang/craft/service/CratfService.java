@@ -205,6 +205,13 @@ public class CratfService implements InterCraftService {
 		return craftvo;
 	}
 
+	//filename에서 공방 사진 1개만 잘라서 가지고 오기
+	@Override
+	public List<CraftVO> crafts_img_select() {
+		List<CraftVO> craftvo = cdao.crafts_img_select();
+		return craftvo;
+	}
+
 
 
   

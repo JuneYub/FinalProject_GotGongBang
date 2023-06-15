@@ -86,6 +86,9 @@ public interface InterCraftService {
 
 	// 공방 정보를 등록하지 않으면 공방회원가입 불가
 	int del_partner(PartnerVO pvo);
+
+	//filename에서 공방 사진 1개만 잘라서 가지고 오기
+	List<CraftVO> crafts_img_select();
 	
 	// ==== ==================================== 김나윤 끝 ======================================================= // 
 

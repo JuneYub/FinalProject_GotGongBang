@@ -95,7 +95,7 @@ public class MemberService implements InterMemberService {
 	public ModelAndView loginEnd(ModelAndView mav, HttpServletRequest request, Map<String, String> paraMap) {
 		MemberVO loginuser = dao.getLoginMember(paraMap);
 		PartnerVO loginpartner = null;
-		
+
 		//  aes 의존객체를 사용하여 로그인 되어진 사용자(loginuser)의 이메일 값을 복호화 하도록 한다. === 
 	    //          또한 암호변경 메시지와 휴면처리 유무 메시지를 띄우도록 업무처리를 하도록 한다.
 		if(loginuser != null && loginuser.getPwdchangegap() >= 3) {
@@ -147,6 +147,17 @@ public class MemberService implements InterMemberService {
 		else { // 아이디와 암호가 존재하는 경우
 			// 일반회원의 경우
 			if(loginuser != null) {
+				if(loginuser.getStatus() != 1) {
+					
+					String message = "탈퇴한 회원입니다.";
+					String loc = "javascript:history.back()";
+					
+					mav.addObject("message", message);
+					mav.addObject("loc", loc);
+					
+					mav.setViewName("msg");
+					return mav;
+				}
 				if(loginuser.getIdle() == 1) { // 로그인 한지 1년이 경과한 경우
 					
 					String message = "로그인을 한지 1년이 지나서 휴면상태가 되었습니다. \\n관리자에게 문의바랍니다.";
@@ -203,7 +214,18 @@ public class MemberService implements InterMemberService {
 				}
 			}
 			else if(loginpartner != null) {
-					if(loginpartner.getPartner_idle() == 1) { // 로그인 한지 1년이 경과한 경우
+				if(loginpartner.getPartner_status() != 1) {
+					
+					String message = "탈퇴한 회원입니다.";
+					String loc = "javascript:history.back();";
+					
+					mav.addObject("message", message);
+					mav.addObject("loc", loc);
+					
+					mav.setViewName("msg");
+					return mav;
+				}				
+				if(loginpartner.getPartner_idle() == 1) { // 로그인 한지 1년이 경과한 경우
 					
 					String message = "로그인을 한지 1년이 지나서 휴면상태가 되었습니다. \\n관리자에게 문의바랍니다.";
 					String loc = request.getContextPath()+"/index.got";

@@ -195,6 +195,13 @@ public class CarftDAO implements InterCraftDAO {
 		return paraMap;
 	}
 
+	//filename에서 공방 사진 1개만 잘라서 가지고 오기
+	@Override
+	public List<CraftVO> crafts_img_select() {
+		List<CraftVO> craftvo = sqlsession.selectList("craft.crafts_img");
+		return craftvo;
+	}
+
 
 	// ================ 김나윤 끝 ==================//
 	

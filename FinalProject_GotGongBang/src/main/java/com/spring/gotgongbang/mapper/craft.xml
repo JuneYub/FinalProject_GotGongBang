@@ -46,7 +46,8 @@
 <!-- 수선사 찾기 페이지에서 간략히 수선사 목록 보여주기 -->
 <select id="crafts_sum" resultType="com.spring.gotgongbang.craft.model.CraftVO">
 	<![CDATA[
-	SELECT *
+	SELECT craft_num_pk, craft_name, craft_representative, craft_introduce, craft_specialty
+	       ,substr(filename, 1, instr(filename,',',1)-1 ) AS img_name
 	FROM
 	(
 	    SELECT *
@@ -78,6 +79,13 @@
 	  ) V
 	  where rownum <= 6
 	  ]]>
+</select>
+
+<!-- 수선사 찾기 페이지에서 공방 이미지 정보 불러오기 -->
+<select id="crafts_img" resultType="com.spring.gotgongbang.craft.model.CraftVO">
+	select craft_num_pk, craft_name, craft_representative, craft_introduce, craft_specialty
+	    ,substr(filename, 1, instr(filename,',',1)-1 ) AS craft_image
+	from craft
 </select>
 
 
