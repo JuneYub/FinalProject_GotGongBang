@@ -34,6 +34,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gotgongbang.HomeController;
+import com.spring.gotgongbang.common.AES256;
 import com.spring.gotgongbang.common.FileManager;
 import com.spring.gotgongbang.common.MyUtil;
 import com.spring.gotgongbang.common.Sha256;
@@ -815,5 +816,101 @@ public class MemberController {
 
 		
 		// 홍용훈 끝
+		// ===========================================================================
+		
+		
+		
+		// 이지현 시작
+		// ===========================================================================
+		// 탈퇴페이지 처리
+		@RequestMapping(value="/delete_user.got")
+		public ModelAndView requiredLogin_delete_user(HttpServletRequest request, HttpServletResponse response,ModelAndView mav) {
+
+			mav.setViewName("member/delete_user.tiles1");
+			return mav;
+		}
+		
+		
+		
+		@ResponseBody
+		@RequestMapping(value="/delete_user_end.got")
+		public ModelAndView requiredLogin_delete_user_end(HttpServletRequest request, HttpServletResponse response,ModelAndView mav) {
+			
+			// 지금 들어온 사람이 파트너인지 유저인지 확인
+			HttpSession session = request.getSession();
+			PartnerVO loginpartner = (PartnerVO) session.getAttribute("loginpartner");
+			MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+			
+			String passwd = request.getParameter("passwd");
+			
+
+			
+			boolean bool_user = false;
+			boolean bool_partner =false;
+			
+			// 회원으로 로그인
+			if(loginuser!=null) {
+				
+				String loginuser_id = loginuser.getUser_id_pk();
+				Map<String,String> paraMap = new HashMap<>();
+				
+				paraMap.put("user_id_pk", loginuser_id);
+				paraMap.put("pwd",Sha256.encrypt(passwd));
+				
+				bool_user = service.delete_user_end(paraMap);
+			}
+			//파트너로 로그인
+			else if(loginpartner!=null) {
+				
+				
+				String loginpartner_id = loginpartner.getPartner_id_pk();
+				
+				Map<String,String> paraMap = new HashMap<>();
+				paraMap.put("partner_id_pk", loginpartner_id);
+				paraMap.put("partner_pwd",Sha256.encrypt(passwd));
+				
+				bool_partner = service.delete_partner_end(paraMap);
+			}
+			 
+			
+			int user_end =0;
+			int partner_end = 0;
+			
+			// 진짜 데이터 삭제하러 간다
+			if(bool_user == true) {
+				user_end = service.delete_user_info(loginuser.getUser_id_pk());
+			}
+			else if(bool_partner == true) {
+				partner_end = service.delete_partner_info(loginpartner.getPartner_id_pk());
+			}
+			// 비밀번호 틀리면
+			else {
+				String message = "암호가 틀립니다.";
+				String loc = request.getContextPath()+"/index.got";
+				
+				mav.addObject("message", message);
+				mav.addObject("loc", loc);
+				
+				mav.setViewName("msg");
+			}
+			
+			// 탈퇴완료
+			if(user_end == 1 || partner_end == 1) {
+				
+				session.invalidate();
+				
+				String message = "탈퇴완료되었습니다.";
+				String loc = request.getContextPath()+"/index.got";
+				
+				mav.addObject("message", message);
+				mav.addObject("loc", loc);
+				
+				mav.setViewName("msg");
+			}
+
+			return mav;
+		}
+		
+		// 이지현 끝
 		// ===========================================================================
 }

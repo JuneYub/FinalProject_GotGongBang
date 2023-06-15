@@ -99,4 +99,19 @@ public interface InterMemberService {
 	HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum);
 
 	// ====== 박준엽 끝 =========================================== //
+	
+	
+	
+	// ====== 이지현 시작 =========================================== //
+	boolean delete_user_end(Map<String, String> paraMap);
+
+	boolean delete_partner_end(Map<String, String> paraMap);
+
+	int delete_user_info(String user_id_pk);
+
+	int delete_partner_info(String partner_id_pk);
+
+	
+	// ====== 이지현 끝 =========================================== //
+	
 }

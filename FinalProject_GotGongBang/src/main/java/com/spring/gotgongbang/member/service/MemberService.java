@@ -425,7 +425,39 @@ public class MemberService implements InterMemberService {
 		return paraMap;
 	}
 
+	
 
+	
+	
+	// =========== 이지현 시작 =========================================== //
+
+	@Override
+	public boolean delete_user_end(Map<String, String> paraMap) {
+		
+		int img_name = dao.delete_user_end(paraMap);
+		return img_name > 0;
+	}
+
+	@Override
+	public boolean delete_partner_end(Map<String, String> paraMap) {
+		
+		int img_name = dao.delete_partner_end(paraMap);
+		return img_name > 0;
+	}
+
+	@Override
+	public int delete_user_info(String user_id_pk) {
+		int user_int = dao.delete_user_info(user_id_pk);
+		return user_int;
+	}
+
+	@Override
+	public int delete_partner_info(String partner_id_pk) {
+		int partner_int = dao.delete_partner_info(partner_id_pk);
+		return partner_int;
+	}
+	
+	// =========== 이지현 끝 =========================================== //
 
 
 
