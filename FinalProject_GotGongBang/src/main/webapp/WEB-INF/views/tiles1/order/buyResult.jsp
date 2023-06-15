@@ -67,7 +67,7 @@ p.detailPName {
 			</div>
 			
 			<div style="width:fit-content;">
-				<p class="orderMargin detailPName">${requestScope.paymentInfo.brand_name} ${requestScope.paymentInfo.order_product_type} 수선 의뢰</p>
+				<p class=" detailPName" style="padding-left: 39px;">${requestScope.paymentInfo.brand_name} ${requestScope.paymentInfo.order_product_type} 수선 의뢰</p>
 				<div class="detailDiv detailMargin" >
 					<i class="fa-solid fa-check"></i>
 					<p class="paddingLeft">품목 : ${requestScope.paymentInfo.order_product_type}</p>

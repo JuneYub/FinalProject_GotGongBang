@@ -67,14 +67,14 @@
 		WHERE #{name} IN (m.name, p.partner_name) and #{email} IN (m.email, p.partner_email)
     </select>
     
-    
+    <!-- 아이디 찾기 -->
     <select id="compareNameEmailMember" parameterType="HashMap" resultType="String">
     	SELECT user_id_pk
 		FROM member
 		WHERE name = #{name} and email = #{email}
     </select>
     
-    
+    <!-- 아이디 찾기 -->
     <select id="compareNameEmailpartner" parameterType="HashMap" resultType="String">
     	SELECT partner_id_pk AS user_id_pk
 		FROM partner
@@ -84,13 +84,13 @@
     <!-- 공방회원가입 -->
 	<insert id="insertPartner" parameterType="com.spring.gotgongbang.craft.model.PartnerVO">
 		insert into PARTNER (partner_id_pk, partner_name, partner_pwd, partner_email, partner_mobile, partner_post_code, partner_address, partner_detail_address, partner_extra_address, partner_gender, partner_birthday, partner_registerday, partner_lastPwdChange, partner_idle, partner_pwd_change_required, partner_status, partner_gradelevel)
-		values(#{user_id_pk},#{name},#{pwd},#{email},#{mobile},#{post_code},#{address},#{detail_address},#{extra_address},#{gender},#{birthday},default,default,default,default,default,default)
+		values(#{partner_id_pk},#{partner_name},#{partner_pwd},#{partner_email},#{partner_mobile},#{partner_post_code},#{partner_address},#{partner_detail_address},#{partner_extra_address},#{partner_gender},#{partner_birthday},default,default,default,default,default,default)
 	</insert>
 	
 	
 	<!-- 이메일 중복 체크 공방회원 -->
 	<select id="isEmailDuplicate_partner" resultType="int">
-        SELECT COUNT(*) FROM PARTNER WHERE partner_email = #{email}
+        SELECT COUNT(*) FROM PARTNER WHERE partner_email = #{partner_email}
     </select>
     
     
@@ -340,12 +340,7 @@
 		) B
 		on A.estimate_num_pk = B.estimate_num_fk
     </select>
-    
-    <select id="checkOriginPwd" parameterType="String" resultType="int">
-    	select count(*)
-    	from member
-    	where pwd = #{encrpyInsertPwd}
-    </select>
+
     
     <!--==================== 박준엽 끝 ====================== -->
 

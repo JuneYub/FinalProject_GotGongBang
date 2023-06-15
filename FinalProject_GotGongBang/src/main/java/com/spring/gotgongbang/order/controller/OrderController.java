@@ -433,15 +433,78 @@ public class OrderController {
 
 		String estimate_num_pk = request.getParameter("estimate_num_pk");
 	
+		try {
+			int k =Integer.parseInt(estimate_num_pk) ;
+			
+			if(estimate_num_pk==null) {
+				String message = "비정상적인 접근입니다.";
+				String loc = request.getContextPath()+"/index.got";
+				
+				mav.addObject("message", message);
+				mav.addObject("loc", loc);					
+				
+				mav.setViewName("msg");
+				// /WEB-INF/views/msg.jsp 파일을 생성한다.
+			}
+			else {
+				mav.addObject("estimate_num_pk",estimate_num_pk);
+				
+				// 견적서번호를 가지고 정보 가져오기
+				HashMap<String,String> paymentInfo = service.get_estimate_info(estimate_num_pk);
+				
+				
+				// 해당 견적서번호가 실제로 있는지 확인하기
+				if(paymentInfo ==null) {
+					String message = "비정상적인 접근입니다.";
+					String loc = request.getContextPath()+"/index.got";
+					
+					mav.addObject("message", message);
+					mav.addObject("loc", loc);					
+					
+					mav.setViewName("msg");
+					// /WEB-INF/views/msg.jsp 파일을 생성한다.
+				}
+				
+				else {
+					// 로그인 된 사람의 정보가 견적요청에 넣은 아이디와 같은지 체크하기.
+					 String paymentId = paymentInfo.get("user_id_fk");
+					 if(!paymentId.equals(loginuser.getUser_id_pk())) {
 
-		mav.addObject("estimate_num_pk",estimate_num_pk);
-		
-		// 견적서번호를 가지고 정보 가져오기
-		HashMap<String,String> paymentInfo = service.get_estimate_info(estimate_num_pk);
-		
-		
-		// 해당 견적서번호가 실제로 있는지 확인하기
-		if(paymentInfo ==null) {
+						String message = "비정상적인 접근입니다.";
+						String loc = request.getContextPath()+"/index.got";
+						
+						mav.addObject("message", message);
+						mav.addObject("loc", loc);					
+						
+						mav.setViewName("msg");
+						// /WEB-INF/views/msg.jsp 파일을 생성한다.
+					}
+					
+					else {
+						int craftNum = Integer.parseInt(String.valueOf(paymentInfo.get("craft_num_fk")) );
+						
+						// 공방번호를 가지고 공방이름 가져오기
+						String craft_name = service.get_craft_name(craftNum );
+						
+						// 견적요청번호를 가지고 대표사진 이름 가져오기
+						String img_name = service.get_img_name(Integer.parseInt(String.valueOf(paymentInfo.get("order_num_pk")) ));
+						//String img_name = service.get_img_name(paymentInfo.get("order_num_pk"));
+						mav.addObject("img_name",img_name);
+						
+						// order_num_pk를 가지고 사진 하나 가져오기 
+						
+						
+						paymentInfo.put("craft_name", craft_name);
+						
+						mav.addObject("paymentInfo", paymentInfo);
+						
+						mav.setViewName("order/payment.tiles1");
+					}
+				}
+
+			}
+			
+		}catch(NumberFormatException e) {
 			String message = "비정상적인 접근입니다.";
 			String loc = request.getContextPath()+"/index.got";
 			
@@ -452,43 +515,7 @@ public class OrderController {
 			// /WEB-INF/views/msg.jsp 파일을 생성한다.
 		}
 		
-		else {
-			// 로그인 된 사람의 정보가 견적요청에 넣은 아이디와 같은지 체크하기.
-			 String paymentId = paymentInfo.get("user_id_fk");
-			 if(!paymentId.equals(loginuser.getUser_id_pk())) {
-
-				String message = "비정상적인 접근입니다.";
-				String loc = request.getContextPath()+"/index.got";
-				
-				mav.addObject("message", message);
-				mav.addObject("loc", loc);					
-				
-				mav.setViewName("msg");
-				// /WEB-INF/views/msg.jsp 파일을 생성한다.
-			}
-			
-			else {
-				int craftNum = Integer.parseInt(String.valueOf(paymentInfo.get("craft_num_fk")) );
-				
-				// 공방번호를 가지고 공방이름 가져오기
-				String craft_name = service.get_craft_name(craftNum );
-				
-				// 견적요청번호를 가지고 대표사진 이름 가져오기
-				String img_name = service.get_img_name(Integer.parseInt(String.valueOf(paymentInfo.get("order_num_pk")) ));
-				//String img_name = service.get_img_name(paymentInfo.get("order_num_pk"));
-				mav.addObject("img_name",img_name);
-				
-				// order_num_pk를 가지고 사진 하나 가져오기 
-				
-				
-				paymentInfo.put("craft_name", craft_name);
-				
-				mav.addObject("paymentInfo", paymentInfo);
-				
-				mav.setViewName("order/payment.tiles1");
-			}
-		}
-
+		
 		return mav;
 	}
 	
@@ -526,7 +553,7 @@ public class OrderController {
 	
 	
 	
-	// 결제한 내용 order_detail에 넣기
+	// 결제한 내용 order_detail에 넣고 결제정보 페이지 넘어가기
 	@RequestMapping(value = "/requiredLogin_insertOrderDetail.got")
 	public ModelAndView requiredLogin_insertOrderDetail(HttpServletRequest request, HttpServletResponse response,ModelAndView mav) {
 		
@@ -603,16 +630,17 @@ public class OrderController {
 		return mav;
 	}
 		
-	
-	// 결제한 후 결과 페이지 보여주기
-	@RequestMapping(value = "buyResult.got")
-	public ModelAndView requiredLogin_buyResult(HttpServletRequest request, HttpServletResponse response,ModelAndView mav) {
-		
-
-		
-		mav.setViewName("order/buyResult.tiles1");
-		return mav;
-	}
+	/*
+	 * // 결제한 후 결과 페이지 보여주기
+	 * 
+	 * @RequestMapping(value = "buyResult.got") public ModelAndView
+	 * requiredLogin_buyResult(HttpServletRequest request, HttpServletResponse
+	 * response,ModelAndView mav) {
+	 * 
+	 * 
+	 * 
+	 * mav.setViewName("order/buyResult.tiles1"); return mav; }
+	 */
 	
 
 	// 이지현 끝 ===========================================================================

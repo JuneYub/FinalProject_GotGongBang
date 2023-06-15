@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import javax.mail.Session;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -115,24 +116,35 @@ public class MemberController {
 		
 		@RequestMapping(value="/edit_user_info.got")
 		public ModelAndView requiredLogin_editUserInfo(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
-			  HttpSession session = request.getSession();
-			  MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
-			  String userId = loginuser.getUser_id_pk();
+			HttpSession session = request.getSession();
+			MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+			String userId = loginuser.getUser_id_pk();
 		      
-		      MemberVO mvo = new MemberVO();
-		      mvo = service.getUserInfoByUserId(userId);
-		      mav.addObject("mvo", mvo);
-		      mav.setViewName("member/editUserInfo.tiles1");
-		      return mav;
+		    MemberVO mvo = new MemberVO();
+		    mvo = service.getUserInfoByUserId(userId);
+		    mav.addObject("mvo", mvo);
+		    mav.setViewName("member/editUserInfo.tiles1");
+		    return mav;
 		}
 		
 		@ResponseBody
 		@RequestMapping(value="/checkOriginPwd.got", method = {RequestMethod.POST})
-		public String checkOriginPwd(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+			public String checkOriginPwd(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+			HttpSession session = request.getSession();
+			MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+			String userId = loginuser.getUser_id_pk();
+			
 			String insertPwd = request.getParameter("insertPWD");
 			String encrpyInsertPwd = Sha256.encrypt(insertPwd);
-			int n = service.checkOriginPwd(encrpyInsertPwd);
-			if(n > 0) {	n = 1; };
+			
+		    MemberVO mvo = new MemberVO();
+		    mvo = service.getUserInfoByUserId(userId);	
+		    
+		    int n = 0;
+		    if(encrpyInsertPwd.equals(mvo.getPwd())) {
+		    	n = 1;
+		    }
+
 			JSONObject jsonObj = new JSONObject();
 			jsonObj.put("n", n);
 			return jsonObj.toString();
@@ -550,15 +562,18 @@ public class MemberController {
 		
 		// 공방회원가입 post
 		@RequestMapping(value="/register_to_partner.got", method=RequestMethod.POST)
-		public String register_partner(PartnerVO partnervo) {
+		public String register_partner(PartnerVO partnervo, HttpServletRequest request) {
 			
 			System.out.println("공방 들어옴");
 			
 			String password = Sha256.encrypt(partnervo.getPartner_pwd());
 	        // 비밀번호 암호화
-			partnervo.setPartner_pwd(password);
-			
+			partnervo.setPartner_pwd(password);			
 			service.insertPartner(partnervo);
+			
+			HttpSession session = request.getSession();
+			
+			session.setAttribute("partner_id_pk", partnervo.getPartner_id_pk());
 			
 			return "redirect:/craft_application.got";
 		}
