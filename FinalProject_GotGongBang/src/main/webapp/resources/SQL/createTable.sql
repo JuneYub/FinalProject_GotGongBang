@@ -222,10 +222,12 @@ create table INQUIRY
 ,groupno                number default 0        not null    -- (답변글쓰기) 그룹번호
 ,fk_seq                 number default 0        not null    -- (답변글쓰기) 원글인 경우 0, 답변글일 경우  inquiry_num_pk 값을 가짐.
 ,depthno                number default 0        not null    -- (답변글쓰기) 깊이번호 
+,partner_chk            number(1) default 0     not null    -- 일반사용자, 파트너사용자 구분
 
 ,constraint PK_INQUIRY_inquiry_num_pk primary key(inquiry_num_pk)
-,constraint FK_INQUIRY_user_id_fk foreign key(user_id_fk) references MEMBER(user_id_pk)
 );
+
+drop table INQUIRY;
 
 ----- 공방정보 table ------
 
