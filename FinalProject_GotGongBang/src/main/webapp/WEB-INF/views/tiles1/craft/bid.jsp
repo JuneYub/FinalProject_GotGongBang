@@ -12,17 +12,17 @@
 	$(document).ready(function() {
 		$("input#proposalPrice").bind("keyup", function(e) {
 			let price = e.target.value;
-			if(!isNaN(price)) {
-				price =  Number(price.replaceAll(",", ""));
-				const formatValue = price.toLocaleString('ko-KR');
-				$("input#proposalPrice").val(formatValue);
-			}
-			else {
-				alert("숫자만 입력하세요");
-				e.target.value = "";
-				e.target.focus();
-			}
+			price = price.replace(/,/g, '');
+			var formatedNum = Number(price).toLocaleString();
+
 			
+		    $("input#proposalPrice").val(formatedNum);
+			
+			<%--
+			price =  Number(price.replaceAll(",", ""));
+			const formatValue = price.toLocaleString('ko-KR');
+			$("input#proposalPrice").val(formatValue);
+			--%>
 
 		});
 		
