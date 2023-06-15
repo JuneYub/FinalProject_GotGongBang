@@ -53,6 +53,10 @@
 				</thead>
 				
 				<tbody>
+					<c:if test="${empty requestScope.ovoList}">
+					 <td colspan="3" style="text-align: center;">조회할 견적 요청서가 없습니다</td> 
+					</c:if>
+				
 					<c:if test="${not empty requestScope.ovoList}">
 						<c:forEach var="ovo" items="${requestScope.ovoList}" varStatus="status">
 						<tr>
