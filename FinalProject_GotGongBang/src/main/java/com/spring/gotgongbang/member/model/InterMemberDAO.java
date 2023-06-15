@@ -23,7 +23,10 @@ public interface InterMemberDAO {
 	int isEmailDuplicate(String email);
 
 	// 아이디 중복 확인 AJAX 요청 처리
-	int isIdDuplicate(String id);
+	int isIdDuplicateMember(String id);
+	
+	// 아이디 중복 확인 AJAX 요청 처리
+	int isIdDuplicatePartner(String id);
 	
 	// 로그인 처리
 	MemberVO getLoginMember(Map<String, String> paraMap);
