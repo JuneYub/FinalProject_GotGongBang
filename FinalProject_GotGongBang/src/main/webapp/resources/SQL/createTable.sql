@@ -232,15 +232,14 @@ create table INQUIRY
 drop table INQUIRY;
 
 ----- 공방정보 table ------
-
 CREATE TABLE CRAFT (
 craft_num_pk               NUMBER          NOT NULL, -- 공방번호
 partner_id_fk              VARCHAR2(20)    NOT NULL, -- 파트너 아이디
 craft_name                 VARCHAR2(30)    NOT NULL, -- 공방이름
 craft_mobile               VARCHAR2(200)   NOT NULL, -- 공방연락처
-craft_representative       VARCHAR2(30)    NOT NULL, -- 대표이름
+craft_representative       VARCHAR2(100)   NOT NULL, -- 대표이름
 craft_Introduce            NVARCHAR2(2000) NOT NULL, -- 자기소개
-craft_career               VARCHAR2(10)    NOT NULL, -- 경력기간
+craft_career               VARCHAR2(100)   NOT NULL, -- 경력기간
 craft_specialty            VARCHAR2(200)   NOT NULL, -- 전문 품목
 craft_post_code            VARCHAR2(20)    NOT NULL, -- 공방우편번호
 craft_address              VARCHAR2(200)   NOT NULL, -- 공방주소

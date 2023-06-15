@@ -36,6 +36,13 @@
 		});
 		
 	});
+	
+	function go_edit() {
+		const frm = document.craft_view_frm;
+		frm.method = "post";
+		frm.action = "<%= ctxPath%>/craft_edit.got";
+		frm.submit();
+	};
 
 </script>
 
@@ -61,14 +68,17 @@
             </div>
 
             <form name="craft_view_frm">
+                    <input type="hidden" id="num_hidden" name="craft_num_pk" value="${requestScope.craftvo.craft_num_pk}"/>
                 <div class="application_right">
+                	                    <p style="display: inline; magin:0; float: right; width: 210px; height: 10px; font-size: 12pt;"> * 표시는 수정 가능합니다.</p>
+               
                     <div class="craftOneView">
                         <div class="frm_border" style="height:80px;">
                             <span> <p>공방 상태<br>(임시/정식)</p>
                                 <div id="specialized_chkBox" style="margin-top: 17px;">
                                      	임시<input type="checkbox" class="craft_status" id="temporarily" value="${requestScope.craftvo.craft_status}"/>
                                     	정식<input type="checkbox" class="craft_status" id="formal" value="${requestScope.craftvo.craft_status}"/>
-                                    	<input type="text" id="status_hidden" name="craft_status" value=""/>
+                                    	<input type="hidden" id="status_hidden" name="craft_status" value=""/>
                                 </div>                      
                             </span>
                         </div>
@@ -83,7 +93,7 @@
                             </span>
                         </div>
                         <div class="frm_border">
-                            <span> <p>공방 대표자 이름</p>
+                            <span> <p> * 공방 대표자 이름</p>
                                 <input type="text" class="view" name="craft_representative" value="${requestScope.craftvo.craft_representative}"/>
                             </span>
                         </div>
@@ -98,7 +108,7 @@
                             </span>
                         </div>
                         <div class="frm_border">
-                            <span> <p>공방 연락처</p>
+                            <span> <p> * 공방 연락처</p>
                                 <input type="text" class="view" name="craft_mobile" value="${requestScope.craftvo.craft_mobile}"/>
                             </span>
                         </div>
@@ -120,7 +130,7 @@
                             </span>
                         </div>
                         <div class="frm_border_2">
-                            <span> <p>공방 한 줄 소개</p>
+                            <span> <p> * 공방 한 줄 소개</p>
                                 <input id="self_introduce" name="craft_Introduce" value="${requestScope.craftvo.craft_Introduce}" style="height: 70px;"/>
                             </span>
                         </div>
@@ -130,7 +140,7 @@
                             </span>
                         </div>
                         <div class="frm_border">
-                            <span> <p>총 경력기간</p>
+                            <span> <p> * 총 경력기간</p>
                                 <input type="text" class="view" name="craft_career" value="${requestScope.craftvo.craft_career}"/>
                             </span>
                         </div>
@@ -160,8 +170,9 @@
 
                 <div class="application_right">
                     <div class="craftOneView_btn">
+                    <!-- javascript:location.href='/craft_edit.got?craft_num_pk=${requestScope.craftvo.craft_num_pk}' -->
                         <button class="del" type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/craft_del.got?craft_num_pk=${requestScope.craftvo.craft_num_pk}'">삭제</button>
-					    <button class="update" type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/craft_edit.got?craft_num_pk=${requestScope.craftvo.craft_num_pk}'">수정</button>
+					    <button class="update" type="button" onclick="go_edit()">수정</button>
                     </div>
                 </div>
 

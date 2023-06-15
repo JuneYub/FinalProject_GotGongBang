@@ -60,16 +60,13 @@ public class AdminController {
 		craftvo = service.craftOneView(craft_num_pk);
 
 	    List<Map<String, String>> imgList = service.selectImgList(craft_num_pk);
-	    System.out.println("~확인용 imgList: "+ imgList);
 	    // 뷰단에 파일 originalFileName을 띄워주기 위한 것
 	    Map<String, String> paraMap = new HashMap<String, String>();
 	    paraMap.put("craft_image_orgFilename", imgList.get(0).get("craft_image_orgFilename").toString());
 	    paraMap.put("craft_representative_image_orgFilename", imgList.get(0).get("craft_representative_image_orgFilename").toString());
 	    paraMap.put("craft_certificate_orgFilename", imgList.get(0).get("craft_certificate_orgFilename").toString());
 	    
-	    System.out.println("paraMap : " + paraMap);
-	    
-		
+	 
 		mav.addObject("paraMap",paraMap);
 		mav.addObject("craftvo",craftvo);
 		mav.setViewName("admin/craftView.tiles1");
@@ -138,32 +135,18 @@ public class AdminController {
 
 	   
 	//공방 한 개보기 (대표자이름, 연락처, 한줄소개, 경력기간) 수정 
-	@RequestMapping(value = "/craft_edit.got")
+	@RequestMapping(value = "/craft_edit.got", method = {RequestMethod.POST})
 	public ModelAndView craft_edit(ModelAndView mav, CraftVO cvo, HttpServletRequest request) {	 
-		String craft_num_pk = request.getParameter("craft_num_pk");
-		System.out.println("craft_num_pk:" + craft_num_pk);
-		// 글 수정을 위해 글을 조회해옴
-		cvo = service.craft_edit_view(craft_num_pk);
 		
-		//진짜 당최 왜 안되는지 모르겠음
-		int n = service.craft_edit(cvo);
-		/*
-		 심각: 경로 [/gotgongbang]의 컨텍스트 내의 서블릿 [appServlet]을(를) 위한 Servlet.service() 호출이, 
-		 근본 원인(root cause)과 함께, 예외 [Request processing failed; nested exception is org.mybatis.spring.MyBatisSystemException: 
-		 nested exception is org.apache.ibatis.type.TypeException: Could not set parameters for mapping: 
-		 ParameterMapping{property='craft_num_pk', mode=IN, javaType=class java.lang.String, jdbcType=null,
-		  numericScale=null, resultMapId='null', jdbcTypeName='null', expression='null'}. Cause: org.apache.
-		  ibatis.type.TypeException: Error setting null for parameter #1 with JdbcType OTHER . Try setting a different 
-		  JdbcType for this parameter or a different jdbcTypeForNull configuration property. Cause: java.sql.SQLException: 
-		  부적합한 열 유형: 1111]을(를) 발생시켰습니다.
-
-		 */
+		// 공방 정보 수정하기
+	   int n = service.craft_edit(cvo);
+		
 	   if(n==0) {
 		   mav.addObject("message","공방 정보 수정 실패");	
 		   mav.addObject("loc","javascipt:history.back()");	
 	   }else {
 		   mav.addObject("message","공방 정보 수정 성공");	
-		   mav.addObject("loc", request.getContextPath()+"/craft_view.got");	
+		   mav.addObject("loc", request.getContextPath()+"/craft_view.got?craft_num_pk="+cvo.getCraft_num_pk());	
 	   }
 	   mav.setViewName("msg");
 	
