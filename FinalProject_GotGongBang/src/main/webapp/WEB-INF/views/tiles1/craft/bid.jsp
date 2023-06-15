@@ -12,9 +12,27 @@
 	$(document).ready(function() {
 		$("input#proposalPrice").bind("keyup", function(e) {
 			let price = e.target.value;
-			price =  Number(price.replaceAll(",", ""));
-			const formatValue = price.toLocaleString('ko-KR');
-			$("input#proposalPrice").val(formatValue);
+			if(!isNaN(price)) {
+				price =  Number(price.replaceAll(",", ""));
+				const formatValue = price.toLocaleString('ko-KR');
+				$("input#proposalPrice").val(formatValue);
+			}
+			else {
+				alert("숫자만 입력하세요");
+				e.target.value = "";
+				e.target.focus();
+			}
+			
+
+		});
+		
+		$("input#proposalDuration").bind("keyup", function(e) {
+			let day = e.target.value;
+			if(isNaN(day)) {
+				alert("숫자만 입력하세요");
+				e.target.value = "";
+				e.target.focus();
+			};
 		});
 		
 	});
@@ -46,6 +64,7 @@
 		else {
 			if(!regExp.test(proposalPrice)) {
 				alert("가격은 숫자로만 입력해주세요")
+				$("input#proposalPrice").val("");
 				$("input#proposalPrice").focus();
 				return;
 			}
