@@ -170,7 +170,7 @@
 </select>
 
 
-<!-- 공방상세페이지에서 후기테이블에 사진 묶어서 데려오기 -->
+<!-- 공방상세페이지에서 후기테이블에 사진 묶어서 데려오기 
 <resultMap type="com.spring.gotgongbanb.member.model.ReviewVO" id="getAllReviewMap">
 	<result column="review_id_pk" property="" />
 	<result column="user_id_fk" property="" />
@@ -191,7 +191,7 @@
 	ofType="com.spring.gotgongbang.order.model.FixedPhotoVO" select="getWholeImagesByOrderNum"></collection>
 </resultMap>
 
-
+-->
 
 <!--==================== 김나윤 끝 ====================== -->
 

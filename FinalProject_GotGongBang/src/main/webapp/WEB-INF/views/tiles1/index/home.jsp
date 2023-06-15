@@ -10,6 +10,10 @@
     
     
     $(document).ready(function() {
+    	
+		Fancybox.bind("[data-fancybox]", {	 
+		});
+    	
     	$("div.circle-purple").css('opacity','0');
     	$("div.circle-white").css('opacity','0');
     	$("div.container-botton-copy").css('opacity','0');
@@ -99,7 +103,7 @@
 			<div>
 				<div class="contents-prolist-promotional">
 				<p id="contents-prolist-promotional-msg">지금 바로 전문가를 찾아보세요</p>
-				<p id="contents-prolistAll-link">전체보기</p>
+				<p id="contents-prolistAll-link" onclick="location.href='<%= ctxPath%>/crafts_list.got'">전체보기</p>
 				</div>
 
 				
@@ -161,7 +165,6 @@
 			<div id="review-slide">
 				<div class="contents-review-promotional">
 				<p id="review-list-title">공방 업체 후기</p>
-				<p id="review-list-link">전체보기</p>
 				</div>
 
 				
@@ -169,32 +172,66 @@
 					<div class="swiper-wrapper">
 						
 						<%-- 후기 카드 시작 --%>
+						<c:forEach var="review" items="${requestScope.reviewList}" varStatus="status">
 						<div class="swiper-slide">
 							<div class="swiper-slide-card slide-review-card">
 								<div class="reviewSwiper-">
 									<div class="review-img">
 										<div class="review-before-img">
-											<span class="review-img-span"> <img src="<%=ctxPath%>/resources/img/main_test.jpg">
+											<span class="review-img-span">
+												<c:forEach var="wholeImg" items="${review.wholeImgList}" varStatus="wholeIdx">
+													<c:if test="${wholeIdx.index eq 0}">
+													<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" data-fancybox="gallery${status.index}" >
+														<img src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" />
+													</a>
+													</c:if>
+					
+													<c:if test="${wholeIdx.index ne 0}">
+													<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" data-fancybox="gallery${status.index}" >
+														<img style="display: none" src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" />
+													</a>
+													</c:if>
+												</c:forEach>
+												
+												<c:forEach var="detailImg" items="${review.detailImgList}" varStatus="detailIdx">
+													<a href="<%= ctxPath%>/resources/img/orders_detail/${detailImg.detail_img_new_name}" data-fancybox="gallery${status.index}" >
+														<img style="display: none" src="<%= ctxPath%>/resources/img/orders_detail/${detailImg.detail_img_new_name}" />
+													</a>
+												</c:forEach>
 											</span>
 										</div>
 
 										<div class="review-after-img">
-											<span class="review-img-span"> <img src="<%=ctxPath%>/resources/img/main_test.jpg">
+											<span class="review-img-span"> 
+												<c:forEach var="fixedImg" items="${review.fixedImgList}" varStatus="fixedIdx">
+													<c:if test="${fixedIdx.index eq 0}">
+													<a href="<%= ctxPath%>/resources/img/review/${fixedImg.file_name}" data-fancybox="galleryFixedPhoto${status.index}" >
+														<img src="<%= ctxPath%>/resources/img/review/${fixedImg.file_name}" />
+													</a>
+													</c:if>
+					
+													<c:if test="${fixedIdx.index ne 0}">
+													<a href="<%= ctxPath%>/resources/img/review/${fixedImg.file_name}" data-fancybox="galleryFixedPhoto${status.index}" >
+														<img style="display: none" src="<%= ctxPath%>/resources/img/review/${fixedImg.file_name}" />
+													</a>
+													</c:if>
+												</c:forEach>
 											</span>
 										</div>
 									</div>
 								</div>
-
+								
 								<div class="card-review">
-									<p class="card-review-craft">하늘공방</p>
-									<p class="card-review-content">리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용</p>
+									<p class="card-review-craft">${review.craft_name}</p>
+									<p class="card-review-content">${review.review_content}</p>
 									<div class="card-review-info">
-										<span>testID</span>
-										<span>YY/MM/DD</span>									
+										<span>${review.user_id_fk}</span>
+										<span>${review.review_date}</span>									
 									</div>
 								</div>
 							</div>
 						</div>
+						</c:forEach>
 						<%-- 후기 카드 끝 --%>
 						
 						
