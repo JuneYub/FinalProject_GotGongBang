@@ -741,7 +741,7 @@
 		// 생년월일 blur
 		$("input#birthday").blur( (e) => {
           
-    	  const regExp = /^\d{8}$/;		// 단순 8자리
+    	  const regExp = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;	// 단순 8자리
     	  
     	  const bool = regExp.test($(e.target).val());
     	  
