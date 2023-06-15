@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,6 +30,7 @@ import com.spring.gotgongbang.board.model.NoticeVO;
 import com.spring.gotgongbang.board.service.InterBoardService;
 import com.spring.gotgongbang.common.FileManager;
 import com.spring.gotgongbang.common.MyUtil;
+import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.member.model.MemberVO;
 
 
@@ -65,7 +67,7 @@ public class BoardController {
 	
 	// FAQ 페이지 불러오기
 	@RequestMapping(value="/board-faq.got")
-    public ModelAndView getBoardFaq(ModelAndView mav, HttpServletRequest request) {
+    public ModelAndView requiredLogin_getBoardFaq( HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
 		
 		List<InquiryVO> iqvo = service.getFaq();
 		
@@ -83,46 +85,72 @@ public class BoardController {
 	@RequestMapping(value="/board_inquiry.got")
 	public ModelAndView requiredLogin_getBoardInquiry(HttpServletRequest request, HttpServletResponse response, ModelAndView mav, InquiryVO iqvo) {
 	   
-		HttpSession session = request.getSession();
-
-		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
-		
-		if (loginuser == null) { mav.setViewName("redirect:/login.got");
-		  session.setAttribute("goBackURL", "/board_inquiry.got"); } else {
 		    
+			HttpSession session = request.getSession();
+			
+			MemberVO loginuser = null;
+			PartnerVO loginpartner = null;
+			String partner_chk = "0";
+			
+			try {
+				loginuser = (MemberVO)session.getAttribute("loginuser");
+				loginpartner = (PartnerVO)session.getAttribute("loginpartner");
+			}
+			catch (Exception e) {
+				
+			}
+			if(loginuser != null) {
+				partner_chk = "0";
+			}
+			if(loginuser == null) {
+				partner_chk = "1";
+			}
+			
+		//	System.out.println("~~~~~~~~~~테스트 중" + partner_chk);
+			
+		
 		    String fk_seq = request.getParameter("fk_seq");
 			String groupno = request.getParameter("groupno");
 			String depthno = request.getParameter("depthno");
+			
 			String inquiry_title = "[답변] " + request.getParameter("inquiry_title");
-
+			
+			
+			
 		    if (fk_seq == null) {
 		    	fk_seq = "";
 		    }
-
+		    
+		    if (partner_chk == null) {
+		    	partner_chk = "0";
+		    }
+		    
+		    
 		    mav.addObject("fk_seq", fk_seq);
 		    mav.addObject("groupno", groupno);
 		    mav.addObject("depthno", depthno);
 		    mav.addObject("inquiry_title", inquiry_title);
-		    
-	//	    System.out.println("inquiry_title" + inquiry_title);
-	//	    System.out.println("fk_seq" + fk_seq);
-	//	    System.out.println("groupno" + groupno);
-	//	    System.out.println("depthno" + depthno);
+		    mav.addObject("partner_chk", partner_chk);
+		   
 		    
 		    mav.setViewName("/board/board_inquiry.tiles1");
-		  }
+		  
 
 		    return mav;
 	}
+		   
+	
 	
 	// 온라인 문의 완료
 		@RequestMapping(value="/board_inquiryEnd.got", method={RequestMethod.POST})
-		public ModelAndView pointPlus_iqEnd(Map<String, String> paraMap, ModelAndView mav, InquiryVO iqvo, MultipartHttpServletRequest request) {
+		public ModelAndView pointPlus_iqEnd(ModelAndView mav, InquiryVO iqvo, MultipartHttpServletRequest mrequest, HttpServletRequest request) {
+			
+			
 			
 			MultipartFile attach = iqvo.getAttach();
 			
 			if( !attach.isEmpty() ) {
-				HttpSession session = request.getSession();
+				HttpSession session = mrequest.getSession();
 				String root = session.getServletContext().getRealPath("/");
 				
 			//	System.out.println("~~~~ 확인용 webapp 의 절대경로 => " + root);
@@ -171,18 +199,23 @@ public class BoardController {
 			
 			// 파일 첨부가 있는 온라인문의
 			
+			
+			
 			int n = 0;
 			
 			if( attach.isEmpty() ) {
 				// 파일첨부가 없는 경우
 				n = service.add(iqvo);
 			}
+			
 			else {
 				// 파일첨부가 있는 경우
 				n = service.add_withFile(iqvo);
 			}
 			
+			
 			if(n==1) {
+				
 				mav.setViewName("redirect:/board_question.got");
 				
 			}
@@ -197,12 +230,13 @@ public class BoardController {
 			   mav.setViewName("/board/board_question.tiles1");
 			*/
 			
+			
 			return mav;
 		}
 	
 	// 질문게시판 페이지 불러오기
 	@RequestMapping(value="/board_question.got")
-    public ModelAndView getBoardQuestion(ModelAndView mav, HttpServletRequest request) {
+    public ModelAndView requiredLogin_getBoardQuestion(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
 		
 		List<InquiryVO> iqvo = null;
 		
@@ -601,10 +635,12 @@ public class BoardController {
 		@RequestMapping(value="/board/delEnd.got", method = {RequestMethod.POST})
 		public String delEnd(HttpServletRequest request) throws Throwable {
 			
-			String inquiry_num_pk = request.getParameter("inquiry_num_pk");
+		  String inquiry_num_pk = request.getParameter("inquiry_num_pk");
+			String user_id_pk = request.getParameter("user_id_pk");
 			
 			Map<String, String> paraMap = new HashMap<>();
 			paraMap.put("inquiry_num_pk", inquiry_num_pk);
+			paraMap.put("user_id_pk", user_id_pk);
 			
 			int n = service.del(paraMap);
 			

@@ -7,7 +7,7 @@ public class CraftVO {
 	
 	/////////////////// ====== 김진솔 시작 ===== ///////////////////////
 	private String craft_num_pk;				//공방번호
-	private String partner_id_fk;					//유저 아이디
+	private String partner_id_fk;				//유저 아이디
 	private String craft_name;					//공방이름
 	private String craft_mobile;				//공방연락처
 	private String craft_representative;		//공방 대표이름

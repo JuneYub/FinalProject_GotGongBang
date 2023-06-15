@@ -87,7 +87,7 @@
 	                    </li>
 	                </c:if>
 	                
-	                <c:if test="${not empty sessionScope.loginuser}">
+	                <c:if test="${not empty sessionScope.loginuser and sessionScope.loginuser.user_id_pk != 'admin'}">
 	                	<li>
 	                        <a onclick="location.href='<%= ctxPath%>/proposal_list.got'">
 	                          	  일반회원 | ${(sessionScope.loginuser).name}님
@@ -105,6 +105,20 @@
 	                	<li>
 	                        <a onclick="location.href='<%= ctxPath%>/estimate_inquiry_list.got'">
 	                          	  공방회원 | ${(sessionScope.loginpartner).partner_name}님
+	                        </a>
+	                        <span class="txt_bar"></span>
+	                    </li>
+	                    <li>
+	                        <a onclick="location.href='<%= ctxPath%>/logout.got'">
+	                           	 로그아웃
+	                        </a>
+	                    </li>
+	                </c:if>
+	                
+	                <c:if test="${sessionScope.loginuser.user_id_pk == 'admin'}">
+	                	<li>
+	                        <a onclick="location.href='<%= ctxPath%>/proposal_list.got'">
+	                          	  Master | ${(sessionScope.loginuser).name}님
 	                        </a>
 	                        <span class="txt_bar"></span>
 	                    </li>
