@@ -198,6 +198,7 @@
 	<result column="orderer" property="orderer" />
 	<result column="order_product_type" property="order_product_type" />
 	<result column="order_num_fk" property="order_num_fk" />
+	<result column="order_num_pk" property="order_num_pk" />
 	<result column="order_detail_id_pk" property="order_detail_id_pk" />
 	<result column="payment_date" property="payment_date" />
 	<result column="order_post_code" property="order_post_code" />
@@ -207,7 +208,7 @@
 	<result column="order_address" property="order_address" />
 	<result column="product_status" property="product_status" />
 	<result column="payment" property="payment" />
-
+	<collection column="order_num_pk" property="wholeImgList" javaType="java.util.List" ofType="com.spring.gotgongbang.order.model.WholeImgVO" select="getWholeImagesByOrderNum"></collection>
 </resultMap>
 
 
@@ -282,9 +283,9 @@
 </select>
 
 <select id="getRepariListBycraftNum" parameterType="HashMap" resultMap="getRepariListBycraftNumMap">
-select brand_name, request_explain, requests, orderer, order_product_type, order_num_fk, order_detail_id_pk, payment_date, order_post_code, order_address, order_detail_address, order_extra_address, product_status, payment
+select brand_name, request_explain, requests, orderer, order_product_type, order_num_pk, order_num_fk, order_detail_id_pk, payment_date, order_post_code, order_address, order_detail_address, order_extra_address, product_status, payment
 from ( 
-    select row_number() over(order by payment_date desc) as rno, brand_name, request_explain, requests, orderer, order_product_type, order_num_fk, order_detail_id_pk, payment_date, order_post_code, order_address, order_detail_address, order_extra_address, product_status, payment
+    select row_number() over(order by payment_date desc) as rno, order_num_pk, brand_name, request_explain, requests, orderer, order_product_type, order_num_fk, order_detail_id_pk, payment_date, order_post_code, order_address, order_detail_address, order_extra_address, product_status, payment
     from 
     ORDERS A
     join

@@ -101,7 +101,7 @@
 								<div class="img-bid-detail">
 								<c:forEach var="wholeImg" items="${ovo.wholeImgList}" varStatus="wholeIdx">
 									
-									<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" data-fancybox="gallery" target='_blank' >
+									<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" data-fancybox="gallery">
 										<img src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" />
 									</a>
 									
