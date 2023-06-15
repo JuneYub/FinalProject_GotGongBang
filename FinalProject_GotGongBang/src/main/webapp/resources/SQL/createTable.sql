@@ -260,17 +260,6 @@ constraint CK_CRAFT_craft_status check( craft_status in(0,1) )
 );
 
 
--- 공방 추가이미지 테이블 --
-
-CREATE TABLE CRAFT_IMG (
-craft_add_img_pk       NUMBER     NOT NULL, -- 공방 추가 사진 번호
-craft_num_fk           NUMBER     NOT NULL, -- 공방번호
-add_file_name    VARCHAR2(1000) NOT NULL,      -- 추가 이미지 파일명
-add_origin_file_name VARCHAR2(1000) NOT NULL,     --추가 이미지 원래 파일명
-constraint PK_CRAFT_IMG_craft_add_img_pk primary key(craft_add_img_pk),
-constraint FK_CRAFT_craft_num_fk foreign key(craft_num_fk) references CRAFT(craft_num_pk)
-);
-
 --- *** 로그인이 성공되어지면 자동적으로 로그인 기록을 남기려고 insert 되어질 테이블
 CREATE TABLE LOGIN_HISTORY 
 (user_id_pk_pk      VARCHAR2(20)         NOT NULL
