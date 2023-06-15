@@ -15,6 +15,9 @@ public interface InterMemberDAO {
 	
 	// 일반회원가입
 	void insertMember(MemberVO membervo);
+	
+	// 공방회원가입
+	void insertPartner(PartnerVO partnervo);
 
 	// 이메일 중복 확인 AJAX 요청 처리
 	int isEmailDuplicate(String email);
@@ -59,6 +62,12 @@ public interface InterMemberDAO {
 	
 	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
 	
+	// 비밀번호 변경 ( 일반회원 )
+	int changeMemberPwd(HashMap<String, String> paraMap);
+	
+	// 비밀번호 변경 ( 공방회원)
+	int changePartnerPwd(HashMap<String, String> paraMap);
+	
 	
 	
 	// ====== 홍용훈 끝 =========================================== //
@@ -94,6 +103,12 @@ public interface InterMemberDAO {
 	int getCurrReviewIdByOrderDetailNum(String orderDetailNum);
 
 	HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum);
+
+
+
+
+
+
 
 
 	

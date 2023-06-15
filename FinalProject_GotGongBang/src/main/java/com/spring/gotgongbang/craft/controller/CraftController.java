@@ -53,153 +53,161 @@ public class CraftController {
 	// 김나윤 시작
 	// ===========================================================================
     
-    // 공방상세페이지에 DB정보 넘겨주기
-	@RequestMapping(value="/crafts_detail.got")
-	public ModelAndView craftDetail(ModelAndView mav, HttpServletRequest request) {
-	   
-		int craft_num_pk = Integer.parseInt(request.getParameter("craft_num_pk"));
-//	    System.out.println("craft_num_pk = "+craft_num_pk);
-//	    List<String> : 공방명만 여러개 
-//	    List<CraftVO> : 여러개의 공방정보 데리고
-	   
-		CraftVO craftvo = service.craftDetail(craft_num_pk);
-		//where절에서 필요한 데이터만 골라오기 위해 craft_num_pk 파라미터로 넣어준다.
-	    
-		mav.setViewName("/craft/craft_detail.tiles1");
-		mav.addObject("craftvo", craftvo);  //mav 안에 craftvo 넣어주기
-      
-//      System.out.println(mav);
-      
-		return mav;
-	}
-   
-   
-	// 수선사페이지에서 "가방 자세히 보기" 페이지 보여주기
-	@RequestMapping(value="/crafts_list_10bag.got")
-	public ModelAndView craftList_10bag(ModelAndView mav) {
-	   
-		List<CraftVO> craftsList = null;
-	      
-		craftsList = service.crafts_list_select();
-	      
-		mav.addObject("craftsList", craftsList);
-		mav.setViewName("/craft/craft_list_10bag.tiles1");
-		
-		return mav;
-	}
-   
-	
-	// 수선사페이지에서 "신발 자세히 보기" 페이지 보여주기
-	@RequestMapping(value="/crafts_list_20shoes.got")
-	public ModelAndView craftList_20shoes(ModelAndView mav) {
-	   
-	   List<CraftVO> craftsList = null;
-	      
-	   craftsList = service.crafts_list_select();
-	   
-	   mav.addObject("craftsList", craftsList);
-	   mav.setViewName("/craft/craft_list_20shoes.tiles1");
-	   
-	   return mav;
-	}
-   
-	
-	// 수선사페이지에서 "지갑/벨트 자세히 보기" 페이지 보여주기
-	@RequestMapping(value="/crafts_list_30wallet.got")
-	public ModelAndView craftList_30wallet(ModelAndView mav) {
-	   
-		List<CraftVO> craftsList = null;
-	      
-		craftsList = service.crafts_list_select();
-	   
-		mav.addObject("craftsList", craftsList);
-		mav.setViewName("/craft/craft_list_30wallet.tiles1");
-		
-		return mav;
-	}
-   
-	
-	// 수선사페이지에서 "의류 자세히 보기" 페이지 보여주기
-	@RequestMapping(value="/crafts_list_40cloth.got")
-	public ModelAndView craftList_40cloth(ModelAndView mav) {
-	   
-		List<CraftVO> craftsList = null;
-	      
-		craftsList = service.crafts_list_select();
-	   
-		mav.addObject("craftsList", craftsList);
-		mav.setViewName("/craft/craft_list_40cloth.tiles1");
-		
-		return mav;
-	}
-   
-	
-	// 수선사찾기 페이지 첫 화면 보여주기
-	@RequestMapping(value="/crafts_list.got")
-	public ModelAndView crafts_list_select(ModelAndView mav, HttpServletRequest request) {
-      
-		List<CraftVO> craftsList = null;  //수선사 정보 DB 받아오기용
-		List<CraftVO> craftsNewList = null;  //신규입점수선사 띄우기용
-      
-		craftsList = service.crafts_list_select();  //수선사 정보 DB 받아오기
-		craftsNewList = service.crafts_new_select();  //신규입점수선사 띄우기
-      
-      
-      /*
-		for(int i = 0; i< craftsNewList.size(); i++) {
-			System.out.println(craftsNewList.get(i).getCraft_name());
-			System.out.println(craftsNewList.get(i).getCraft_Introduce());
-		}
-      */
-      
-//      System.out.println(craftsNewList);
-      
-      
-		mav.addObject("craftsList", craftsList);
-		mav.addObject("craftsNewList", craftsNewList);
-		mav.setViewName("/craft/craft_list.tiles1");   //뷰단 지정
-      
-		return mav;  //craft_list.jsp 로 List가 전달된다.
-      
-	}
-   
-	
-	// 수선사찾기 페이지에서 공방명/품목으로 공방정보 검색하기
-	@ResponseBody
-	@RequestMapping(value="/wordSearchShow.got", method= {RequestMethod.GET}, produces="text/plain;charset=UTF-8")
-	public String wordSearchShow(HttpServletRequest request) {
-		
-		String searchType = request.getParameter("searchType");
-		String searchWord = request.getParameter("searchWord");
-		System.out.println("searchType = "+searchType);
-		System.out.println("searchWord = "+searchWord);
-		
-		Map<String, String> paraMap = new HashMap<String, String>();  //map에 담아서 넘겨준다.
-		paraMap.put("searchType", searchType);
-		paraMap.put("searchWord", searchWord);
-		
-		// 검색정보를 가지고 공방정보 가져오기
-		List<CraftVO> craftvo_list= service.wordSearchShow(paraMap);  //map을 보내어준다.
-		
-//		System.out.println("공방정보 =" +craftvo_list.get(0).getCraft_name());
-		
-		JSONArray jsonArr = new JSONArray();
-		
-		if(craftvo_list != null) {
-			for(CraftVO craftvo : craftvo_list) {  //craftvo_list : list개수만큼 반복문 돌리기 , CraftVO craftvo : CraftVO 안에 있는 애들을 하나씩 꺼내오는데 그 이름을 craftvo로!
-				JSONObject jsonObj = new JSONObject();
-				jsonObj.put("craft_name", craftvo.getCraft_name());
-				jsonObj.put("craft_Introduce", craftvo.getCraft_Introduce());
-				jsonObj.put("craft_representative", craftvo.getCraft_representative());
-				jsonObj.put("craft_num_pk", craftvo.getCraft_num_pk()); 
-			//	System.out.println("craftvo.getCraft_num_pk() "+craftvo.getCraft_num_pk());
-				
-				jsonArr.put(jsonObj);
-			}
-		}
-		
-		return jsonArr.toString();
-	}
+ // 공방상세페이지에 DB정보 넘겨주기
+ 	@RequestMapping(value="/crafts_detail.got")
+ 	public ModelAndView craftDetail(ModelAndView mav, HttpServletRequest request) {
+ 	   
+ 		int craft_num_pk = Integer.parseInt(request.getParameter("craft_num_pk"));
+// 	    System.out.println("craft_num_pk = "+craft_num_pk);
+// 	    List<String> : 공방명만 여러개 
+// 	    List<CraftVO> : 여러개의 공방정보 데리고
+ 	   
+ 		CraftVO craftvo = service.craftDetail(craft_num_pk);
+ 		//where절에서 필요한 데이터만 골라오기 위해 craft_num_pk 파라미터로 넣어준다.
+
+ 		//공방상세페이지 후기정보 가져오기
+ 		List<Map<String, Object>> paraMap = service.review_select(craft_num_pk);
+ 		//System.out.println(paraMap.get("review_content"));
+ 		
+ 		
+ 		
+ 		
+ 		mav.setViewName("/craft/craft_detail.tiles1");
+ 		mav.addObject("craftvo", craftvo);  //mav 안에 craftvo 넣어주기
+ 		mav.addObject("reviews",paraMap);	//paraMap이라는 데이터를 jsp에 넘겨서 사용할 때 review라고 부르겠다.
+       
+//       System.out.println(mav);
+       
+ 		return mav;
+ 	}
+    
+    
+ 	// 수선사페이지에서 "가방 자세히 보기" 페이지 보여주기
+ 	@RequestMapping(value="/crafts_list_10bag.got")
+ 	public ModelAndView craftList_10bag(ModelAndView mav) {
+ 	   
+ 		List<CraftVO> craftsList = null;
+ 	      
+ 		craftsList = service.crafts_list_select();
+ 	      
+ 		mav.addObject("craftsList", craftsList);
+ 		mav.setViewName("/craft/craft_list_10bag.tiles1");
+ 		
+ 		return mav;
+ 	}
+    
+ 	
+ 	// 수선사페이지에서 "신발 자세히 보기" 페이지 보여주기
+ 	@RequestMapping(value="/crafts_list_20shoes.got")
+ 	public ModelAndView craftList_20shoes(ModelAndView mav) {
+ 	   
+ 	   List<CraftVO> craftsList = null;
+ 	      
+ 	   craftsList = service.crafts_list_select();
+ 	   
+ 	   mav.addObject("craftsList", craftsList);
+ 	   mav.setViewName("/craft/craft_list_20shoes.tiles1");
+ 	   
+ 	   return mav;
+ 	}
+    
+ 	
+ 	// 수선사페이지에서 "지갑/벨트 자세히 보기" 페이지 보여주기
+ 	@RequestMapping(value="/crafts_list_30wallet.got")
+ 	public ModelAndView craftList_30wallet(ModelAndView mav) {
+ 	   
+ 		List<CraftVO> craftsList = null;
+ 	      
+ 		craftsList = service.crafts_list_select();
+ 	   
+ 		mav.addObject("craftsList", craftsList);
+ 		mav.setViewName("/craft/craft_list_30wallet.tiles1");
+ 		
+ 		return mav;
+ 	}
+    
+ 	
+ 	// 수선사페이지에서 "의류 자세히 보기" 페이지 보여주기
+ 	@RequestMapping(value="/crafts_list_40cloth.got")
+ 	public ModelAndView craftList_40cloth(ModelAndView mav) {
+ 	   
+ 		List<CraftVO> craftsList = null;
+ 	      
+ 		craftsList = service.crafts_list_select();
+ 	   
+ 		mav.addObject("craftsList", craftsList);
+ 		mav.setViewName("/craft/craft_list_40cloth.tiles1");
+ 		
+ 		return mav;
+ 	}
+    
+ 	
+ 	// 수선사찾기 페이지 첫 화면 보여주기
+ 	@RequestMapping(value="/crafts_list.got")
+ 	public ModelAndView crafts_list_select(ModelAndView mav, HttpServletRequest request) {
+       
+ 		List<CraftVO> craftsList = null;  //수선사 정보 DB 받아오기용
+ 		List<CraftVO> craftsNewList = null;  //신규입점수선사 띄우기용
+       
+ 		craftsList = service.crafts_list_select();  //수선사 정보 DB 받아오기
+ 		craftsNewList = service.crafts_new_select();  //신규입점수선사 띄우기
+       
+       
+       /*
+ 		for(int i = 0; i< craftsNewList.size(); i++) {
+ 			System.out.println(craftsNewList.get(i).getCraft_name());
+ 			System.out.println(craftsNewList.get(i).getCraft_Introduce());
+ 		}
+       */
+       
+//       System.out.println(craftsNewList);
+       
+       
+ 		mav.addObject("craftsList", craftsList);
+ 		mav.addObject("craftsNewList", craftsNewList);
+ 		mav.setViewName("/craft/craft_list.tiles1");   //뷰단 지정
+       
+ 		return mav;  //craft_list.jsp 로 List가 전달된다.
+       
+ 	}
+    
+ 	
+ 	// 수선사찾기 페이지에서 공방명/품목으로 공방정보 검색하기
+ 	@ResponseBody
+ 	@RequestMapping(value="/wordSearchShow.got", method= {RequestMethod.GET}, produces="text/plain;charset=UTF-8")
+ 	public String wordSearchShow(HttpServletRequest request) {
+ 		
+ 		String searchType = request.getParameter("searchType");
+ 		String searchWord = request.getParameter("searchWord");
+ 		System.out.println("searchType = "+searchType);
+ 		System.out.println("searchWord = "+searchWord);
+ 		
+ 		Map<String, String> paraMap = new HashMap<String, String>();  //map에 담아서 넘겨준다.
+ 		paraMap.put("searchType", searchType);
+ 		paraMap.put("searchWord", searchWord);
+ 		
+ 		// 검색정보를 가지고 공방정보 가져오기
+ 		List<CraftVO> craftvo_list= service.wordSearchShow(paraMap);  //map을 보내어준다.
+ 		
+// 		System.out.println("공방정보 =" +craftvo_list.get(0).getCraft_name());
+ 		
+ 		JSONArray jsonArr = new JSONArray();
+ 		
+ 		if(craftvo_list != null) {
+ 			for(CraftVO craftvo : craftvo_list) {  //craftvo_list : list개수만큼 반복문 돌리기 , CraftVO craftvo : CraftVO 안에 있는 애들을 하나씩 꺼내오는데 그 이름을 craftvo로!
+ 				JSONObject jsonObj = new JSONObject();
+ 				jsonObj.put("craft_name", craftvo.getCraft_name());
+ 				jsonObj.put("craft_Introduce", craftvo.getCraft_Introduce());
+ 				jsonObj.put("craft_representative", craftvo.getCraft_representative());
+ 				jsonObj.put("craft_num_pk", craftvo.getCraft_num_pk()); 
+ 			//	System.out.println("craftvo.getCraft_num_pk() "+craftvo.getCraft_num_pk());
+ 				
+ 				jsonArr.put(jsonObj);
+ 			}
+ 		}
+ 		
+ 		return jsonArr.toString();
+ 	}
    
    
    
@@ -326,11 +334,13 @@ public class CraftController {
     	  String craft_mobile = hp1 + hp2 + hp3;
     	  cvo.setCraft_mobile(craft_mobile);
     	  //===================================//
-    	  
+    	  /* 세션에 저장된 partnert_id 가져오기
     	  PartnerVO login_partner_id = (PartnerVO)session.getAttribute("login_partner_id");
-    	  String partner_id_pk = (String)login_partner_id.getPartner_id_pk();
+    	  String partner_id_pk = login_partner_id.getPartner_id_pk();
+    	  System.out.println("partner_id_pk" + partner_id_pk);
     	  
     	  cvo.setPartner_id_fk(partner_id_pk);
+    	  */
     	  cvo.setFileName(newFileName_ss);
     	  cvo.setOrgFilename(originalFilename_ss);
 
@@ -350,9 +360,11 @@ public class CraftController {
        return mav;
    }
    
-   @RequestMapping(value = "/craft_reset.got")      //'이전' 누르면  완료 페이지
-   public ModelAndView craft_reset(ModelAndView mav, MemberVO membervo, HttpServletRequest request) {
- 	  int m = service.del_partner(membervo);
+   
+   //'이전' 누르면  공방회원정보를 db에서 삭제하고 회원가입으로 이동
+   @RequestMapping(value = "/craft_reset.got")     
+   public ModelAndView craft_reset(ModelAndView mav, PartnerVO pvo, HttpServletRequest request) {
+ 	  int m = service.del_partner(pvo);
  	  System.out.println("m : "+m);
 		 if(m==1) {
 		  mav.addObject("message","공방 정보 등록 취소");	

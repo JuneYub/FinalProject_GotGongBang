@@ -64,8 +64,6 @@
 <body class="yh1_body">
 <div class="yh_login_cont" style="width: 1200px; height: 550px; letter-spacing: -.5px;">
 	<div class="button_div" style="width: 1200px;">
-	<button>힝힝</button>
-	<button>힝힝</button>
 	</div>
 	<div class="yh_login_in">
 		<h1><a href='<%= ctxPath%>/index.got'><img src="<%= ctxPath%>/resources/img/login_got.png" alt="패피스 로고" class="svg_logo"></a></h1>
