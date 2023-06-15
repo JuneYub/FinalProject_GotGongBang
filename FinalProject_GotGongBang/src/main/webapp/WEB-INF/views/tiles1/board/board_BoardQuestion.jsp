@@ -157,7 +157,21 @@ $(document).ready(function(){
 	                                    	<span class="subject t15" name="inquiry_title" style="cursor:pointer;" onclick="goView('${inquiryvo.inquiry_num_pk}')"><span style="color: red; font-style: italic; padding-left: ${boardvo.depthno * 20}px;">└Re&nbsp; </span> ${inquiryvo.inquiry_title} </span>
                                     </c:if> 
                                     
-                                    <div class="ojh_table2_notice4 t16">${inquiryvo.user_id_fk}</div>
+                                    
+                                    	<div class="ojh_table2_notice4 t16">
+                                    	
+                                    	<c:if test="${inquiryvo.partner_chk == 0}">
+                                    		<span class="ojh_table2_notice4_1">일반사용자</span>
+                                    	</c:if>
+                                    	
+                                    	<c:if test="${inquiryvo.partner_chk == 1}">
+                                    		<span class="ojh_table2_notice4_1">파트너사용자</span>
+                                    	</c:if>
+                                    	
+                                    	${inquiryvo.user_id_fk}
+                                    	
+                                    	</div>
+                                    
                                     <div class="ojh_table2_notice5 t17">${inquiryvo.inquiry_date}</div>
                                     <div class="ojh_table2_notice5 t18">${inquiryvo.inquiry_viewcount}</div>           
                                 </div>  

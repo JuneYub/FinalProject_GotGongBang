@@ -19,7 +19,7 @@ public class InquiryVO {
 	
 	private MultipartFile attach;
 	
-	private String status;       		// 글삭제여부   1:사용가능한 글,  0:삭제된글 
+	private String inquiry_status;       		// 글삭제여부   1:사용가능한 글,  0:삭제된글 
 	private String inquiry_fileName;    // WAS(톰캣)에 저장될 파일명(2023051909271535243254235235234.png) 
 	private String inquiry_orgFilename; // 진짜 파일명(강아지.png)  // 사용자가 파일을 업로드 하거나 파일을 다운로드 할때 사용되어지는 파일명
 	private String inquiry_fileSize;    // 파일크기 
@@ -30,7 +30,7 @@ public class InquiryVO {
 
 	public InquiryVO(String inquiry_num_pk, String user_id_fk, String inquiry_title, String inquiry_content,
 			String inquiry_date, String inquiry_viewcount, String groupno, String fk_seq, String depthno,
-			MultipartFile attach, String status, String inquiry_fileName, String inquiry_orgFilename,
+			MultipartFile attach, String inquiry_status, String inquiry_fileName, String inquiry_orgFilename,
 			String inquiry_fileSize, String partner_chk) {
 		super();
 		this.inquiry_num_pk = inquiry_num_pk;
@@ -43,7 +43,7 @@ public class InquiryVO {
 		this.fk_seq = fk_seq;
 		this.depthno = depthno;
 		this.attach = attach;
-		this.status = status;
+		this.inquiry_status = inquiry_status;
 		this.inquiry_fileName = inquiry_fileName;
 		this.inquiry_orgFilename = inquiry_orgFilename;
 		this.inquiry_fileSize = inquiry_fileSize;
@@ -151,13 +151,13 @@ public class InquiryVO {
 	}
 
 
-	public String getStatus() {
-		return status;
+	public String getInquiry_status() {
+		return inquiry_status;
 	}
 
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setInquiry_status(String inquiry_status) {
+		this.inquiry_status = inquiry_status;
 	}
 
 
