@@ -729,6 +729,74 @@ public class CraftController {
 
    // 이지현 시작
    // ===========================================================================
+	// 탈퇴페이지 처리
+	@RequestMapping(value="/delete_partner.got")
+	public ModelAndView requiredLogin_delete_partner(HttpServletRequest request, HttpServletResponse response,ModelAndView mav) {
+
+		mav.setViewName("craft/delete_craft.tiles1");
+		return mav;
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/delete_partner_end.got")
+	public ModelAndView requiredLogin_delete_partner_end(HttpServletRequest request, HttpServletResponse response,ModelAndView mav) {
+		
+	
+		HttpSession session = request.getSession();
+		PartnerVO loginpartner = (PartnerVO) session.getAttribute("loginpartner");
+		
+		String passwd = request.getParameter("passwd");
+		
+
+		
+		boolean bool_partner =false;
+
+		
+		String loginpartner_id = loginpartner.getPartner_id_pk();
+		Map<String,String> paraMap = new HashMap<>();
+		
+		paraMap.put("partner_id_pk",  loginpartner_id);
+		paraMap.put("partner_pwd",Sha256.encrypt(passwd));
+		
+		bool_partner = service.delete_partner_end(paraMap);
+
+		int partner_end = 0;
+
+		if(bool_partner == true) {
+			partner_end = service.delete_partner_info(loginpartner.getPartner_id_pk());
+		}
+
+		// 비밀번호 틀리면
+		else {
+			String message = "암호가 틀립니다.";
+			String loc ="javascript:history.back();";
+			
+			mav.addObject("message", message);
+			mav.addObject("loc", loc);
+			
+			mav.setViewName("msg");
+		}
+		
+		// 탈퇴완료
+		if(partner_end  == 1 ) {
+			
+			session.invalidate();
+			
+			String message = "탈퇴완료되었습니다.";
+			String loc = request.getContextPath()+"/index.got";
+			
+			mav.addObject("message", message);
+			mav.addObject("loc", loc);
+			
+			mav.setViewName("msg");
+		}
+
+		return mav;
+	}
+   
+   
    // 이지현 끝
    // ===========================================================================
 

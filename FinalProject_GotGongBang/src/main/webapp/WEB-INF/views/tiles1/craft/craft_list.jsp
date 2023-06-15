@@ -149,7 +149,7 @@ function goSearch(){
 		         <option name="searchType" value="craft_name">공방명</option>
 		         <option name="searchType" value="craft_specialty">품목명</option>
 		      </select>
-		      <input type="text" name="searchWord" id="searchWord" size="80" autocomplete="off" placeholder="공방명 또는 수선사명으로 검색해주세요" style="height:40px;" /> 
+		      <input type="text" name="searchWord" id="searchWord" size="80" autocomplete="off" placeholder="공방명 또는 수선사명으로 검색해주세요" /> 
 		      <input type="text" style="display: none;"/>
 		      <button type="button" id="goSearch" style="border:none; border-radius:5px;">검색</button>
 			</form>
@@ -192,7 +192,7 @@ function goSearch(){
 										<li class="grid-column__item" id="cardContent"> 
 											<figure class="card responsive-card">
 												<a class="card__link" href="<%= ctxPath%>/crafts_detail.got?craft_num_pk=${craftvo.craft_num_pk}">
-													<img alt="이미지없음" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img"t-hirenze-coursecard.png?w=750&amp;q=75 2x" src="<%=ctxPath%>/resources/img/main_test.jpg" style="color: transparent;">
+													<img alt="이미지없음" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" src="<%=ctxPath%>/resources/img/main_test.jpg" style="color: transparent;">
 													<figcaption class="card__caption">
 													<ul class="card__labels" data-badge-label="" data-badge-color="RED" data-badge-display="비즈니스">
 														<li class="caption">${craftvo.craft_name}</li>
@@ -238,7 +238,7 @@ function goSearch(){
 								<li class="grid-column__item" id="cardContent">
 									<figure class="card responsive-card">
 										<a class="card__link" href="<%= ctxPath%>/crafts_detail.got?craft_num_pk=${craftvo.craft_num_pk}">
-											<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75 2x" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75" style="color: transparent;">
+											<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75" style="color: transparent;">
 											<figcaption class="card__caption">
 												<ul class="card__labels" data-badge-label="" data-badge-color="RED" data-badge-display="비즈니스">
 													<li class="caption">${craftvo.craft_name}</li>

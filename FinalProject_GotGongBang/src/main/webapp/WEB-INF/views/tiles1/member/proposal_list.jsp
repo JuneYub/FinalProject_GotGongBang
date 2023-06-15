@@ -12,9 +12,7 @@
 
 	$(document).ready(function() {
 		Fancybox.bind("[data-fancybox]", {
-			 
 		});
-		
 	});
 	
 	function openBidPage(order_num) { // 파라미터로 공방 아이디랑 견적 아이디를 받을 예정
@@ -40,6 +38,7 @@
 				<li class="menu-list-selected"><a class="menu-list-selected" href="<%= ctxPath%>/proposal_list.got">견적 제안서 목록</a></li>
 				<li><a class="" href="<%= ctxPath%>/order_list.got">주문 내역</a></li>
 				<li><a class="" href="<%= ctxPath%>/edit_user_info.got">개인 정보 변경</a></li>
+				<li><a class="" href="<%= ctxPath%>/delete_user.got">회원 탈퇴</a></li>
 			</ul>
 		</div>
 		

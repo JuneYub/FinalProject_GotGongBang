@@ -10,10 +10,8 @@
 <script>
 
 	$(document).ready(function() {
-		Fancybox.bind("[data-fancybox]", {
-			 
+		Fancybox.bind("[data-fancybox]", {	 
 		});
-		
 	});
 	
 	function openBidPage(order_num) { // 파라미터로 공방 아이디랑 견적 아이디를 받을 예정
@@ -39,6 +37,7 @@
 				<li class="menu-list-selected"><a class="menu-list-selected" href="<%= ctxPath%>/estimate_inquiry_list.got">견적 목록</a></li>
 				<li><a class="" href="<%= ctxPath%>/repair_history_list.got">수선 내역 관리</a></li>
 				<li><a class="" href="<%= ctxPath%>/edit_craft_user_info.got">개인 정보 변경</a></li>
+				<li><a class="" href="<%= ctxPath%>/delete_partner.got">회원 탈퇴</a></li>
 			</ul>
 		</div>
 		
@@ -55,20 +54,20 @@
 				
 				<tbody>
 					<c:if test="${not empty requestScope.ovoList}">
-						<c:forEach var="ovo" items="${requestScope.ovoList}">
+						<c:forEach var="ovo" items="${requestScope.ovoList}" varStatus="status">
 						<tr>
 						<td>
 							<div class="img-estimate">
 							<c:forEach var="wholeImg" items="${ovo.wholeImgList}" varStatus="wholeIdx">
 								<c:if test="${wholeIdx.index eq 0}">
-								<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_name}" data-fancybox="gallery${status.index}" >
-									<img src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_name}" />
+								<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" data-fancybox="gallery${status.index}" >
+									<img src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" />
 								</a>
 								</c:if>
 
 								<c:if test="${wholeIdx.index ne 0}">
-								<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_name}" data-fancybox="gallery${status.index}" >
-									<img style="display: none" src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_name}" />
+								<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" data-fancybox="gallery${status.index}" >
+									<img style="display: none" src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" />
 								</a>
 								</c:if>
 							</c:forEach>
@@ -85,7 +84,7 @@
 								<li class="requests-cont"><div class="estimate-info-tit">수선 유형 :</div>
 									<c:if test="${not empty ovo.requests and ovo.requests ne ' '}">
 									  <ul>
-									    <c:forTokens var="requests" items="${ovo.requests}" delims=",">
+									    <c:forTokens var="requests" items="${ovo.requests}" delims="%">
 									      <li class="requests-item">${requests}</li>
 									    </c:forTokens>
 									  </ul>

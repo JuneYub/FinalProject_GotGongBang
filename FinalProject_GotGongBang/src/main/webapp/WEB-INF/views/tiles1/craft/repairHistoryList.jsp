@@ -10,8 +10,8 @@
 <script>
 
 	$(document).ready(function() {
-	
-		
+		Fancybox.bind("[data-fancybox]", {	 
+		});
 	});
 	
  	function saveProductState(index) { // 상품의 상태를 Ajax를 통해 갱신
@@ -64,6 +64,7 @@
 				<li class=""><a class="" href="<%= ctxPath%>/estimate_inquiry_list.got">견적 목록</a></li>
 				<li class="menu-list-selected"><a class="menu-list-selected" href="<%= ctxPath%>/repair_history_list.got">수선 내역 관리</a></li>
 				<li><a class="" href="<%= ctxPath%>/edit_craft_user_info.got">개인 정보 변경</a></li>
+				<li><a class="" href="<%= ctxPath%>/delete_partner.got">회원 탈퇴</a></li>
 			</ul>
 		</div>
 		
@@ -82,7 +83,21 @@
 				<c:forEach var="repair" items="${requestScope.paraMapList}" varStatus="status">
 					<tr>
 					<td>
-						<div class="img-estimate"></div>
+						<div class="img-estimate">
+							<c:forEach var="wholeImg" items="${repair.wholeImgList}" varStatus="wholeIdx">
+								<c:if test="${wholeIdx.index eq 0}">
+								<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" data-fancybox="gallery${status.index}" >
+									<img src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" />
+								</a>
+								</c:if>
+
+								<c:if test="${wholeIdx.index ne 0}">
+								<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" data-fancybox="gallery${status.index}" >
+									<img style="display: none" src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" />
+								</a>
+								</c:if>
+							</c:forEach>
+						</div>
 					</td>
 
 					<td>

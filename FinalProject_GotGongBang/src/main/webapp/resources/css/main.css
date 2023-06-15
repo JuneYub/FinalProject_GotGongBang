@@ -2943,7 +2943,9 @@ input#searchInput {
 	border: none;
 	font-size: 20px;
 }
-input#searchInput:focus {
+
+input#searchWord {
+	height:40px;
 	outline: none;    /* input칸 클릭했을 때 나오는 테두리 선 없애기 */
 }
 
@@ -2952,7 +2954,7 @@ button#goSearch {
 	cursor: pointer;
 }
 button#goSearch: hover {
-	
+	background-color: #400099;
 }
 
 
