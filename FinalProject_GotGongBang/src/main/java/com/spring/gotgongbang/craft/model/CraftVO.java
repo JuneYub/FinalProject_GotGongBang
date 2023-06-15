@@ -27,8 +27,6 @@ public class CraftVO {
 	private String craft_salary;				//희망급여
 	private String craft_rating;				//별점
 	
-	// * select용 *
-	private ImageVO imgvo;
 
 	////////////////////////////////////////////////////////
 		   
@@ -240,18 +238,6 @@ public class CraftVO {
 		this.fileSize = fileSize;
 	}
 
-
-	public ImageVO getImgvo() {
-		return imgvo;
-	}
-
-
-	public void setImgvo(ImageVO imgvo) {
-		this.imgvo = imgvo;
-	}	
-	
-	
-	
 	
 	
 	/////////////////// ====== 김진솔 끝 ===== ///////////////////////
