@@ -8,6 +8,7 @@ import com.spring.gotgongbang.craft.model.ImageVO;
 import java.util.Map;
 
 import com.spring.gotgongbang.craft.model.PartnerVO;
+import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.OrderVO;
 
 public interface InterCraftService {
@@ -60,7 +61,7 @@ public interface InterCraftService {
 	int getTotalCountForRepairList(String craftNum);
 	
 	int updateStateByOrderNum(HashMap<String, String> paraMap);
-
+	
 	
 	// ==== ==================================== 박준엽 끝 ======================================================= //
 
@@ -82,15 +83,17 @@ public interface InterCraftService {
 	//수선사 찾기 페이지에서 상단 최근입점공방을 알아오기
 	List<CraftVO> crafts_new_select();
 
-	//수선사 정보 검색하기
-	List<CraftVO> crafts_list_search(Map<String, String> paraMap);
+	// 검색정보를 가지고 공방정보 가져오기
+	List<CraftVO> wordSearchShow(Map<String, String> paraMap);
 
 
+	//공방상세페이지 후기정보 가져오기
+	List<Map<String, Object>> review_select(int craft_num_pk);
 
-
+	// 공방 정보를 등록하지 않으면 공방회원가입 불가
+	int del_partner(PartnerVO pvo);
 
 	
-//	ModelAndView crafts_list_select(ModelAndView mav);
 	// ==== ==================================== 김나윤 끝 ======================================================= // 
 
 }

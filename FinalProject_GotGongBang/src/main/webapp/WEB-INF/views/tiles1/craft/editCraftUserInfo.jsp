@@ -240,6 +240,36 @@
             }
         }).open();
     }
+    
+    function updateUserInfo(){
+		var insertPWD = $("input#insertPWD").val();
+		
+		$.ajax({
+			url: '<%= ctxPath%>/check_origin_partner_pwd.got',
+			method: 'POST',
+			dataType: 'json',
+			data: {
+				insertPWD: insertPWD
+			},
+			success : function(json) {
+				if(json.n == 1) {
+					const frm = document.getElementById("editMyInfo");
+					frm.action = "<%= ctxPath%>/edit_craft_user_info_end.got"
+					frm.method = "POST";
+					frm.submit();
+				}
+				
+				else {
+					alert("비밀번호가 올바르지 않습니다");
+					return;
+				}
+			},
+			error: function(request, status, error){
+				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		     }
+		})
+    }
+		
 	
 </script>
 
@@ -257,7 +287,7 @@
 		
 		<div class="myPage-cont">
 			<h4>회원 정보 설정</h4>
-				<form name="editMyInfo">
+				<form id="editMyInfo" name="editMyInfo">
 				<table class="tbl-edit-myInfo">
 					<tbody>
 						<tr>

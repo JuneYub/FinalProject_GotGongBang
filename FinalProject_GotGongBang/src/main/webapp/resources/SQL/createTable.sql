@@ -16,7 +16,7 @@ CREATE TABLE PARTNER (
     partner_idle NUMBER(1)                   DEFAULT 0 not null,                         -- 파트너 휴먼회원 여부  0
     partner_pwd_change_required NUMBER(1)    DEFAULT 0 not null,                         -- 파트너 비밀번호 갱신 필요 여부 0
     partner_status NUMBER(1)                 DEFAULT 1 not null,                         -- 파트너 회원 탈퇴 여부 1
-    partner_gradelevel number   default 1                                                -- 회원등급
+    partner_gradelevel number   default 2                                                -- 회원등급
     , CONSTRAINT PK_PARTNER_partner_id_pk primary key(partner_id_pk)
     ,constraint UQ_PARTNER_partner_email  unique(partner_email)
     ,constraint CK_PARTNER_partner_gender check( partner_gender in('1','2') )
@@ -87,8 +87,8 @@ CREATE TABLE ORDERS (
 CREATE TABLE WHOLE_IMG (
    whole_img_num_pk NUMBER(10)     NOT NULL, -- 전체이미지번호
    order_num_fk     NUMBER         NOT NULL, -- 견적요청번호
-   whole_img_name   NVARCHAR2(100) NOT NULL,  -- 파일명
-   whole_img_new_name   NVARCHAR2(100)         NOT NULL   -- 저장되는 파일명
+   whole_img_name   NVARCHAR2(1000) NOT NULL,  -- 파일명
+   whole_img_new_name   NVARCHAR2(1000)         NOT NULL   -- 저장되는 파일명
     ,constraint PK_WHOLE_IMG_whole_img_num_pk primary key(whole_img_num_pk)
     ,constraint FK_WHOLE_IMG_order_num_fk foreign key(order_num_fk)
                                   references ORDERS(order_num_pk)
@@ -99,8 +99,8 @@ CREATE TABLE WHOLE_IMG (
 CREATE TABLE DETAIL_IMG (
    detail_img_num_pk NUMBER         NOT NULL, -- 상세이미지번호
    order_num_fk      NUMBER         NOT NULL, -- 견적요청번호
-   detail_img_name   NVARCHAR2(100) NOT NULL,  -- 파일명
-   detail_img_new_name   NVARCHAR2(100)         NOT NULL   -- 저장되는 파일명
+   detail_img_name   NVARCHAR2(1000) NOT NULL,  -- 파일명
+   detail_img_new_name   NVARCHAR2(1000)         NOT NULL   -- 저장되는 파일명
     ,constraint PK_DETAIL_IMG_detail_img_num_pk primary key(detail_img_num_pk)
     ,constraint FK_DETAIL_IMG_order_num_fk foreign key(order_num_fk)
                                   references ORDERS(order_num_pk)
@@ -169,7 +169,7 @@ create table REVIEW
 ,user_id_fk          VARCHAR2(20)            NOT NULL      -- 작성자 아이디
 ,order_detail_id_fk  VARCHAR2(20)            NOT NULL      -- 주문상세번호
 ,review_rating       NUMBER                  NOT NULL      -- 평점
-,review_content      NVARCHAR2(100)          NOT NULL      -- 후기내용
+,review_content      NVARCHAR2(500)          NOT NULL      -- 후기내용
 ,review_date         DATE DEFAULT SYSDATE    NOT NULL      -- 후기등록일
 ,CONSTRAINT PK_REVIEW_REVIEW_ID_PK PRIMARY KEY(review_id_pk)            
 ,CONSTRAINT FK_REVIEW_USER_ID_FK FOREIGN KEY(user_id_fk) REFERENCES MEMBER(user_id_pk)
@@ -198,6 +198,8 @@ create table ORDER_DETAIL
 ,order_extra_address    VARCHAR(200)    null     -- 부가주소
 ,product_status         NVARCHAR2(10) default '수거중'  not null -- 상품진행상태
 ,payment                NUMBER                      --결제 내역
+,ORDER_NAME            VARCHAR2(30)  NOT NULL   -- 배송받는 사람 이름
+,ORDER_NUM             VARCHAR2(20)  NOT NULL   -- 배송받는 사람 번호
 
 ,constraint PK_ORDER_DETAIL_order_detail_id_pk primary key(order_detail_id_pk)
 ,constraint PK_ORDER_DETAIL_estimate_num_fk foreign key(estimate_num_fk) references ESTIMATE(estimate_num_pk)

@@ -6,6 +6,7 @@ import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -62,10 +63,17 @@ public class MemberService implements InterMemberService {
         memberVO.setPwd(encryptedPassword);
     }
 	
-	// 회원가입 Service
+	// 일반회원가입 Service
 	@Override
 	public void insertMember(MemberVO membervo) {
 		dao.insertMember(membervo);
+	}
+	
+	// 공방회원가입 Service
+	@Override
+	public void insertPartner(PartnerVO partnervo) {
+		dao.insertPartner(partnervo);
+		
 	}
 
 	// 이메일 중복 확인 AJAX 요청 처리
@@ -78,8 +86,9 @@ public class MemberService implements InterMemberService {
 	// 아이디 중복 확인 AJAX 요청 처리
 	@Override
 	public boolean isIdDuplicate(String id) {
-		int n = dao.isIdDuplicate(id);
-		return n > 0;
+		int n = dao.isIdDuplicateMember(id);
+		int n1 = dao.isIdDuplicatePartner(id);
+		return (n+n1) > 0;
 	}
 
 	@Override
@@ -157,10 +166,8 @@ public class MemberService implements InterMemberService {
 					session.setAttribute("loginuser", loginuser);
 					// session(세션)에 로그인 되어진 사용자 정보인 loginuser 을 키이름을 "loginuser" 으로 저장시켜두는 것이다.
 					
-					// 로그인 성공 시 login_date를 기록
-			        Date now = new Date();
-			        Timestamp loginDate = new Timestamp(now.getTime());
-			        dao.recordLoginDate(loginuser.getUser_id_pk(), loginuser.getGradelevel(), loginDate);
+					// 로그인 성공 시 login_date를 기록			        
+			        dao.recordLoginDate(loginuser.getUser_id_pk(), loginuser.getGradelevel());
 
 					
 					if(loginuser.isRequirePwdChange() == true) { // 암호를 마지막으로 변경한 것이 3개월이 경과한 경우
@@ -215,10 +222,8 @@ public class MemberService implements InterMemberService {
 					session.setAttribute("loginpartner", loginpartner);
 					// session(세션)에 로그인 되어진 사용자 정보인 loginuser 을 키이름을 "loginuser" 으로 저장시켜두는 것이다.
 					
-					// 로그인 성공 시 login_date를 기록
-			        Date now = new Date();
-			        Timestamp loginDate = new Timestamp(now.getTime());
-			        dao.recordLoginDate(loginpartner.getPartner_id_pk(), loginpartner.getPartner_gradelevel(), loginDate);
+					// 로그인 성공 시 login_date를 기록			    
+			        dao.recordLoginDate(loginpartner.getPartner_id_pk(), loginpartner.getPartner_gradelevel());
 
 					
 					if(loginpartner.isRequirePwdChange() == true) { // 암호를 마지막으로 변경한 것이 3개월이 경과한 경우
@@ -291,6 +296,31 @@ public class MemberService implements InterMemberService {
 		int n = dao.isEmailDuplicate_partner(email);
 		return n > 0;
 	}
+	
+	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
+	@Override
+	public String confirmThroughMemberIdEmail(Map<String, String> paraMap) {
+		String memberId = dao.confirmThroughMemberIdEmail(paraMap);
+		return memberId;
+	}
+	
+	@Override
+	public String confirmThroughPartnerIdEmail(Map<String, String> paraMap) {
+		String partnerId = dao.confirmThroughPartnerIdEmail(paraMap);
+		return partnerId;
+	}
+	
+	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
+	
+	
+	// 비밀번호 변경
+	@Override
+	public int change_pwd(HashMap<String, String> paraMap) {
+		int n = dao.changeMemberPwd(paraMap);
+		int n1 = dao.changePartnerPwd(paraMap);
+		return (n+n1);
+	}
+	
 	
 	
 	
@@ -366,6 +396,43 @@ public class MemberService implements InterMemberService {
 		List<DetailImgVO> detailImgList = dao.getDetailImgListByOrderDetailNum(orderDetailNum);
 		return detailImgList;
 	}
+
+	@Override
+	public int getFixedPhotoNum() {
+		int pkNum = dao.getFixedPhotoNum();
+		return pkNum;
+	}
+
+	@Override
+	public void insertReview(HashMap<String, Object> paraMap) {
+		dao.insertReview(paraMap);
+	}
+
+	@Override
+	public void insertFixedPhoto(HashMap<String, Object> imgParaMap) {
+		dao.insertFixedPhoto(imgParaMap);
+	}
+
+	@Override
+	public int getCurrReviewIdByOrderDetailNum(String orderDetailNum) {
+		int reviewId = dao.getCurrReviewIdByOrderDetailNum(orderDetailNum);
+		return reviewId;
+	}
+
+	@Override
+	public HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum) {
+		HashMap<String, String> paraMap = dao.getOrderNumAndCraftNumByOrderDetailNum(orderDetailNum);
+		return paraMap;
+	}
+
+
+
+
+
+
+
+
+
 
 
 

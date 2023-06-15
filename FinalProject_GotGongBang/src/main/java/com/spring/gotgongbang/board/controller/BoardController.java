@@ -635,7 +635,7 @@ public class BoardController {
 		@RequestMapping(value="/board/delEnd.got", method = {RequestMethod.POST})
 		public String delEnd(HttpServletRequest request) throws Throwable {
 			
-			String inquiry_num_pk = request.getParameter("inquiry_num_pk");
+		  String inquiry_num_pk = request.getParameter("inquiry_num_pk");
 			String user_id_pk = request.getParameter("user_id_pk");
 			
 			Map<String, String> paraMap = new HashMap<>();

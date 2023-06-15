@@ -1146,6 +1146,12 @@ li.requests-cont {
 	transition:.1s;
 }
 
+.notify-edit-error {
+	color: red;
+	font-size: 12px;
+	display: inline-block;
+}
+
 
 
 
@@ -1251,12 +1257,12 @@ body #admin_container #admin_contents .fpmgBt2{
 /* 공방 신청 form */
 body #admin_container #admin_contents #craft_application{
     /* border: solid 1px rgb(230, 230, 230); */
-    height: 2200px;
+    height: 2350px;
 }
 
 body #admin_container #admin_contents #craft_application #application_left{
     width: 270px;
-    height: 2500px;
+    height: 2800px;
     float: left;    
 }
 
@@ -4015,5 +4021,9 @@ table#reviewTbl td, th {
 		
 	}
 /* register_member_first 끝 */
+
+/* find_pwd_end 시작 */
+	
+/* find_pwd_end 끝 */
 
 /* =========================================================== 홍용훈 끝 =========================================================== */

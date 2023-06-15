@@ -28,6 +28,13 @@ public class MemberDAO implements InterMemberDAO {
 	public void insertMember(MemberVO membervo) {
 		sqlsession.insert("member.insertMember", membervo);
 	}
+	
+	// 공방회원가입
+	@Override
+	public void insertPartner(PartnerVO partnervo) {
+		sqlsession.insert("member.insertPartner", partnervo);
+		
+	}
 
 	// 이메일 중복 확인 AJAX 요청 처리
 	@Override
@@ -36,10 +43,17 @@ public class MemberDAO implements InterMemberDAO {
 		return n;
 	}
 
-	// 아이디 중복 확인 AJAX 요청 처리
+	// 아이디 중복 확인 AJAX 요청 처리 (member 에서)
 	@Override
-	public int isIdDuplicate(String id) {
-		int n = sqlsession.selectOne("member.isIdDuplicate", id);
+	public int isIdDuplicateMember(String id) {
+		int n = sqlsession.selectOne("member.isIdDuplicateMember", id);
+		return n;
+	}
+	
+	// 아이디 중복 확인 AJAX 요청 처리 (member 에서)
+	@Override
+	public int isIdDuplicatePartner(String id) {
+		int n = sqlsession.selectOne("member.isIdDuplicatePartner", id);
 		return n;
 	}
 	
@@ -59,11 +73,10 @@ public class MemberDAO implements InterMemberDAO {
 
 	// 로그인 기록
 	@Override
-	public void recordLoginDate(String userid, int grade, Timestamp loginDate) {
+	public void recordLoginDate(String userid, int grade) {
 		Map<String, Object> paraMap = new HashMap<String, Object>();
 		paraMap.put("userid", userid);
 		paraMap.put("grade", grade);
-		paraMap.put("loginDate", loginDate);
         sqlsession.insert("member.recordLoginDate", paraMap);
 	}
 	
@@ -121,11 +134,40 @@ public class MemberDAO implements InterMemberDAO {
 		return loginuser2;
 	}
 	
+	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
+	@Override
+	public String confirmThroughMemberIdEmail(Map<String, String> paraMap) {
+		String memberId = sqlsession.selectOne("member.confirmThroughMemberIdEmail", paraMap);
+		return memberId;
+	}
 	
 	
+	@Override
+	public String confirmThroughPartnerIdEmail(Map<String, String> paraMap) {
+		String partnerId = sqlsession.selectOne("member.confirmThroughPartnerIdEmail", paraMap);
+		return partnerId;
+	}
+	
+	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
 	
 	
+	// 비밀번호 변경 ( 일반회원 )
+	@Override
+	public int changeMemberPwd(HashMap<String, String> paraMap) {
+		int n = sqlsession.update("member.changeMemberPwd", paraMap);
+		return n;
+	}
 
+	// 비밀번호 변경 ( 공방회원 )
+	@Override
+	public int changePartnerPwd(HashMap<String, String> paraMap) {
+		int n = sqlsession.update("member.changePartnerPwd", paraMap);
+		return n;
+	}
+	
+	
+	
+	
 			
 	
 	
@@ -197,9 +239,34 @@ public class MemberDAO implements InterMemberDAO {
 		return null;
 	}
 
+	@Override
+	public int getFixedPhotoNum() {
+		int pkNum = sqlsession.selectOne("member.getFixedPhotoNum");
+		return pkNum;
+	}
 
+	@Override
+	public void insertReview(HashMap<String, Object> paraMap) {
+		sqlsession.insert("member.insertReview", paraMap);
+	}
 
+	@Override
+	public void insertFixedPhoto(HashMap<String, Object> imgParaMap) {
+		sqlsession.insert("member.insertFixedPhoto", imgParaMap);
+		
+	}
 
+	@Override
+	public int getCurrReviewIdByOrderDetailNum(String orderDetailNum) {
+		int reviewId = sqlsession.selectOne("member.getCurrReviewIdByOrderDetailNum", orderDetailNum);
+		return reviewId;
+	}
+
+	@Override
+	public HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum) {
+		HashMap<String, String> paraMap = sqlsession.selectOne("member.getOrderNumAndCraftNumByOrderDetailNum", orderDetailNum);
+		return paraMap;
+	}
 
 
 

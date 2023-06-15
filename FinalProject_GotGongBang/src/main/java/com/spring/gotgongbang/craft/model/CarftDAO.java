@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.OrderVO;
 import com.sun.mail.handlers.image_gif;
 
@@ -56,6 +57,13 @@ public class CarftDAO implements InterCraftDAO {
 	}
 
 
+	// 공방 정보를 등록하지 않으면 공방회원가입 불가
+	@Override
+	public int del_partner(PartnerVO pvo) {
+		int m = sqlsession.delete("craft.del_partner", pvo);
+		return m;
+	}
+	
 	// ================ 김진솔 끝 ==================//
 
 	
@@ -136,6 +144,7 @@ public class CarftDAO implements InterCraftDAO {
 		List<HashMap<String, String>> paraMapList = sqlsession.selectList("craft.getRepariListBycraftNum", paraMap);
 		return paraMapList;
 	}
+	
 
 	
 	
@@ -157,41 +166,37 @@ public class CarftDAO implements InterCraftDAO {
 		return craftvo;
 	}
 
+	//수선사 상세페이지를 보여주기 위해 공방정보 조회해오기
 	@Override
 	public CraftVO crafts_detail_select(int craft_num_pk) {
 		CraftVO craftvo = sqlsession.selectOne("craft.craft_detail", craft_num_pk);
-		System.out.println(craftvo);
+	//	System.out.println(craftvo);
 		return craftvo;
 	}
 
+	//수선사 찾기 페이지에서 상단 최근입점공방을 알아오기
 	@Override
 	public List<CraftVO> crafts_new_select() {
 		List<CraftVO> craftvo = sqlsession.selectList("craft.craft_new");
 		return craftvo;
 	}
 
+	// 검색정보를 가지고 공방정보 가져오기
 	@Override
-	public List<CraftVO> crafts_list_search(Map<String, String> paraMap) {
-		List<CraftVO> craftvo = sqlsession.selectList("craft.crafts_list_search");
-		return craftvo;
+	public List<CraftVO> wordSearchShow(Map<String, String> paraMap) {
+		List<CraftVO> craftvo_list = sqlsession.selectList("craft.wordSearchShow", paraMap);
+		return craftvo_list;
+	}
+
+	//공방상세페이지 후기정보 가져오기
+	@Override
+	public List<Map<String, Object>> review_select(int craft_num_pk) {
+		List<Map<String, Object>> paraMap = sqlsession.selectList("craft.review_select", craft_num_pk);
+		return paraMap;
 	}
 
 
-	
 
-
-
-	
-
-	//공방상세페이지를 보여주기 위해 공방정보 조회해오기
-	/*
-	@Override
-	public List<CraftVO> crafts_detail_select() {
-		List<CraftVO> craftvo_2 = sqlsession.selectList("craft.crafts_detail_select");
-		return craftvo_2;
-	}
-	*/
-	
 	// ================ 김나윤 끝 ==================//
 	
 }

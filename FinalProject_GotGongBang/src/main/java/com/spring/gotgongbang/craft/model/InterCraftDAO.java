@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.OrderVO;
 
 public interface InterCraftDAO {
@@ -25,6 +26,8 @@ public interface InterCraftDAO {
 	//공방 추가 이미지 파일 insert
 	int imgAddFile(ImageVO imgvo);
 
+	// 공방 정보를 등록하지 않으면 공방회원가입 불가
+	int del_partner(PartnerVO pvo);
 	
 	// =============== 김진솔 끝 =================//
 	
@@ -74,22 +77,17 @@ public interface InterCraftDAO {
 	// 공방 목록을 보여주기 위해 공방정보 조회해오기
 	List<CraftVO> crafts_list_select();
 
+	//수선사 상세페이지를 보여주기 위해 공방정보 조회해오기
 	CraftVO crafts_detail_select(int craft_num_pk);
 
+	//수선사 찾기 페이지에서 상단 최근입점공방을 알아오기
 	List<CraftVO> crafts_new_select();
 
-	List<CraftVO> crafts_list_search(Map<String, String> paraMap);
+	// 검색정보를 가지고 공방정보 가져오기
+	List<CraftVO> wordSearchShow(Map<String, String> paraMap);
 
-
-
-
-
-
-
-
-	//공방상세페이지를 보여주기 위해 공방정보 조회해오기
-//	List<CraftVO> crafts_detail_select();
-	
+	//공방상세페이지 후기정보 가져오기
+	List<Map<String, Object>> review_select(int craft_num_pk);
 	
 	
 	// =============== 김나윤 끝 =================//

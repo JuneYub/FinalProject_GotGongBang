@@ -17,11 +17,15 @@
     </select>
 	
 	
-	<!-- 아이디 중복 체크 -->
-	<select id="isIdDuplicate" resultType="int">
-        SELECT COUNT(*) FROM MEMBER WHERE user_id_pk = #{user_id_pk}
+	<!-- 아이디 중복 체크 (member 에서)-->
+	<select id="isIdDuplicateMember" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE user_id_pk = #{user_id_pk}        
     </select>
     
+    <!-- 아이디 중복 체크 (partner 에서)-->
+	<select id="isIdDuplicatePartner" resultType="int">
+		SELECT COUNT(*) FROM PARTNER WHERE partner_id_pk = #{user_id_pk}        
+    </select>
 
     
     <!-- 로그인 처리 -->
@@ -56,7 +60,7 @@
 	<!-- 로그인 기록 -->
 	<insert id="recordLoginDate" parameterType="HashMap">
         insert into LOGIN_HISTORY (user_id_pk_pk, grade, login_date)
-        values (#{userid}, #{grade}, #{loginDate})
+        values (#{userid}, #{grade}, default)
     </insert>
     
     <!-- 이름과 이메일 값으로 아이디 유무 체크 및 ID 값 가져오기 -->
@@ -67,14 +71,14 @@
 		WHERE #{name} IN (m.name, p.partner_name) and #{email} IN (m.email, p.partner_email)
     </select>
     
-    
+    <!-- 아이디 찾기 -->
     <select id="compareNameEmailMember" parameterType="HashMap" resultType="String">
     	SELECT user_id_pk
 		FROM member
 		WHERE name = #{name} and email = #{email}
     </select>
     
-    
+    <!-- 아이디 찾기 -->
     <select id="compareNameEmailpartner" parameterType="HashMap" resultType="String">
     	SELECT partner_id_pk AS user_id_pk
 		FROM partner
@@ -82,15 +86,15 @@
     </select>
     
     <!-- 공방회원가입 -->
-	<insert id="insertPartner" parameterType="com.spring.gotgongbang.member.model.MemberVO">
+	<insert id="insertPartner" parameterType="com.spring.gotgongbang.craft.model.PartnerVO">
 		insert into PARTNER (partner_id_pk, partner_name, partner_pwd, partner_email, partner_mobile, partner_post_code, partner_address, partner_detail_address, partner_extra_address, partner_gender, partner_birthday, partner_registerday, partner_lastPwdChange, partner_idle, partner_pwd_change_required, partner_status, partner_gradelevel)
-		values(#{user_id_pk},#{name},#{pwd},#{email},#{mobile},#{post_code},#{address},#{detail_address},#{extra_address},#{gender},#{birthday},default,default,default,default,default,default)
+		values(#{partner_id_pk},#{partner_name},#{partner_pwd},#{partner_email},#{partner_mobile},#{partner_post_code},#{partner_address},#{partner_detail_address},#{partner_extra_address},#{partner_gender},#{partner_birthday},default,default,default,default,default,default)
 	</insert>
 	
 	
 	<!-- 이메일 중복 체크 공방회원 -->
 	<select id="isEmailDuplicate_partner" resultType="int">
-        SELECT COUNT(*) FROM PARTNER WHERE partner_email = #{email}
+        SELECT COUNT(*) FROM PARTNER WHERE partner_email = #{partner_email}
     </select>
     
     
@@ -123,6 +127,34 @@
 		update PARTNER set partner_idle = 1
 		where partner_id_pk = #{userid}
 	</update>
+	
+	
+	<!-- id과 email 값으로 아이디 유무 체크 및 ID 값 가져오기 ( 비밀번호 찾기 ) -->
+    <select id="confirmThroughMemberIdEmail" parameterType="HashMap" resultType="String">
+    	SELECT user_id_pk
+		FROM member
+		WHERE user_id_pk = #{id} and email = #{email}
+    </select>
+    
+    <!-- id과 email 값으로 아이디 유무 체크 및 ID 값 가져오기 ( 비밀번호 찾기 ) -->
+    <select id="confirmThroughPartnerIdEmail" parameterType="HashMap" resultType="String">
+    	SELECT partner_id_pk AS user_id_pk
+		FROM partner
+		WHERE partner_id_pk = #{id} and partner_email = #{email}
+    </select>
+    
+    
+    <update id="changeMemberPwd" parameterType="com.spring.gotgongbang.member.model.MemberVO">
+    	UPDATE MEMBER SET pwd = #{pwd}, last_pwd_change = sysdate
+		WHERE user_id_pk = #{id}
+    </update>
+    
+    
+    
+    <update id="changePartnerPwd" parameterType="com.spring.gotgongbang.craft.model.PartnerVO">
+    	UPDATE PARTNER SET partner_pwd = #{pwd}, partner_lastPwdChange = sysdate
+		WHERE partner_id_pk = #{id}
+    </update>
     
     
     
@@ -166,6 +198,12 @@
     	<result column="craft_mobile" property="craft_mobile" />
     	<result column="estimate_price" property="estimate_price" />
     	<result column="product_status" property="product_status" />
+    	<result column="review_cnt" property="review_cnt" />
+    </resultMap>
+    
+    <resultMap type="HashMap" id="orderNumAndCraftNumMap">
+    	<result column="order_num_fk" property="orderNum" />
+    	<result column="craft_num_fk" property="craftNum" />
     </resultMap>
     
     <select id="getProposalListByUserId" parameterType="HashMap" resultMap="getProposalListByUserIdMap">
@@ -211,6 +249,7 @@
     
     <select id="getOrderListByUserId" parameterType="HashMap" resultMap="getOrderListByUserIdMap">
 		select order_detail_id_pk, payment_date, craft_name, craft_mobile, estimate_price, product_status
+		, (select count(*) from review where order_detail_id_pk = order_detail_id_fk) as review_cnt
 		from 
 		(
 		    select row_number() over(order by payment_date desc) as rno, order_detail_id_pk, to_char(payment_date, 'yyyy-mm-dd') as payment_date, craft_name, craft_mobile, estimate_price, product_status
@@ -271,6 +310,41 @@
     
     <select id="getWholeImgListByOrderDetailNum" parameterType="String" resultType="com.spring.gotgongbang.order.model.WholeImgVO">
     </select>
+    
+    <select id="getFixedPhotoNum" resultType="int">
+    	select seq_fixed_photo_num_pk.nextval as fixed_photo_num_pk from dual
+    </select>
+    
+    <insert id="insertReview" parameterType="HashMap">
+    	insert into REVIEW values(seq_review_id_pk.nextval, #{userId}, #{orderDetailNum}, #{reviewRating}, #{reviewContent}, sysdate, #{orderNum}, #{craftNum})
+    </insert>
+    
+    <insert id="insertFixedPhoto" parameterType="HashMap">
+    	insert into FIXED_PHOTO values(#{fixedPhotoNum}, #{reviewId}, #{fileName})
+    </insert>
+    
+    <select id="getCurrReviewIdByOrderDetailNum" parameterType="String" resultType="int">
+    	select review_id_pk
+    	from REVIEW
+    	where order_detail_id_fk = #{orderDetailNum}
+    </select>
+    
+    <select id="getOrderNumAndCraftNumByOrderDetailNum" parameterType="String" resultMap="orderNumAndCraftNumMap">
+    	select order_num_fk, craft_num_fk
+		from 
+		(
+		select order_num_fk, estimate_num_pk, craft_num_fk
+		from ESTIMATE
+		) A
+		join 
+		(
+		select estimate_num_fk
+		from ORDER_DETAIL
+		where order_detail_id_pk = #{orderDetailNum}
+		) B
+		on A.estimate_num_pk = B.estimate_num_fk
+    </select>
+
     
     <!--==================== 박준엽 끝 ====================== -->
 

@@ -69,14 +69,17 @@
     	<result column="brand_name" property="brand_name"/>
     	<result column="request_explain" property="request_explain"/>
     	<result column="requests" property="requests"/>
+    	<result column="order_num_pk" property="order_num_pk"/>
+ 
  
     	<result column="craft_num_fk" property="craft_num_fk" />
     	<result column="estimate_price" property="estimate_price" />
     	<result column="estimate_period" property="estimate_period" />
+    	<result column="user_id_fk" property="user_id_fk" />
     </resultMap>
     
 	<select id="get_estimate_info" parameterType="String" resultMap="get_estimate_info_map">
-		select order_product_type, brand_name, request_explain, requests, craft_num_fk, estimate_price,estimate_period
+		select order_product_type, brand_name, request_explain, order_num_pk, requests, craft_num_fk, estimate_price,estimate_period, user_id_fk
 		from
 		(
 		select estimate_num_pk,order_num_fk, craft_num_fk,estimate_price, estimate_period
@@ -84,7 +87,7 @@
 		where estimate_num_pk = #{estimate_num_pk}
 		) E JOIN
 		(
-		select order_num_pk,order_product_type, brand_name, request_explain, requests
+		select order_num_pk,order_product_type, brand_name, request_explain, requests, user_id_fk
 		from orders
 		) O 
 		on E.order_num_fk = O.order_num_pk
@@ -135,6 +138,18 @@
 		delete from estimate
 		where order_num_fk = #{order_num_fk} and order_status='0'
 	</delete>
+	
+	
+	<!-- 견적요청번호를 가지고 대표사진 이름 가져오기 -->
+	<select id="get_img_name" parameterType="int" resultType="String">
+		SELECT WHOLE_IMG_NEW_NAME
+		FROM (
+		       SELECT WHOLE_IMG_NEW_NAME
+		         FROM whole_img
+		        where ORDER_NUM_FK = #{order_num_pk}
+		     )
+		 WHERE ROWNUM = 1
+	 </select>
 	 <!--==================== 이지현 끝 ====================== -->
 
 

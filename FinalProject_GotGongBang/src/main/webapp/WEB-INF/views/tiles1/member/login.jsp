@@ -5,6 +5,15 @@
     String ctxPath = request.getContextPath();
 %>
 
+<style>
+	
+	.button_div {
+		text-align: center;
+	}
+	    
+
+</style>
+
 <script type="text/javascript">
 
 	$(document).ready(function(){
@@ -53,10 +62,10 @@
 
 <!-- 로그인폼 시작 -->
 <body class="yh1_body">
-
 <div class="yh_login_cont" style="width: 1200px; height: 550px; letter-spacing: -.5px;">
+	<div class="button_div" style="width: 1200px;">
+	</div>
 	<div class="yh_login_in">
-	
 		<h1><a href='<%= ctxPath%>/index.got'><img src="<%= ctxPath%>/resources/img/login_got.png" alt="패피스 로고" class="svg_logo"></a></h1>
 		
 		<h3 style="color: black; font-weight: 700; font-size: 12pt; margin: 15px 0;">명품 수선의 답을 찾다</h3>

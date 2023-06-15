@@ -22,6 +22,10 @@ div#payContent {
 	  border-radius:10px;
 	height:fit-content;
 }
+
+.tbl-edit-myInfo tbody tr th, td{
+	border-bottom:1px solid lightgray;
+}
 </style>
 
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
@@ -29,7 +33,8 @@ div#payContent {
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-
+		var request = "${requestScope.paymentInfo.requests}".replaceAll("%", " ,");
+		$("td#requests").text(request);
 	});
 	
 	
@@ -179,13 +184,44 @@ div#payContent {
      	
 		     	
 		<div class="resultDivNoBorder">
+		<table style="border: 1px solid lightgray; border-right: 1px solid white; border-left: 1px solid white; width: 100%;">
+			<tr>
+				<td rowspan='5' style="width: 300px;  height: 300px; object-fit: cover; border-right: 1px solid lightgray;"><img src="<%=ctxPath%>/resources/img/orders/${requestScope.img_name}" class=" imgCircle2 imgCircle" ></td>
+				<td style="width: 140px;  background: #cce0ff; text-align: center;">품목</td>
+				<td>${requestScope.paymentInfo.order_product_type}</td>
+				<td style="width: 150px; background: #cce0ff; text-align: center;">브랜드</td>
+				<td>${requestScope.paymentInfo.brand_name}</td>
+			</tr>
+			
+			<tr>
+				<td style="width: 150px; background: #cce0ff; text-align: center;">선정된 공방 </td>
+				<td>${requestScope.paymentInfo.craft_name}</td>
+				<td style="width: 150px; background: #cce0ff; text-align: center;">예상작업기간</td>
+				<td>${requestScope.paymentInfo.estimate_period}개월</td>
+			</tr>
+			
+			<tr>
+				<td colspan='1' style="background: #cce0ff; text-align: center;">수선 요청사항 목록 </td>
+				<td colspan='3' id="requests" > </td>
+				
+			</tr>
+			<tr>
+				<td colspan='1' style="background: #cce0ff; text-align: center;">수선 요청사항설명</td>
+				<td colspan='3'>${requestScope.paymentInfo.request_explain}</td>
+			</tr>
+			
+			
+		</table>
+		
+		
+		<%--
 			<div>
 				<div class="detailDivFlex imgCircle imgCircle2" >
 					<img src="<%=ctxPath%>/resources/img/main_test.jpg" class=" imgCircle2 imgCircle" >
 				</div>
 				
 			</div>
-			
+	 		
 			<div style="width:fit-content;">
 				<p class="orderMargin detailPName" style="margin-left: 0px;">${requestScope.paymentInfo.brand_name} ${requestScope.paymentInfo.order_product_type} 수선 의뢰</p>
 				<div class="detailDiv detailMargin" >
@@ -217,7 +253,7 @@ div#payContent {
 					<i class="fa-solid fa-check" style="padding-right:5px;"></i>
 					<p> 예상작업기간 : ${requestScope.paymentInfo.estimate_period}개월</p>
 				</div>
-			</div>
+			</div> --%>
 			
 			
 		</div>

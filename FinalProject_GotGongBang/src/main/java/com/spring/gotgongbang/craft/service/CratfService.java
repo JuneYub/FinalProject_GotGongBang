@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.gotgongbang.board.model.InterBoardDAO;
 import com.spring.gotgongbang.craft.model.InterCraftDAO;
 import com.spring.gotgongbang.craft.model.PartnerVO;
+import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.OrderVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,6 +106,7 @@ public class CratfService implements InterCraftService {
 		return n;
 	}
 	
+	
 
 	// =============== 박준엽 끝 ==================== // 
 	
@@ -143,7 +147,13 @@ public class CratfService implements InterCraftService {
 		return m;
 	}
 
-	
+	// 공방 정보를 등록하지 않으면 공방회원가입 불가
+	@Override
+	public int del_partner(PartnerVO pvo) {
+		int m = cdao.del_partner(pvo);
+		return m;
+	}
+
 	// ================ 김진솔 끝 ================== //
 	
 	
@@ -159,34 +169,52 @@ public class CratfService implements InterCraftService {
 	// ================ 김나윤 시작 ================== //
 	
 	// 공방 목록을 보여주기 위해 공방정보 조회해오기
-	@Override
-	public List<CraftVO> crafts_list_select() {
-		List<CraftVO> craftvo = cdao.crafts_list_select();
-		return craftvo;
-	}
+		@Override
+		public List<CraftVO> crafts_list_select() {
+			List<CraftVO> craftvo = cdao.crafts_list_select();
+			return craftvo;
+		}
 
-	//수선사 상세정보 조회하기
-	@Override
-	public CraftVO craftDetail(int craft_num_pk) {
-		CraftVO craftvo = cdao.crafts_detail_select(craft_num_pk);
-		System.out.println(craftvo);
-		return craftvo;
-	}
+		//수선사 상세정보 조회하기
+		@Override
+		public CraftVO craftDetail(int craft_num_pk) {
+			CraftVO craftvo = cdao.crafts_detail_select(craft_num_pk);
+		//	System.out.println(craftvo);
+			return craftvo;
+		}
 
-	//수선사 찾기 페이지에 신규입점공방 보여주기
-	@Override
-	public List<CraftVO> crafts_new_select() {
-		List<CraftVO> craftnewvo = cdao.crafts_new_select();
-		return craftnewvo;
-	}
+		//수선사 찾기 페이지에 신규입점공방 보여주기
+		@Override
+		public List<CraftVO> crafts_new_select() {
+			List<CraftVO> craftnewvo = cdao.crafts_new_select();
+			return craftnewvo;
+		}
 
-	//수선사 정보 검색하기
-	@Override
-	public List<CraftVO> crafts_list_search(Map<String, String> paraMap) {
-		List<CraftVO> craftsearchvo = cdao.crafts_list_search(paraMap);
-		return craftsearchvo;
-	}
 
+		// 검색정보를 가지고 공방정보 가져오기
+		@Override
+		public List<CraftVO> wordSearchShow(Map<String, String> paraMap) {
+			List<CraftVO> craftvo_list  = cdao.wordSearchShow(paraMap);
+			return craftvo_list;
+		}
+
+		//공방상세페이지 후기정보 가져오기
+		@Override
+		public List<Map<String, Object>> review_select(int craft_num_pk) {
+			List<Map<String, Object>> paraMap = cdao.review_select(craft_num_pk);
+			return paraMap;
+		}
+
+
+  
+  
+  
+  
+  
+  
+
+
+	
 	
 	// ================ 김나윤 끝 ================== //
 }

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
+import com.spring.gotgongbang.craft.model.PartnerVO;
 import com.spring.gotgongbang.member.model.MemberVO;
 import com.spring.gotgongbang.order.model.DetailImgVO;
 import com.spring.gotgongbang.order.model.WholeImgVO;
@@ -15,6 +16,9 @@ public interface InterMemberService {
 
 	// 일반회원가입 Service
 	void insertMember(MemberVO membervo);
+	
+	// 공방회원가입 Service
+	void insertPartner(PartnerVO partnervo);
 
 	// 비밀번호 암호화
 	void encryptPassword(MemberVO membervo);
@@ -43,7 +47,15 @@ public interface InterMemberService {
 	// 이메일 중복 확인 AJAX 요청 처리 ( 공방회원 )
 	boolean isEmailDuplicate_partner(String email);
 	
+	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
+	String confirmThroughMemberIdEmail(Map<String, String> paraMap);
 	
+	String confirmThroughPartnerIdEmail(Map<String, String> paraMap);
+	// 아이디, 이메일 값을 통해서 회원 유무 확인 //////////////////////////////////////////////
+	
+	
+	// 비밀번호 변경
+	int change_pwd(HashMap<String, String> paraMap);
 	
 	// ======== 홍용훈 끝 ========================================== //
 	
@@ -72,9 +84,19 @@ public interface InterMemberService {
 	List<WholeImgVO> getWholeImgListByOrderDetailNum(String orderDetailNum);
 
 	List<DetailImgVO> getDetailImgListByOrderDetailNum(String orderDetailNum);
-	
 
+	// 리뷰 이미지에 줄 번호 가져오기
+	int getFixedPhotoNum();
 
-	
+	void insertReview(HashMap<String, Object> paraMap);
+
+	// 후기 이미지 테이블에 추가
+	void insertFixedPhoto(HashMap<String, Object> imgParaMap);
+
+	int getCurrReviewIdByOrderDetailNum(String orderDetailNum);
+
+	// 리뷰 작성에 넣을 견적 요청 번호와 공방 번호 가져오기
+	HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum);
+
 	// ====== 박준엽 끝 =========================================== //
 }
