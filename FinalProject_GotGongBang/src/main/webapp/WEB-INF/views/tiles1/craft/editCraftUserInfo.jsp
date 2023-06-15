@@ -9,8 +9,14 @@
  
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-
+	var regName = /^[가-힣]{2,6}$/;  
+	var regMobile= /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
+	var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; 
+	var regPost = /^\d{5}$/;
+	
 	$(document).ready(function() {
+		
+		$("p.notify-edit-error").hide();
 		
 		$( function() {
 			$( "#editBirthDay" ).datepicker({
@@ -28,6 +34,43 @@
 		$("button#btnModalClose").bind("click", function() {
 			$("#checkOriginPWD").modal("hide");
 		});
+		
+		<%-- 이름 동적 유효성 검사 --%>
+		$("input#editName").bind("keyup", function(e) {
+			var editName = $("input#editName").val();
+			const boolEditName = regName.test(editName);
+			if(!boolEditName) {
+				$("p#editNameInfo").show();
+			}
+			else {
+				$("p#editNameInfo").hide();
+			}
+		});
+		
+		<%-- 이메일 동적 유효성 검사 --%>
+		$("input#editEmail").bind("keyup", function(e) {
+			var editEmail = $("input#editEmail").val();
+			const booleditEmail = regEmail.test(editEmail);
+			if(!booleditEmail) {
+				$("p#editEmailInfo").show();
+			}
+			else {
+				$("p#editEmailInfo").hide();
+			}
+		});
+		
+		<%-- 휴대폰번호 동적 유효성 검사 --%>
+		$("input#editMobile").bind("keyup", function(e) {
+			var editMobile = $("input#editMobile").val();
+			const booleditMobile = regMobile.test(editMobile);
+			if(!booleditMobile) {
+				$("p#editMobileInfo").show();
+			}
+			else {
+				$("p#editMobileInfo").hide();
+			}
+		});
+		
 	});
 	
 	function updateUserPw(){
@@ -108,10 +151,6 @@
 	}
 	
 	function checkEditMyInfo() {
-		var regName = /^[가-힣]{2,6}$/;  
-		var regMobile= /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
-		var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; 
-		var regPost = /^\d{5}$/;
 		
 		var editName = $("input#editName").val();
 		if(editName.trim() != "") {
@@ -292,7 +331,9 @@
 					<tbody>
 						<tr>
 						<th>이름</th> 
-						<td><input type="text" name="partner_name" value="${pvo.partner_name}" id="editName" autocomplete="off" /> </td>
+						<td><input type="text" name="partner_name" value="${pvo.partner_name}" id="editName" autocomplete="off" /> 
+						<p id="editNameInfo" class="notify-edit-error">*이름은 2~6자로 이루어진 한글로 구성되어 있어야 합니다</p>
+						</td>
 						</tr>
 						
 						<tr>
@@ -333,11 +374,14 @@
 	                        <option value="gmail.com">gmail.com</option>
 	                         <option value="icloud.com">icloud.com</option>
                         </select>
+                        <p id="editEmailInfo" class="notify-edit-error">*이메일 형식이 맞지 않습니다</p>
                         </td>
 						
 						</tr>
 						<tr><th>휴대폰번호</th> 
-						<td><input type="text" id="editMobile" name="partner_mobile" value="${pvo.partner_mobile}" autocomplete="off" placeholder="'-' 없이 번호만 적어주세요"/></td>
+						<td><input type="text" id="editMobile" name="partner_mobile" value="${pvo.partner_mobile}" autocomplete="off" placeholder="'-' 없이 번호만 적어주세요"/>
+						<p id="editMobileInfo" class="notify-edit-error">*전화번호 형식이 맞지 않습니다</p>
+						</td>
 						</tr>
 						
 						<tr>

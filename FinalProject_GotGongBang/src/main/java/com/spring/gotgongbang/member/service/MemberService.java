@@ -425,10 +425,17 @@ public class MemberService implements InterMemberService {
 		return paraMap;
 	}
 
-	
+
+	@Override
+	public int deleteReviewByOrderNum(String orderNum) {
+		int n = dao.deleteReviewByOrderNum(orderNum);
+		return n;
+	}
 
 	
-	
+	// =========== 박준엽 끝 =========================================== //
+  
+  
 	// =========== 이지현 시작 =========================================== //
 
 	@Override
@@ -444,6 +451,10 @@ public class MemberService implements InterMemberService {
 		int img_name = dao.delete_partner_end(paraMap);
 		return img_name > 0;
 	}
+
+
+
+
 
 	@Override
 	public int delete_user_info(String user_id_pk) {

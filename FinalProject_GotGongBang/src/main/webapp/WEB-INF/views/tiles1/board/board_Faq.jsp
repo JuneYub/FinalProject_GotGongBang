@@ -116,7 +116,8 @@ $(document).ready(function(){
                   <fieldset style="border: 0;">
                         <legend>FAQ</legend>
                         <p>갖공방에게 가장 궁금한 질문들을 여기서 확인하세요.</p>
-                        
+                   <div style="padding: 15px 0px 0px 0px;">   
+                     
                     <table class="ojh_table table--row">
                     
                      <c:if test="${empty requestScope.iqvo}">
@@ -159,9 +160,9 @@ $(document).ready(function(){
                         </div>
                         </c:if>
                     </table>
+                   </div>
+                   
                   </fieldset>
-                 
-
                 </div>
             </form>
         </section>

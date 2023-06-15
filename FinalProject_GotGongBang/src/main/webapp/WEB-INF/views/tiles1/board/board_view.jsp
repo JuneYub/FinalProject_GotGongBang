@@ -17,29 +17,36 @@
 
 <script type="text/javascript">
 
+$(document).ready(function(){
+	
+});
 
 function View_del(inquiry_num_pk) {
       	
-       var bool = confirm(inquiry_num_pk + "게시물을 삭제하시겠습니까?");
+	 
+	
+	       var bool = confirm(inquiry_num_pk + "게시물을 삭제하시겠습니까?");
+	       
+	       if (bool) {
+	           $.ajax({
+	               url: "<%= ctxPath %>/board/delEnd.got",
+	               type: "post",
+	               data: {"inquiry_num_pk": inquiry_num_pk},
+	               dataType: "json",
+	               success: function(json) {
+	                   if (json.n == 1) {
+	                	   
+	                	   alert(inquiry_num_pk + " 게시물을 삭제하였습니다.");
+	                       location.href = "<%= ctxPath %>/board_inquiry.got"; // 페이지 새로고침
+	                   }
+	               },
+	               error: function(request, status, error) {
+	                   alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+	               	   }
+	            });
+	       } // end of if (bool) {}
        
-       if (bool) {
-           $.ajax({
-               url: "<%= ctxPath %>/board/delEnd.got",
-               type: "post",
-               data: {"inquiry_num_pk": inquiry_num_pk},
-               dataType: "json",
-               success: function(json) {
-                   if (json.n == 1) {
-                	   
-                	   alert(inquiry_num_pk + " 게시물을 삭제하였습니다.");
-                       location.href = "<%= ctxPath %>/board_inquiry.got"; // 페이지 새로고침
-                   }
-               },
-               error: function(request, status, error) {
-                   alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
-               	   }
-            });
-       }
+	 
 }
 
 </script>
@@ -99,7 +106,7 @@ function View_del(inquiry_num_pk) {
 
                             <div class="ojh_css-1dhg94g e1pwb5hv0">
                                 <div class="ojh_css-1xrh39a e1pwb5hv2">작성자</div>
-                                <div class="ojh_css-8vgw34 e1pwb5hv1">${requestScope.iqvo.user_id_fk}</div>
+                                <div class="ojh_css-8vgw34 e1pwb5hv1" name="user_id_fk" id="user_id_fk">${requestScope.iqvo.user_id_fk}</div>
                             </div>									 
 
                             <div class="ojh_css-1dhg94g e1pwb5hv0">

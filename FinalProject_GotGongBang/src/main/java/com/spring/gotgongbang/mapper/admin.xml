@@ -53,14 +53,30 @@
 
 <update id="craft_edit" parameterType="com.spring.gotgongbang.craft.model.CraftVO">
 	update CRAFT set craft_mobile = #{craft_mobile}, craft_representative = #{craft_representative}
-		    , craft_Introduce = #{craft_Introduce}, craft_career = #{craft_career}, craft_status = #{craft_status}
-	where craft_num_pk = #{craft_num_pk, jdbcType=INTEGER}
+		    , craft_Introduce = #{craft_Introduce}, craft_career = #{craft_career}, craft_status = #{craft_status, jdbcType=NUMERIC}
+	where craft_num_pk = to_number(#{craft_num_pk})
 </update>
 
 <delete id="craft_del" parameterType="HashMap">
 	 delete from craft
 	 where craft_num_pk = #{craft_num_pk}
 </delete>
+
+<select id="getTotalCraftCount" resultType="int">
+	select count (*)
+	from craft
+</select>
+
+<select id="getCraftListWithPaging" resultType="com.spring.gotgongbang.craft.model.CraftVO"  parameterType="HashMap">
+	select craft_num_pk, craft_name, partner_id_fk, craft_status
+			from 
+			(
+			  select row_number() over(order by craft_num_pk desc) AS rno,
+			         craft_num_pk, craft_name, partner_id_fk, craft_status
+			  from craft
+			) V 
+	where rno between #{startRno} and #{endRno}
+</select>
 
  <!--==================== 김진솔 끝 ====================== -->
 

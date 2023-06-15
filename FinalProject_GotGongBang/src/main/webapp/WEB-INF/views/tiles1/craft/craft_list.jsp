@@ -55,12 +55,6 @@ function goView(seq) {
 	 
 		const getNum = "${requestScope.gobackURL}";
 		
-		//	alert(gobackURL);
-		/*
-			/list.action?searchType= searchWord= currentShowPageNo=2
-	        /list.action?searchType=subject searchWord=java
-		*/
-		
 		const searchType = $("select#searchType").val();  //searchType 값이 아래 ctxPath에서 해당 값으로 들어감.
 		const searchWord = $("input#searchWord").val();   //searchWord 값이 아래 ctxPath에서 해당 값으로 들어감.
 		
@@ -90,13 +84,18 @@ function goSearch(){
 				 
 				 let html ="";
 				 if(json.length == 0) {
-					 html = "<div>검색결과가 없습니다.</div>";
+					 html = "<div>" +
+					 			"<i class='fa-solid fa-circle-exclamation fa-2xl' style='color: #400099; display:inline-block;'></i>"+
+					 			"<div>"+
+						 			"<p style='font-size:15pt;'>검색결과가 없습니다.</p>"+
+						 			"<p style='font-size:15pt; font-weight:bold;'>다른 검색어를 입력해주세요</p>"+
+					 			"</div>"+
+					 		"</div>";
 				 }
 				 else {
 					 $.each(json, function(index, item){
-						 html += "<ul class='grid' style='border: solid 0px red; width:28%; float:left;'>" +
-										"<li class='grid-column__item'>" +
-										"<figure class='card responsive-card'>" +
+						 html += "<li class='grid-column__item card-list'>" +
+								 	"<figure class='card responsive-card'>" +
 											"<a class='card__link' href='<%= ctxPath%>/crafts_detail.got?craft_num_pk="+item.craft_num_pk+"'>" +
 												"<img loading='lazy' width='352' height='220' decoding='async' data-nimg='1' class='card__img' srcset='https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75 2x' src='https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75' style='color: transparent;'>"+
 												"<figcaption class='card__caption'>"+
@@ -109,8 +108,7 @@ function goSearch(){
 												
 											"</a>"+
 										"</figure>"+
-									"</li>"+
-								"</ul>";
+									"</li>";
 					 });// end of each
 					 
 				 }//else 끝
@@ -146,19 +144,16 @@ function goSearch(){
 		</div>
 		<div class="craftSearchBar">
 			<%-- 수선사 검색폼 : 공방명, 수선사명으로 검색 --%>
-			<form name="craftSearchFrm" class="craftSearchFrmBox" data-aos="fade-up" data-aos-delay="0" >
-				<select name="searchType" id="searchType" style="height: 26px;">
+			<form name="craftSearchFrm" class="craftSearchFrmBox" data-aos="fade-up" data-aos-delay="0" style="display: flex;">
+				<select name="searchType" id="searchType" style="height: 40px;">
 		         <option name="searchType" value="craft_name">공방명</option>
 		         <option name="searchType" value="craft_specialty">품목명</option>
 		      </select>
-		      <input type="text" name="searchWord" id="searchWord" size="90" autocomplete="off" placeholder="공방명 또는 수선사명으로 검색해주세요" /> 
+		      <input type="text" name="searchWord" id="searchWord" size="80" autocomplete="off" placeholder="공방명 또는 수선사명으로 검색해주세요" style="height:40px;" /> 
 		      <input type="text" style="display: none;"/>
-		      <button type="button" class="btn btn-secondary btn-sm" id="goSearch">검색</button>
+		      <button type="button" id="goSearch" style="border:none; border-radius:5px;">검색</button>
 			</form>
    		
-   	   <%-- 검색시 자동완성목록 보여주기 --%>	
-	   <div id="displayList" style="border:solid 1px gray; border-top:0px; height:100px; margin-left:75px; margin-top:-1px; overflow:auto;"></div>
-	   
 			<div class="keyWordBox">
 				<ul class="keyWord">
 					<li><a href="<%= ctxPath%>/crafts_list_10bag.got">#가방/핸드백</a></li>
@@ -174,23 +169,27 @@ function goSearch(){
 	<!-- 검색결과 -->
 	<section class="searchSection" id="searchSection_id">
 		<div class="grid--large">
-				<div class="catalog-wrapper" id="search_wrapper" style="border: solid 0px blue; width:90%; height: 700px; padding: 0 auto;">
-					<h2 class="catalog-title">검색 결과</h2>
+				<div class="catalog-wrapper" id="search_wrapper">
+					<div class="catalog-title">검색 결과</div>
+						<ul class="grid">
+						</ul>
 				</div>
 		</div>
 	</section> 
 	
 	
-	
+	<hr style="border: solid 1px #e8e8e8; width:100%;">
 	
 	<section class="recommend-card">
 			<div class="grid--large">
-				<div class="catalog-wrapper" style="border: solid 0px blue; width:90%; height: 700px; padding: 0 auto;">
+				<div class="catalog-wrapper" id="contentNew">
 					<h2 class="catalog-title">최근 입점 공방</h2>
 					
-					<c:forEach var="craftvo" items="${requestScope.craftsNewList}" varStatus="status">
-								<ul class="grid" style="border: solid 0px red; width:28%; float:left;">
-										<li class="grid-column__item">
+								<ul class="grid">
+								
+									<%--카드 시작 --%>
+									<c:forEach var="craftvo" items="${requestScope.craftsNewList}" varStatus="status">
+										<li class="grid-column__item" id="cardContent"> 
 											<figure class="card responsive-card">
 												<a class="card__link" href="<%= ctxPath%>/crafts_detail.got?craft_num_pk=${craftvo.craft_num_pk}">
 													<img alt="이미지없음" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img"t-hirenze-coursecard.png?w=750&amp;q=75 2x" src="<%=ctxPath%>/resources/img/main_test.jpg" style="color: transparent;">
@@ -204,8 +203,11 @@ function goSearch(){
 												</a>
 											</figure>
 										</li>
+										</c:forEach>
+										<%--카드 끝 --%>
+										
 									</ul>
-						</c:forEach>
+						
 				</div>
 			</div>
 		</section>
@@ -220,20 +222,20 @@ function goSearch(){
     </nav>
 
 <c:if test="${empty requestScope.craftsList}">
-	해당되는 공방이 존재하지 않습니다.
+	<p>해당되는 공방이 존재하지 않습니다.</p>
+	<i class="fa-light fa-circle-exclamation fa-2xl" style="color: #400099;"></i>
 </c:if>
 	
 <c:if test="${not empty requestScope.craftsList}">
 		<section class="recommend-card">
 			<div class="grid--large">
-				<div class="catalog-wrapper" style="border: solid 0px blue; width:90%; height: 700px; padding: 0 auto;">
+				<div class="catalog-wrapper" id="contentCategory">
 					<h2 class="catalog-title" id="bag">가방/핸드백 </h2>
-					
-					
-						<c:forEach var="craftvo" items="${requestScope.craftsList}" varStatus="status">
-						<c:if test="${fn:contains(craftvo.craft_specialty, '가방/핸드백')}">
-							<ul class="grid" style="border: solid 0px red; width:28%; float:left;">
-								<li class="grid-column__item">
+						
+							<ul class="grid">
+							
+							<c:forEach var="craftvo" items="${requestScope.craftsSumList}" varStatus="status">
+								<li class="grid-column__item" id="cardContent">
 									<figure class="card responsive-card">
 										<a class="card__link" href="<%= ctxPath%>/crafts_detail.got?craft_num_pk=${craftvo.craft_num_pk}">
 											<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75 2x" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75" style="color: transparent;">
@@ -247,13 +249,14 @@ function goSearch(){
 										</a>
 									</figure>
 								</li>
+							</c:forEach>	
+								
 							</ul>
-							</c:if>
-						</c:forEach>
+						
 					
 				</div>
 				<span class="catalog-more">
-					<a class="catalog-more__link" href="<%= ctxPath%>/crafts_list_10bag.got">자세히 보기
+					<a class="catalog-more__link" id="seeDetail" href="<%= ctxPath%>/crafts_list_10bag.got" style="margin-left:100px;">자세히 보기
 					<svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="catalog-more__icon">
 								<path d="M14.1016 5.66406C14.1016 5.46094 14.0234 5.27344 13.8672 5.125L8.98438 0.25C8.8125 0.0859375 8.64062 0.015625 8.45312 0.015625C8.05469 0.015625 7.75 0.304688 7.75 0.703125C7.75 0.898438 7.82031 1.07812 7.95312 1.20312L9.60938 2.89062L11.9766 5.05469L10.2188 4.94531H1C0.585938 4.94531 0.289062 5.24219 0.289062 5.66406C0.289062 6.07812 0.585938 6.375 1 6.375H10.2188L11.9844 6.26562L9.60938 8.42969L7.95312 10.1172C7.82812 10.2422 7.75 10.4219 7.75 10.6172C7.75 11.0156 8.05469 11.3047 8.45312 11.3047C8.64062 11.3047 8.80469 11.2344 8.96875 11.0859L13.8672 6.19531C14.0234 6.04688 14.1016 5.85938 14.1016 5.66406Z" fill="#F9858D"></path>
 								</svg>
@@ -269,12 +272,12 @@ function goSearch(){
 		
 		<section class="recommend-card">
 			<div class="grid--large">
-				<div class="catalog-wrapper" style="border: solid 0px blue; width:90%; height: 700px; padding: 0 auto;">
+				<div class="catalog-wrapper" id="contentCategory">
 					<h2 class="catalog-title" id="shoes">신발 </h2>
-						<c:forEach var="craftvo" items="${requestScope.craftsList}" varStatus="status">
-						<c:if test="${fn:contains(craftvo.craft_specialty, '신발')}">
-							<ul class="grid" style="border: solid 0px red; width:28%; float:left;">
-								<li class="grid-column__item">
+						
+							<ul class="grid">
+							<c:forEach var="craftvo" items="${requestScope.craftsSumList}" varStatus="status">
+								<li class="grid-column__item" id="cardContent"">
 									<figure class="card responsive-card">
 										<a class="card__link" href="<%= ctxPath%>/crafts_detail.got?craft_num_pk=${craftvo.craft_num_pk}">
 											<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75 2x" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75" style="color: transparent;">
@@ -288,14 +291,14 @@ function goSearch(){
 										</a>
 									</figure>
 								</li>
+								</c:forEach>
 							</ul>
-							</c:if>
-						</c:forEach>
+						
 					
 				</div>
 				
 				<span class="catalog-more">
-						<a class="catalog-more__link" href="<%= ctxPath%>/crafts_list_20shoes.got">자세히 보기
+						<a class="catalog-more__link" href="<%= ctxPath%>/crafts_list_20shoes.got" style="margin-left:100px;">자세히 보기
 							<svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="catalog-more__icon">
 							<path d="M14.1016 5.66406C14.1016 5.46094 14.0234 5.27344 13.8672 5.125L8.98438 0.25C8.8125 0.0859375 8.64062 0.015625 8.45312 0.015625C8.05469 0.015625 7.75 0.304688 7.75 0.703125C7.75 0.898438 7.82031 1.07812 7.95312 1.20312L9.60938 2.89062L11.9766 5.05469L10.2188 4.94531H1C0.585938 4.94531 0.289062 5.24219 0.289062 5.66406C0.289062 6.07812 0.585938 6.375 1 6.375H10.2188L11.9844 6.26562L9.60938 8.42969L7.95312 10.1172C7.82812 10.2422 7.75 10.4219 7.75 10.6172C7.75 11.0156 8.05469 11.3047 8.45312 11.3047C8.64062 11.3047 8.80469 11.2344 8.96875 11.0859L13.8672 6.19531C14.0234 6.04688 14.1016 5.85938 14.1016 5.66406Z" fill="#F9858D"></path>
 							</svg>
@@ -311,12 +314,12 @@ function goSearch(){
 		
 		<section class="recommend-card">
 			<div class="grid--large">
-				<div class="catalog-wrapper" style="border: solid 0px blue; width:90%; height: 700px; padding: 0 auto;">
+				<div class="catalog-wrapper" id="contentCategory">
 					<h2 class="catalog-title" id="wallet">지갑/벨트 </h2>
-						<c:forEach var="craftvo" items="${requestScope.craftsList}" varStatus="status">
-						<c:if test="${fn:contains(craftvo.craft_specialty, '지갑/벨트')}">
-							<ul class="grid" style="border: solid 0px red; width:28%; float:left;">
-								<li class="grid-column__item">
+						
+							<ul class="grid">
+							<c:forEach var="craftvo" items="${requestScope.craftsSumList}" varStatus="status">
+								<li class="grid-column__item" id="cardContent">
 									<figure class="card responsive-card">
 										<a class="card__link" href="<%= ctxPath%>/crafts_detail.got?craft_num_pk=${craftvo.craft_num_pk}">
 											<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75 2x" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75" style="color: transparent;">
@@ -330,14 +333,14 @@ function goSearch(){
 										</a>
 									</figure>
 								</li>
+								</c:forEach>
 							</ul>
-							</c:if>
-						</c:forEach>
+						
 					
 				</div>
 				
 				<span class="catalog-more">
-						<a class="catalog-more__link" href="<%= ctxPath%>/crafts_list_30wallet.got">자세히 보기
+						<a class="catalog-more__link" href="<%= ctxPath%>/crafts_list_30wallet.got" style="margin-left:100px;">자세히 보기
 							<svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="catalog-more__icon">
 							<path d="M14.1016 5.66406C14.1016 5.46094 14.0234 5.27344 13.8672 5.125L8.98438 0.25C8.8125 0.0859375 8.64062 0.015625 8.45312 0.015625C8.05469 0.015625 7.75 0.304688 7.75 0.703125C7.75 0.898438 7.82031 1.07812 7.95312 1.20312L9.60938 2.89062L11.9766 5.05469L10.2188 4.94531H1C0.585938 4.94531 0.289062 5.24219 0.289062 5.66406C0.289062 6.07812 0.585938 6.375 1 6.375H10.2188L11.9844 6.26562L9.60938 8.42969L7.95312 10.1172C7.82812 10.2422 7.75 10.4219 7.75 10.6172C7.75 11.0156 8.05469 11.3047 8.45312 11.3047C8.64062 11.3047 8.80469 11.2344 8.96875 11.0859L13.8672 6.19531C14.0234 6.04688 14.1016 5.85938 14.1016 5.66406Z" fill="#F9858D"></path>
 							</svg>
@@ -352,12 +355,12 @@ function goSearch(){
 		
 		<section class="recommend-card">
 			<div class="grid--large">
-				<div class="catalog-wrapper" style="border: solid 0px blue; width:90%; height: 700px; padding: 0 auto;">
+				<div class="catalog-wrapper" id="contentCategory">
 					<h2 class="catalog-title" id="cloth">의류수선</h2>
-						<c:forEach var="craftvo" items="${requestScope.craftsList}" varStatus="status">
-						<c:if test="${fn:contains(craftvo.craft_specialty, '의류')}">
-							<ul class="grid" style="border: solid 0px red; width:28%; float:left;">
-								<li class="grid-column__item">
+						
+							<ul class="grid">
+							<c:forEach var="craftvo" items="${requestScope.craftsSumList}" varStatus="status">
+								<li class="grid-column__item" id="cardContent">
 									<figure class="card responsive-card">
 										<a class="card__link" href="<%= ctxPath%>/crafts_detail.got?craft_num_pk=${craftvo.craft_num_pk}">
 											<img alt="" loading="lazy" width="352" height="220" decoding="async" data-nimg="1" class="card__img" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75 2x" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75" style="color: transparent;">
@@ -371,14 +374,14 @@ function goSearch(){
 										</a>
 									</figure>
 								</li>
+								</c:forEach>
 							</ul>
-							</c:if>
-						</c:forEach>
+						
 					
 				</div>
 				
 				<span class="catalog-more">
-						<a class="catalog-more__link" href="<%= ctxPath%>/crafts_list_40cloth.got">자세히 보기
+						<a class="catalog-more__link" href="<%= ctxPath%>/crafts_list_40cloth.got" style="margin-left:100px;">자세히 보기
 							<svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="catalog-more__icon">
 							<path d="M14.1016 5.66406C14.1016 5.46094 14.0234 5.27344 13.8672 5.125L8.98438 0.25C8.8125 0.0859375 8.64062 0.015625 8.45312 0.015625C8.05469 0.015625 7.75 0.304688 7.75 0.703125C7.75 0.898438 7.82031 1.07812 7.95312 1.20312L9.60938 2.89062L11.9766 5.05469L10.2188 4.94531H1C0.585938 4.94531 0.289062 5.24219 0.289062 5.66406C0.289062 6.07812 0.585938 6.375 1 6.375H10.2188L11.9844 6.26562L9.60938 8.42969L7.95312 10.1172C7.82812 10.2422 7.75 10.4219 7.75 10.6172C7.75 11.0156 8.05469 11.3047 8.45312 11.3047C8.64062 11.3047 8.80469 11.2344 8.96875 11.0859L13.8672 6.19531C14.0234 6.04688 14.1016 5.85938 14.1016 5.66406Z" fill="#F9858D"></path>
 							</svg>

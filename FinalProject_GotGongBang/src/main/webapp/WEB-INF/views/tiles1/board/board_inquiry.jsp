@@ -24,6 +24,7 @@
 
 
 	$(document).ready(function(){
+		
 		$("button#btnWrite").click(function(){
 			
 
@@ -49,7 +50,7 @@
 			if(inquiry_title == "") {
 				alert("문의제목을 입력하세요!!");
 				return;
-			}
+			} 
 			
 			// 문의내용 유효성 검사
 			const inquiry_content = $("textarea#inquiry_content").val().trim();
@@ -130,11 +131,23 @@
                           <div class="ojh_table">
                         <tbody>
                             <tr class="ojh_form-field">
-                                <th scope="row">아이디</th>
-                                <td>
-                                    <input class="ojh_form-input" type="text" name="user_id_fk" id="user_id_fk" value="${sessionScope.loginuser.user_id_pk}" readonly />
-                                    <div class="form-field__feedback" data-field-feedback="product_name"></div>
-                                </td>
+                                <th scope="row">아이디</th>  
+                                
+                                <c:if test= "${not empty sessionScope.loginuser}"> 
+                                	<td>
+	                                    <input class="ojh_form-input" type="text" name="user_id_fk" id="user_id_fk" value="${sessionScope.loginuser.user_id_pk}" readonly />
+	                                    <div class="form-field__feedback" data-field-feedback="product_name"></div>
+	                                </td>    
+	                            </c:if>
+                                
+                                
+                                <c:if test="${not empty sessionScope.loginpartner}">
+                                	<td>	
+	                                    <input class="ojh_form-input" type="text" name="partner_id_pk" id="partner_id_pk" value="${sessionScope.loginpartner.partner_id_pk}" readonly />
+	                                    <div class="form-field__feedback" data-field-feedback="product_name"></div>
+	                                </td>   
+                                </c:if>
+                                
                             </tr>
                             <tr class="ojh_form-field">
                                 <th scope="row">문의제목 <strong>*</strong></th>
@@ -192,6 +205,8 @@
                   <input type="hidden" name="fk_seq" value="${requestScope.fk_seq}" /> 
 				  <input type="hidden" name="groupno" value="${requestScope.groupno}" /> 
 			      <input type="hidden" name="depthno" value="${requestScope.depthno}" /> 
+			      <input type="hidden" name="partner_chk" value="${requestScope.partner_chk}" /> 
+			     
 				                  
                   <ul id="ojh_form_ul">
 					<li style="padding: 0 15px;"><a class="ojh_button button--outline-point" onclick="javascript:history.back()" style="background: #fff;

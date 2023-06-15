@@ -268,6 +268,12 @@ public class MemberDAO implements InterMemberDAO {
 		return paraMap;
 	}
 
+	@Override
+	public int deleteReviewByOrderNum(String orderNum) {
+		int n = sqlsession.delete("member.deleteReviewByOrderNum", orderNum);
+		return n;
+	}
+
 
 
 

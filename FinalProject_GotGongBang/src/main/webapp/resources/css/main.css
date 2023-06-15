@@ -1152,6 +1152,21 @@ li.requests-cont {
 	display: inline-block;
 }
 
+.btn-delete-review {
+	border: 1px solid #ea006d;
+    width: 100px;
+    border-radius: 13px;
+    background-color: white;
+    color: #ea006d;
+    padding: 4px;
+    box-shadow: 1px 1px 1px #000000;
+    margin-bottom: 5px;
+}
+
+.btn-delete-review:hover {
+	font-weight: bold;
+	transition: 0.1s ease;
+}
 
 
 
@@ -2361,7 +2376,7 @@ width: 210px
 }
 .ojh_table {
     border-collapse: collapse;
-    border-top: 1px solid #5411d2;
+    
     width: 100%;
 }
 
@@ -2885,6 +2900,10 @@ flex-basis: 50px;
 	width: 100%;
 }
 
+.craftSearchBar {
+	margin-bottom: 50px;
+}
+
 .craftSearchTxt {
 	/* border: solid 1px #000; */
 	margin: 0 auto;
@@ -2928,12 +2947,18 @@ input#searchInput:focus {
 	outline: none;    /* input칸 클릭했을 때 나오는 테두리 선 없애기 */
 }
 
-button.searchBtn {
-	background: url(https://hyphen.im/assets/images/product/icon_search.png) no-repeat 50%/30px auto;
-	height: 30px;
-	width: 30px;
-	border: 0;
+button#goSearch {
+	width:80px;
 	cursor: pointer;
+}
+button#goSearch: hover {
+	
+}
+
+
+.searchSection {
+	margin-top: 20px;
+	margin-left: 100px;
 }
 
 ul.keyWord {
@@ -2960,39 +2985,6 @@ ul.keyWord > li:hover > a {
 	text-decoration: none;
 }
 /* [영역1] "수선사 찾기" 박스 영역 끝 ==================================================================================== */
-
-
-
-/* [영역2] "갗공방 스와이퍼" 영역 시작 ==================================================================================== 
-.craftListIntro {
-	border: solid 2px green;
-	margin: 0 auto;
-	width: 90%;
-}
-
-swiper-container {
-  width: 90%;
-  height: 100%;
-  margin-top: 100px;
-}
-
-swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 400px;
-}
-
-swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
- [영역2] "갗공방 스와이퍼" 영역 끝 ==================================================================================== */
 
 
 
@@ -3074,6 +3066,18 @@ img.cardImg {
 	margin: 2.4rem 0;
 	padding-bottom: 1.6rem;
 }
+
+div#contentNew {
+	width:90%; 
+	height: 600px; 
+	margin-left:100px;
+}
+div#contentCategory {
+	width:90%; 
+	height: 700px; 
+	margin-left:100px;
+}
+
 .grid--large {
 	padding-left: 2rem;
 	padding-right: 2rem;
@@ -3088,6 +3092,12 @@ ul.grid {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
+}
+
+li#cardContent {
+	display: inline-block; 
+	margin-right:50px; 
+	margin-bottom: 20px;
 }
 
 .card__block, .card__link {
@@ -3259,26 +3269,38 @@ ul.grid {
 }
 
 .child_title {
+	font-size: 18pt;
+	font-weight: bold;
 	margin: 0 auto;
 }
+.child_content {
+	font-size: 14pt;
+}
 
+
+table#reviewTbl {
+	width:90%; 
+	margin: 0 auto; 
+	padding-bottom: 100px;
+}
 
 table#reviewTbl td, th {
 	border-bottom: solid 1px #eaeaea;
-	font-size: 16pt;
-	padding: 18px 12px;
+	font-size: 12pt;
+	/* padding: 18px 12px; */
 	box-sizing: border-box;
 }
 
-/*
-#plzul {
-	list-style: none;
+th.tblNumber {
+	
 }
 
-#plzli {
-	float: left;
+.card-list {
+	display: inline-block;
+	margin-right:50px; 
+	margin-bottom: 20px;
 }
-*/
+
 
 /* ================================= 김나윤 끝 ================================ */
 

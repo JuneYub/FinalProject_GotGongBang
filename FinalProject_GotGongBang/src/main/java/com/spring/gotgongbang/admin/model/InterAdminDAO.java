@@ -22,7 +22,7 @@ public interface InterAdminDAO {
 	// ==== ==================================== 김진솔 시작 ======================================================= // 
 	
 	// 공방 목록 가져오기
-	List<CraftVO> selectCraftList();
+	//List<CraftVO> selectCraftList();
 
 	// 공방 한 개 보기
 	CraftVO craftOneView(String craft_num_pk);
@@ -38,6 +38,12 @@ public interface InterAdminDAO {
 
 	//공방 한 개 삭제
 	int craft_del(Map<String, String> paraMap);
+
+	//공방목록 페이징처리
+	int getTotalCraftCount();
+	
+	//공방목록 페이징처리2
+	List<CraftVO> getCraftListWithPaging(Map<String, String> paraMap);
 
 
 

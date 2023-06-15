@@ -77,6 +77,9 @@ public interface InterCraftDAO {
 	// 공방 목록을 보여주기 위해 공방정보 조회해오기
 	List<CraftVO> crafts_list_select();
 
+	//수선사 찾기 페이지에서 간략히 수선사 목록 보여주기
+	List<CraftVO> crafts_sum_select();
+	
 	//수선사 상세페이지를 보여주기 위해 공방정보 조회해오기
 	CraftVO crafts_detail_select(int craft_num_pk);
 
