@@ -364,8 +364,16 @@ public class CraftController {
    //'이전' 누르면  공방회원정보를 db에서 삭제하고 회원가입으로 이동
    @RequestMapping(value = "/craft_reset.got")     
    public ModelAndView craft_reset(ModelAndView mav, PartnerVO pvo, HttpServletRequest request) {
+
+ 	  HttpSession session = request.getSession();
+	  String partner_id_pk = (String) session.getAttribute("partner_id_pk");
+	  //System.out.println("partner_id_pk" + partner_id_pk);
+	  
+	  pvo.setPartner_id_pk(partner_id_pk);
+	  
  	  int m = service.del_partner(pvo);
- 	  System.out.println("m : "+m);
+	  
+ 	  //System.out.println("m : "+m);
 		 if(m==1) {
 		  mav.addObject("message","공방 정보 등록 취소");	
 		  mav.addObject("loc", request.getContextPath()+"/register_member_first.got");
