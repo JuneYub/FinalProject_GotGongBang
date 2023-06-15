@@ -1146,6 +1146,12 @@ li.requests-cont {
 	transition:.1s;
 }
 
+.notify-edit-error {
+	color: red;
+	font-size: 12px;
+	display: inline-block;
+}
+
 
 
 

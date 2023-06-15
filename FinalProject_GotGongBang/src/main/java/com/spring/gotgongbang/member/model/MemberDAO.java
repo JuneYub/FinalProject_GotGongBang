@@ -23,7 +23,7 @@ public class MemberDAO implements InterMemberDAO {
 	
 	// ====== 홍용훈 시작 =========================================== //
 	
-	// 일반회원가입
+	// 회원가입
 	@Override
 	public void insertMember(MemberVO membervo) {
 		sqlsession.insert("member.insertMember", membervo);
@@ -259,12 +259,6 @@ public class MemberDAO implements InterMemberDAO {
 	public HashMap<String, String> getOrderNumAndCraftNumByOrderDetailNum(String orderDetailNum) {
 		HashMap<String, String> paraMap = sqlsession.selectOne("member.getOrderNumAndCraftNumByOrderDetailNum", orderDetailNum);
 		return paraMap;
-	}
-
-	@Override
-	public int checkOriginPwd(String encrpyInsertPwd) {
-		int n = sqlsession.selectOne("member.checkOriginPwd", encrpyInsertPwd);
-		return n;
 	}
 
 

@@ -424,11 +424,6 @@ public class MemberService implements InterMemberService {
 		return paraMap;
 	}
 
-	@Override
-	public int checkOriginPwd(String encrpyInsertPwd) {
-		int n = dao.checkOriginPwd(encrpyInsertPwd);
-		return n;
-	}
 
 
 

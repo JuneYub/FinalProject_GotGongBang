@@ -115,24 +115,35 @@ public class MemberController {
 		
 		@RequestMapping(value="/edit_user_info.got")
 		public ModelAndView requiredLogin_editUserInfo(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
-			  HttpSession session = request.getSession();
-			  MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
-			  String userId = loginuser.getUser_id_pk();
+			HttpSession session = request.getSession();
+			MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+			String userId = loginuser.getUser_id_pk();
 		      
-		      MemberVO mvo = new MemberVO();
-		      mvo = service.getUserInfoByUserId(userId);
-		      mav.addObject("mvo", mvo);
-		      mav.setViewName("member/editUserInfo.tiles1");
-		      return mav;
+		    MemberVO mvo = new MemberVO();
+		    mvo = service.getUserInfoByUserId(userId);
+		    mav.addObject("mvo", mvo);
+		    mav.setViewName("member/editUserInfo.tiles1");
+		    return mav;
 		}
 		
 		@ResponseBody
 		@RequestMapping(value="/checkOriginPwd.got", method = {RequestMethod.POST})
-		public String checkOriginPwd(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+			public String checkOriginPwd(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+			HttpSession session = request.getSession();
+			MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+			String userId = loginuser.getUser_id_pk();
+			
 			String insertPwd = request.getParameter("insertPWD");
 			String encrpyInsertPwd = Sha256.encrypt(insertPwd);
-			int n = service.checkOriginPwd(encrpyInsertPwd);
-			if(n > 0) {	n = 1; };
+			
+		    MemberVO mvo = new MemberVO();
+		    mvo = service.getUserInfoByUserId(userId);	
+		    
+		    int n = 0;
+		    if(encrpyInsertPwd.equals(mvo.getPwd())) {
+		    	n = 1;
+		    }
+
 			JSONObject jsonObj = new JSONObject();
 			jsonObj.put("n", n);
 			return jsonObj.toString();
