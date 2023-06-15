@@ -10,6 +10,10 @@
 <script>
 
 	$(document).ready(function() {
+		Fancybox.bind("[data-fancybox]", {
+			 
+		});
+		
 		$("input#proposalPrice").bind("keyup", function(e) {
 			let price = e.target.value;
 			price = price.replace(/,/g, '');
@@ -97,8 +101,8 @@
 								<div class="img-bid-detail">
 								<c:forEach var="wholeImg" items="${ovo.wholeImgList}" varStatus="wholeIdx">
 									
-									<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_name}" data-fancybox="gallery${status.index}" target='_blank' >
-										<img src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_name}" />
+									<a href="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" data-fancybox="gallery" target='_blank' >
+										<img src="<%= ctxPath%>/resources/img/orders/${wholeImg.whole_img_new_name}" />
 									</a>
 									
 								</c:forEach>	
@@ -110,8 +114,8 @@
 								<div class="img-bid-detail">
 								<c:forEach var="detailImg" items="${ovo.detailImgList}" varStatus="detailIdx">
 									
-									<a href="<%= ctxPath%>/resources/img/orders_detail/${detailImg.detail_img_name}" data-fancybox="gallery${status.index}" target='_blank' >
-										<img src="<%= ctxPath%>/resources/img/orders_detail/${detailImg.detail_img_name}" />
+									<a href="<%= ctxPath%>/resources/img/orders_detail/${detailImg.detail_img_new_name}" data-fancybox="detailGallery">
+										<img src="<%= ctxPath%>/resources/img/orders_detail/${detailImg.detail_img_new_name}" />
 									</a>
 									
 								</c:forEach>	
