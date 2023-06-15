@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.spring.gotgongbang.member.model.MemberVO;
+
 public interface InterBoardDAO {
 	
 	// 파일 첨부 기능이 없는 온라인 문의 데이터 넣기
@@ -70,6 +72,8 @@ public interface InterBoardDAO {
 	
 	// 공지사항 삭제 완료
 	int notidel(Map<String, String> paraMap);
+
+	
 	
 	/////////////////////////////////////////////////////////////////////
 	
