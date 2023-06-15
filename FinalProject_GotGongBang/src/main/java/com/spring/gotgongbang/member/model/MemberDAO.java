@@ -227,16 +227,14 @@ public class MemberDAO implements InterMemberDAO {
 
 	@Override
 	public List<WholeImgVO> getWholeImgListByOrderDetailNum(String orderDetailNum) {
-		//List<WholeImgVO> wholeImgList = sqlsession.selectList("member.getWholeImgListByOrderDetailNum", orderDetailNum);
-		//return wholeImgList;
-		return null;
+		List<WholeImgVO> wholeImgList = sqlsession.selectList("member.getWholeImgListByOrderDetailNum", orderDetailNum);
+		return wholeImgList;
 	}
 
 	@Override
 	public List<DetailImgVO> getDetailImgListByOrderDetailNum(String orderDetailNum) {
-		//List<DetailImgVO> detailImgList = sqlsession.selectList("member.getDetailImgListByOrderDetailNum", orderDetailNum);
-		//return detailImgList;
-		return null;
+		List<DetailImgVO> detailImgList = sqlsession.selectList("member.getDetailImgListByOrderDetailNum", orderDetailNum);
+		return detailImgList;
 	}
 
 	@Override
