@@ -75,7 +75,7 @@
 								<li><div class="proposal-info-tit">수선 유형 :</div>
 									<c:if test="${not empty proposal.requests and proposal.requests ne ' '}">
 									  <ul>
-									    <c:forTokens var="requests" items="${proposal.requests}" delims=",">
+									    <c:forTokens var="requests" items="${proposal.requests}" delims="%">
 									      <li class="requests-item">${requests}</li>
 									    </c:forTokens>
 									  </ul>
