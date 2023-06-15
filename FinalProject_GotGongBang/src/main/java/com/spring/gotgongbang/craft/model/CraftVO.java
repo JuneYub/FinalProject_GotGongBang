@@ -239,10 +239,6 @@ public class CraftVO {
 	public void setFileSize(String fileSize) {
 		this.fileSize = fileSize;
 	}
-
-
-/*
-	
 	
 	public String getImg_name() {
 		return img_name;
@@ -252,29 +248,9 @@ public class CraftVO {
 	public void setImg_name(String img_name) {
 		this.img_name = img_name;
 	}
+
 	
 	
-
-	public ImageVO getImgvo() {
-		return imgvo;
-	}
-
-
-	public void setImgvo(ImageVO imgvo) {
-		this.imgvo = imgvo;
-	}	
-	
-	
-	public String getImg_name() {
-		return img_name;
-	}
-
-
-	public void setImg_name(String img_name) {
-		this.img_name = img_name;
-	}
-	
-	*/
 	
 	
 	/////////////////// ====== 김진솔 끝 ===== ///////////////////////
