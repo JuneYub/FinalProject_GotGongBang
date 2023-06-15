@@ -151,6 +151,16 @@
 	WHERE ROWNUM = 1
 </select>
 
+
+<!-- 공방상세페이지에서 공방 후기 페이징 처리하기 -->
+<!-- 리뷰 총 개수 알아오기 -->
+<select id="cntReview" resultType="int">
+	SELECT COUNT(*) 
+	FROM REVIEW
+</select>
+
+
+
 <!--==================== 김나윤 끝 ====================== -->
 
 
