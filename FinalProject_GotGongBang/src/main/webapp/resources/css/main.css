@@ -2538,6 +2538,7 @@ flex-basis: 50px;
 
 .ojh_table2_notice1 {
     display: flex;
+    height: 90px;
     border-bottom: 1px solid rgb(244, 244, 244);
 }
 
@@ -2548,7 +2549,16 @@ flex-basis: 50px;
     flex-basis: 50px;
 }
 
+
+
 .t15 {
+    padding: 30px 0px 20px 20px;
+    color: rgb(76, 76, 76);
+    flex: 1 1 0%;
+    text-align: left;
+}
+
+.t15_admin {
     padding: 30px 0px 20px 20px;
     color: rgb(76, 76, 76);
     flex: 1 1 0%;
@@ -2557,14 +2567,14 @@ flex-basis: 50px;
 
 .t16 {
     text-align: center;
-    padding: 30px 0px;
+    padding: 30px 0px 0px 0px;
     color: rgb(76, 76, 76);
     flex-basis: 115px;
 }
 
 .t17 {
     text-align: center;
-    padding: 20px 30px 0px 0px;
+    padding: 29px 30px 0px 0px;
     flex-basis: 115px;
     color: rgb(153, 153, 153);
 }
