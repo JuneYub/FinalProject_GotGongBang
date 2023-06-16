@@ -31,7 +31,8 @@
  		
  		// 공방이름 필수 입력
 		$("input#nickname").blur( (e) => {
-			
+			$(e.target).parent().find("span.error").hide();
+
 			if($(e.target).val().trim() == ""){	
 			
 				$("form :input").prop("disabled", true);		// 모든 input 태그를 못쓰게 막음
@@ -509,8 +510,8 @@
             </div>
 
             <form name="craft_application_frm" method="POST" action="<%= request.getContextPath()%>/craft_application_end.got" enctype="multipart/form-data">
-                <input type="text" id="lat_hidden" name="craft_latitude" value=""/>
-                <input type="text" id="lng_hidden" name="craft_longitude" value=""/>
+                <input type="hidden" id="lat_hidden" name="craft_latitude" value=""/>
+                <input type="hidden" id="lng_hidden" name="craft_longitude" value=""/>
                 <input type="hidden" name="specialized_value" value=""/>
 
                 <div class="application_right">
@@ -561,7 +562,7 @@
                             </div>
                         </span>
                     </div>
-					<div class="image" style="height: 300px;">    
+					<div class="image" style="height: 380px;">    
 	                         <span> <p>&nbsp;&nbsp;&nbsp;사진 미리보기</p>
 	                            <div class="filebox" >
 	                                <span class="prodInputName" style="padding-bottom: 10px; margin-left: 30px;">

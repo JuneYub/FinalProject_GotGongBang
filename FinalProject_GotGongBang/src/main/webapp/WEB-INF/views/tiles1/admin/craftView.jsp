@@ -172,7 +172,7 @@
                         </div>
                         <div class="frm_border">
                             <span> <p> * 평점</p> 
-                               <input type="text" class="view" name="craft_rating" style="padding-right: 15px;" />
+                               <input type="text" class="view" name="craft_rating" style="padding-right: 15px;" value="${requestScope.reviewvo.review_rating}"/>
                             </span>
                         </div>
                     </div>

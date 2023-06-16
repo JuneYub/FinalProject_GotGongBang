@@ -209,11 +209,9 @@ public class AdminController {
 						HttpSession session = request.getSession();
 						
 						String root = session.getServletContext().getRealPath("/").substring(0, 3);
-				         //System.out.println("~~~~ 확인용 webapp 의 절대경로 => " + root); 
-
-				 	    String path_whole = root + "Users"+File.separator+"user"+File.separator+"git"+File.separator+"FinalProject_GotGongBang"+File.separator+"FinalProject_GotGongBang"+File.separator+"src"+File.separator+"main"+File.separator+"webapp"+File.separator+"resources"+File.separator+"img"+File.separator+"craft";
-				 	     //System.out.println("~~~~ 확인용 path => " + path_whole);
-				 	     
+					 	    
+					 	String path_whole = root + "Users"+File.separator+"user"+File.separator+"git"+File.separator+"FinalProject_GotGongBang"+File.separator+"FinalProject_GotGongBang"+File.separator+"src"+File.separator+"main"+File.separator+"webapp"+File.separator+"resources"+File.separator+"img"+File.separator+"craft";
+					 	    
 						// **** file 다운로드 하기 **** //
 						boolean flag = false; // file 다운로드 성공, 실패를 알려주는 용도 
 						flag = fileManager.doFileDownload(craft_image_fileName, craft_image_orgFilename, path_whole, response);

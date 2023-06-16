@@ -286,12 +286,10 @@ public class CraftController {
        
        if(!fileList.isEmpty()) {
          HttpSession session = mrequest.getSession();
- 	     String root = session.getServletContext().getRealPath("/").substring(0, 3);
-         //System.out.println("~~~~ 확인용 webapp 의 절대경로 => " + root); 
-
- 	     String path_whole = root + "Users"+File.separator+"user"+File.separator+"git"+File.separator+"FinalProject_GotGongBang"+File.separator+"FinalProject_GotGongBang"+File.separator+"src"+File.separator+"main"+File.separator+"webapp"+File.separator+"resources"+File.separator+"img"+File.separator+"craft";
- 	     //System.out.println("~~~~ 확인용 path => " + path_whole);
-         
+         String root = session.getServletContext().getRealPath("/").substring(0, 3);
+ 	    
+ 	    String path_whole = root + "Users"+File.separator+"user"+File.separator+"git"+File.separator+"FinalProject_GotGongBang"+File.separator+"FinalProject_GotGongBang"+File.separator+"src"+File.separator+"main"+File.separator+"webapp"+File.separator+"resources"+File.separator+"img"+File.separator+"craft";
+ 	    
          String newFileName = "";
          // WAS(톰캣)의 디스크에 저장될 파일명
          // 2381899872914.png
@@ -344,7 +342,7 @@ public class CraftController {
     	  
     	  
     	  
-    	  cvo.setfilename(newFileName_ss);
+    	  cvo.setFileName(newFileName_ss);
     	  cvo.setOrgFilename(originalFilename_ss);
 
           n = service.add_withFile(cvo);
