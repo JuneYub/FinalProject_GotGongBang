@@ -2962,7 +2962,7 @@ button#goSearch {
 button#goSearch: hover {
 	background-color: #400099;
 }
-
+ㅌ
 
 .searchSection {
 	margin-top: 20px;
@@ -3167,7 +3167,7 @@ li#cardContent {
 	/* ============== 공방상세정보 CSS 시작 ============== */
 	.master_detail {
 		/* border: solid 1px #fff; */
-		width: 80%;
+		width: 60%;
 		margin: 0 auto;
 		color: #fff;
 	}
@@ -3277,12 +3277,13 @@ li#cardContent {
 }
 
 .child_title {
-	font-size: 18pt;
+	font-size: 17pt;
 	font-weight: bold;
-	margin: 0 auto;
+	margin: 10px 0 10px 20px;
 }
 .child_content {
-	font-size: 14pt;
+	font-size: 13pt;
+	margin-left: 20px;
 }
 
 
