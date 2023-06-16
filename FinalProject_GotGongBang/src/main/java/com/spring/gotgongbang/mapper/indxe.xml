@@ -21,7 +21,7 @@
 		select craft_num_pk, partner_id_fk, craft_name, craft_introduce, craft_specialty, substr(craft_address,0, instr(craft_address, ' ', 1, 2) ) as craft_address, filename
 		from 
 		(
-		select rank() over(order by craft_num_pk) as row_num, craft_num_pk, partner_id_fk, craft_name, craft_introduce, craft_specialty, craft_address, substr(filename, 1, instr(filename, ',', 1, 1)-1 ) as filename
+		select rank() over(order by craft_num_pk) as row_num, craft_num_pk, partner_id_fk, craft_name, craft_introduce, craft_specialty, craft_address, substr(fileName, 1, instr(fileName, ',', 1, 1)-1 ) as fileName
 		from craft
 		)
 		<![CDATA[where row_num <= 6]]>
