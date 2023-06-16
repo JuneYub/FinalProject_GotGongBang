@@ -506,7 +506,8 @@ public class BoardController {
 	// 게시글 수정 페이지 요청.
 		@RequestMapping(value="/board_edit.got")
 		public ModelAndView board_edit(HttpServletRequest request, HttpServletResponse response, ModelAndView mav, PartnerVO ptvo) {
-		    String inquiry_num_pk = request.getParameter("inquiry_num_pk");
+		    
+			String inquiry_num_pk = request.getParameter("inquiry_num_pk");
 
 		    // 수정해야할 게시글 1개 가져오기
 		    Map<String, String> paraMap = new HashMap<>();
@@ -525,20 +526,21 @@ public class BoardController {
 		    MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 		    PartnerVO loginpartner = (PartnerVO)session.getAttribute("loginpartner");
 
+		    
 		    // 로그인한 사용자가 작성자 또는 로그인한 파트너의 partner_id_pk와 일치하는 경우
-		    if (loginuser != null && loginuser.getUser_id_pk().equals(iqvo.getUser_id_fk())) {
-		        // 자신의 글을 수정할 경우
-		        // 가져온 1개글을 글수정할 폼이 있는 view 단으로 보내준다.
+		    if ( loginuser != null && loginuser.getUser_id_pk().equals(iqvo.getUser_id_fk()) && loginuser.getUser_id_pk().equals("admin")) {
+		       
 		        mav.addObject("iqvo", iqvo);
 		        mav.setViewName("/board/board_edit.tiles1");
+		        
 		    } else if (loginpartner != null && loginpartner.getPartner_id_pk().equals(iqvo.getUser_id_fk())) {
-		        // 로그인한 파트너의 partner_id_pk와 작성자가 일치하는 경우
-		        // 가져온 1개글을 글수정할 폼이 있는 view 단으로 보내준다.
 		        mav.addObject("iqvo", iqvo);
 		        mav.setViewName("/board/board_edit.tiles1");
-		    } else if (loginuser.getUser_id_pk() == "admin") {
+		        
+		    } else if (loginuser.getUser_id_pk().equals("admin")) { 
 		    	mav.addObject("iqvo", iqvo);
 			    mav.setViewName("/board/board_edit.tiles1");
+			    
 		    } else {
 		        String message = "다른 사용자의 글은 수정이 불가합니다.";
 		        String loc = "javascript:history.back()";

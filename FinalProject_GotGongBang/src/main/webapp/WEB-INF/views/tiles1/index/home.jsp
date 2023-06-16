@@ -112,7 +112,7 @@
 						
 						<%-- 카드 시작 --%>
 						<c:forEach var="cvo" items="${requestScope.craftList}">	
-						<div class="swiper-slide" onclick="location.href='<%=ctxPath%>/crafts_detail.got?craft_num_pk=${cvo.craft_num_pk}'">
+						<div class="swiper-slide" onclick="location.href='<%= ctxPath%>/crafts_detail.got?craft_num_pk=${cvo.craft_num_pk}'">
 							<div class="swiper-slide-card">
 								<div class="swiper-card-img">
 									<span class="swiper-img-span"> 

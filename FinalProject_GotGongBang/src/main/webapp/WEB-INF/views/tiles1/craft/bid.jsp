@@ -10,6 +10,11 @@
 <script>
 
 	$(document).ready(function() {
+		
+		var request = "${requestScope.ovo.requests}".replaceAll("%", " ,");
+		$("td#requests").text(request);
+		
+		
 		Fancybox.bind("[data-fancybox]", {
 			 
 		});
@@ -122,7 +127,7 @@
 								</div>
 								</td>
 							</tr>
-							<tr><th>수선 유형</th> <td>${requestScope.ovo.requests}</td></tr>
+							<tr><th>수선 유형</th> <td id="requests"></td></tr>
 							<tr><th>수선 요청사항 설명</th><td>${requestScope.ovo.request_explain}</td></tr>
 						</tbody>
 				</table>
