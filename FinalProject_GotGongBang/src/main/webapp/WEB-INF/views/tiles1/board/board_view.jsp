@@ -153,6 +153,14 @@ function View_del(inquiry_num_pk) {
                             </c:if>
                             
                             <c:if test="${sessionScope.loginuser.user_id_pk == 'admin'}"> 
+                            	<button class="ojh_css-214ym5 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="javascript:location.href='<%= request.getContextPath()%>/board_edit.got?inquiry_num_pk=${requestScope.iqvo.inquiry_num_pk}'">
+	                                <span class="ojh_css-ymwvow e4nu7ef1">수정</span>
+	                            </button>
+	                            
+	                            <button class="ojh_css-214ym5 e4nu7ef3" id="btn_del" type="button" width="150" height="42" radius="0" onclick="View_del('${requestScope.iqvo.inquiry_num_pk}')">
+	                                <span class="ojh_css-ymwvow e4nu7ef1">삭제</span>
+	                            </button>
+                            	
                             	<button class="ojh_css-214ym5 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="javascript:location.href='<%= request.getContextPath()%>/board_inquiry.got?fk_seq=${requestScope.iqvo.inquiry_num_pk}&groupno=${requestScope.iqvo.groupno}&depthno=${requestScope.iqvo.depthno}&inquiry_title=${requestScope.iqvo.inquiry_title}'">
 	                               <span class="ojh_css-ymwvow e4nu7ef1">답변</span>
 	                            </button>
