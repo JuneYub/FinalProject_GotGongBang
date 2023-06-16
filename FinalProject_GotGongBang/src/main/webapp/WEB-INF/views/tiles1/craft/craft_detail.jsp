@@ -41,11 +41,13 @@ $(window).scroll(function() {
        			<h2 class="ad_sentence">처음 만난 모습 그대로</h2>
        			<span class="master_name">명품수선 장인 김장인</span>
        		</div>
-       		<div class="box_suggest">
+       		
+       		<!-- <div class="box_suggest">
        			<button type="button" id="btn_suggest">의뢰하기</button>
-       		</div>
+       		</div> -->
+       		
        		<div class="master_detail">
-       			<div class="master_detail_title">공방 상세정보</div>
+       			<div class="master_detail_title" style="margin-bottom: 15px;">공방 상세정보</div>
         			<div class="master_detail_1">
         				<div class="master_detail_1_sub1">
         					<div class="sub1_child">
@@ -53,7 +55,6 @@ $(window).scroll(function() {
 			        				<p>공방명 | ${craftvo.craft_name}</p>
 			        				<p>대표자 | ${craftvo.craft_representative}</p>
 			        				<p>위치 | ${craftvo.craft_address}</p>
-			        				<p>연락처 | ${craftvo.craft_mobile}</p>
 		        				</div>
         					</div>
         				</div>
@@ -62,8 +63,8 @@ $(window).scroll(function() {
         				<div class="sub1_1_1">
 		        			<span>전문품목 | ${craftvo.craft_specialty}</span>
 		        		</div>
+		        		<p>연락처 | ${craftvo.craft_mobile}</p>
         				<p>경력기간 | ${craftvo.craft_career}</p>
-        				<p>공방평점 | ${craftvo.craft_rating}</p>
         			</div>
        		</div>
 		</div>
@@ -78,16 +79,16 @@ $(window).scroll(function() {
 				<span>
 					<span class="js-opacity-backdrop" style="opacity: 0.0636605;"></span>
 				</span>
-				<div>
+				<div style="margin-bottom: 50px;">
 					<h1 data-aos="fade-up" class="aos-init aos-animate">GOT GONGBANG</h1>
 					<p data-aos="fade-up" data-aos-delay="300" class="aos-init aos-animate" style="font-size:2.1rem; font-weight: bold;">
 						안 되는 수선은 없어요 <br>
 						신이 만든 거 빼곤요 <br>
 					</p>
 				</div>
-				<div class="js-opacity-backdrop-start">
+				<div class="js-opacity-backdrop-start" style="font-size:14pt;">
 					<p data-aos="fade-up" data-aos-delay="300" class="aos-init aos-animate">
-						갗공방 파트너, 코비 수선<br>
+						명품 수선 파트너, 갗공방<br>
 						완벽한 명품 수선을 위해 노력하는<br>
 						갖공방 파트너를 조명하는 시간.<br>
 						파트너에게 궁금했던 모든 것을 답해드립니다.
@@ -97,16 +98,17 @@ $(window).scroll(function() {
 			<div style="display:flex; margin: 1rem auto;">
 				<div class="parent">
 				    <div class="child">
-						<p class="child_title">"투명하게"</p>
+						<p class="child_title"><i class="fa-solid fa-scale-balanced" style="color: #000000;"></i>&nbsp;"투명하게"</p>
 						<div class="child_content">
 							<p>다양한 갗공방 입점 업체들의</p>
 							<p>포트폴리오를 제공하여</p> 
-							<p>고객님들의 편리한 비교와 선택을 돕습니다.</p>
+							<p>고객님들의 편리한 비교와 선택을</p> 
+							<p>돕습니다.</p>
 						</div>
 				    </div>
 				    <span class="blank" style="width:1.5rem; background-color:#fff;"></span>
 				    <div class="child">
-						<p class="child_title">"합리적이게"</p>
+						<p class="child_title"><i class="fa-solid fa-circle-dollar-to-slot" style="color: #000000;"></i>&nbsp;"합리적이게"</p>
 						<div class="child_content">
 							<p>갗공방은 복잡한 중간 과정을 없애고</p>
 							<p>전국 최고의 수선 장인과 소비자를</p> 
@@ -115,7 +117,7 @@ $(window).scroll(function() {
 				    </div>
 				    <span class="blank" style="width:1.5rem; background-color:#fff;"></span>
 				    <div class="child">
-						<p class="child_title">"안전하게"</p>
+						<p class="child_title"><i class="fa-solid fa-shield-heart fa" style="color: #000000;"></i>&nbsp;"안전하게"</p>
 						<div class="child_content">
 							<p>의뢰하신 명품은 희망하시는 수거일에</p> 
 							<p>택배 기사님께서 직접</p> 
@@ -124,6 +126,7 @@ $(window).scroll(function() {
 							<p>갗공방 기준에 따라 검수 후</p> 
 							<p>1회 무상으로</p> 
 							<p>재작업 서비스를 제공해드립니다.</p>
+							
 				    	</div>
 				    </div>
 				</div>
@@ -169,17 +172,50 @@ $(window).scroll(function() {
 		
 		<div class="detail_6" style="display:flex; margin: 50px 0; padding-left: 30px;">
 			<div>
-				<h1 data-aos="fade-up" class="aos-init aos-animate">GOT GONGBANG</h1>
+				<h1 data-aos="fade-up" class="aos-init aos-animate">GOT QUALITY</h1>
 				<p data-aos="fade-up" data-aos-delay="300" class="aos-init aos-animate" style="font-size:2.1rem; font-weight: bold;">
-				안 되는 수선은 없어요 <br>
-				신이 만든 거 빼곤요 <br>
+				품질이 먼저라는 기업 철학 <br>
+				당신의 명품을 믿고 맡기세요 <br>
 				</p>
 			</div>
 			<div>
-				<img alt="지도" src="">
+				<p data-aos="fade-up" data-aos-delay="300" class="aos-init aos-animate" style="margin-left: 200px; font-size: 16pt;">
+				명품이 명품인 것에 이유가 있다면,<br/>
+				수선 또한 명품의 가치를 따라야 합니다.<br/>
+				갗공방은 전국<br/>
+				검증된 명품 전문 수선사를 연결시켜<br/>
+				장인들의 기술력을 밀집시킵니다.<br/>
+				</p>
 			</div>
 		</div>
 		<!-- div.detail_6 끝 -->
+		
+		<div class="detail_7">
+			<img alt="" src="https://ussky.co.kr/web/upload/renew/ab4_box1_img1.jpg" style="width:100%;">
+		</div>
+		<!-- div.detail_7 끝 -->
+		
+		<div class="detail_8" style="display:flex; margin: 50px 0; padding-left: 30px;">
+			<div>
+				<h1 data-aos="fade-up" class="aos-init aos-animate">GOT SINCERITY</h1>
+				<p data-aos="fade-up" data-aos-delay="300" class="aos-init aos-animate" style="font-size:2.1rem; font-weight: bold;">
+				수선을 업(業)으로 <br/>
+				삼은 이들의 진심
+				</p>
+			</div>
+			<div>
+				<p data-aos="fade-up" data-aos-delay="300" class="aos-init aos-animate" style="margin-left: 200px; font-size: 16pt;">
+				고객님의 명품에 담긴<br/>
+				추억과 시간의 무게까지 책임진다는 마음가짐으로<br/>
+				 시든 고객님의 명품을<br/>
+				 다시 꽃 피우는 정교한 기술력.<br/> 
+				 왜 회생 불가능해 보이는 명품도<br/>
+				 갗공방과 함께라면<br/> 
+				 처음 그대로의 상태로 복구되는지 알 수 있습니다.
+				</p>
+			</div>
+		</div>
+		<!-- div.detail_8 끝 -->
 		
 		
 		<hr style="border: solid 1px #e8e8e8;">
@@ -189,19 +225,20 @@ $(window).scroll(function() {
 			<h2 style="font-size: 30px; font-weight: bold; margin-left: 100px; margin-bottom: 10px;">후기가 증명합니다.</h2>
 		</div>
 		<c:if test="${empty requestScope.reviews}">
-			<div>
-				<p style="font-size:14pt;">아직 작성된 후기가 없습니다.</p>
+			<div class="table table--col customer-notice-list__table aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+				<p style="font-size:16pt; margin-left: 100px; margin-bottom: 100px;"><i class="fa-regular fa-rectangle-xmark fa" style="color: #000000; margin-right:20px;"></i>아직 작성된 후기가 없습니다.</p>
+				<hr style="border: solid 1px #e8e8e8;">
 			</div>
 		</c:if>
 		<c:if test="${not empty requestScope.reviews}">
-		<table id="reviewTbl" class="table table--col customer-notice-list__table aos-init aos-animate" data-aos="fade-up" data-aos-delay="300" style="margin-bottom:50px;">
+		<table id="reviewTbl" class="table table--col customer-notice-list__table aos-init aos-animate" data-aos="fade-up" data-aos-delay="300" style="margin-bottom:50px; table-layout: fixed;">
             <thead>
             <tr>
                 <th scope="col" class="tblNumber" style="width: 5%; text-align:center;">번호</th>   <!-- 후기번호 : review_id_pk -->
                 <th scope="col" class="tblWriter" style="width: 8%; text-align:center;">작성자</th>  <!-- 아이디  : user_id_fk -->
-                <th scope="col" class="tblRating" style="width: 8%; text-align: center;">평점</th>   <!-- 평점 : review_rating -->
+                <th scope="col" class="tblRating" style="width: 4%; text-align: center;">평점</th>   <!-- 평점 : review_rating -->
                 <th scope="col" class="tblCategory" style="width: 9%; text-align:center;">품목</th>
-                <th scope="col" class="tblBrand" style="text-align: center;">브랜드</th>  
+                <th scope="col" class="tblBrand" style="text-align: center; width:10%;">브랜드</th>  
                 <th scope="col" class="tbl">후기내용</th>   <!-- 후기내용 : review_content -->
                 <th scope="col" class="fixBefore" style="width:10%;">수선전</th>
                 <th scope="col" class="fixAfter" style="width:10%;">수선후</th>  

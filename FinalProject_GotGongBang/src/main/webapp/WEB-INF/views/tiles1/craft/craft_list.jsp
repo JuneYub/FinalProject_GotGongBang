@@ -85,7 +85,7 @@ function goSearch(){
 				 let html ="";
 				 if(json.length == 0) {
 					 html = "<div>" +
-					 			"<i class='fa-solid fa-circle-exclamation fa-2xl' style='color: #400099; display:inline-block;'></i>"+
+					 			"<i class='fa-solid fa-circle-exclamation fa-2xl' style='color: #400099; display:inline-block; margin-top: 20px;'></i>"+
 					 			"<div>"+
 						 			"<p style='font-size:15pt;'>검색결과가 없습니다.</p>"+
 						 			"<p style='font-size:15pt; font-weight:bold;'>다른 검색어를 입력해주세요</p>"+
@@ -93,11 +93,14 @@ function goSearch(){
 					 		"</div>";
 				 }
 				 else {
+					 html="<div class='catalog-title'>검색 결과</div>"+
+						"<ul class='grid'>"+
+						"</ul>";
 					 $.each(json, function(index, item){
 						 html += "<li class='grid-column__item card-list'>" +
 								 	"<figure class='card responsive-card'>" +
 											"<a class='card__link' href='<%= ctxPath%>/crafts_detail.got?craft_num_pk="+item.craft_num_pk+"'>" +
-												"<img loading='lazy' width='352' height='220' decoding='async' data-nimg='1' class='card__img' srcset='https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=384&amp;q=75 1x, https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75 2x' src='https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202208/074517-765/insight-hirenze-coursecard.png?w=750&amp;q=75' style='color: transparent;'>"+
+												"<img loading='lazy' width='352' height='220' decoding='async' data-nimg='1' class='card__img' src='<%= ctxPath%>/resources/img/craft/"+item.img_name+"' style='color: transparent;'>"+
 												"<figcaption class='card__caption'>"+
 												"<ul class='card__labels' data-badge-label='' data-badge-color='RED' data-badge-display='비즈니스'>"+
 													"<li class='caption'>"+item.craft_name+"</li>"+
@@ -169,10 +172,8 @@ function goSearch(){
 	<!-- 검색결과 -->
 	<section class="searchSection" id="searchSection_id">
 		<div class="grid--large">
-				<div class="catalog-wrapper" id="search_wrapper">
-					<div class="catalog-title">검색 결과</div>
-						<ul class="grid">
-						</ul>
+				<div class="catalog-wrapper" id="search_wrapper" style="margin-left: 100px;">
+					
 				</div>
 		</div>
 	</section> 
