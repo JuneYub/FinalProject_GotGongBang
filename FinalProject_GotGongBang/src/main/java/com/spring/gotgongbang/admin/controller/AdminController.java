@@ -264,7 +264,7 @@ public class AdminController {
 	public ModelAndView craft_del(ModelAndView mav, CraftVO cvo, HttpServletRequest request) {
 		String craft_num_pk = request.getParameter("craft_num_pk");
 		cvo = service.craft_edit_view(craft_num_pk);
-		String fileName = cvo.getFileName();
+		String fileName = cvo.getfilename();
 		HttpSession session = request.getSession();
 		String root = session.getServletContext().getRealPath("/");
 		String path = root+"resources"+File.separator+"files";

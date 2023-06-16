@@ -342,7 +342,7 @@ public class CraftController {
     	  
     	  
     	  
-    	  cvo.setFileName(newFileName_ss);
+    	  cvo.setfilename(newFileName_ss);
     	  cvo.setOrgFilename(originalFilename_ss);
 
           n = service.add_withFile(cvo);
