@@ -99,7 +99,7 @@
 			<div>
 				<div class="contents-prolist-promotional">
 				<p id="contents-prolist-promotional-msg">지금 바로 전문가를 찾아보세요</p>
-				<p id="contents-prolistAll-link">전체보기</p>
+				<p id="contents-prolistAll-link" onclick="location.href='<%= ctxPath%>/crafts_list.got'">전체보기</p>
 				</div>
 
 				
@@ -108,7 +108,7 @@
 						
 						<%-- 카드 시작 --%>
 						<c:forEach var="cvo" items="${requestScope.craftList}">	
-						<div class="swiper-slide">
+						<div class="swiper-slide" onclick="location.href='<%= ctxPath%>/crafts_detail.got?craft_num_pk=${cvo.craft_num_pk}'">
 							<div class="swiper-slide-card">
 								<div class="swiper-card-img">
 									<span class="swiper-img-span"> 
