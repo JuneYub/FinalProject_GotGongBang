@@ -333,6 +333,7 @@ public class MemberController {
 		   List<String> originReviewImg = new ArrayList<String>();
 			
 		   // 사진의 새로운 이름
+		   List<String> newReviewPk = new ArrayList<String>();
 		   List<String> newReviewImg = new ArrayList<String>();
 			
 
@@ -351,17 +352,20 @@ public class MemberController {
 				   int pkNum = service.getFixedPhotoNum();
 				   try {
 					   bytes = mtfileReview.getBytes();
+					   String originName = mtfileReview.getOriginalFilename();
+					   String fileFormat = originName.substring(originName.lastIndexOf("."), originName.length()); 
+					   newFileName = String.valueOf(pkNum) + fileFormat;
 					   originReviewImg.add(i, mtfileReview.getOriginalFilename());
-					   newFileName = String.valueOf(pkNum);
+					   newReviewPk.add(i, String.valueOf(pkNum));
 					   newReviewImg.add(newFileName);
 
-					   fileUpload(bytes, originReviewImg.get(i), newFileName, resourcePath);
+					   fileUpload(bytes, originReviewImg.get(i), newReviewPk.get(i), resourcePath);
 				   } catch (Exception e) {
 						e.printStackTrace();
 				   }
 			   }
 		   }
-		   int n = insertReview(paraMap, originReviewImg, newReviewImg);
+		   int n = insertReview(paraMap, newReviewImg, newReviewPk);
 		   
 		   JSONObject jsonObj = new JSONObject();
 		   jsonObj.put("n", n);
@@ -369,16 +373,16 @@ public class MemberController {
 	   }
 	   
 	   @Transactional(propagation=Propagation.REQUIRES_NEW, isolation=Isolation.READ_COMMITTED, rollbackFor= {Throwable.class})
-	   public int insertReview(HashMap<String, Object> paraMap, List<String> originReviewImg, List<String> newReviewImg) {
+	   public int insertReview(HashMap<String, Object> paraMap, List<String> newReviewImg, List<String> newReviewPk) {
 		   int result = 0;
 		   service.insertReview(paraMap);
 		   int reviewId = service.getCurrReviewIdByOrderDetailNum((String) paraMap.get("orderDetailNum"));
 		 
 		   HashMap<String, Object> imgParaMap = new HashMap<String, Object>();
-		   for(int i = 0; i < originReviewImg.size(); i++) {	
-			   imgParaMap.put("fixedPhotoNum", Integer.parseInt(newReviewImg.get(i)));
+		   for(int i = 0; i < newReviewImg.size(); i++) {	
+			   imgParaMap.put("fixedPhotoNum", Integer.parseInt(newReviewPk.get(i)));
 			   imgParaMap.put("reviewId", reviewId);
-			   imgParaMap.put("fileName", originReviewImg.get(i));
+			   imgParaMap.put("fileName", newReviewImg.get(i));
 			   
 			   service.insertFixedPhoto(imgParaMap);
 		   }
@@ -558,11 +562,7 @@ public class MemberController {
 		// 이메일 인증 ( 회원가입 )
 		@ResponseBody
 	    @RequestMapping(value="/member/email_check.got")
-		public String email_check(String email) {
-			
-			System.out.println("이메일 인증 요청이 들어옴!");
-			System.out.println("이메일 인증 이메일 : " + email);
-			
+		public String email_check(String email) {						
 			return mailService.joinEmail(email);
 			
 		}
@@ -577,9 +577,7 @@ public class MemberController {
 		@RequestMapping(value="/register.got", method=RequestMethod.POST)
 		public String register(MemberVO membervo) {
 			
-			System.out.println("들어옴");
-			service.encryptPassword(membervo);
-			
+			service.encryptPassword(membervo);			
 			service.insertMember(membervo);
 			
 			return "redirect:/end_register_member.got";
@@ -593,9 +591,7 @@ public class MemberController {
 		
 		// 공방회원가입 post
 		@RequestMapping(value="/register_to_partner.got", method=RequestMethod.POST)
-		public String register_partner(PartnerVO partnervo, HttpServletRequest request) {
-			
-			System.out.println("공방 들어옴");
+		public String register_partner(PartnerVO partnervo, HttpServletRequest request) {	
 			
 			String password = Sha256.encrypt(partnervo.getPartner_pwd());
 	        // 비밀번호 암호화
@@ -639,20 +635,12 @@ public class MemberController {
 	    @RequestMapping(value="/member/find_id_email_check.got")
 		public String find_id_email_check(String name, String email) {
 			
-			System.out.println("이메일 인증 요청이 들어옴!");
-			System.out.println("이메일 인증 이메일 : " + email);
-			
 			Map<String, String> paraMap = new HashMap<String, String>();
 			paraMap.put("name", name);
 			paraMap.put("email", email);
-			
-			//List<MemberVO> membervo = service.compareNameEmail(name, email);
-			
-			
+						
 			String memberId = service.compareNameEmailMember(paraMap);
-			System.out.println(memberId);
 			String partnerId = service.compareNameEmailpartner(paraMap);
-			System.out.println(partnerId);
 			
 			if(memberId == null) {
 	        	memberId = "";
@@ -672,10 +660,7 @@ public class MemberController {
 				jsonObj.put("emailCode", emailCode);
 			}
 		    
-
-		    return jsonObj.toString();
-			
-			
+		    return jsonObj.toString();			
 		}
 		
 		
@@ -716,10 +701,8 @@ public class MemberController {
 		
 		// 비밀번호 찾기 end
 		@RequestMapping(value="/find_pwd_end.got")
-		public ModelAndView find_pwd_end(ModelAndView mav) {
-			
-			
-			
+		public ModelAndView find_pwd_end(ModelAndView mav) {			
+						
 			mav.setViewName("member/find_pwd_end.tiles1");
 			return mav;
 		}
@@ -798,8 +781,7 @@ public class MemberController {
 			paraMap.put("id", id);
 			paraMap.put("pwd", Sha256.encrypt(pwd));
 			System.out.println(pwd);
-			
-			
+						
 			int n = service.change_pwd(paraMap);
 			if(n == 1) {
 				mav.addObject("message","성공적으로 변경되었습니다.");   
@@ -814,8 +796,7 @@ public class MemberController {
 			    
 			}
 			mav.setViewName("msg");	
-			
-		
+					
 			return mav;
 		}
 		

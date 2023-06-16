@@ -37,7 +37,7 @@ function View_del(inquiry_num_pk) {
 	                   if (json.n == 1) {
 	                	   
 	                	   alert(inquiry_num_pk + " 게시물을 삭제하였습니다.");
-	                       location.href = "<%= ctxPath %>/board_inquiry.got"; // 페이지 새로고침
+	                       location.href = "<%= ctxPath %>/board_question.got"; // 페이지 새로고침
 	                   }
 	               },
 	               error: function(request, status, error) {
@@ -117,13 +117,8 @@ function View_del(inquiry_num_pk) {
                             <div class="ojh_css-1dhg94g e1pwb5hv0">
                                 <div class="ojh_css-1xrh39a e1pwb5hv2">첨부파일</div>
                                 <div class="ojh_css-8vgw34 e1pwb5hv1">
-                                	<c:if test="${sessionScope.loginuser != null}">
-									   <a href="<%= request.getContextPath()%>/board_download.got?inquiry_num_pk=${requestScope.iqvo.inquiry_num_pk}">${requestScope.iqvo.inquiry_orgFilename}</a>
-									</c:if>
-									<c:if test="${sessionScope.loginuser == null}">
-									   ${requestScope.iqvo.inquiry_orgFilename}
-									</c:if>
-                                </div>
+                                	<a href="<%= request.getContextPath()%>/board_download.got?inquiry_num_pk=${requestScope.iqvo.inquiry_num_pk}">${requestScope.iqvo.inquiry_orgFilename}</a>
+                                </div>`
                             </div>
                             <div class="ojh_css-1dhg94g e1pwb5hv0">
                                 <input type="hidden" class="ojh_css-8vgw34 e1pwb5hv1" value="${requestScope.iqvo.inquiry_num_pk}" readonly />
@@ -135,17 +130,30 @@ function View_del(inquiry_num_pk) {
                         </div>
                         
                         <div class="ojh_css-d7qwpj e1p3kiis0">
-
-                            <button class="ojh_css-214ym5 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="javascript:location.href='<%= request.getContextPath()%>/board_edit.got?inquiry_num_pk=${requestScope.iqvo.inquiry_num_pk}'">
-                                <span class="ojh_css-ymwvow e4nu7ef1">수정</span>
-                            </button>
-
-                            <button class="ojh_css-214ym5 e4nu7ef3" id="btn_del" type="button" width="150" height="42" radius="0" onclick="View_del('${requestScope.iqvo.inquiry_num_pk}')">
-                                <span class="ojh_css-ymwvow e4nu7ef1">삭제</span>
-                            </button>
+							
+							<c:if test="${sessionScope.loginuser.user_id_pk eq requestScope.iqvo.user_id_fk}">
+	                            <button class="ojh_css-214ym5 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="javascript:location.href='<%= request.getContextPath()%>/board_edit.got?inquiry_num_pk=${requestScope.iqvo.inquiry_num_pk}'">
+	                                <span class="ojh_css-ymwvow e4nu7ef1">수정</span>
+	                            </button>
+	                            
+	                            <button class="ojh_css-214ym5 e4nu7ef3" id="btn_del" type="button" width="150" height="42" radius="0" onclick="View_del('${requestScope.iqvo.inquiry_num_pk}')">
+	                                <span class="ojh_css-ymwvow e4nu7ef1">삭제</span>
+	                            </button>
+	                            
+							</c:if>
+							
+                            <c:if test="${sessionScope.loginpartner.partner_id_pk eq requestScope.iqvo.user_id_fk}">
+	                            <button class="ojh_css-214ym5 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="javascript:location.href='<%= request.getContextPath()%>/board_edit.got?inquiry_num_pk=${requestScope.iqvo.inquiry_num_pk}'">
+	                                <span class="ojh_css-ymwvow e4nu7ef1">수정</span>
+	                            </button>
+	                            
+	                            <button class="ojh_css-214ym5 e4nu7ef3" id="btn_del" type="button" width="150" height="42" radius="0" onclick="View_del('${requestScope.iqvo.inquiry_num_pk}')">
+	                                <span class="ojh_css-ymwvow e4nu7ef1">삭제</span>
+	                            </button>
+                            </c:if>
                             
                             <c:if test="${sessionScope.loginuser.user_id_pk == 'admin'}"> 
-	                            <button class="ojh_css-214ym5 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="javascript:location.href='<%= request.getContextPath()%>/board_inquiry.got?fk_seq=${requestScope.iqvo.inquiry_num_pk}&groupno=${requestScope.iqvo.groupno}&depthno=${requestScope.iqvo.depthno}&inquiry_title=${requestScope.iqvo.inquiry_title}'">
+                            	<button class="ojh_css-214ym5 e4nu7ef3" type="button" width="150" height="42" radius="0" onclick="javascript:location.href='<%= request.getContextPath()%>/board_inquiry.got?fk_seq=${requestScope.iqvo.inquiry_num_pk}&groupno=${requestScope.iqvo.groupno}&depthno=${requestScope.iqvo.depthno}&inquiry_title=${requestScope.iqvo.inquiry_title}'">
 	                               <span class="ojh_css-ymwvow e4nu7ef1">답변</span>
 	                            </button>
 							</c:if>

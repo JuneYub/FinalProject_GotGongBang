@@ -80,6 +80,11 @@
 				</thead>
 				
 				<tbody>
+				<c:if test="${empty requestScope.paraMapList}">
+					 <td colspan="3" style="text-align: center;">조회할 수선내역이 없습니다</td> 
+				</c:if>
+				
+				<c:if test="${not empty requestScope.paraMapList}">
 				<c:forEach var="repair" items="${requestScope.paraMapList}" varStatus="status">
 					<tr>
 					<td>
@@ -135,7 +140,8 @@
 					</td>
 					</tr>
 					
-				</c:forEach>	
+				</c:forEach>
+				</c:if>	
 				</tbody>
 			</table>
 			<div class="block-pagebar">

@@ -1,8 +1,10 @@
 package com.spring.gotgongbang.index.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.spring.gotgongbang.craft.model.CraftVO;
+import com.spring.gotgongbang.member.model.ReviewVO;
 
 public interface InterIndexDAO {
 
@@ -16,7 +18,11 @@ public interface InterIndexDAO {
 	
 	// 박준엽 시작 ===========================================================================
 	List<CraftVO> getlatestCraftList();
+	
+	List<HashMap<String, Object>> getReviewList();
 	// 박준엽 끝 ===========================================================================
+
+	
 	
 	// 오준혁 시작 ===========================================================================
 	// 오준혁 끝 ===========================================================================

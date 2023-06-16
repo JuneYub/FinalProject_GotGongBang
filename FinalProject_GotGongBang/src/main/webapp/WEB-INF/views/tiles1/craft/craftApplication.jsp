@@ -350,6 +350,12 @@
 	             
 	     }); 
 	    
+	    
+	    $("#self_introduce").keyup(function() {
+	    	
+			func_geocoder($("input#address").val()); 
+
+		});
 
 
 	}); // end of $(document).ready(function() ----------------------------

@@ -3,13 +3,64 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="index">
+
+	<resultMap type="java.util.HashMap" id="getReviewListMap">
+		<result column="review_id_pk" property="review_id_pk" />
+		<result column="user_id_fk" property="user_id_fk" />
+		<result column="review_content" property="review_content" />
+		<result column="order_num_pk" property="order_num_pk" />
+		<result column="review_date" property="review_date" />
+		<result column="craft_num_pk" property="craft_num_pk" />
+		<result column="craft_name" property="craft_name" />
+		<collection column="order_num_pk" property="wholeImgList" javaType="java.util.List" ofType="com.spring.gotgongbang.order.model.WholeImgVO" select="getWholeImagesByOrderNum"></collection>
+		<collection column="order_num_pk" property="detailImgList" javaType="java.util.List" ofType="com.spring.gotgongbang.order.model.DetailImgVO" select="getDetailImagesByOrderNum"></collection>
+		<collection column="review_id_pk" property="fixedImgList" javaType="java.util.List" ofType="com.spring.gotgongbang.member.model.FixedPhotoVO" select="getFixedImagesByOrderNum"></collection>
+	</resultMap>
+
 	<select id="getlatestCraftList" resultType="com.spring.gotgongbang.craft.model.CraftVO">
-		select craft_num_pk, partner_id_fk, craft_name, craft_introduce, craft_specialty, craft_address
+		select craft_num_pk, partner_id_fk, craft_name, craft_introduce, craft_specialty, substr(craft_address,0, instr(craft_address, ' ', 1, 2) ) as craft_address, filename
 		from 
 		(
-		select rank() over(order by craft_num_pk) as row_num, craft_num_pk, partner_id_fk, craft_name, craft_introduce, craft_specialty, craft_address
+		select rank() over(order by craft_num_pk) as row_num, craft_num_pk, partner_id_fk, craft_name, craft_introduce, craft_specialty, craft_address, substr(filename, 1, instr(filename, ',', 1, 1)-1 ) as filename
 		from craft
 		)
 		<![CDATA[where row_num <= 6]]>
 	</select>
+	
+	<select id="getReviewList" resultMap="getReviewListMap">
+		select review_id_pk, user_id_fk, review_content, order_num_pk, review_date, craft_num_pk, craft_name  
+		from
+		(
+		    select  row_number() over(order by review_date desc) as rno, review_id_pk, user_id_fk, review_content, order_num_fk as order_num_pk, to_char(review_date, 'yyyy-MM-dd') as review_date , craft_num_pk, craft_name  
+		    from review
+		    join
+		    (
+		    select craft_num_pk, craft_name
+		    from
+		    craft
+		    )
+		    on
+		    craft_num_fk = craft_num_pk 
+		)
+		where rno between 1 and 4
+	</select>
+	
+	<select id="getWholeImagesByOrderNum" parameterType="int" resultType="com.spring.gotgongbang.order.model.WholeImgVO">
+	select whole_img_num_pk, order_num_fk, whole_img_name, whole_img_new_name
+	from whole_img
+	where order_num_fk = #{order_num_pk}
+	</select>
+	
+	<select id="getDetailImagesByOrderNum" parameterType="int" resultType="com.spring.gotgongbang.order.model.DetailImgVO">
+	select detail_img_num_pk, order_num_fk, detail_img_name, detail_img_new_name 
+	from DETAIL_IMG
+	where order_num_fk = #{order_num_pk}
+	</select>
+	
+	<select id="getFixedImagesByOrderNum" parameterType="int" resultType="com.spring.gotgongbang.member.model.FixedPhotoVO">
+	select fixed_photo_num_pk, review_id_fk, file_name
+	from FIXED_PHOTO
+	where review_id_fk = #{review_id_pk}
+	</select>
+
 </mapper>

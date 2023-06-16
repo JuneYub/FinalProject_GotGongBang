@@ -96,11 +96,9 @@ public class MemberService implements InterMemberService {
 		MemberVO loginuser = dao.getLoginMember(paraMap);
 		PartnerVO loginpartner = null;
 
-		//  aes 의존객체를 사용하여 로그인 되어진 사용자(loginuser)의 이메일 값을 복호화 하도록 한다. === 
-	    //          또한 암호변경 메시지와 휴면처리 유무 메시지를 띄우도록 업무처리를 하도록 한다.
 		if(loginuser != null && loginuser.getPwdchangegap() >= 3) {
 			// 마지막으로 암호를 변경한 날짜가 현재시각으로부터 3개월이 지났으면
-			loginuser.setRequirePwdChange(true); // 로그인시 암호를 변경하라는 alert 를 띄우도록 한다.
+			loginuser.setRequirePwdChange(true);
 		}
 		
 		if(loginuser != null && loginuser.getIdle() == 0 && loginuser.getLastlogingap() >= 12) {
@@ -108,9 +106,9 @@ public class MemberService implements InterMemberService {
 			loginuser.setIdle(1);
 						
 			// === MEMBER 테이블의 idle 컬럼의 값을 1로 변경 === //
-			int n = dao.updateIdle(paraMap.get("userid"));			
-			
+			int n = dao.updateIdle(paraMap.get("userid"));						
 		}
+		
 		if(loginuser != null) {
 			String email = loginuser.getEmail();
 			loginuser.setEmail(email);
@@ -120,9 +118,10 @@ public class MemberService implements InterMemberService {
 		if(loginuser == null) { // 로그인 실패시
 			loginpartner = dao.getLoginPartner(paraMap);				
 		}
+		
 		if(loginpartner != null && loginpartner.getPwdchangegap() >= 3) {
 			// 마지막으로 암호를 변경한 날짜가 현재시각으로부터 3개월이 지났으면
-			loginpartner.setRequirePwdChange(true); // 로그인시 암호를 변경하라는 alert 를 띄우도록 한다.
+			loginpartner.setRequirePwdChange(true);
 		}
 		
 		if(loginpartner != null && loginpartner.getPartner_idle() == 0 && loginpartner.getLastlogingap() >= 12) {
@@ -142,7 +141,6 @@ public class MemberService implements InterMemberService {
 			mav.addObject("loc", loc);					
 			
 			mav.setViewName("msg");
-			// /WEB-INF/views/msg.jsp 파일을 생성한다.
 		}
 		else { // 아이디와 암호가 존재하는 경우
 			// 일반회원의 경우
@@ -162,7 +160,6 @@ public class MemberService implements InterMemberService {
 					
 					String message = "로그인을 한지 1년이 지나서 휴면상태가 되었습니다. \\n관리자에게 문의바랍니다.";
 					String loc = request.getContextPath()+"/index.got";
-					// 원래는 위와 같이가 아니라 휴면이 계정을 풀어주는 페이지로 잡아주어야 한다.
 					
 					mav.addObject("message", message);
 					mav.addObject("loc", loc);
@@ -172,19 +169,16 @@ public class MemberService implements InterMemberService {
 				else { // 로그인 한지 1년이 이내인 경우
 					
 					HttpSession session = request.getSession();
-					// 메모리에 생성되어져 있는 session 을 불러오는 것이다.
 					
 					session.setAttribute("loginuser", loginuser);
-					// session(세션)에 로그인 되어진 사용자 정보인 loginuser 을 키이름을 "loginuser" 으로 저장시켜두는 것이다.
 					
 					// 로그인 성공 시 login_date를 기록			        
 			        dao.recordLoginDate(loginuser.getUser_id_pk(), loginuser.getGradelevel());
-
-					
+				
 					if(loginuser.isRequirePwdChange() == true) { // 암호를 마지막으로 변경한 것이 3개월이 경과한 경우
 						
 						String message = "비밀번호를 변경하신지 3개월이 지났습니다. \\n암호를 변경하는 것을 추천합니다.";
-						String loc = request.getContextPath()+"/index.got";
+						String loc = request.getContextPath()+"/edit_user_info.got";
 						// 원래는 위와 같이가 아니라 사용자의 암호를 변경해주는 페이지로 잡아주어야 한다.
 						
 						mav.addObject("message", message);
@@ -194,19 +188,15 @@ public class MemberService implements InterMemberService {
 					}
 					
 					else { // 암호를 마지막으로 변경한 것이 3개월 이내인 경우
-						
-						// 로그인을 해야만 접근할 수 있는 페이지에 로그인을 하지 않은 상태에서 접근을 시도한 경우 
-		                // "먼저 로그인을 하세요!!" 라는 메시지를 받고서 사용자가 로그인을 성공했다라면
-		                // 화면에 보여주는 페이지는 시작페이지로 가는 것이 아니라
-		                // 조금전 사용자가 시도하였던 로그인을 해야만 접근할 수 있는 페이지로 가기 위한 것이다.
+
 						String goBackURL = (String) session.getAttribute("goBackURL");
 						
 						if(goBackURL != null) {
 							mav.setViewName("redirect:"+goBackURL);
-							session.removeAttribute("goBackURL"); // 세션에서 반드시 제거해주어야 한다.
+							session.removeAttribute("goBackURL"); // 세션에서 제거
 						}
 						else {
-							mav.setViewName("redirect:/index.got"); // 시작페이지로 이동
+							mav.setViewName("redirect:/index.got");
 						}
 						
 					}
@@ -229,7 +219,6 @@ public class MemberService implements InterMemberService {
 					
 					String message = "로그인을 한지 1년이 지나서 휴면상태가 되었습니다. \\n관리자에게 문의바랍니다.";
 					String loc = request.getContextPath()+"/index.got";
-					// 원래는 위와 같이가 아니라 휴면이 계정을 풀어주는 페이지로 잡아주어야 한다.
 					
 					mav.addObject("message", message);
 					mav.addObject("loc", loc);
@@ -239,10 +228,8 @@ public class MemberService implements InterMemberService {
 				else { // 로그인 한지 1년이 이내인 경우
 					
 					HttpSession session = request.getSession();
-					// 메모리에 생성되어져 있는 session 을 불러오는 것이다.
 					
 					session.setAttribute("loginpartner", loginpartner);
-					// session(세션)에 로그인 되어진 사용자 정보인 loginuser 을 키이름을 "loginuser" 으로 저장시켜두는 것이다.
 					
 					// 로그인 성공 시 login_date를 기록			    
 			        dao.recordLoginDate(loginpartner.getPartner_id_pk(), loginpartner.getPartner_gradelevel());
@@ -251,8 +238,7 @@ public class MemberService implements InterMemberService {
 					if(loginpartner.isRequirePwdChange() == true) { // 암호를 마지막으로 변경한 것이 3개월이 경과한 경우
 						
 						String message = "비밀번호를 변경하신지 3개월이 지났습니다. \\n암호를 변경하는 것을 추천합니다.";
-						String loc = request.getContextPath()+"/index.got";
-						// 원래는 위와 같이가 아니라 사용자의 암호를 변경해주는 페이지로 잡아주어야 한다.
+						String loc = request.getContextPath()+"/edit_craft_user_info.got";
 						
 						mav.addObject("message", message);
 						mav.addObject("loc", loc);
@@ -262,25 +248,18 @@ public class MemberService implements InterMemberService {
 					
 					else { // 암호를 마지막으로 변경한 것이 3개월 이내인 경우
 						
-						// 로그인을 해야만 접근할 수 있는 페이지에 로그인을 하지 않은 상태에서 접근을 시도한 경우 
-		                // "먼저 로그인을 하세요!!" 라는 메시지를 받고서 사용자가 로그인을 성공했다라면
-		                // 화면에 보여주는 페이지는 시작페이지로 가는 것이 아니라
-		                // 조금전 사용자가 시도하였던 로그인을 해야만 접근할 수 있는 페이지로 가기 위한 것이다.
 						String goBackURL = (String) session.getAttribute("goBackURL");
 						
 						if(goBackURL != null) {
 							mav.setViewName("redirect:"+goBackURL);
-							session.removeAttribute("goBackURL"); // 세션에서 반드시 제거해주어야 한다.
+							session.removeAttribute("goBackURL"); // 세션에서 제거
 						}
 						else {
-							mav.setViewName("redirect:/index.got"); // 시작페이지로 이동
-						}
-						
-					}
-					
+							mav.setViewName("redirect:/index.got");
+						}					
+					}				
 				}
-			}
-			
+			}	
 		}
 		return mav;
 	}

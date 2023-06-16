@@ -1,5 +1,6 @@
 package com.spring.gotgongbang.index.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.index.model.InterIndexDAO;
+import com.spring.gotgongbang.member.model.ReviewVO;
 
 @Service
 public class IndexService implements InterIndexService {
@@ -26,7 +28,15 @@ public class IndexService implements InterIndexService {
 		List<CraftVO> craftList = idao.getlatestCraftList();
 		return craftList;
 	}
+	
+	@Override
+	public List<HashMap<String, Object>> getReviewList() {
+		List<HashMap<String, Object>> reviewList = idao.getReviewList();
+		return reviewList;
+	}
 	// 박준엽 끝 ===========================================================================
+
+
 	
 	// 오준혁 시작 ===========================================================================
 	// 오준혁 끝 ===========================================================================

@@ -202,6 +202,8 @@ public class CraftController {
  				jsonObj.put("craft_Introduce", craftvo.getCraft_Introduce());
  				jsonObj.put("craft_representative", craftvo.getCraft_representative());
  				jsonObj.put("craft_num_pk", craftvo.getCraft_num_pk()); 
+ 				jsonObj.put("img_name", craftvo.getImg_name()); 
+ 				
  			//	System.out.println("craftvo.getCraft_num_pk() "+craftvo.getCraft_num_pk());
  				
  				jsonArr.put(jsonObj);
@@ -342,7 +344,7 @@ public class CraftController {
     	  
     	  
     	  
-    	  cvo.setFileName(newFileName_ss);
+    	  cvo.setfilename(newFileName_ss);
     	  cvo.setOrgFilename(originalFilename_ss);
 
           n = service.add_withFile(cvo);

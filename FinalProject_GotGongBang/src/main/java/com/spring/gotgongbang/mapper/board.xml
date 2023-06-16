@@ -7,28 +7,28 @@
 	<insert parameterType="com.spring.gotgongbang.board.model.InquiryVO" id="add">
 
 	<if test="fk_seq.equals('') and partner_chk == 0">
-		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount)
-		values(seq_inquiry_num_pk.nextval, #{user_id_fk}, #{inquiry_title}, #{inquiry_content}, #{groupno}, default, default, default, default) 
+		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, partner_chk)
+		values(seq_inquiry_num_pk.nextval, #{user_id_fk}, #{inquiry_title}, #{inquiry_content}, #{groupno}, default, default, default, default, #{partner_chk}) 
 	</if>
 	
 	<if test="!fk_seq.equals('') and partner_chk == 0">
-		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount)
-		values(seq_inquiry_num_pk.nextval, #{user_id_fk}, #{inquiry_title}, #{inquiry_content}, #{groupno}, #{fk_seq}, #{depthno}+1, default, default) 
+		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, partner_chk)
+		values(seq_inquiry_num_pk.nextval, #{user_id_fk}, #{inquiry_title}, #{inquiry_content}, #{groupno}, #{fk_seq}, #{depthno}+1, default, default, #{partner_chk}) 
 	</if>
 	
 	
 	<if test="fk_seq.equals('') and partner_chk == 1">
-		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status)
+		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status, partner_chk)
 		values( seq_inquiry_num_pk.nextval, (select partner_id_pk  
 											 from partner  	
-											 where partner_id_pk = #{partner_id_pk} ), #{inquiry_title} , #{inquiry_content} , #{groupno} , default , default , default , default , default)
+											 where partner_id_pk = #{partner_id_pk} ), #{inquiry_title} , #{inquiry_content} , #{groupno} , default , default , default , default , default, #{partner_chk})
 	</if>
 	
 	<if test="!fk_seq.equals('') and partner_chk == 1">
-		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status)
+		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status, partner_chk)
 		values( seq_inquiry_num_pk.nextval, (select partner_id_pk  
 											 from partner  
-											 where partner_id_pk = #{partner_id_pk}) , #{inquiry_title} , #{inquiry_content} , #{groupno} , #{fk_seq} , #{depthno}+1 , default , default , default)
+											 where partner_id_pk = #{partner_id_pk}) , #{inquiry_title} , #{inquiry_content} , #{groupno} , #{fk_seq} , #{depthno}+1 , default , default , default, #{partner_chk})
 	</if>
 	
 	</insert>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
@@ -39,27 +39,27 @@
 <insert parameterType="com.spring.gotgongbang.board.model.InquiryVO" id="add_withFile">
 
 	<if test="fk_seq.equals('') and partner_chk == 0">
-		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize)
-		values(seq_inquiry_num_pk.nextval, #{user_id_fk}, #{inquiry_title}, #{inquiry_content}, #{groupno}, default, default, default, default, default, #{inquiry_fileName}, #{inquiry_orgFilename}, #{inquiry_fileSize}) 
+		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize, partner_chk)
+		values(seq_inquiry_num_pk.nextval, #{user_id_fk}, #{inquiry_title}, #{inquiry_content}, #{groupno}, default, default, default, default, default, #{inquiry_fileName}, #{inquiry_orgFilename}, #{inquiry_fileSize}, #{partner_chk}) 
 	</if>
 
 	<if test="!fk_seq.equals('') and partner_chk == 0">
-		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize)
-		values(seq_inquiry_num_pk.nextval, #{user_id_fk}, #{inquiry_title}, #{inquiry_content}, #{groupno}, #{fk_seq}, #{depthno}+1, default, default, default, #{inquiry_fileName}, #{inquiry_orgFilename}, #{inquiry_fileSize} ) 
+		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize, partner_chk)
+		values(seq_inquiry_num_pk.nextval, #{user_id_fk}, #{inquiry_title}, #{inquiry_content}, #{groupno}, #{fk_seq}, #{depthno}+1, default, default, default, #{inquiry_fileName}, #{inquiry_orgFilename}, #{inquiry_fileSize}, #{partner_chk}) 
 	</if>
 	
 	<if test="fk_seq.equals('') and partner_chk == 1">
-		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize )
+		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize, partner_chk)
 		values(seq_inquiry_num_pk.nextval, (select partner_id_pk  
 											from partner  
-											where partner_id_pk =#{partner_id_pk}), #{inquiry_title}, #{inquiry_content}, #{groupno}, default, default, default, default, default, #{inquiry_fileName}, #{inquiry_orgFilename}, #{inquiry_fileSize}) 
+											where partner_id_pk =#{partner_id_pk}), #{inquiry_title}, #{inquiry_content}, #{groupno}, default, default, default, default, default, #{inquiry_fileName}, #{inquiry_orgFilename}, #{inquiry_fileSize}, #{partner_chk}) 
 	</if>
 	
 	<if test="!fk_seq.equals('') and partner_chk == 1">
-		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize)
+		insert into INQUIRY(inquiry_num_pk, user_id_fk, inquiry_title, inquiry_content, groupno, fk_seq, depthno, inquiry_date, inquiry_viewcount, inquiry_status, inquiry_fileName, inquiry_orgFilename, inquiry_fileSize, partner_chk)
 		values(seq_inquiry_num_pk.nextval, (select partner_id_pk  
 											from partner  
-											where partner_id_pk =#{partner_id_pk}), #{inquiry_title}, #{inquiry_content}, #{groupno}, #{fk_seq}, #{depthno}+1, default, default, default, #{inquiry_fileName}, #{inquiry_orgFilename}, #{inquiry_fileSize}) 
+											where partner_id_pk =#{partner_id_pk}), #{inquiry_title}, #{inquiry_content}, #{groupno}, #{fk_seq}, #{depthno}+1, default, default, default, #{inquiry_fileName}, #{inquiry_orgFilename}, #{inquiry_fileSize}, #{partner_chk}) 
 	</if>
 	
 </insert>
