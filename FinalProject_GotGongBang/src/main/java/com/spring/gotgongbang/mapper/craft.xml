@@ -2,7 +2,6 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
 <mapper namespace="craft">
 
 
@@ -278,24 +277,19 @@
 </update>
 
 <select id="getAllOrders" parameterType="HashMap" resultMap="getAllOrdersMap">
-	select order_num_pk, user_id_fk, order_date, brand_name, requests, order_product_type,
-	(select count(*) 
+    select order_num_pk, user_id_fk, order_date, brand_name, requests, order_product_type,
+	(
+    select count(*) 
 	from estimate 
 	where order_num_fk = S.order_num_pk and craft_num_fk = #{craftNum}) as proposal_stat
 	from
-	(
-		select row_number() over(order by order_num_pk desc) as rno, 
+	(    
+    select row_number() over(order by order_date desc) as rno, 
 		order_num_pk, user_id_fk, to_char(order_date, 'yyyy-mm-dd') as order_date,
-		brand_name, requests, order_product_type
-		from orders
-		join
-        (
-        select order_num_fk
-        from estimate
-        where order_status = 0
-        )
-        on order_num_fk = order_num_pk
-	) S
+		brand_name, requests, order_product_type, nvl(order_status , 0) as order_status
+    
+    from orders left join estimate on order_num_fk = order_num_pk 
+    ) S
 	where rno between #{startRno} and #{endRno}
 </select>
 
