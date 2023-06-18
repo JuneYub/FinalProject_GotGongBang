@@ -150,23 +150,42 @@ gotgongbang <br>
 ### 👜 갗공방 서비스 화면
 ------------------------
 
-회원가입
 
+
+* **개인정보 수정**
+![개인정보수정](https://github.com/JuneYub/FinalProject_GotGongBang/assets/91084695/5f0a5f3a-c9a3-4ef2-99b4-79a026750604)
+
+<br>
 
 * **회원 탈퇴**  
 ![회원탈퇴](https://github.com/JuneYub/FinalProject_GotGongBang/assets/91084695/975c6d36-c589-40e5-b829-252c29636931)
 
 <br> 
 
-* **결제 및 주문내역 조회**  
+* **견적 제안 (공방)**
+![견적제안(수정)](https://github.com/JuneYub/FinalProject_GotGongBang/assets/91084695/62a46783-ff96-4ea5-93ec-b8b81b348449)
+
+<br> 
+
+* **견적 의뢰 (일반 고객)**
+![견적의뢰(수정)](https://github.com/JuneYub/FinalProject_GotGongBang/assets/91084695/dd4dd820-0d6a-4327-a152-7c20163e03b5)
+
+<br> 
+
+* **결제 및 주문내역 조회 (일반 고객)**  
 ![결제주문내역조회](https://github.com/JuneYub/FinalProject_GotGongBang/assets/91084695/93ef505e-9e1f-4d83-9f45-1a94a40cdf5d)
 
 <br> 
 
-* **수선 내역 상품 업데이트 / 리뷰 작성**  
+* **수선 내역 상품 업데이트 (공방)/ 리뷰 작성 (일반 고객)**  
 ![공방상품상태업데이트_리뷰작성](https://github.com/JuneYub/FinalProject_GotGongBang/assets/91084695/ed0eaa92-d28a-4577-9c29-df779bdc5a02)
 
-<br> 
+<br>
+
+* **수선 후기 조회**  
+![수선후기조회(수정)](https://github.com/JuneYub/FinalProject_GotGongBang/assets/91084695/77972ec1-2978-458b-8ccf-d2a4549b8a2d)
+
+<br>
 
 * **문의글 작성**  
 ![문의글작성](https://github.com/JuneYub/FinalProject_GotGongBang/assets/91084695/33c7b0e2-a355-4db7-bb51-9e64dec6b469)
