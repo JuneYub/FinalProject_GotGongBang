@@ -1,3 +1,6 @@
+![main_got](https://github.com/JuneYub/FinalProject_GotGongBang/assets/91084695/d03fb351-613b-4c5e-a531-e48f55af94f8)
+
+
 # 갗공방 - 명품 수선 매칭 플랫폼
 
 ###  🙋‍♀️ 프로젝트 진행 기간
@@ -150,7 +153,22 @@ gotgongbang <br>
 ### 👜 갗공방 서비스 화면
 ------------------------
 
+* **메인 페이지**
+![메인페이지](https://github.com/JuneYub/FinalProject_GotGongBang/assets/91084695/6772f239-1eeb-4b8c-ad38-a6b37ab882fd)
 
+<br>
+
+
+* **회원가입**
+![회원가입(수정)](https://github.com/JuneYub/FinalProject_GotGongBang/assets/91084695/1051468b-3ac5-439e-8afd-544c225f1c4b)
+
+<br>
+
+
+* **공방등록**
+![공방등록](https://github.com/JuneYub/FinalProject_GotGongBang/assets/91084695/134e2ab6-926b-4a9f-87e6-ae3c54ad0a52)
+
+<br>
 
 * **개인정보 수정**
 ![개인정보수정](https://github.com/JuneYub/FinalProject_GotGongBang/assets/91084695/5f0a5f3a-c9a3-4ef2-99b4-79a026750604)
