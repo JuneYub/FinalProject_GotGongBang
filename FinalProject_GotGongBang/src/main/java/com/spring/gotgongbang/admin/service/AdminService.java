@@ -151,6 +151,14 @@ public class AdminService implements InterAdminService{
 	}
 
 
+	//공방 평균 별점 가져오기
+	@Override
+	public int craftRating(String craft_num_pk) {
+		int m = dao.craftRating(craft_num_pk);
+		return m;
+	}
+
+
 
 
 

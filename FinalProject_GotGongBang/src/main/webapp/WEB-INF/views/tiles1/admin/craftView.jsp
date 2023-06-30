@@ -172,8 +172,13 @@
                         </div>
                         <div class="frm_border">
                             <span> <p> * 평점</p> 
-                               <input type="text" class="view" name="craft_rating" style="padding-right: 15px;" value="${requestScope.reviewvo.review_rating}"/>
-                            </span>
+                                <c:if test="${empty requestScope.reviews}">
+                                		아모고토없다.
+                          	 	</c:if>
+                            	<c:if test="${not empty requestScope.reviews}">
+                               		<input type="text" class="view" name="craft_rating" style="padding-right: 15px;" value="ㅇㅇ"/>
+                            	</c:if>
+                           	 </span>
                         </div>
                     </div>
                 </div>

@@ -45,6 +45,9 @@ public interface InterAdminDAO {
 	//공방목록 페이징처리2
 	List<CraftVO> getCraftListWithPaging(Map<String, String> paraMap);
 
+	//공방 평균 별점 가져오기
+	int craftRating(String craft_num_pk);
+
 
 
 	// ==== ==================================== 김진솔 끝 ======================================================= // 

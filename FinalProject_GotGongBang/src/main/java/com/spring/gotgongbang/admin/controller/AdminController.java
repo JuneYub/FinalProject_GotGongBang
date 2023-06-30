@@ -26,6 +26,7 @@ import com.spring.gotgongbang.common.FileManager;
 import com.spring.gotgongbang.common.Sha256;
 import com.spring.gotgongbang.craft.model.CraftVO;
 import com.spring.gotgongbang.member.controller.MemberController;
+import com.spring.gotgongbang.member.model.ReviewVO;
 
 @Component
 @Controller
@@ -162,6 +163,10 @@ public class AdminController {
 		
 		craftvo = service.craftOneView(craft_num_pk);
 
+		ReviewVO rvo;
+		
+		int m = service.craftRating(craft_num_pk); 
+		
 	    List<Map<String, String>> imgList = service.selectImgList(craft_num_pk);
 	    // 뷰단에 파일 originalFileName을 띄워주기 위한 것
 	    Map<String, String> paraMap = new HashMap<String, String>();
