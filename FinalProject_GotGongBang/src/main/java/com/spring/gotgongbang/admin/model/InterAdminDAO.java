@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.spring.gotgongbang.craft.model.CraftVO;
+import com.spring.gotgongbang.member.model.ReviewVO;
 
 
 public interface InterAdminDAO {
@@ -44,6 +45,9 @@ public interface InterAdminDAO {
 	
 	//공방목록 페이징처리2
 	List<CraftVO> getCraftListWithPaging(Map<String, String> paraMap);
+
+	//공방 평균 별점 가져오기
+	long craftRating(String craft_num_pk);
 
 
 

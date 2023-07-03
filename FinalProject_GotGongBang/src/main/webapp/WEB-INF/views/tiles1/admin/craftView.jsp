@@ -154,26 +154,21 @@
                                 <input type="text" class="view" name="craft_career" value="${requestScope.craftvo.craft_career}"/>
                             </span>
                         </div>
-                        <div class="frm_border_3">
-                            <span> <p>기타 경력사항</p>
-                            <%
-								String other_career = (String)session.getAttribute("other_career");
-							%>
-                                <textarea id="other_career"><%= other_career%></textarea>
-                            </span>
-                            <%
-                            	session.removeAttribute(other_career);
-                            %>
-                        </div>
+                        
                         <div class="image">
                             <span> <p>자격증</p>
                                 <a href="<%= ctxPath%>/craft_download.got?craft_num_pk=${requestScope.craftvo.craft_num_pk}">${requestScope.paraMap.craft_certificate_orgFilename}</a>
                             </span>
                         </div>
                         <div class="frm_border">
-                            <span> <p> * 평점</p> 
-                               <input type="text" class="view" name="craft_rating" style="padding-right: 15px;" value="${requestScope.reviewvo.review_rating}"/>
-                            </span>
+                            <span> <p> 공방 평균 별점</p> 
+                                <c:if test="${empty requestScope.review_avg}">
+                                		등록된 별점 후기가 없습니다.
+                          	 	</c:if>
+                            	<c:if test="${not empty requestScope.review_avg}">
+                               		<input type="text" class="view" name="" style="padding-right: 15px;" value="${requestScope.review_avg}" readonly="readonly"/>
+                            	</c:if>
+                           	 </span>
                         </div>
                     </div>
                 </div>
