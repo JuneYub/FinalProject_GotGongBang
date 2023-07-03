@@ -99,9 +99,9 @@ public class AdminDAO implements InterAdminDAO{
 
 	//공방 평균 별점 가져오기
 	@Override
-	public int craftRating(String craft_num_pk) {
-		int m = sqlsession.selectOne("admin.craftRating", craft_num_pk);
-		return m;
+	public long craftRating(String craft_num_pk) {
+		long review_avg = sqlsession.selectOne("admin.craftRating", craft_num_pk);
+		return review_avg;
 	}
 
 

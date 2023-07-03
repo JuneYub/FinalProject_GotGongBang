@@ -128,24 +128,10 @@ public class AdminController {
         mav.addObject("pageBar", pageBar);
       
         
-        // === #123. 페이징 처리되어진 후 특정 글제목을 클릭하여 상세내용을 본 이후
-        //           사용자가 "검색된결과목록보기" 버튼을 클릭했을때 돌아갈 페이지를 알려주기 위해
-        //           현재 페이지 주소를 뷰단으로 넘겨준다.
         String gobackURL = MyUtil.getCurrentURL(request);
-        //System.out.println("~확인용: " + gobackURL);
-        //~확인용: /list.action
-        //~확인용: /list.action?searchType=&searchWord=&currentShowPageNo=2
-        //~확인용: /list.action?searchType=subject&searchWord=jaVa
-        //~확인용: /list.action?searchType=subject&searchWord=%EC%9D%B4%EC%88%9C%EC%8B%A0   (이순신)
-        
+       
         mav.addObject("gobackURL",gobackURL.replaceAll("&", " "));
-        ///list.action
-        ///list.action searchType= searchWord= currentShowPageNo=2
-        ///list.action searchType=subject&searchWord=jaVa
-        ///list.action searchType=subject searchWord=%EC%9D%B4%EC%88%9C%EC%8B%A0   (이순신)
-        
-        // === 페이징 처리를 한 검색어가 있는 전체 글목록 보여주기 끝 ===
-        
+       
         
         mav.addObject("craftList", craftList);
 		mav.setViewName("admin/craftList.tiles1");
@@ -162,12 +148,11 @@ public class AdminController {
 		CraftVO craftvo = null;
 		
 		craftvo = service.craftOneView(craft_num_pk);
-
-		ReviewVO rvo;
 		
-		int m = service.craftRating(craft_num_pk); 
+		long review_avg = service.craftRating(craft_num_pk);
+	    
 		
-	    List<Map<String, String>> imgList = service.selectImgList(craft_num_pk);
+		List<Map<String, String>> imgList = service.selectImgList(craft_num_pk);
 	    // 뷰단에 파일 originalFileName을 띄워주기 위한 것
 	    Map<String, String> paraMap = new HashMap<String, String>();
 	    paraMap.put("craft_image_orgFilename", imgList.get(0).get("craft_image_orgFilename").toString());
@@ -177,6 +162,7 @@ public class AdminController {
 	 
 		mav.addObject("paraMap",paraMap);
 		mav.addObject("craftvo",craftvo);
+		mav.addObject("review_avg",review_avg);
 		mav.setViewName("admin/craftView.tiles1");
 		return mav;
 	}

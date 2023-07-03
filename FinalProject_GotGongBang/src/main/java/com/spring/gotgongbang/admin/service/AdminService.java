@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.gotgongbang.admin.model.AdminVO;
 import com.spring.gotgongbang.admin.model.InterAdminDAO;
 import com.spring.gotgongbang.craft.model.CraftVO;
+import com.spring.gotgongbang.member.model.ReviewVO;
 
 @Service
 public class AdminService implements InterAdminService{
@@ -153,9 +154,9 @@ public class AdminService implements InterAdminService{
 
 	//공방 평균 별점 가져오기
 	@Override
-	public int craftRating(String craft_num_pk) {
-		int m = dao.craftRating(craft_num_pk);
-		return m;
+	public long craftRating(String craft_num_pk) {
+		long review_avg = dao.craftRating(craft_num_pk);
+		return review_avg;
 	}
 
 

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.gotgongbang.admin.model.AdminDAO;
 import com.spring.gotgongbang.admin.model.AdminVO;
 import com.spring.gotgongbang.craft.model.CraftVO;
+import com.spring.gotgongbang.member.model.ReviewVO;
 
 public interface InterAdminService {
 	
@@ -51,7 +52,7 @@ public interface InterAdminService {
 	List<CraftVO> getCraftListWithPaging(Map<String, String> paraMap);
 
 	//공방 평균별점 가져오기
-	int craftRating(String craft_num_pk);
+	long craftRating(String craft_num_pk);
 
 	// ==== ==================================== 김진솔 끝 ======================================================= // 
 
